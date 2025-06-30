@@ -1,0 +1,26 @@
+﻿Najczęściej zadawane pytania:
+1. Jak mogę zamówić tort przez aplikację?
+Po uruchomieniu aplikacji wybierz opcję „Zamów tort”, a następnie krok po kroku skonfiguruj swój wymarzony tort: wybierz sma, dodatki, napisy oraz datę odbioru lub dostawy. Na końcu podaj swoje dane i wyślij zamówienie do wybranej cukierni lub pracowni cukierniczej.
+2. Czy muszę zakładać konto, żeby złożyć zamówienie?
+Nie, możesz złożyć zamówienie jako gość. Wystarczy podać swoje dane kontaktowe (adres e-mail i numer telefonu). Jednak zalogowani użytkownicy mają dostęp do historii zamówień, programu lojalnościowego i szybszego składania zamówień w przyszłości.
+3. Jakie rodzaje tortów mogę zamówić?
+W Cakebooking znajdziesz torty urodzinowe, ślubne, dla dzieci, wegańskie, bezglutenowe, bez laktozy i wiele innych. Możesz je filtrować według okazji, składników i specjalnych potrzeb żywieniowych.
+4. Co to są „torty last minute”?
+To gotowe torty dostępne od ręki, które możesz zamówić na dziś lub jutro. Znajdziesz je w specjalnej zakładce „Torty last minute” – sprawdzisz dostępność w swojej okolicy i zarezerwujesz jednym kliknięciem.
+5. Czy mogę zamówić dostawę tortu do domu?
+Tak! W zależności od lokalizacji cukierni możesz wybrać dostawę-jeśli dana cukiernia lub pracownia cukiernicza oferuje w swoim zakresie dostawę pod wskazany adres. Koszt zależy od odległości (km) i jest podany przed potwierdzeniem zamówienia. Możliwy jest również odbiór osobisty.
+6. Jakie informacje muszę podać podczas zamawiania?
+Dzięki naszemu wizualizatorowi zrobisz to szybko, wystarczy, że przeklinasz opcje do wyboru:
+* rodzaj i wygląd tortu
+* ewentualne dodatki i napisy
+* datę i godzinę odbioru/Ew.dostawy
+* dane kontaktowe (imię, mail, tel.)
+* wybór cukierni lub pracowni cukierniczej
+7. Czy mogę edytować lub anulować zamówienie?
+Możliwość edycji lub anulowania zamówienia zależy od czasu, jaki pozostał do realizacji oraz od zasad danej cukierni. Najlepiej skontaktować się bezpośrednio z cukiernią za pośrednictwem aplikacji.
+8. Czy mogę dodać specjalne wymagania, np. „bez jajek”?
+Tak, w formularzu zamówienia znajduje się pole „Uwagi”, w którym możesz wpisać wszelkie specjalne życzenia lub informacje o alergiach.
+9. Czy płatność odbywa się online?
+Płatność odbywa się po zaakceptowaniu zamówienia przez cukiernię. Otrzymasz powiadomienie i zostaniesz przekierowany do systemu płatności online. W niektórych przypadkach możliwa jest również płatność przy odbiorze (zależnie od cukierni).
+10. Czy mogę zapisać swoje dane, żeby szybciej zamawiać w przyszłości?
+Tak, jeśli założysz konto, Twój profil będzie zawierał zapisane dane, historię zamówień oraz ewentualne zniżki z programu lojalnościowego.
