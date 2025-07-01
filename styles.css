@@ -89,7 +89,6 @@ html::-webkit-scrollbar {
 }
 
 .pill-button:hover {
-  transform: scale(1.05);
   box-shadow: 0 12px 24px -15px rgba(0, 0, 0, 0.3);
 }
 
@@ -105,7 +104,6 @@ html::-webkit-scrollbar {
 }
 
 .pill-button-secondary:hover {
-  transform: scale(1.05);
   background: var(--blush-rose);
   color: var(--pure-white);
 }
@@ -163,11 +161,7 @@ html::-webkit-scrollbar {
   pointer-events: none;
 }
 
-.vitreous-card:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.15), 0 8px 24px -4px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-}
+
 
 .vitreous-card--dark {
   background: rgba(15, 34, 56, 0.4);
@@ -180,10 +174,7 @@ html::-webkit-scrollbar {
   background: linear-gradient(90deg, transparent, rgba(215, 184, 143, 0.3), transparent);
 }
 
-.vitreous-card--dark:hover {
-  background: rgba(15, 34, 56, 0.5);
-  border: 1px solid rgba(215, 184, 143, 0.3);
-}
+
 
 .sparkle {
   color: var(--champagne-gold-start);
@@ -444,9 +435,7 @@ html::-webkit-scrollbar {
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.faq-item:hover {
-  transform: translateY(-2px);
-}
+
 
 .faq-question {
   cursor: pointer;
