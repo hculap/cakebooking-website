@@ -14,6 +14,21 @@ body {
   font-family: 'Inter', sans-serif;
   scroll-padding-top: 80px;
   background-color: var(--porcelain-white);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 .font-display {
@@ -212,8 +227,8 @@ body {
   overflow-x: auto;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
   -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .scroll-container::-webkit-scrollbar {
@@ -427,13 +442,4 @@ body {
 }
 .bottom-nav.hidden-nav {
   transform: translateY(100%);
-}
-
-/* Horizontal Scroll Carousel */
-.scroll-container {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-.scroll-container::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, and Opera */
 }
