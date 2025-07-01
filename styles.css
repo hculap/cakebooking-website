@@ -203,14 +203,9 @@ html::-webkit-scrollbar {
 }
 
 .parallax-element {
-  animation: parallax 2s infinite;
+  animation: none 2s infinite;
 }
 
-@keyframes parallax {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0); }
-}
 
 .floating-glass {
   animation: none !important;
@@ -443,3 +438,5 @@ html::-webkit-scrollbar {
 .bottom-nav.hidden-nav {
   transform: translateY(100%);
 }
+
+

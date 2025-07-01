@@ -146,20 +146,62 @@ window.addEventListener('DOMContentLoaded', checkHashForTab);
 // Check hash if it changes while on the page
 window.addEventListener('hashchange', checkHashForTab);
 
-// Parallax effect on mouse move
-document.addEventListener('mousemove', (e) => {
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
-    const mouseX = e.clientX - centerX;
-    const mouseY = e.clientY - centerY;
-
-    document.querySelectorAll('.parallax-element').forEach(el => {
-        const speed = parseFloat(el.getAttribute('data-speed')) || 0.5;
-        const x = -(mouseX * speed) / 50; // Adjust divisor for sensitivity
-        const y = -(mouseY * speed) / 50; // Adjust divisor for sensitivity
-        el.style.transform = `translateX(${x}px) translateY(${y}px)`;
+// Randomize art-deco-line positions on page load
+function randomizeArtDecoLines() {
+    document.querySelectorAll('.art-deco-line').forEach(line => {
+        const parentElement = line.closest('.parallax-element');
+        if (parentElement) {
+            // Get current position
+            const currentTop = parseInt(parentElement.style.top) || 0;
+            const currentBottom = parseInt(parentElement.style.bottom) || 0;
+            
+            // Add random offset to Y position (-100px to +100px)
+            const randomOffset = Math.floor(Math.random() * 200) - 100;
+            
+            if (parentElement.style.top) {
+                const newTop = Math.max(20, currentTop + randomOffset);
+                parentElement.style.top = `${newTop}px`;
+            } else if (parentElement.style.bottom) {
+                const newBottom = Math.max(20, currentBottom + randomOffset);
+                parentElement.style.bottom = `${newBottom}px`;
+            }
+        }
     });
+}
+
+// Parallax effect on scroll - subtle and natural
+function updateParallax() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    document.querySelectorAll('.parallax-element').forEach(el => {
+        // Skip art-deco-line elements from parallax movement
+        if (el.querySelector('.art-deco-line')) {
+            return;
+        }
+        
+        const speed = parseFloat(el.getAttribute('data-speed')) || 0.5;
+        // Make it much more subtle by dividing by 10 and reducing the speed multiplier
+        const yPos = -(scrollTop * speed * 0.1);
+        el.style.transform = `translateY(${yPos}px)`;
+    });
+}
+
+// Throttle scroll events for smoother performance
+let ticking = false;
+function requestTick() {
+    if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+    }
+}
+
+window.addEventListener('scroll', () => {
+    requestTick();
+    ticking = false;
 }, { passive: true });
+
+// Initialize art-deco-line randomization on page load
+window.addEventListener('DOMContentLoaded', randomizeArtDecoLines);
 
 // Bottom nav scroll behavior
 let lastScrollTop = 0;

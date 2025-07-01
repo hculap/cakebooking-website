@@ -1,49 +1,36 @@
 import os
 import openai
 import requests
+import argparse
 from dotenv import load_dotenv
 
-def generate_and_save_image():
-    """
-    Prompts the user for an image description and filename,
-    generates the image using OpenAI's DALL-E 3, and saves it.
-    """
-    # --- Load API Key ---
+def initialize_client():
+    """Loads API key and initializes the OpenAI client."""
     load_dotenv()
     api_key = os.getenv("OPENAI_API_KEY")
 
     if not api_key:
         print("Error: OPENAI_API_KEY not found in .env file.")
         print("Please create a .env file and add your key: OPENAI_API_KEY='your-key-here'")
-        return
+        return None
 
     try:
-        client = openai.OpenAI(api_key=api_key)
+        return openai.OpenAI(api_key=api_key)
     except Exception as e:
         print(f"Error initializing OpenAI client: {e}")
-        return
+        return None
 
-    # --- Get User Input ---
-    print("\n--- OpenAI Image Generator ---")
-    prompt = input("Enter a detailed description for the image you want to generate:\n> ")
-
-    if not prompt:
-        print("Prompt cannot be empty. Aborting.")
-        return
-
-    filename = input("Enter a filename for the image (e.g., 'hero-cake-2'):\n> ")
-    if not filename:
-        print("Filename cannot be empty. Aborting.")
-        return
-
-    # --- Generate Image ---
+def generate_image(client, prompt, filename):
+    """
+    Generates an image based on the prompt and saves it with the given filename.
+    """
     print(f"\n🎨 Generating image for: '{prompt}'...")
     try:
         response = client.images.generate(
-            model="dall-e-3",
+            model="gpt-image-1",
             prompt=prompt,
-            size="1024x1024",  # You can change this to "1792x1024" or "1024x1792"
-            quality="standard", # "standard" or "hd"
+            size="1024x1024",
+            quality="high",
             n=1,
         )
         image_url = response.data[0].url
@@ -55,17 +42,14 @@ def generate_and_save_image():
         print(f"❌ An unexpected error occurred: {e}")
         return
 
-    # --- Download and Save Image ---
     print(f"⬇️ Downloading image from URL: {image_url}")
     try:
         image_response = requests.get(image_url, timeout=60)
-        image_response.raise_for_status()  # Raise an exception for bad status codes
+        image_response.raise_for_status()
 
-        # Ensure the 'images' directory exists
         if not os.path.exists('images'):
             os.makedirs('images')
 
-        # Save the image
         file_path = os.path.join('images', f"{filename}.png")
         with open(file_path, 'wb') as f:
             f.write(image_response.content)
@@ -77,11 +61,37 @@ def generate_and_save_image():
     except IOError as e:
         print(f"❌ Error saving image to file: {e}")
 
-
-if __name__ == "__main__":
+def run_interactive_mode(client):
+    """Runs the script in a continuous interactive loop."""
     while True:
-        generate_and_save_image()
+        print("\n--- OpenAI Image Generator ---")
+        prompt = input("Enter a detailed description for the image:\n> ")
+        if not prompt:
+            print("Prompt cannot be empty. Aborting.")
+            continue
+
+        filename = input("Enter a filename for the image (e.g., 'hero-cake-2'):\n> ")
+        if not filename:
+            print("Filename cannot be empty. Aborting.")
+            continue
+
+        generate_image(client, prompt, filename)
+
         another = input("\nGenerate another image? (y/n): ").lower()
         if another != 'y':
             print("👋 Goodbye!")
-            break 
+            break
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Generate images using OpenAI's DALL-E 3.")
+    parser.add_argument("-p", "--prompt", type=str, help="The prompt to generate the image from.")
+    parser.add_argument("-f", "--filename", type=str, help="The filename for the saved image (without extension).")
+    args = parser.parse_args()
+
+    client = initialize_client()
+    
+    if client:
+        if args.prompt and args.filename:
+            generate_image(client, args.prompt, args.filename)
+        else:
+            run_interactive_mode(client) 
