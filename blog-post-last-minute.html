@@ -386,12 +386,24 @@
           <p class="text-dove-gray leading-relaxed mb-6 max-w-md">
             Koncepcja aplikacji łączącej miłośników tortów z najlepszymi cukierniami. Projektuj, zamawiaj i ciesz się wymarzonym tortem.
           </p>
+          <div class="flex space-x-3">
+            <a href="#" aria-label="Facebook" class="text-dove-gray hover:text-champagne-gold transition-colors">
+              <i class="fa-brands fa-facebook-f h-5 w-5"></i>
+            </a>
+            <a href="#" aria-label="Twitter" class="text-dove-gray hover:text-champagne-gold transition-colors">
+              <i class="fa-brands fa-x-twitter h-5 w-5"></i>
+            </a>
+            <a href="#" aria-label="Instagram" class="text-dove-gray hover:text-champagne-gold transition-colors">
+              <i class="fa-brands fa-instagram h-5 w-5"></i>
+            </a>
+          </div>
         </div>
 
         <!-- Navigation -->
         <div>
           <h4 class="text-pure-white font-medium mb-4">Nawigacja</h4>
           <ul class="space-y-2">
+            <li><a href="index.html" class="hover:text-champagne-gold transition-colors">Strona główna</a></li>
             <li><a href="index.html#features" class="hover:text-champagne-gold transition-colors">Funkcje</a></li>
             <li><a href="index.html#how-it-works" class="hover:text-champagne-gold transition-colors">Jak to działa</a></li>
             <li><a href="index.html#for-bakers-section" class="hover:text-champagne-gold transition-colors">Dla cukierników</a></li>
@@ -420,6 +432,34 @@
       </div>
     </div>
   </footer>
+
+  <!-- Bottom Navigation (Mobile) -->
+  <div id="bottom-nav" class="bottom-nav md:hidden fixed bottom-0 left-0 right-0 h-20 z-50 glass-morphism-dark">
+    <div class="flex justify-around items-center h-full max-w-7xl mx-auto px-2">
+      <a href="index.html#features" class="flex flex-col items-center justify-center text-center text-dove-gray hover:text-champagne-gold transition-colors w-1/5">
+        <i class="fa-solid fa-star h-6 w-6 mb-1"></i>
+        <span class="text-xs font-medium">Funkcje</span>
+      </a>
+      <a href="index.html#how-it-works" class="flex flex-col items-center justify-center text-center text-dove-gray hover:text-champagne-gold transition-colors w-1/5">
+        <i class="fa-solid fa-bolt h-6 w-6 mb-1"></i>
+        <span class="text-xs font-medium">Jak to działa</span>
+      </a>
+      <a href="index.html" class="flex flex-col items-center justify-center text-center w-1/5 -mt-6">
+        <div class="w-16 h-16 rounded-full flex items-center justify-center shadow-lg" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+            <i class="fa-solid fa-plus h-8 w-8 text-midnight-navy"></i>
+        </div>
+        <span class="text-xs font-medium text-champagne-gold mt-2">Zaprojektuj</span>
+      </a>
+      <a href="index.html#for-bakers-section" class="flex flex-col items-center justify-center text-center text-dove-gray hover:text-champagne-gold transition-colors w-1/5">
+        <i class="fa-solid fa-cake-candles h-6 w-6 mb-1"></i>
+        <span class="text-xs font-medium">Cukiernicy</span>
+      </a>
+      <a href="index.html#faq" class="flex flex-col items-center justify-center text-center text-dove-gray hover:text-champagne-gold transition-colors w-1/5">
+        <i class="fa-solid fa-circle-question h-6 w-6 mb-1"></i>
+        <span class="text-xs font-medium">FAQ</span>
+      </a>
+    </div>
+  </div>
 
   <script src="scripts.js"></script>
 </body>
