@@ -666,78 +666,245 @@
         <p class="mt-4 text-xl text-dove-gray leading-relaxed">
           Nie znalazłeś odpowiedzi na swoje pytanie? Skontaktuj się z nami.
         </p>
+        
+        <!-- FAQ Search -->
+        <div class="mt-8 max-w-md mx-auto">
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <i class="fa-solid fa-magnifying-glass text-dove-gray"></i>
+            </div>
+            <input type="text" id="faq-search" placeholder="Szukaj w FAQ..." class="w-full pl-12 pr-4 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-pure-white placeholder-dove-gray focus:outline-none focus:ring-2 focus:ring-champagne-gold focus:border-transparent transition-all">
+          </div>
+        </div>
       </div>
 
-      <div class="space-y-6">
-        <div class="vitreous-card vitreous-card--dark p-6">
-          <h3 class="font-bold text-lg text-pure-white mb-2">1. Jak mogę zamówić tort przez aplikację?</h3>
-          <p class="text-dove-gray leading-relaxed">
-            Po uruchomieniu aplikacji wybierz opcję „Zamów tort", a następnie krok po kroku skonfiguruj swój wymarzony tort: wybierz smak, dodatki, napisy oraz datę odbioru lub dostawy. Na końcu podaj swoje dane i wyślij zamówienie do wybranej cukierni lub pracowni cukierniczej.
-          </p>
+      <div class="space-y-4" id="faq-accordion">
+        <!-- FAQ Item 1 -->
+        <div class="faq-item vitreous-card vitreous-card--dark overflow-hidden transition-all duration-300 hover:shadow-xl">
+          <button class="faq-question w-full text-left p-6 flex items-center justify-between group" data-question="1">
+            <div class="flex items-center">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center mr-4" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+                <i class="fa-solid fa-mobile-screen-button text-midnight-navy"></i>
+              </div>
+              <h3 class="font-bold text-lg text-pure-white group-hover:text-champagne-gold transition-colors">Jak mogę zamówić tort przez aplikację?</h3>
+            </div>
+            <i class="fa-solid fa-chevron-down text-dove-gray group-hover:text-champagne-gold transition-all duration-300 faq-icon"></i>
+          </button>
+          <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-6 pb-6 pt-0">
+              <div class="pl-14">
+                <p class="text-dove-gray leading-relaxed">
+                  Po uruchomieniu aplikacji wybierz opcję „Zamów tort", a następnie krok po kroku skonfiguruj swój wymarzony tort: wybierz smak, dodatki, napisy oraz datę odbioru lub dostawy. Na końcu podaj swoje dane i wyślij zamówienie do wybranej cukierni lub pracowni cukierniczej.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="vitreous-card vitreous-card--dark p-6">
-          <h3 class="font-bold text-lg text-pure-white mb-2">2. Czy muszę zakładać konto, żeby złożyć zamówienie?</h3>
-          <p class="text-dove-gray leading-relaxed">
-            Nie, możesz złożyć zamówienie jako gość. Wystarczy podać swoje dane kontaktowe (adres e-mail i numer telefonu). Jednak zalogowani użytkownicy mają dostęp do historii zamówień, programu lojalnościowego i szybszego składania zamówień w przyszłości.
-          </p>
+        <!-- FAQ Item 2 -->
+        <div class="faq-item vitreous-card vitreous-card--dark overflow-hidden transition-all duration-300 hover:shadow-xl">
+          <button class="faq-question w-full text-left p-6 flex items-center justify-between group" data-question="2">
+            <div class="flex items-center">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center mr-4" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+                <i class="fa-solid fa-user-plus text-midnight-navy"></i>
+              </div>
+              <h3 class="font-bold text-lg text-pure-white group-hover:text-champagne-gold transition-colors">Czy muszę zakładać konto, żeby złożyć zamówienie?</h3>
+            </div>
+            <i class="fa-solid fa-chevron-down text-dove-gray group-hover:text-champagne-gold transition-all duration-300 faq-icon"></i>
+          </button>
+          <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-6 pb-6 pt-0">
+              <div class="pl-14">
+                <p class="text-dove-gray leading-relaxed">
+                  Nie, możesz złożyć zamówienie jako gość. Wystarczy podać swoje dane kontaktowe (adres e-mail i numer telefonu). Jednak zalogowani użytkownicy mają dostęp do historii zamówień, programu lojalnościowego i szybszego składania zamówień w przyszłości.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="vitreous-card vitreous-card--dark p-6">
-          <h3 class="font-bold text-lg text-pure-white mb-2">3. Jakie rodzaje tortów mogę zamówić?</h3>
-          <p class="text-dove-gray leading-relaxed">
-            W CakeBooking znajdziesz torty urodzinowe, ślubne, dla dzieci, wegańskie, bezglutenowe, bez laktozy i wiele innych. Możesz je filtrować według okazji, składników i specjalnych potrzeb żywieniowych.
-          </p>
+        <!-- FAQ Item 3 -->
+        <div class="faq-item vitreous-card vitreous-card--dark overflow-hidden transition-all duration-300 hover:shadow-xl">
+          <button class="faq-question w-full text-left p-6 flex items-center justify-between group" data-question="3">
+            <div class="flex items-center">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center mr-4" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+                <i class="fa-solid fa-cake-candles text-midnight-navy"></i>
+              </div>
+              <h3 class="font-bold text-lg text-pure-white group-hover:text-champagne-gold transition-colors">Jakie rodzaje tortów mogę zamówić?</h3>
+            </div>
+            <i class="fa-solid fa-chevron-down text-dove-gray group-hover:text-champagne-gold transition-all duration-300 faq-icon"></i>
+          </button>
+          <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-6 pb-6 pt-0">
+              <div class="pl-14">
+                <p class="text-dove-gray leading-relaxed">
+                  W CakeBooking znajdziesz torty urodzinowe, ślubne, dla dzieci, wegańskie, bezglutenowe, bez laktozy i wiele innych. Możesz je filtrować według okazji, składników i specjalnych potrzeb żywieniowych.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="vitreous-card vitreous-card--dark p-6">
-          <h3 class="font-bold text-lg text-pure-white mb-2">4. Co to są „torty last minute"?</h3>
-          <p class="text-dove-gray leading-relaxed">
-            To gotowe torty dostępne od ręki, które możesz zamówić na dziś lub jutro. Znajdziesz je w specjalnej zakładce „Torty last minute" – sprawdzisz dostępność w swojej okolicy i zarezerwujesz jednym kliknięciem.
-          </p>
+        <!-- FAQ Item 4 -->
+        <div class="faq-item vitreous-card vitreous-card--dark overflow-hidden transition-all duration-300 hover:shadow-xl">
+          <button class="faq-question w-full text-left p-6 flex items-center justify-between group" data-question="4">
+            <div class="flex items-center">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center mr-4" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+                <i class="fa-solid fa-bolt text-midnight-navy"></i>
+              </div>
+              <h3 class="font-bold text-lg text-pure-white group-hover:text-champagne-gold transition-colors">Co to są „torty last minute"?</h3>
+            </div>
+            <i class="fa-solid fa-chevron-down text-dove-gray group-hover:text-champagne-gold transition-all duration-300 faq-icon"></i>
+          </button>
+          <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-6 pb-6 pt-0">
+              <div class="pl-14">
+                <p class="text-dove-gray leading-relaxed">
+                  To gotowe torty dostępne od ręki, które możesz zamówić na dziś lub jutro. Znajdziesz je w specjalnej zakładce „Torty last minute" – sprawdzisz dostępność w swojej okolicy i zarezerwujesz jednym kliknięciem.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="vitreous-card vitreous-card--dark p-6">
-          <h3 class="font-bold text-lg text-pure-white mb-2">5. Czy mogę zamówić dostawę tortu do domu?</h3>
-          <p class="text-dove-gray leading-relaxed">
-            Tak! W zależności od lokalizacji cukierni możesz wybrać dostawę - jeśli dana cukiernia lub pracownia cukiernicza oferuje w swoim zakresie dostawę pod wskazany adres. Koszt zależy od odległości (km) i jest podany przed potwierdzeniem zamówienia. Możliwy jest również odbiór osobisty.
-          </p>
+        <!-- FAQ Item 5 -->
+        <div class="faq-item vitreous-card vitreous-card--dark overflow-hidden transition-all duration-300 hover:shadow-xl">
+          <button class="faq-question w-full text-left p-6 flex items-center justify-between group" data-question="5">
+            <div class="flex items-center">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center mr-4" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+                <i class="fa-solid fa-truck text-midnight-navy"></i>
+              </div>
+              <h3 class="font-bold text-lg text-pure-white group-hover:text-champagne-gold transition-colors">Czy mogę zamówić dostawę tortu do domu?</h3>
+            </div>
+            <i class="fa-solid fa-chevron-down text-dove-gray group-hover:text-champagne-gold transition-all duration-300 faq-icon"></i>
+          </button>
+          <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-6 pb-6 pt-0">
+              <div class="pl-14">
+                <p class="text-dove-gray leading-relaxed">
+                  Tak! W zależności od lokalizacji cukierni możesz wybrać dostawę - jeśli dana cukiernia lub pracownia cukiernicza oferuje w swoim zakresie dostawę pod wskazany adres. Koszt zależy od odległości (km) i jest podany przed potwierdzeniem zamówienia. Możliwy jest również odbiór osobisty.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="vitreous-card vitreous-card--dark p-6">
-          <h3 class="font-bold text-lg text-pure-white mb-2">6. Jakie informacje muszę podać podczas zamawiania?</h3>
-          <p class="text-dove-gray leading-relaxed">
-            Dzięki naszemu wizualizatorowi zrobisz to szybko, wystarczy, że przeklikasz opcje do wyboru: rodzaj i wygląd tortu, ewentualne dodatki i napisy, datę i godzinę odbioru/ew. dostawy, dane kontaktowe (imię, mail, tel.), wybór cukierni lub pracowni cukierniczej.
-          </p>
+        <!-- FAQ Item 6 -->
+        <div class="faq-item vitreous-card vitreous-card--dark overflow-hidden transition-all duration-300 hover:shadow-xl">
+          <button class="faq-question w-full text-left p-6 flex items-center justify-between group" data-question="6">
+            <div class="flex items-center">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center mr-4" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+                <i class="fa-solid fa-clipboard-list text-midnight-navy"></i>
+              </div>
+              <h3 class="font-bold text-lg text-pure-white group-hover:text-champagne-gold transition-colors">Jakie informacje muszę podać podczas zamawiania?</h3>
+            </div>
+            <i class="fa-solid fa-chevron-down text-dove-gray group-hover:text-champagne-gold transition-all duration-300 faq-icon"></i>
+          </button>
+          <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-6 pb-6 pt-0">
+              <div class="pl-14">
+                <p class="text-dove-gray leading-relaxed">
+                  Dzięki naszemu wizualizatorowi zrobisz to szybko, wystarczy, że przeklikasz opcje do wyboru: rodzaj i wygląd tortu, ewentualne dodatki i napisy, datę i godzinę odbioru/ew. dostawy, dane kontaktowe (imię, mail, tel.), wybór cukierni lub pracowni cukierniczej.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="vitreous-card vitreous-card--dark p-6">
-          <h3 class="font-bold text-lg text-pure-white mb-2">7. Czy mogę edytować lub anulować zamówienie?</h3>
-          <p class="text-dove-gray leading-relaxed">
-            Możliwość edycji lub anulowania zamówienia zależy od czasu, jaki pozostał do realizacji oraz od zasad danej cukierni. Najlepiej skontaktować się bezpośrednio z cukiernią za pośrednictwem aplikacji.
-          </p>
+        <!-- FAQ Item 7 -->
+        <div class="faq-item vitreous-card vitreous-card--dark overflow-hidden transition-all duration-300 hover:shadow-xl">
+          <button class="faq-question w-full text-left p-6 flex items-center justify-between group" data-question="7">
+            <div class="flex items-center">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center mr-4" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+                <i class="fa-solid fa-pen-to-square text-midnight-navy"></i>
+              </div>
+              <h3 class="font-bold text-lg text-pure-white group-hover:text-champagne-gold transition-colors">Czy mogę edytować lub anulować zamówienie?</h3>
+            </div>
+            <i class="fa-solid fa-chevron-down text-dove-gray group-hover:text-champagne-gold transition-all duration-300 faq-icon"></i>
+          </button>
+          <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-6 pb-6 pt-0">
+              <div class="pl-14">
+                <p class="text-dove-gray leading-relaxed">
+                  Możliwość edycji lub anulowania zamówienia zależy od czasu, jaki pozostał do realizacji oraz od zasad danej cukierni. Najlepiej skontaktować się bezpośrednio z cukiernią za pośrednictwem aplikacji.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="vitreous-card vitreous-card--dark p-6">
-          <h3 class="font-bold text-lg text-pure-white mb-2">8. Czy mogę dodać specjalne wymagania, np. „bez jajek"?</h3>
-          <p class="text-dove-gray leading-relaxed">
-            Tak, w formularzu zamówienia znajduje się pole „Uwagi", w którym możesz wpisać wszelkie specjalne życzenia lub informacje o alergiach.
-          </p>
+        <!-- FAQ Item 8 -->
+        <div class="faq-item vitreous-card vitreous-card--dark overflow-hidden transition-all duration-300 hover:shadow-xl">
+          <button class="faq-question w-full text-left p-6 flex items-center justify-between group" data-question="8">
+            <div class="flex items-center">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center mr-4" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+                <i class="fa-solid fa-heart text-midnight-navy"></i>
+              </div>
+              <h3 class="font-bold text-lg text-pure-white group-hover:text-champagne-gold transition-colors">Czy mogę dodać specjalne wymagania, np. „bez jajek"?</h3>
+            </div>
+            <i class="fa-solid fa-chevron-down text-dove-gray group-hover:text-champagne-gold transition-all duration-300 faq-icon"></i>
+          </button>
+          <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-6 pb-6 pt-0">
+              <div class="pl-14">
+                <p class="text-dove-gray leading-relaxed">
+                  Tak, w formularzu zamówienia znajduje się pole „Uwagi", w którym możesz wpisać wszelkie specjalne życzenia lub informacje o alergiach.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="vitreous-card vitreous-card--dark p-6">
-          <h3 class="font-bold text-lg text-pure-white mb-2">9. Czy płatność odbywa się online?</h3>
-          <p class="text-dove-gray leading-relaxed">
-            Płatność odbywa się po zaakceptowaniu zamówienia przez cukiernię. Otrzymasz powiadomienie i zostaniesz przekierowany do systemu płatności online. W niektórych przypadkach możliwa jest również płatność przy odbiorze (zależnie od cukierni).
-          </p>
+        <!-- FAQ Item 9 -->
+        <div class="faq-item vitreous-card vitreous-card--dark overflow-hidden transition-all duration-300 hover:shadow-xl">
+          <button class="faq-question w-full text-left p-6 flex items-center justify-between group" data-question="9">
+            <div class="flex items-center">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center mr-4" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+                <i class="fa-solid fa-credit-card text-midnight-navy"></i>
+              </div>
+              <h3 class="font-bold text-lg text-pure-white group-hover:text-champagne-gold transition-colors">Czy płatność odbywa się online?</h3>
+            </div>
+            <i class="fa-solid fa-chevron-down text-dove-gray group-hover:text-champagne-gold transition-all duration-300 faq-icon"></i>
+          </button>
+          <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-6 pb-6 pt-0">
+              <div class="pl-14">
+                <p class="text-dove-gray leading-relaxed">
+                  Płatność odbywa się po zaakceptowaniu zamówienia przez cukiernię. Otrzymasz powiadomienie i zostaniesz przekierowany do systemu płatności online. W niektórych przypadkach możliwa jest również płatność przy odbiorze (zależnie od cukierni).
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="vitreous-card vitreous-card--dark p-6">
-          <h3 class="font-bold text-lg text-pure-white mb-2">10. Czy mogę zapisać swoje dane, żeby szybciej zamawiać w przyszłości?</h3>
-          <p class="text-dove-gray leading-relaxed">
-            Tak, jeśli założysz konto, Twój profil będzie zawierał zapisane dane, historię zamówień oraz ewentualne zniżki z programu lojalnościowego.
-          </p>
+        <!-- FAQ Item 10 -->
+        <div class="faq-item vitreous-card vitreous-card--dark overflow-hidden transition-all duration-300 hover:shadow-xl">
+          <button class="faq-question w-full text-left p-6 flex items-center justify-between group" data-question="10">
+            <div class="flex items-center">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center mr-4" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+                <i class="fa-solid fa-bookmark text-midnight-navy"></i>
+              </div>
+              <h3 class="font-bold text-lg text-pure-white group-hover:text-champagne-gold transition-colors">Czy mogę zapisać swoje dane, żeby szybciej zamawiać w przyszłości?</h3>
+            </div>
+            <i class="fa-solid fa-chevron-down text-dove-gray group-hover:text-champagne-gold transition-all duration-300 faq-icon"></i>
+          </button>
+          <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-6 pb-6 pt-0">
+              <div class="pl-14">
+                <p class="text-dove-gray leading-relaxed">
+                  Tak, jeśli założysz konto, Twój profil będzie zawierał zapisane dane, historię zamówień oraz ewentualne zniżki z programu lojalnościowego.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+      
+      <!-- No results message -->
+      <div id="no-results" class="hidden text-center py-12">
+        <i class="fa-solid fa-magnifying-glass text-6xl text-dove-gray opacity-50 mb-4"></i>
+        <h3 class="text-xl font-bold text-pure-white mb-2">Nie znaleziono wyników</h3>
+        <p class="text-dove-gray">Spróbuj użyć innych słów kluczowych lub skontaktuj się z nami bezpośrednio.</p>
       </div>
     </div>
   </section>
