@@ -20,20 +20,42 @@ def initialize_client():
         print(f"Error initializing OpenAI client: {e}")
         return None
 
-def generate_image(client, prompt, filename):
+def generate_image(client, prompt, filename, size="1024x1024"):
     """
     Generates an image based on the prompt and saves it with the given filename.
     """
-    print(f"\n🎨 Generating image for: '{prompt}'...")
+    print(f"\n🎨 Generating image ({size}) for: '{prompt}'...")
     try:
         response = client.images.generate(
             model="gpt-image-1",
             prompt=prompt,
-            size="1024x1024",
-            quality="high",
+            size=size,
+            quality="medium",
             n=1,
         )
-        image_url = response.data[0].url
+        # Handle base64 image data from gpt-image-1 model
+        if hasattr(response.data[0], 'b64_json') and response.data[0].b64_json:
+            print("📦 Image returned as base64 data, decoding...")
+            import base64
+            image_data = base64.b64decode(response.data[0].b64_json)
+            
+            if not os.path.exists('images'):
+                os.makedirs('images')
+
+            file_path = os.path.join('images', f"{filename}.png")
+            with open(file_path, 'wb') as f:
+                f.write(image_data)
+            
+            print(f"✨ Success! Image saved to: {file_path}")
+            return
+        
+        # Handle URL-based response (for other models)
+        elif hasattr(response.data[0], 'url') and response.data[0].url:
+            image_url = response.data[0].url
+        else:
+            print(f"❌ Unexpected response format. Available attributes: {dir(response.data[0])}")
+            return
+            
         print("✅ Image generated successfully!")
     except openai.APIError as e:
         print(f"❌ OpenAI API Error: {e}")
@@ -86,12 +108,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate images using OpenAI's DALL-E 3.")
     parser.add_argument("-p", "--prompt", type=str, help="The prompt to generate the image from.")
     parser.add_argument("-f", "--filename", type=str, help="The filename for the saved image (without extension).")
+    parser.add_argument("-s", "--size", type=str, default="1024x1024", help="The size of the image (e.g., '1024x1024', '1792x1024', '1024x1792').")
     args = parser.parse_args()
 
     client = initialize_client()
     
     if client:
         if args.prompt and args.filename:
-            generate_image(client, args.prompt, args.filename)
+            generate_image(client, args.prompt, args.filename, args.size)
         else:
             run_interactive_mode(client) 
