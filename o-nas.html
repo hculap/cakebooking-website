@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O nas - CakeBooking | Łączymy miłośników tortów z najlepszymi cukierniami</title>
+  <meta name="description" content="Poznaj historię CakeBooking - nowoczesnej aplikacji łączącej miłośników słodkości z najlepszymi cukierniami i pracowniami cukierniczymi.">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(191, 202, 217, 0.7) transparent;
+    }
+
+    body::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    body::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    body::-webkit-scrollbar-thumb {
+      background-color: rgba(191, 202, 217, 0);
+      border-radius: 20px;
+      border: 3px solid transparent;
+      background-clip: content-box;
+    }
+
+    body:hover::-webkit-scrollbar-thumb {
+      background-color: rgba(191, 202, 217, 0.7);
+    }
+  </style>
+</head>
+<body class="font-sans text-midnight-navy pb-24 md:pb-0">
+  <!-- Navigation -->
+  <nav class="fixed w-full nav-midnight shadow-sm z-50">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <a href="index.html" aria-label="CakeBooking - Strona główna" class="flex-shrink-0 flex items-center">
+            <i class="fa-solid fa-cake-candles text-pure-white text-3xl mr-3"></i>
+            <span class="font-display font-bold text-xl text-pure-white">CakeBooking</span>
+          </a>
+        </div>
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="index.html#features" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">Funkcje</a>
+          <a href="index.html#how-it-works" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">Jak to działa</a>
+          <a href="index.html#for-bakers-section" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">Dla cukierników</a>
+          <a href="o-nas.html" class="text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">O nas</a>
+          <a href="index.html#faq" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">FAQ</a>
+          <button class="pill-button text-sm font-medium">
+            Pobierz aplikację
+          </button>
+        </div>
+        <div class="md:hidden flex items-center">
+          <button id="mobile-menu-button"
+                  aria-label="Otwórz menu nawigacyjne"
+                  aria-expanded="false"
+                  aria-controls="mobile-menu"
+                  class="inline-flex items-center justify-center p-2 rounded-md text-dove-gray hover:text-champagne-gold hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-champagne-gold transition-colors">
+            <i class="fa-solid fa-bars h-6 w-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-midnight-navy shadow-lg">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <a href="index.html#features" class="block px-3 py-2 rounded-md text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">
+          Funkcje
+        </a>
+        <a href="index.html#how-it-works" class="block px-3 py-2 rounded-md text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">
+          Jak to działa
+        </a>
+        <a href="index.html#for-bakers-section" class="block px-3 py-2 rounded-md text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">
+          Dla cukierników
+        </a>
+        <a href="o-nas.html" class="block px-3 py-2 rounded-md text-base font-medium text-champagne-gold hover:bg-white/10 transition-colors">
+          O nas
+        </a>
+        <a href="index.html#faq" class="block px-3 py-2 rounded-md text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">
+          FAQ
+        </a>
+        <button class="mt-2 w-full pill-button text-base font-medium">
+          Pobierz aplikację
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 md:pb-32 hero-gradient relative overflow-hidden">
+    <!-- Art Deco Elements -->
+    <div class="parallax-element" data-speed="0.3" style="position: absolute; left: 48px; top: 128px; z-index: 1;">
+      <div class="art-deco-line"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.4" style="position: absolute; right: 48px; top: 160px; z-index: 1;">
+      <div class="art-deco-line"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.2" style="position: absolute; left: 64px; top: 208px; z-index: 1;">
+      <div class="art-deco-dot"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.6" style="position: absolute; right: 64px; top: 240px; z-index: 1;">
+      <div class="art-deco-dot"></div>
+    </div>
+    
+    <!-- Sparkles -->
+    <div class="parallax-element" data-speed="0.5" style="position: absolute; top: 20%; left: 10%;">
+      <div class="sparkle sparkle-enhanced" style="animation-delay: 0s;">✦</div>
+    </div>
+    <div class="parallax-element" data-speed="0.3" style="position: absolute; top: 30%; right: 15%;">
+      <div class="sparkle sparkle-enhanced" style="animation-delay: 0.3s;">✧</div>
+    </div>
+    <div class="parallax-element" data-speed="0.7" style="position: absolute; top: 50%; left: 20%;">
+      <div class="sparkle sparkle-enhanced" style="animation-delay: 0.6s;">✦</div>
+    </div>
+    <div class="parallax-element" data-speed="0.4" style="position: absolute; top: 25%; right: 25%;">
+      <div class="sparkle sparkle-enhanced" style="animation-delay: 0.9s;">✧</div>
+    </div>
+    <div class="parallax-element" data-speed="0.6" style="position: absolute; bottom: 30%; left: 15%;">
+      <div class="sparkle sparkle-enhanced" style="animation-delay: 1.2s;">✦</div>
+    </div>
+    <div class="parallax-element" data-speed="0.2" style="position: absolute; bottom: 40%; right: 20%;">
+      <div class="sparkle sparkle-enhanced" style="animation-delay: 1.5s;">✧</div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+      <div class="md:flex items-center">
+        <div class="md:w-1/2 md:pr-8 mb-12 md:mb-0 fade-in-up">
+          <div class="font-script text-champagne-gold text-2xl mb-4">Poznaj naszą historię</div>
+          <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-pure-white leading-tight">
+            O nas
+          </h1>
+          <p class="mt-6 text-xl text-dove-gray max-w-lg leading-relaxed">
+            CakeBooking to nowoczesna aplikacja, która łączy miłośników słodkości z najlepszymi cukierniami i pracowniami cukierniczymi w okolicy.
+          </p>
+          <div class="mt-8 flex flex-col sm:flex-row gap-4">
+            <a href="index.html#how-it-works" class="pill-button flex items-center justify-center text-lg font-medium px-8 py-4 shadow-lg hover:shadow-xl text-midnight-navy no-underline">
+              <i class="fa-solid fa-cake-candles h-5 w-5 mr-3"></i>
+              Zamów tort
+            </a>
+            <a href="index.html#features" class="pill-button-secondary ghost-button flex items-center justify-center text-lg font-medium px-8 py-4 no-underline">
+              <i class="fa-solid fa-circle-info h-5 w-5 mr-3"></i>
+              Dowiedz się więcej
+            </a>
+          </div>
+        </div>
+        <div class="md:w-1/2 relative">
+          <div class="w-full aspect-[3/2] relative">
+            <!-- About us visual -->
+            <div id="about-visual" class="absolute inset-0 rounded-3xl shadow-2xl flex items-center justify-center">
+              <img src="images/about-us-team-collaboration.png" alt="Professional team of developers and bakers collaborating on CakeBooking app, showcasing the vision and passion behind connecting cake lovers with local bakeries" class="w-full h-full object-cover rounded-3xl">
+            </div>
+          </div>
+          <div class="absolute -bottom-6 -right-6 w-32 h-32 rounded-full opacity-15 blur-xl" style="background: var(--champagne-gold-start);" aria-hidden="true"></div>
+          <div class="absolute -top-10 -left-10 w-40 h-40 rounded-full opacity-10 blur-xl" style="background: var(--blush-rose);" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Brands/Trust section -->
+  <section class="py-12 bg-porcelain-white">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <p class="text-center text-dove-gray font-medium mb-8">Zaufali nam najlepsi cukiernicy</p>
+      <div class="flex flex-wrap justify-center items-center gap-x-8 md:gap-x-16 gap-y-4 text-dove-gray" aria-label="Logotypy partnerów">
+        <div class="font-display text-lg font-bold text-dove-gray opacity-60 hover:opacity-100 transition-opacity">Sweet Moments</div>
+        <div class="font-display text-lg font-semibold text-dove-gray opacity-60 hover:opacity-100 transition-opacity italic">Artisan Bakes</div>
+        <div class="font-sans text-lg font-bold text-dove-gray opacity-60 hover:opacity-100 transition-opacity tracking-wide">THE CAKE SHOP</div>
+        <div class="font-display text-lg font-medium text-dove-gray opacity-60 hover:opacity-100 transition-opacity">Pâtisserie Deluxe</div>
+        <div class="font-display text-base font-bold text-dove-gray opacity-60 hover:opacity-100 transition-opacity" style="font-variant: small-caps;">Crème de la Crème</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission Section -->
+  <section class="py-20 bg-porcelain-white relative overflow-hidden">
+    <!-- Art Deco Elements -->
+    <div class="parallax-element" data-speed="0.3" style="position: absolute; left: 32px; top: 80px; z-index: 0; opacity: 0.5;">
+        <div class="art-deco-line"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.4" style="position: absolute; right: 32px; bottom: 80px; z-index: 0; opacity: 0.5;">
+        <div class="art-deco-line"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.2" style="position: absolute; left: 48px; top: 160px; z-index: 0;">
+        <div class="art-deco-dot"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.6" style="position: absolute; right: 48px; bottom: 160px; z-index: 0;">
+        <div class="art-deco-dot"></div>
+    </div>
+    <!-- Sparkles -->
+    <div class="parallax-element" data-speed="0.2" style="position: absolute; top: 15%; right: 30%;">
+        <div class="sparkle sparkle-enhanced" style="animation-delay: 0.2s;">✦</div>
+    </div>
+    <div class="parallax-element" data-speed="0.8" style="position: absolute; bottom: 25%; left: 25%;">
+        <div class="sparkle sparkle-enhanced" style="animation-delay: 0.8s;">✧</div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-midnight-navy mb-6">Nasza misja</h2>
+        <p class="text-xl text-dove-gray leading-relaxed">
+          Tworzymy przestrzeń, gdzie zamówienie idealnego tortu staje się szybkie, intuicyjne i dopasowane do Twoich potrzeb – bez dzwonienia, bez niepewności i bez kompromisów.
+        </p>
+      </div>
+
+      <div class="vitreous-card p-8 md:p-12 max-w-4xl mx-auto">
+        <div class="text-center mb-8">
+          <div class="w-16 h-16 rounded-full mx-auto mb-6 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+            <i class="fa-solid fa-heart text-2xl text-midnight-navy"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-midnight-navy mb-4">Bo dobry tort zaczyna się od złożenia prostego i szybkiego zamówienia</h3>
+        </div>
+        
+        <p class="text-lg text-dove-gray leading-relaxed text-center">
+          Niezależnie od tego, czy planujesz urodziny, ślub, baby shower, czy po prostu chcesz osłodzić dzień – CakeBooking pomoże Ci znaleźć idealne rozwiązanie.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-20 bg-midnight-navy relative overflow-hidden">
+    <!-- Art Deco Elements -->
+    <div class="parallax-element" data-speed="0.3" style="position: absolute; left: 32px; top: 80px; z-index: 0;">
+      <div class="art-deco-line"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.4" style="position: absolute; right: 32px; bottom: 80px; z-index: 0;">
+        <div class="art-deco-line"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.2" style="position: absolute; left: 48px; top: 160px; z-index: 0;">
+        <div class="art-deco-dot"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.6" style="position: absolute; right: 48px; bottom: 160px; z-index: 0;">
+        <div class="art-deco-dot"></div>
+    </div>
+    
+    <!-- Sparkles -->
+    <div class="parallax-element" data-speed="0.2" style="position: absolute; top: 15%; right: 30%;">
+        <div class="sparkle sparkle-enhanced" style="animation-delay: 0.2s;">✦</div>
+    </div>
+    <div class="parallax-element" data-speed="0.8" style="position: absolute; bottom: 25%; left: 25%;">
+        <div class="sparkle sparkle-enhanced" style="animation-delay: 0.8s;">✧</div>
+    </div>
+    <div class="parallax-element" data-speed="0.5" style="position: absolute; top: 60%; right: 15%;">
+        <div class="sparkle sparkle-enhanced" style="animation-delay: 1.4s;">✦</div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-pure-white mb-6">Dzięki CakeBooking możesz</h2>
+        <p class="mt-4 text-xl text-dove-gray leading-relaxed">
+          Odkryj wszystkie możliwości naszej platformy
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div class="vitreous-card vitreous-card--dark p-8">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style="background: rgba(247, 245, 242, 0.1); border: 1px solid rgba(247, 245, 242, 0.1);" aria-hidden="true">
+            <i class="fa-solid fa-laptop text-2xl" style="color: var(--champagne-gold-start);"></i>
+          </div>
+          <h3 class="text-xl font-bold text-pure-white mb-3">Zarezerwować tort online</h3>
+          <p class="text-dove-gray">
+            W kilku prostych krokach – bez wychodzenia z domu. Szybko, wygodnie i bezpiecznie.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="vitreous-card vitreous-card--dark p-8">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style="background: rgba(247, 245, 242, 0.1); border: 1px solid rgba(247, 245, 242, 0.1);" aria-hidden="true">
+            <i class="fa-solid fa-palette text-2xl" style="color: var(--champagne-gold-start);"></i>
+          </div>
+          <h3 class="text-xl font-bold text-pure-white mb-3">Skonfigurować wymarzony tort</h3>
+          <p class="text-dove-gray">
+            Wybierając smak, wagę, dodatki, napisy oraz specjalne wymagania (np. bezglutenowe, wegańskie).
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="vitreous-card vitreous-card--dark p-8">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style="background: rgba(247, 245, 242, 0.1); border: 1px solid rgba(247, 245, 242, 0.1);" aria-hidden="true">
+            <i class="fa-solid fa-calculator text-2xl" style="color: var(--champagne-gold-start);"></i>
+          </div>
+          <h3 class="text-xl font-bold text-pure-white mb-3">Dobrać odpowiednią wielkość</h3>
+          <p class="text-dove-gray">
+            Nasz system podpowie Ci, jaka wielkość tortu dobrać do ilości gości.
+          </p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="vitreous-card vitreous-card--dark p-8">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style="background: rgba(247, 245, 242, 0.1); border: 1px solid rgba(247, 245, 242, 0.1);" aria-hidden="true">
+            <i class="fa-solid fa-truck text-2xl" style="color: var(--champagne-gold-start);"></i>
+          </div>
+          <h3 class="text-xl font-bold text-pure-white mb-3">Zamówić z dostawą</h3>
+          <p class="text-dove-gray">
+            Lub odebrać osobiście w najbliższej cukierni lub pracowni cukierniczej.
+          </p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="vitreous-card vitreous-card--dark p-8">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style="background: rgba(247, 245, 242, 0.1); border: 1px solid rgba(247, 245, 242, 0.1);" aria-hidden="true">
+            <i class="fa-solid fa-bolt text-2xl" style="color: var(--champagne-gold-start);"></i>
+          </div>
+          <h3 class="text-xl font-bold text-pure-white mb-3">Sprawdzić dostępność last minute</h3>
+          <p class="text-dove-gray">
+            Torty dostępne od ręki, np. na dzisiaj. Idealne dla nagłych potrzeb.
+          </p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="vitreous-card vitreous-card--dark p-8">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style="background: rgba(247, 245, 242, 0.1); border: 1px solid rgba(247, 245, 242, 0.1);" aria-hidden="true">
+            <i class="fa-solid fa-map-location-dot text-2xl" style="color: var(--champagne-gold-start);"></i>
+          </div>
+          <h3 class="text-xl font-bold text-pure-white mb-3">Zlokalizować najbliższe cukiernie</h3>
+          <p class="text-dove-gray">
+            Porównać oferty i zamówić bezpośrednio z aplikacji.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Target Audience Section -->
+  <section class="py-20 bg-porcelain-white relative overflow-hidden">
+    <!-- Art Deco Elements -->
+    <div class="parallax-element" data-speed="0.3" style="position: absolute; left: 32px; top: 80px; z-index: 0; opacity: 0.5;">
+        <div class="art-deco-line"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.4" style="position: absolute; right: 32px; bottom: 80px; z-index: 0; opacity: 0.5;">
+        <div class="art-deco-line"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.2" style="position: absolute; left: 48px; top: 160px; z-index: 0;">
+        <div class="art-deco-dot"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.6" style="position: absolute; right: 48px; bottom: 160px; z-index: 0;">
+        <div class="art-deco-dot"></div>
+    </div>
+    <!-- Sparkles -->
+    <div class="parallax-element" data-speed="0.2" style="position: absolute; top: 15%; right: 30%;">
+        <div class="sparkle sparkle-enhanced" style="animation-delay: 0.2s;">✦</div>
+    </div>
+    <div class="parallax-element" data-speed="0.8" style="position: absolute; bottom: 25%; left: 25%;">
+        <div class="sparkle sparkle-enhanced" style="animation-delay: 0.8s;">✧</div>
+    </div>
+    <div class="parallax-element" data-speed="0.5" style="position: absolute; top: 60%; right: 15%;">
+        <div class="sparkle sparkle-enhanced" style="animation-delay: 1.4s;">✦</div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-midnight-navy mb-6">CakeBooking powstał z myślą o</h2>
+        <p class="mt-4 text-xl text-dove-gray leading-relaxed">
+          Każdy zasługuje na idealny tort
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- For Customers -->
+        <div class="vitreous-card p-8">
+          <div class="flex items-center mb-6">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center mr-4" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+              <i class="fa-solid fa-users text-2xl text-midnight-navy"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-midnight-navy">Klientach</h3>
+          </div>
+          <p class="text-dove-gray leading-relaxed text-lg">
+            Którzy szukają szybkiego, bezbłędnego sposobu na zamówienie tortu na każdą okazję. Bez kolejek, bez niepewności, bez kompromisów.
+          </p>
+          <div class="mt-6 flex items-center text-champagne-gold">
+            <i class="fa-solid fa-check-circle mr-2"></i>
+            <span class="text-midnight-navy font-medium">Szybko, wygodnie, pewnie</span>
+          </div>
+        </div>
+
+        <!-- For Bakeries -->
+        <div class="vitreous-card p-8">
+          <div class="flex items-center mb-6">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center mr-4" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+              <i class="fa-solid fa-store text-2xl text-midnight-navy"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-midnight-navy">Cukierniach</h3>
+          </div>
+          <p class="text-dove-gray leading-relaxed text-lg">
+            Które chcą uprościć proces zamówień i dotrzeć do nowych klientów. Profesjonalne narzędzia do zarządzania biznesem.
+          </p>
+          <div class="mt-6 flex items-center text-champagne-gold">
+            <i class="fa-solid fa-chart-line mr-2"></i>
+            <span class="text-midnight-navy font-medium">Więcej zamówień, lepsza organizacja</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-porcelain-white relative overflow-hidden">
+    <!-- Art Deco Elements -->
+    <div class="parallax-element" data-speed="0.3" style="position: absolute; left: 32px; top: 80px; z-index: 0; opacity: 0.5;">
+        <div class="art-deco-line"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.4" style="position: absolute; right: 32px; bottom: 80px; z-index: 0; opacity: 0.5;">
+        <div class="art-deco-line"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.2" style="position: absolute; left: 48px; top: 160px; z-index: 0;">
+        <div class="art-deco-dot"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.6" style="position: absolute; right: 48px; bottom: 160px; z-index: 0;">
+        <div class="art-deco-dot"></div>
+    </div>
+    <!-- Sparkles -->
+    <div class="parallax-element" data-speed="0.2" style="position: absolute; top: 15%; right: 30%;">
+        <div class="sparkle sparkle-enhanced" style="animation-delay: 0.2s;">✦</div>
+    </div>
+    <div class="parallax-element" data-speed="0.8" style="position: absolute; bottom: 25%; left: 25%;">
+        <div class="sparkle sparkle-enhanced" style="animation-delay: 0.8s;">✧</div>
+    </div>
+    <div class="parallax-element" data-speed="0.5" style="position: absolute; top: 60%; right: 15%;">
+        <div class="sparkle sparkle-enhanced" style="animation-delay: 1.4s;">✦</div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="font-script text-champagne-gold text-2xl mb-4">Dołącz do rewolucji</div>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-midnight-navy mb-6">Gotowy, żeby spróbować?</h2>
+        <p class="mt-4 text-xl text-dove-gray leading-relaxed">
+          Odkryj jak CakeBooking może zmienić sposób, w jaki zamawiasz i sprzedajesz torty.
+        </p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row justify-center gap-8 max-w-2xl mx-auto">
+        <div class="vitreous-card p-8 text-center flex-1 flex flex-col">
+          <div class="w-16 h-16 rounded-full mx-auto mb-6 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+            <i class="fa-solid fa-cake-candles text-2xl text-midnight-navy"></i>
+          </div>
+          <h3 class="text-xl font-bold text-midnight-navy mb-4">Dla klientów</h3>
+          <p class="text-dove-gray mb-6 flex-grow">Zamów wymarzony tort w kilku krokach</p>
+          <a href="index.html#how-it-works" class="pill-button flex items-center justify-center text-lg font-medium px-6 py-3 shadow-lg hover:shadow-xl text-midnight-navy no-underline w-full mt-auto">
+            <i class="fa-solid fa-cake-candles h-5 w-5 mr-2"></i>
+            Zobacz jak to działa
+          </a>
+        </div>
+
+        <div class="vitreous-card p-8 text-center flex-1 flex flex-col">
+          <div class="w-16 h-16 rounded-full mx-auto mb-6 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+            <i class="fa-solid fa-truck text-2xl text-midnight-navy"></i>
+          </div>
+          <h3 class="text-xl font-bold text-midnight-navy mb-4">Dla biznesu</h3>
+          <p class="text-dove-gray mb-6 flex-grow">Dołącz jako dostawca lub cukiernia</p>
+          <a href="index.html#for-bakers-section" class="pill-button-secondary flex items-center justify-center text-lg font-medium px-6 py-3 shadow-lg hover:shadow-xl no-underline w-full mt-auto">
+            <i class="fa-solid fa-truck h-5 w-5 mr-2"></i>
+            Zostań partnerem
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-midnight-navy text-dove-gray py-12">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <!-- Brand -->
+        <div class="md:col-span-2">
+          <div class="flex items-center mb-4">
+            <a href="index.html" aria-label="CakeBooking - Strona główna" class="flex items-center">
+              <i class="fa-solid fa-cake-candles text-champagne-gold text-3xl mr-3"></i>
+              <span class="font-display font-bold text-xl text-pure-white">CakeBooking</span>
+            </a>
+          </div>
+          <p class="text-dove-gray leading-relaxed mb-6 max-w-md">
+            Koncepcja aplikacji łączącej miłośników tortów z najlepszymi cukierniami. Projektuj, zamawiaj i ciesz się wymarzonym tortem.
+          </p>
+          <div class="flex space-x-3">
+            <a href="#" aria-label="Facebook" class="text-dove-gray hover:text-champagne-gold transition-colors">
+              <i class="fa-brands fa-facebook-f h-5 w-5"></i>
+            </a>
+            <a href="#" aria-label="Twitter" class="text-dove-gray hover:text-champagne-gold transition-colors">
+              <i class="fa-brands fa-x-twitter h-5 w-5"></i>
+            </a>
+            <a href="#" aria-label="Instagram" class="text-dove-gray hover:text-champagne-gold transition-colors">
+              <i class="fa-brands fa-instagram h-5 w-5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div>
+          <h4 class="text-pure-white font-medium mb-4">Nawigacja</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html#features" class="hover:text-champagne-gold transition-colors">Funkcje</a></li>
+            <li><a href="index.html#how-it-works" class="hover:text-champagne-gold transition-colors">Jak to działa</a></li>
+            <li><a href="index.html#for-bakers-section" class="hover:text-champagne-gold transition-colors">Dla cukierników</a></li>
+            <li><a href="index.html#faq" class="hover:text-champagne-gold transition-colors">FAQ</a></li>
+            <li><a href="o-nas.html" class="hover:text-champagne-gold transition-colors">O nas</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal -->
+        <div>
+          <h4 class="text-pure-white font-medium mb-4">Informacje</h4>
+          <ul class="space-y-2">
+            <li><span class="text-dove-gray">Polityka prywatności</span></li>
+            <li><span class="text-dove-gray">Warunki użytkowania</span></li>
+            <li><span class="text-dove-gray">Kontakt</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="pt-8 border-t border-dove-gray/20 text-center md:text-left">
+        <p class="text-dove-gray text-sm">
+          © <span id="current-year">2025</span> CakeBooking. Koncepcja aplikacji - prezentacja projektu.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bottom Navigation (Mobile) -->
+  <div id="bottom-nav" class="bottom-nav md:hidden fixed bottom-0 left-0 right-0 h-20 z-50 glass-morphism-dark">
+    <div class="flex justify-around items-center h-full max-w-7xl mx-auto px-2">
+      <a href="index.html#features" class="flex flex-col items-center justify-center text-center text-dove-gray hover:text-champagne-gold transition-colors w-1/5">
+        <i class="fa-solid fa-star h-6 w-6 mb-1"></i>
+        <span class="text-xs font-medium">Funkcje</span>
+      </a>
+      <a href="index.html#how-it-works" class="flex flex-col items-center justify-center text-center text-dove-gray hover:text-champagne-gold transition-colors w-1/5">
+        <i class="fa-solid fa-bolt h-6 w-6 mb-1"></i>
+        <span class="text-xs font-medium">Jak to działa</span>
+      </a>
+      <a href="index.html" class="flex flex-col items-center justify-center text-center w-1/5 -mt-6">
+        <div class="w-16 h-16 rounded-full flex items-center justify-center shadow-lg" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+            <i class="fa-solid fa-home h-8 w-8 text-midnight-navy"></i>
+        </div>
+        <span class="text-xs font-medium text-champagne-gold mt-2">Strona główna</span>
+      </a>
+      <a href="index.html#for-bakers-section" class="flex flex-col items-center justify-center text-center text-dove-gray hover:text-champagne-gold transition-colors w-1/5">
+        <i class="fa-solid fa-cake-candles h-6 w-6 mb-1"></i>
+        <span class="text-xs font-medium">Cukiernicy</span>
+      </a>
+      <a href="o-nas.html" class="flex flex-col items-center justify-center text-center text-champagne-gold transition-colors w-1/5">
+        <i class="fa-solid fa-info-circle h-6 w-6 mb-1"></i>
+        <span class="text-xs font-medium">O nas</span>
+      </a>
+    </div>
+  </div>
+  <script src="scripts.js"></script>
+</body>
+</html> 
