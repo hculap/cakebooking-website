@@ -1,0 +1,30 @@
+# Environment variables
+# Do not commit sensitive keys and configurations.
+.env
+
+# Python
+# Ignore compiled Python files and cache directories.
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+# Ignore virtual environment folders like 'venv', '.venv', etc.
+venv/
+.venv/
+env/
+.env/
+*env/
+
+# macOS
+# Ignore macOS folder metadata.
+.DS_Store
+
+# Archives
+# Ignore compressed archive files from the images directory.
+images/*.zip
+
+# Source Documents
+# Ignore source text/document files.
+*.docx.txt 
