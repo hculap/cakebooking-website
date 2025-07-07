@@ -1238,13 +1238,7 @@
       document.getElementById('order-summary-page').classList.add('hidden');
     }
 
-    function showOrderSummary() {
-      document.getElementById('occasion-selector').classList.add('hidden');
-      document.getElementById('cake-gallery').classList.add('hidden');
-      document.getElementById('cake-configuration').classList.add('hidden');
-      document.getElementById('customer-data').classList.add('hidden');
-      document.getElementById('order-summary-page').classList.remove('hidden');
-    }
+
 
     function initializeDeliveryOptions() {
       const deliveryOptions = document.querySelectorAll('.delivery-option');
@@ -1336,6 +1330,13 @@
     }
 
     function showOrderSummary() {
+      // Hide all other sections and show order summary
+      document.getElementById('occasion-selector').classList.add('hidden');
+      document.getElementById('cake-gallery').classList.add('hidden');
+      document.getElementById('cake-configuration').classList.add('hidden');
+      document.getElementById('customer-data').classList.add('hidden');
+      document.getElementById('order-summary-page').classList.remove('hidden');
+      
       // Populate order summary
       const finalOrderSummary = document.getElementById('final-order-summary');
       const finalTotalPrice = document.getElementById('final-total-price');
