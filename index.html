@@ -342,57 +342,174 @@
       </div>
 
       <div class="relative">
-        <div class="hidden md:block absolute left-1/2 top-24 w-0.5 h-1/2 -translate-x-1/2" style="background: var(--champagne-gold-start);" aria-hidden="true"></div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12" role="list">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8" role="list">
           <!-- Step 1 -->
-          <div class="relative" role="listitem">
-            <div class="vitreous-card md:h-full flex flex-col items-center text-center p-8">
-              <div class="w-12 h-12 rounded-full flex items-center justify-center mb-6 z-10 text-midnight-navy font-bold text-lg" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));" aria-hidden="true">
+          <div class="relative group" role="listitem">
+            <div class="vitreous-card md:h-full flex flex-col items-center text-center p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 relative overflow-hidden">
+              <!-- Hover effect background -->
+              <div class="absolute inset-0 bg-gradient-to-br from-champagne-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              
+              <!-- Step number badge - now inside the card -->
+              <div class="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-midnight-navy font-bold text-sm bg-white shadow-lg border-2 border-champagne-gold">
                 1
               </div>
-              <h3 class="text-xl font-bold text-midnight-navy mb-4" id="step1-heading">Wyszukaj lub zaprojektuj swój tort</h3>
-              <p class="text-dove-gray leading-relaxed">
-                Użyj interaktywnej mapy lub personalizatora, aby znaleźć lub stworzyć idealny tort na Twoją okazję.
-              </p>
-              <div class="flex-grow"></div>
-              <div class="w-full aspect-[3/2] rounded-lg mt-6 relative overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100" aria-hidden="true">
-                <img src="images/step1-search-interface.png" alt="Modern mobile app interface showing cake search with filters and bakery map" class="w-full h-full object-cover rounded-lg">
+              
+              <!-- Enhanced emoji container -->
+              <div class="w-20 h-20 rounded-full flex items-center justify-center mb-6 z-10 text-midnight-navy font-bold text-3xl shadow-lg group-hover:scale-110 transition-transform duration-300" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+                🖌️
+              </div>
+              
+              <h3 class="text-xl font-bold text-midnight-navy mb-4 group-hover:text-champagne-gold transition-colors duration-300" id="step1-heading">
+                1. Wybierasz, na co masz ochotę.
+              </h3>
+              
+              <div class="space-y-3 text-left w-full">
+                <p class="text-dove-gray text-sm leading-relaxed font-medium">
+                  Tort? Muffiny? Ciasto? Monoporcje? A może słodki box dla całej firmy?
+                </p>
+                <p class="text-dove-gray text-sm leading-relaxed">
+                  W aplikacji znajdziesz ofertę lokalnych cukierni — od klasyki po nowoczesne desery.
+                </p>
+              </div>
+              
+              <!-- Decorative element -->
+              <div class="absolute bottom-2 right-2 opacity-10 group-hover:opacity-20 transition-opacity duration-300">
+                <i class="fa-solid fa-cake-candles text-4xl text-champagne-gold"></i>
               </div>
             </div>
           </div>
 
           <!-- Step 2 -->
-          <div class="relative" role="listitem">
-            <div class="vitreous-card md:h-full flex flex-col items-center text-center p-8">
-              <div class="w-12 h-12 rounded-full flex items-center justify-center mb-6 z-10 text-midnight-navy font-bold text-lg" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));" aria-hidden="true">
+          <div class="relative group" role="listitem">
+            <div class="vitreous-card md:h-full flex flex-col items-center text-center p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 relative overflow-hidden">
+              <!-- Hover effect background -->
+              <div class="absolute inset-0 bg-gradient-to-br from-champagne-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              
+              <!-- Step number badge - now inside the card -->
+              <div class="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-midnight-navy font-bold text-sm bg-white shadow-lg border-2 border-champagne-gold">
                 2
               </div>
-              <h3 class="text-xl font-bold text-midnight-navy mb-4" id="step2-heading">Określ szczegóły zamówienia</h3>
-              <p class="text-dove-gray leading-relaxed">
-                Wybierz termin odbioru lub dostawy, dodaj opcje specjalne i podaj liczbę osób. Cukiernia potwierdzi zamówienie.
-              </p>
-              <div class="flex-grow"></div>
-              <div class="w-full aspect-[3/2] rounded-lg mt-6 relative overflow-hidden bg-gradient-to-br from-green-50 to-emerald-100" aria-hidden="true">
-                <img src="images/step2-order-form.png" alt="Clean order form interface with cake customization options and calendar date picker" class="w-full h-full object-cover rounded-lg">
+              
+              <!-- Enhanced emoji container -->
+              <div class="w-20 h-20 rounded-full flex items-center justify-center mb-6 z-10 text-midnight-navy font-bold text-3xl shadow-lg group-hover:scale-110 transition-transform duration-300" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+                🎨
+              </div>
+              
+              <h3 class="text-xl font-bold text-midnight-navy mb-4 group-hover:text-champagne-gold transition-colors duration-300" id="step2-heading">
+                2. Konfigurujesz swoje zamówienie.
+              </h3>
+              
+              <ul class="text-dove-gray text-sm space-y-3 text-left w-full">
+                <li class="flex items-start">
+                  <div class="w-2 h-2 rounded-full bg-champagne-gold mt-2 mr-3 flex-shrink-0"></div>
+                  <span>Zaprojektuj tort w intuicyjnym wizualizatorze (smak, kształt, napisy, dekoracje)</span>
+                </li>
+                <li class="flex items-start">
+                  <div class="w-2 h-2 rounded-full bg-champagne-gold mt-2 mr-3 flex-shrink-0"></div>
+                  <span>Wybierz ilość porcji, warianty dietetyczne (bezglutenowe, bezcukrowe, wegańskie)</span>
+                </li>
+                <li class="flex items-start">
+                  <div class="w-2 h-2 rounded-full bg-champagne-gold mt-2 mr-3 flex-shrink-0"></div>
+                  <span>Dodaj wiadomość, instrukcje lub… logo firmy</span>
+                </li>
+              </ul>
+              
+              <!-- Decorative element -->
+              <div class="absolute bottom-2 right-2 opacity-10 group-hover:opacity-20 transition-opacity duration-300">
+                <i class="fa-solid fa-palette text-4xl text-champagne-gold"></i>
               </div>
             </div>
           </div>
 
           <!-- Step 3 -->
-          <div class="relative" role="listitem">
-            <div class="vitreous-card md:h-full flex flex-col items-center text-center p-8">
-              <div class="w-12 h-12 rounded-full flex items-center justify-center mb-6 z-10 text-midnight-navy font-bold text-lg" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));" aria-hidden="true">
+          <div class="relative group" role="listitem">
+            <div class="vitreous-card md:h-full flex flex-col items-center text-center p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 relative overflow-hidden">
+              <!-- Hover effect background -->
+              <div class="absolute inset-0 bg-gradient-to-br from-champagne-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              
+              <!-- Step number badge - now inside the card -->
+              <div class="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-midnight-navy font-bold text-sm bg-white shadow-lg border-2 border-champagne-gold">
                 3
               </div>
-              <h3 class="text-xl font-bold text-midnight-navy mb-4" id="step3-heading">Odbierz swój wymarzony tort</h3>
-              <p class="text-dove-gray leading-relaxed">
-                W umówionym terminie odbierz tort w cukierni lub czekaj na dostawę. Potem podziel się opinią w aplikacji!
-              </p>
-              <div class="flex-grow"></div>
-              <div class="w-full aspect-[3/2] rounded-lg mt-6 relative overflow-hidden bg-gradient-to-br from-yellow-50 to-orange-100" aria-hidden="true">
-                <img src="images/step3-happy-delivery.png" alt="Happy customer receiving beautiful cake delivery at their doorstep with smiling delivery person" class="w-full h-full object-cover rounded-lg">
+              
+              <!-- Enhanced emoji container -->
+              <div class="w-20 h-20 rounded-full flex items-center justify-center mb-6 z-10 text-midnight-navy font-bold text-3xl shadow-lg group-hover:scale-110 transition-transform duration-300" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+                📍
+              </div>
+              
+              <h3 class="text-xl font-bold text-midnight-navy mb-4 group-hover:text-champagne-gold transition-colors duration-300" id="step3-heading">
+                3. Wybierasz cukiernię.
+              </h3>
+              
+              <ul class="text-dove-gray text-sm space-y-3 text-left w-full">
+                <li class="flex items-start">
+                  <div class="w-2 h-2 rounded-full bg-champagne-gold mt-2 mr-3 flex-shrink-0"></div>
+                  <span>Porównaj oferty cukierni w Twojej okolicy</span>
+                </li>
+                <li class="flex items-start">
+                  <div class="w-2 h-2 rounded-full bg-champagne-gold mt-2 mr-3 flex-shrink-0"></div>
+                  <span>Sprawdź dostępność, opinie i ceny</span>
+                </li>
+                <li class="flex items-start">
+                  <div class="w-2 h-2 rounded-full bg-champagne-gold mt-2 mr-3 flex-shrink-0"></div>
+                  <span>Zamów bezpośrednio z poziomu aplikacji</span>
+                </li>
+              </ul>
+              
+              <!-- Decorative element -->
+              <div class="absolute bottom-2 right-2 opacity-10 group-hover:opacity-20 transition-opacity duration-300">
+                <i class="fa-solid fa-map-location-dot text-4xl text-champagne-gold"></i>
               </div>
             </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="relative group" role="listitem">
+            <div class="vitreous-card md:h-full flex flex-col items-center text-center p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 relative overflow-hidden">
+              <!-- Hover effect background -->
+              <div class="absolute inset-0 bg-gradient-to-br from-champagne-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              
+              <!-- Step number badge - now inside the card -->
+              <div class="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-midnight-navy font-bold text-sm bg-white shadow-lg border-2 border-champagne-gold">
+                4
+              </div>
+              
+              <!-- Enhanced emoji container -->
+              <div class="w-20 h-20 rounded-full flex items-center justify-center mb-6 z-10 text-midnight-navy font-bold text-3xl shadow-lg group-hover:scale-110 transition-transform duration-300" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+                📦
+              </div>
+              
+              <h3 class="text-xl font-bold text-midnight-navy mb-4 group-hover:text-champagne-gold transition-colors duration-300" id="step4-heading">
+                4. Klikasz „zamawiam" i gotowe.
+              </h3>
+              
+              <ul class="text-dove-gray text-sm space-y-3 text-left w-full">
+                <li class="flex items-start">
+                  <div class="w-2 h-2 rounded-full bg-champagne-gold mt-2 mr-3 flex-shrink-0"></div>
+                  <span>Płatność online</span>
+                </li>
+                <li class="flex items-start">
+                  <div class="w-2 h-2 rounded-full bg-champagne-gold mt-2 mr-3 flex-shrink-0"></div>
+                  <span>Dostawa lub odbiór osobisty</span>
+                </li>
+                <li class="flex items-start">
+                  <div class="w-2 h-2 rounded-full bg-champagne-gold mt-2 mr-3 flex-shrink-0"></div>
+                  <span>Powiadomienie, gdy zamówienie będzie gotowe</span>
+                </li>
+              </ul>
+              
+              <!-- Decorative element -->
+              <div class="absolute bottom-2 right-2 opacity-10 group-hover:opacity-20 transition-opacity duration-300">
+                <i class="fa-solid fa-check-circle text-4xl text-champagne-gold"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Simple call-to-action section -->
+        <div class="text-center mt-16">
+          <div class="text-champagne-gold font-bold text-2xl">
+            3 kliknięcia. I deser w drodze.
           </div>
         </div>
       </div>
