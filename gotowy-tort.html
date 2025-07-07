@@ -81,6 +81,12 @@
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
     }
+
+    /* Ensure sticky positioning works properly */
+    .sticky {
+      position: -webkit-sticky;
+      position: sticky;
+    }
   </style>
 </head>
 <body class="font-sans text-midnight-navy pb-24 md:pb-0">
@@ -340,7 +346,7 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
         <!-- Cake Preview -->
-        <div class="sticky top-8">
+        <div>
           <div class="vitreous-card p-8">
             <h3 class="text-2xl font-bold text-midnight-navy mb-6">Twój wybrany tort</h3>
                          <div id="selected-cake-preview" class="w-full aspect-[3/4] rounded-lg bg-gradient-to-br from-champagne-gold/10 to-blush-rose/10 flex items-center justify-center mb-6">
