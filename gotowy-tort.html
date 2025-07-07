@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gotowy Tort - Wybierz idealny tort dla swojej okazji | CakeBooking</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(191, 202, 217, 0.7) transparent;
+    }
+
+    body::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    body::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    body::-webkit-scrollbar-thumb {
+      background-color: rgba(191, 202, 217, 0);
+      border-radius: 20px;
+      border: 3px solid transparent;
+      background-clip: content-box;
+    }
+
+    body:hover::-webkit-scrollbar-thumb {
+      background-color: rgba(191, 202, 217, 0.7);
+    }
+
+    .occasion-card {
+      transition: all 0.3s ease;
+    }
+
+    .occasion-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .occasion-card.selected {
+      border-color: var(--champagne-gold-start);
+      background: linear-gradient(135deg, rgba(247, 245, 242, 0.1), rgba(247, 245, 242, 0.05));
+    }
+
+    .taste-option {
+      transition: all 0.3s ease;
+    }
+
+    .taste-option:hover {
+      background-color: rgba(247, 245, 242, 0.1);
+    }
+
+    .taste-option.selected {
+      background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));
+      color: var(--midnight-navy);
+    }
+  </style>
+</head>
+<body class="font-sans text-midnight-navy pb-24 md:pb-0">
+  <!-- Navigation -->
+  <nav class="fixed w-full nav-midnight shadow-sm z-50">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <a href="index.html" aria-label="CakeBooking - Strona główna" class="flex-shrink-0 flex items-center">
+            <i class="fa-solid fa-cake-candles text-pure-white text-3xl mr-3"></i>
+            <span class="font-display font-bold text-xl text-pure-white">CakeBooking</span>
+          </a>
+        </div>
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="index.html" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">Strona główna</a>
+          <a href="index.html#features" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">Funkcje</a>
+          <a href="wizualizator-tortow.html" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">Wizualizator 3D</a>
+          <a href="index.html#how-it-works" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">Jak to działa</a>
+          <a href="index.html#for-bakers-section" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">Dla cukierników</a>
+          <a href="o-nas.html" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">O nas</a>
+          <a href="blog.html" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">Blog</a>
+          <a href="index.html#faq" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">FAQ</a>
+          <a href="zamowienie.html" class="pill-button text-sm font-medium no-underline">
+            Zamów tort
+          </a>
+        </div>
+        <div class="md:hidden flex items-center">
+          <button id="mobile-menu-button"
+                  aria-label="Otwórz menu nawigacyjne"
+                  aria-expanded="false"
+                  aria-controls="mobile-menu"
+                  class="inline-flex items-center justify-center p-2 rounded-md text-dove-gray hover:text-champagne-gold hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-champagne-gold transition-colors">
+            <i class="fa-solid fa-bars h-6 w-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-midnight-navy shadow-lg">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">
+          Strona główna
+        </a>
+        <a href="index.html#features" class="block px-3 py-2 rounded-md text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">
+          Funkcje
+        </a>
+        <a href="wizualizator-tortow.html" class="block px-3 py-2 rounded-md text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">
+          Wizualizator 3D
+        </a>
+        <a href="index.html#how-it-works" class="block px-3 py-2 rounded-md text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">
+          Jak to działa
+        </a>
+        <a href="index.html#for-bakers-section" class="block px-3 py-2 rounded-md text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">
+          Dla cukierników
+        </a>
+        <a href="o-nas.html" class="block px-3 py-2 rounded-md text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">
+          O nas
+        </a>
+        <a href="blog.html" class="block px-3 py-2 rounded-md text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">
+          Blog
+        </a>
+        <a href="index.html#faq" class="block px-3 py-2 rounded-md text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">
+          FAQ
+        </a>
+        <a href="zamowienie.html" class="mt-2 w-full pill-button text-base font-medium no-underline">
+          Zamów tort
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 md:pb-32 hero-gradient relative overflow-hidden">
+    <!-- Art Deco Elements -->
+    <div class="parallax-element" data-speed="0.3" style="position: absolute; left: 48px; top: 128px; z-index: 1;">
+      <div class="art-deco-line"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.4" style="position: absolute; right: 48px; top: 160px; z-index: 1;">
+      <div class="art-deco-line"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.2" style="position: absolute; left: 64px; top: 208px; z-index: 1;">
+      <div class="art-deco-dot"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.6" style="position: absolute; right: 64px; top: 240px; z-index: 1;">
+      <div class="art-deco-dot"></div>
+    </div>
+    
+    <!-- Sparkles -->
+    <div class="parallax-element" data-speed="0.5" style="position: absolute; top: 20%; left: 10%;">
+      <div class="sparkle sparkle-enhanced" style="animation-delay: 0s;">✦</div>
+    </div>
+    <div class="parallax-element" data-speed="0.3" style="position: absolute; top: 30%; right: 15%;">
+      <div class="sparkle sparkle-enhanced" style="animation-delay: 0.3s;">✧</div>
+    </div>
+    <div class="parallax-element" data-speed="0.7" style="position: absolute; top: 50%; left: 20%;">
+      <div class="sparkle sparkle-enhanced" style="animation-delay: 0.6s;">✦</div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+      <div class="text-center max-w-4xl mx-auto">
+        <div class="font-script text-champagne-gold text-2xl mb-4">Gotowe torty dla każdej okazji</div>
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-pure-white leading-tight mb-6">
+          Wybierz idealny tort <span class="text-champagne-gold">w kilka kliknięć</span>
+        </h1>
+        <p class="text-xl text-dove-gray max-w-2xl mx-auto leading-relaxed mb-8">
+          Sprawdzone smaki, eleganckie dekoracje i szybka dostawa. Znajdź tort idealny dla swojej okazji.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="#occasion-selector" class="pill-button flex items-center justify-center text-lg font-medium px-8 py-4 shadow-lg text-midnight-navy no-underline">
+            <i class="fa-solid fa-thumbs-up h-5 w-5 mr-3"></i>
+            Wybierz okazję
+          </a>
+          <a href="wizualizator-tortow.html" class="pill-button-secondary ghost-button flex items-center justify-center text-lg font-medium px-8 py-4 no-underline">
+            <i class="fa-solid fa-palette h-5 w-5 mr-3"></i>
+            Projektuj własny
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Occasion Selector -->
+  <section id="occasion-selector" class="py-20 bg-porcelain-white relative overflow-hidden">
+    <!-- Art Deco Elements -->
+    <div class="parallax-element" data-speed="0.3" style="position: absolute; left: 32px; top: 80px; z-index: 0; opacity: 0.5;">
+      <div class="art-deco-line"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.4" style="position: absolute; right: 32px; bottom: 80px; z-index: 0; opacity: 0.5;">
+      <div class="art-deco-line"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-16">
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-midnight-navy mb-6">Wybierz okazję</h2>
+        <p class="text-xl text-dove-gray max-w-3xl mx-auto leading-relaxed">
+          Każda okazja ma swój charakter. Wybierz kategorię, która najlepiej pasuje do Twojej uroczystości.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <!-- Communion Cakes -->
+        <div class="occasion-card vitreous-card p-6 text-center cursor-pointer" data-occasion="communion">
+          <div class="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+            <i class="fa-solid fa-church text-2xl text-midnight-navy"></i>
+          </div>
+          <h3 class="text-lg font-bold text-midnight-navy mb-2">Torty komunijne</h3>
+          <p class="text-sm text-dove-gray">Delikatne i eleganckie</p>
+        </div>
+
+        <!-- Baptism Cakes -->
+        <div class="occasion-card vitreous-card p-6 text-center cursor-pointer" data-occasion="baptism">
+          <div class="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+            <i class="fa-solid fa-baby text-2xl text-midnight-navy"></i>
+          </div>
+          <h3 class="text-lg font-bold text-midnight-navy mb-2">Torty na chrzest</h3>
+          <p class="text-sm text-dove-gray">Urocze i subtelne</p>
+        </div>
+
+        <!-- Wedding Cakes -->
+        <div class="occasion-card vitreous-card p-6 text-center cursor-pointer" data-occasion="wedding">
+          <div class="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+            <i class="fa-solid fa-heart text-2xl text-midnight-navy"></i>
+          </div>
+          <h3 class="text-lg font-bold text-midnight-navy mb-2">Torty weselne</h3>
+          <p class="text-sm text-dove-gray">Wielopiętrowe i eleganckie</p>
+        </div>
+
+        <!-- Children's Cakes -->
+        <div class="occasion-card vitreous-card p-6 text-center cursor-pointer" data-occasion="children">
+          <div class="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+            <i class="fa-solid fa-child text-2xl text-midnight-navy"></i>
+          </div>
+          <h3 class="text-lg font-bold text-midnight-navy mb-2">Torty dziecięce</h3>
+          <p class="text-sm text-dove-gray">Kolorowe i zabawne</p>
+        </div>
+
+        <!-- Baby Shower Cakes -->
+        <div class="occasion-card vitreous-card p-6 text-center cursor-pointer" data-occasion="babyshower">
+          <div class="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+            <i class="fa-solid fa-baby-carriage text-2xl text-midnight-navy"></i>
+          </div>
+          <h3 class="text-lg font-bold text-midnight-navy mb-2">Baby shower</h3>
+          <p class="text-sm text-dove-gray">Pastelowe i urocze</p>
+        </div>
+
+        <!-- Bachelorette Cakes -->
+        <div class="occasion-card vitreous-card p-6 text-center cursor-pointer" data-occasion="bachelorette">
+          <div class="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+            <i class="fa-solid fa-glass-cheers text-2xl text-midnight-navy"></i>
+          </div>
+          <h3 class="text-lg font-bold text-midnight-navy mb-2">Wieczór panieński</h3>
+          <p class="text-sm text-dove-gray">Zabawne i eleganckie</p>
+        </div>
+
+        <!-- Women's Cakes -->
+        <div class="occasion-card vitreous-card p-6 text-center cursor-pointer" data-occasion="women">
+          <div class="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+            <i class="fa-solid fa-female text-2xl text-midnight-navy"></i>
+          </div>
+          <h3 class="text-lg font-bold text-midnight-navy mb-2">Dla kobiet</h3>
+          <p class="text-sm text-dove-gray">Eleganckie i wyrafinowane</p>
+        </div>
+
+        <!-- Men's Cakes -->
+        <div class="occasion-card vitreous-card p-6 text-center cursor-pointer" data-occasion="men">
+          <div class="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+            <i class="fa-solid fa-male text-2xl text-midnight-navy"></i>
+          </div>
+          <h3 class="text-lg font-bold text-midnight-navy mb-2">Dla mężczyzn</h3>
+          <p class="text-sm text-dove-gray">Minimalistyczne i eleganckie</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cake Gallery (Hidden by default) -->
+  <section id="cake-gallery" class="py-20 bg-midnight-navy relative overflow-hidden hidden">
+    <!-- Art Deco Elements -->
+    <div class="parallax-element" data-speed="0.3" style="position: absolute; left: 32px; top: 80px; z-index: 0;">
+      <div class="art-deco-line"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.4" style="position: absolute; right: 32px; bottom: 80px; z-index: 0;">
+      <div class="art-deco-line"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-16">
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-pure-white mb-6">Wybierz swój tort</h2>
+        <p class="text-xl text-dove-gray max-w-3xl mx-auto leading-relaxed">
+          Przejrzyj nasze propozycje i wybierz tort, który najbardziej Ci się podoba.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16" id="cake-images">
+        <!-- Cake images will be populated by JavaScript -->
+      </div>
+
+      <div class="text-center">
+        <button id="back-to-occasions-from-gallery" class="pill-button-secondary flex items-center justify-center text-lg font-medium px-8 py-4 mx-auto no-underline">
+          <i class="fa-solid fa-arrow-left h-5 w-5 mr-3"></i>
+          Wróć do okazji
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cake Configuration (Hidden by default) -->
+  <section id="cake-configuration" class="py-20 bg-porcelain-white relative overflow-hidden hidden">
+    <!-- Art Deco Elements -->
+    <div class="parallax-element" data-speed="0.3" style="position: absolute; left: 32px; top: 80px; z-index: 0; opacity: 0.5;">
+      <div class="art-deco-line"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.4" style="position: absolute; right: 32px; bottom: 80px; z-index: 0; opacity: 0.5;">
+      <div class="art-deco-line"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <!-- Cake Preview -->
+        <div class="sticky top-8">
+          <div class="vitreous-card p-8">
+            <h3 class="text-2xl font-bold text-midnight-navy mb-6">Twój wybrany tort</h3>
+            <div id="selected-cake-preview" class="w-full aspect-square rounded-lg bg-gradient-to-br from-champagne-gold/10 to-blush-rose/10 flex items-center justify-center mb-6">
+              <i class="fa-solid fa-cake-candles text-6xl text-champagne-gold opacity-50"></i>
+            </div>
+            <div id="cake-info" class="space-y-4">
+              <!-- Cake info will be populated by JavaScript -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Configuration Options -->
+        <div class="space-y-8">
+          <!-- Size Selection -->
+          <div class="vitreous-card p-8">
+            <h3 class="text-xl font-bold text-midnight-navy mb-6">Wybierz rozmiar</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="size-options">
+              <div class="size-option vitreous-card p-4 text-center cursor-pointer border-2 border-transparent hover:border-champagne-gold transition-colors" data-size="small">
+                <div class="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+                  <i class="fa-solid fa-circle text-xl text-midnight-navy"></i>
+                </div>
+                <h4 class="font-bold text-midnight-navy mb-1">Mały</h4>
+                <p class="text-sm text-dove-gray">8-10 osób</p>
+                <p class="text-lg font-bold text-champagne-gold mt-2">120 zł</p>
+              </div>
+              <div class="size-option vitreous-card p-4 text-center cursor-pointer border-2 border-transparent hover:border-champagne-gold transition-colors" data-size="medium">
+                <div class="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+                  <i class="fa-solid fa-circle text-xl text-midnight-navy"></i>
+                </div>
+                <h4 class="font-bold text-midnight-navy mb-1">Średni</h4>
+                <p class="text-sm text-dove-gray">15-20 osób</p>
+                <p class="text-lg font-bold text-champagne-gold mt-2">180 zł</p>
+              </div>
+              <div class="size-option vitreous-card p-4 text-center cursor-pointer border-2 border-transparent hover:border-champagne-gold transition-colors" data-size="large">
+                <div class="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+                  <i class="fa-solid fa-circle text-xl text-midnight-navy"></i>
+                </div>
+                <h4 class="font-bold text-midnight-navy mb-1">Duży</h4>
+                <p class="text-sm text-dove-gray">25-30 osób</p>
+                <p class="text-lg font-bold text-champagne-gold mt-2">250 zł</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Taste Selection -->
+          <div class="vitreous-card p-8">
+            <h3 class="text-xl font-bold text-midnight-navy mb-6">Wybierz smak</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="taste-options-config">
+              <!-- Taste options will be populated by JavaScript -->
+            </div>
+          </div>
+
+          <!-- Additional Decorations -->
+          <div class="vitreous-card p-8">
+            <h3 class="text-xl font-bold text-midnight-navy mb-6">Dodatkowe dekoracje</h3>
+            <div class="space-y-4" id="decoration-options">
+              <div class="flex items-center justify-between p-4 vitreous-card">
+                <div>
+                  <h4 class="font-bold text-midnight-navy">Żywe kwiaty</h4>
+                  <p class="text-sm text-dove-gray">Dodaj świeże kwiaty do dekoracji</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                  <span class="text-lg font-bold text-champagne-gold">+30 zł</span>
+                  <input type="checkbox" class="decoration-checkbox w-5 h-5 text-champagne-gold bg-transparent border-2 border-champagne-gold rounded focus:ring-champagne-gold" data-decoration="flowers" data-price="30">
+                </div>
+              </div>
+              <div class="flex items-center justify-between p-4 vitreous-card">
+                <div>
+                  <h4 class="font-bold text-midnight-navy">Figurki z masy cukrowej</h4>
+                  <p class="text-sm text-dove-gray">Spersonalizowane figurki</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                  <span class="text-lg font-bold text-champagne-gold">+25 zł</span>
+                  <input type="checkbox" class="decoration-checkbox w-5 h-5 text-champagne-gold bg-transparent border-2 border-champagne-gold rounded focus:ring-champagne-gold" data-decoration="figures" data-price="25">
+                </div>
+              </div>
+              <div class="flex items-center justify-between p-4 vitreous-card">
+                <div>
+                  <h4 class="font-bold text-midnight-navy">Napisy personalizowane</h4>
+                  <p class="text-sm text-dove-gray">Imię, data, życzenia</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                  <span class="text-lg font-bold text-champagne-gold">+15 zł</span>
+                  <input type="checkbox" class="decoration-checkbox w-5 h-5 text-champagne-gold bg-transparent border-2 border-champagne-gold rounded focus:ring-champagne-gold" data-decoration="text" data-price="15">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Summary -->
+          <div class="vitreous-card p-8">
+            <h3 class="text-xl font-bold text-midnight-navy mb-6">Podsumowanie zamówienia</h3>
+            <div id="order-summary" class="space-y-4">
+              <!-- Order summary will be populated by JavaScript -->
+            </div>
+            <div class="mt-6 pt-6 border-t border-dove-gray/20">
+              <div class="flex justify-between items-center">
+                <span class="text-lg font-bold text-midnight-navy">Razem:</span>
+                <span id="total-price" class="text-2xl font-bold text-champagne-gold">0 zł</span>
+              </div>
+            </div>
+            <button id="finalize-order" class="w-full mt-6 pill-button flex items-center justify-center text-lg font-medium px-8 py-4 shadow-lg text-midnight-navy no-underline">
+              <i class="fa-solid fa-shopping-cart h-5 w-5 mr-3"></i>
+              Złóż zamówienie
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12">
+        <button id="back-to-gallery" class="pill-button-secondary flex items-center justify-center text-lg font-medium px-8 py-4 mx-auto no-underline">
+          <i class="fa-solid fa-arrow-left h-5 w-5 mr-3"></i>
+          Wróć do galerii
+        </button>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Footer -->
+  <footer class="bg-midnight-navy text-dove-gray py-12">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <!-- Brand -->
+        <div class="md:col-span-2">
+          <div class="flex items-center mb-4">
+            <a href="index.html" aria-label="CakeBooking - Strona główna" class="flex items-center">
+              <i class="fa-solid fa-cake-candles text-champagne-gold text-3xl mr-3"></i>
+              <span class="font-display font-bold text-xl text-pure-white">CakeBooking</span>
+            </a>
+          </div>
+          <p class="text-dove-gray leading-relaxed mb-6 max-w-md">
+            Koncepcja aplikacji łączącej miłośników tortów z najlepszymi cukierniami. Projektuj, zamawiaj i ciesz się wymarzonym tortem.
+          </p>
+          <div class="flex space-x-3">
+            <a href="#" aria-label="Facebook" class="text-dove-gray hover:text-champagne-gold transition-colors">
+              <i class="fa-brands fa-facebook-f h-5 w-5"></i>
+            </a>
+            <a href="#" aria-label="Twitter" class="text-dove-gray hover:text-champagne-gold transition-colors">
+              <i class="fa-brands fa-x-twitter h-5 w-5"></i>
+            </a>
+            <a href="#" aria-label="Instagram" class="text-dove-gray hover:text-champagne-gold transition-colors">
+              <i class="fa-brands fa-instagram h-5 w-5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div>
+          <h4 class="text-pure-white font-medium mb-4">Nawigacja</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="hover:text-champagne-gold transition-colors">Strona główna</a></li>
+            <li><a href="index.html#features" class="hover:text-champagne-gold transition-colors">Funkcje</a></li>
+            <li><a href="index.html#how-it-works" class="hover:text-champagne-gold transition-colors">Jak to działa</a></li>
+            <li><a href="index.html#for-bakers-section" class="hover:text-champagne-gold transition-colors">Dla cukierników</a></li>
+            <li><a href="o-nas.html" class="hover:text-champagne-gold transition-colors">O nas</a></li>
+            <li><a href="blog.html" class="hover:text-champagne-gold transition-colors">Blog</a></li>
+            <li><a href="index.html#faq" class="hover:text-champagne-gold transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal -->
+        <div>
+          <h4 class="text-pure-white font-medium mb-4">Informacje</h4>
+          <ul class="space-y-2">
+            <li><span class="text-dove-gray">Polityka prywatności</span></li>
+            <li><span class="text-dove-gray">Warunki użytkowania</span></li>
+            <li><span class="text-dove-gray">Kontakt</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="pt-8 border-t border-dove-gray/20 text-center md:text-left">
+        <p class="text-dove-gray text-sm">
+          © <span id="current-year">2025</span> CakeBooking. Koncepcja aplikacji - prezentacja projektu.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Cake data with image mappings
+    const cakeData = {
+      communion: {
+        name: "Tort komunijny",
+        imagePrefix: "komunia",
+        imageCount: 4,
+        decorations: [
+          "Delikatne, eleganckie motywy – hostia, krzyżyk, złocenia",
+          "Opłatki z imieniem dziecka",
+          "Kwiaty z masy cukrowej i żywe kwiaty",
+          "Papier jadalny, ozdoby w bieli i pastelach"
+        ],
+        tastes: [
+          "Wanilia z maliną",
+          "Sezonowe owoce z białą czekoladą",
+          "Mleczna czekolada z chrupką i malinami",
+          "Klasyczny śmietankowo-truskawkowy"
+        ]
+      },
+      baptism: {
+        name: "Tort na chrzest",
+        imagePrefix: "chrzest",
+        imageCount: 20,
+        decorations: [
+          "Urocze i subtelne ozdoby – aniołki",
+          "Papier jadalny, makaroniki, żywe kwiaty",
+          "Imię dziecka",
+          "Pastelowe kolory (błękit, pudrowy róż, beż)",
+          "Figurki niemowląt"
+        ],
+        tastes: [
+          "Biała czekolada z maliną",
+          "Śmietankowy z borówkami",
+          "Delikatna wanilia z musem owocowym",
+          "Kokosowy z mango"
+        ]
+      },
+      wedding: {
+        name: "Tort weselny",
+        imagePrefix: "weselny",
+        imageCount: 20,
+        decorations: [
+          "Wielopiętrowe torty z żywymi lub cukrowymi kwiatami",
+          "Złote/srebrne akcenty, koronki z masy cukrowej",
+          "Minimalistyczne białe torty lub romantyczne ombré",
+          "Dekoracje rustykalne (suszone kwiaty i dodatki)",
+          "Dekoracje pod motyw dekoracyjny wesela"
+        ],
+        tastes: [
+          "Czekoladowy z wiśnią",
+          "Tiramisu",
+          "Pistacjowy z maliną",
+          "Mango z białą czekoladą",
+          "Szampanowy krem z maliną"
+        ]
+      },
+      children: {
+        name: "Tort dziecięcy",
+        imagePrefix: "dzieci",
+        imageCount: 0, // No children category in images yet
+        decorations: [
+          "Postacie z bajek, jednorożce, samochody",
+          "Zwierzaki, piłki, dinozaury",
+          "Kolory intensywne lub pastelowe",
+          "Toppery z imieniem dziecka i cyfrą wieku"
+        ],
+        tastes: [
+          "Nutella z bananem",
+          "Czekoladowy z truskawką",
+          "Mleczna czekolada z maliną",
+          "Waniliowy z dostępnymi w danym sezonie owocami"
+        ]
+      },
+      babyshower: {
+        name: "Tort na baby shower",
+        imagePrefix: "babyshower",
+        imageCount: 4,
+        decorations: [
+          "Motywy \"It's a boy/girl\"",
+          "Małe ubranka, bociany, baloniki, body",
+          "Pastelowe kolory",
+          "Dekoracje w różu, błękicie lub neutralnych odcieniach"
+        ],
+        tastes: [
+          "Krem śmietankowy z maliną",
+          "Biała czekolada z lemon curd",
+          "Jogurtowo-owocowy",
+          "Kokosowy z mango"
+        ]
+      },
+      bachelorette: {
+        name: "Tort na wieczór panieński",
+        imagePrefix: "panienski",
+        imageCount: 8,
+        decorations: [
+          "Żywe kwiaty, toppery z napisem \"Bride to be\"",
+          "Usta, szpilki, koronki, kokardki",
+          "Złote i różowe detale",
+          "Czasem zabawne lub odważne dekoracje"
+        ],
+        tastes: [
+          "Malina z pistacją-truskawkowy",
+          "Słony karmel z kremem mascarpone",
+          "Oreo z kremem waniliowym"
+        ]
+      },
+      women: {
+        name: "Tort dla kobiet",
+        imagePrefix: "kobieta",
+        imageCount: 30,
+        decorations: [
+          "Kwiaty (żywe), eleganckie wzory",
+          "Złoto, brokat, minimalizm",
+          "Toppery z imieniem lub liczbą lat",
+          "Pastelowe lub klasyczne kolory"
+        ],
+        tastes: [
+          "Malina z mascarpone",
+          "Pistacja z białą czekoladą",
+          "Tiramisu",
+          "Cytrynowy z kremem z białej czekolady",
+          "Różany z maliną"
+        ]
+      },
+      men: {
+        name: "Tort dla mężczyzn",
+        imagePrefix: "mezczyzna",
+        imageCount: 14,
+        decorations: [
+          "Minimalistyczne, eleganckie",
+          "Często tematyczne (motoryzacja, alkohol, sport, garnitury, zegarki)",
+          "Czernie, granat, grafit"
+        ],
+        tastes: [
+          "Mleczna czekolada",
+          "Słony karmel",
+          "Orzechowy z nutą rumu",
+          "Brownie z kremem kawowym",
+          "Czekolada z wiśnią bądź maliną"
+        ]
+      }
+    };
+
+    let selectedOccasion = null;
+    let selectedTaste = null;
+    let selectedCake = null;
+    let selectedSize = null;
+    let selectedDecorations = [];
+    let basePrice = 0;
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mobile menu toggle
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      mobileMenuButton.addEventListener('click', function() {
+        const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+        mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      // Occasion selection
+      const occasionCards = document.querySelectorAll('.occasion-card');
+      occasionCards.forEach(card => {
+        card.addEventListener('click', function() {
+          const occasion = this.dataset.occasion;
+          selectOccasion(occasion);
+        });
+      });
+
+      // Back to occasions buttons
+      document.getElementById('back-to-occasions-from-gallery').addEventListener('click', function() {
+        showOccasionSelector();
+      });
+
+      document.getElementById('back-to-gallery').addEventListener('click', function() {
+        document.getElementById('cake-configuration').classList.add('hidden');
+        document.getElementById('cake-gallery').classList.remove('hidden');
+      });
+
+      // Finalize order button
+      document.getElementById('finalize-order').addEventListener('click', function() {
+        if (!selectedSize || !selectedTaste) {
+          alert('Proszę wybrać rozmiar i smak tortu przed złożeniem zamówienia.');
+          return;
+        }
+        // Here you would typically redirect to an order form
+        alert('Funkcja zamawiania będzie dostępna wkrótce!');
+      });
+
+      // Set current year in footer
+      document.getElementById('current-year').textContent = new Date().getFullYear();
+    });
+
+    function selectOccasion(occasion) {
+      selectedOccasion = occasion;
+      
+      // Hide occasion selector and show cake gallery
+      document.getElementById('occasion-selector').classList.add('hidden');
+      document.getElementById('cake-gallery').classList.remove('hidden');
+      
+      // Load cake images for the selected occasion
+      loadCakeImages(occasion);
+    }
+
+    function loadCakeImages(occasion) {
+      const cakeImages = document.getElementById('cake-images');
+      cakeImages.innerHTML = '';
+      
+      const occasionData = cakeData[occasion];
+      
+      if (occasionData.imageCount === 0) {
+        // No images available for this category
+        cakeImages.innerHTML = `
+          <div class="col-span-full text-center py-12">
+            <i class="fa-solid fa-image text-6xl text-dove-gray mb-4"></i>
+            <h3 class="text-xl font-bold text-pure-white mb-2">Brak zdjęć</h3>
+            <p class="text-dove-gray">Zdjęcia dla tej kategorii będą dostępne wkrótce.</p>
+          </div>
+        `;
+        return;
+      }
+      
+      // Load images for the occasion
+      for (let i = 1; i <= occasionData.imageCount; i++) {
+        const imageCard = document.createElement('div');
+        imageCard.className = 'vitreous-card p-4 cursor-pointer border-2 border-transparent hover:border-champagne-gold transition-colors';
+        imageCard.onclick = () => selectCake(occasion, i);
+        
+        // Try different image extensions
+        const extensions = ['jpeg', 'jpg', 'png'];
+        let imageSrc = '';
+        
+        for (const ext of extensions) {
+          const testSrc = `images/${occasionData.imagePrefix}/${occasionData.imagePrefix}_${i.toString().padStart(2, '0')}.${ext}`;
+          // We'll use the first extension for now, the browser will handle missing images
+          if (!imageSrc) imageSrc = testSrc;
+        }
+        
+        imageCard.innerHTML = `
+          <div class="aspect-square rounded-lg overflow-hidden mb-4 bg-gradient-to-br from-champagne-gold/10 to-blush-rose/10">
+            <img src="${imageSrc}" alt="Tort ${occasionData.name} ${i}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="w-full h-full flex items-center justify-center" style="display: none;">
+              <i class="fa-solid fa-cake-candles text-4xl text-champagne-gold opacity-50"></i>
+            </div>
+          </div>
+          <h3 class="text-lg font-bold text-pure-white text-center">Tort ${i}</h3>
+        `;
+        
+        cakeImages.appendChild(imageCard);
+      }
+    }
+
+    function selectCake(occasion, cakeNumber) {
+      selectedCake = { occasion, cakeNumber };
+      
+      // Hide cake gallery and show configuration
+      document.getElementById('cake-gallery').classList.add('hidden');
+      document.getElementById('cake-configuration').classList.remove('hidden');
+      
+      // Update cake preview and configuration
+      updateCakeConfiguration();
+    }
+
+    function updateCakeConfiguration() {
+      const occasionData = cakeData[selectedCake.occasion];
+      const cakeImageSrc = `images/${occasionData.imagePrefix}/${occasionData.imagePrefix}_${selectedCake.cakeNumber.toString().padStart(2, '0')}.jpeg`;
+      
+      // Update cake preview
+      const previewContainer = document.getElementById('selected-cake-preview');
+      previewContainer.innerHTML = `
+        <img src="${cakeImageSrc}" alt="Wybrany tort" class="w-full h-full object-cover rounded-lg" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="w-full h-full flex items-center justify-center" style="display: none;">
+          <i class="fa-solid fa-cake-candles text-6xl text-champagne-gold opacity-50"></i>
+        </div>
+      `;
+      
+      // Update cake info
+      const cakeInfo = document.getElementById('cake-info');
+      cakeInfo.innerHTML = `
+        <div>
+          <h4 class="font-bold text-midnight-navy">${occasionData.name}</h4>
+          <p class="text-sm text-dove-gray">Tort ${selectedCake.cakeNumber}</p>
+        </div>
+      `;
+      
+      // Populate taste options
+      const tasteOptions = document.getElementById('taste-options-config');
+      tasteOptions.innerHTML = '';
+      
+      occasionData.tastes.forEach((taste, index) => {
+        const tasteOption = document.createElement('div');
+        tasteOption.className = 'taste-option-config vitreous-card p-4 cursor-pointer border-2 border-transparent hover:border-champagne-gold transition-colors';
+        tasteOption.onclick = () => selectTasteConfig(taste);
+        
+        tasteOption.innerHTML = `
+          <div class="flex items-center">
+            <div class="w-8 h-8 rounded-full mr-3 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+              <i class="fa-solid fa-utensils text-sm text-midnight-navy"></i>
+            </div>
+            <span class="font-medium text-midnight-navy">${taste}</span>
+          </div>
+        `;
+        
+        tasteOptions.appendChild(tasteOption);
+      });
+      
+      // Initialize size selection
+      initializeSizeSelection();
+      
+      // Initialize decoration checkboxes
+      initializeDecorationCheckboxes();
+      
+      // Update order summary
+      updateOrderSummary();
+    }
+
+    function selectTasteConfig(taste) {
+      selectedTaste = taste;
+      
+      // Update taste selection
+      document.querySelectorAll('.taste-option-config').forEach(option => {
+        option.classList.remove('border-champagne-gold');
+        option.classList.add('border-transparent');
+      });
+      event.target.closest('.taste-option-config').classList.remove('border-transparent');
+      event.target.closest('.taste-option-config').classList.add('border-champagne-gold');
+      
+      updateOrderSummary();
+    }
+
+    function initializeSizeSelection() {
+      const sizeOptions = document.querySelectorAll('.size-option');
+      sizeOptions.forEach(option => {
+        option.onclick = () => {
+          // Remove selection from all options
+          sizeOptions.forEach(opt => {
+            opt.classList.remove('border-champagne-gold');
+            opt.classList.add('border-transparent');
+          });
+          
+          // Select clicked option
+          option.classList.remove('border-transparent');
+          option.classList.add('border-champagne-gold');
+          
+          selectedSize = option.dataset.size;
+          updateOrderSummary();
+        };
+      });
+    }
+
+    function initializeDecorationCheckboxes() {
+      const checkboxes = document.querySelectorAll('.decoration-checkbox');
+      checkboxes.forEach(checkbox => {
+        checkbox.onchange = () => {
+          const decoration = checkbox.dataset.decoration;
+          const price = parseInt(checkbox.dataset.price);
+          
+          if (checkbox.checked) {
+            if (!selectedDecorations.find(d => d.name === decoration)) {
+              selectedDecorations.push({ name: decoration, price: price });
+            }
+          } else {
+            selectedDecorations = selectedDecorations.filter(d => d.name !== decoration);
+          }
+          
+          updateOrderSummary();
+        };
+      });
+    }
+
+    function updateOrderSummary() {
+      const summary = document.getElementById('order-summary');
+      const totalPrice = document.getElementById('total-price');
+      
+      let total = 0;
+      let summaryHTML = '';
+      
+      // Base cake
+      if (selectedCake) {
+        const occasionData = cakeData[selectedCake.occasion];
+        summaryHTML += `
+          <div class="flex justify-between items-center">
+            <span class="text-midnight-navy">${occasionData.name} - Tort ${selectedCake.cakeNumber}</span>
+            <span class="text-champagne-gold">-</span>
+          </div>
+        `;
+      }
+      
+      // Size
+      if (selectedSize) {
+        const sizePrices = { small: 120, medium: 180, large: 250 };
+        const sizeNames = { small: 'Mały', medium: 'Średni', large: 'Duży' };
+        total += sizePrices[selectedSize];
+        
+        summaryHTML += `
+          <div class="flex justify-between items-center">
+            <span class="text-midnight-navy">Rozmiar: ${sizeNames[selectedSize]}</span>
+            <span class="text-champagne-gold">${sizePrices[selectedSize]} zł</span>
+          </div>
+        `;
+      }
+      
+      // Taste
+      if (selectedTaste) {
+        summaryHTML += `
+          <div class="flex justify-between items-center">
+            <span class="text-midnight-navy">Smak: ${selectedTaste}</span>
+            <span class="text-champagne-gold">-</span>
+          </div>
+        `;
+      }
+      
+      // Decorations
+      selectedDecorations.forEach(decoration => {
+        total += decoration.price;
+        summaryHTML += `
+          <div class="flex justify-between items-center">
+            <span class="text-midnight-navy">+ ${decoration.name}</span>
+            <span class="text-champagne-gold">+${decoration.price} zł</span>
+          </div>
+        `;
+      });
+      
+      summary.innerHTML = summaryHTML;
+      totalPrice.textContent = `${total} zł`;
+    }
+
+    function showOccasionSelector() {
+      document.getElementById('occasion-selector').classList.remove('hidden');
+      document.getElementById('cake-gallery').classList.add('hidden');
+      document.getElementById('cake-configuration').classList.add('hidden');
+    }
+  </script>
+</body>
+</html> 
