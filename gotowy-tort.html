@@ -69,6 +69,18 @@
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
     }
+
+    .delivery-option.selected {
+      border-color: rgb(212, 175, 55) !important;
+      background-color: rgba(212, 175, 55, 0.1) !important;
+      box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2) !important;
+    }
+
+    .delivery-option:hover {
+      border-color: rgb(212, 175, 55) !important;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+    }
   </style>
 </head>
 <body class="font-sans text-midnight-navy pb-24 md:pb-0">
@@ -454,6 +466,180 @@
           <i class="fa-solid fa-arrow-left h-5 w-5 mr-3"></i>
           Wróć do galerii
         </button>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Data (Hidden by default) -->
+  <section id="customer-data" class="py-20 bg-porcelain-white relative overflow-hidden hidden">
+    <!-- Art Deco Elements -->
+    <div class="parallax-element" data-speed="0.3" style="position: absolute; left: 32px; top: 80px; z-index: 0;">
+      <div class="art-deco-line"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.4" style="position: absolute; right: 32px; bottom: 80px; z-index: 0;">
+      <div class="art-deco-line"></div>
+    </div>
+    
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-16">
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-midnight-navy mb-6">Dane kontaktowe</h2>
+        <p class="text-xl text-dove-gray max-w-3xl mx-auto leading-relaxed">
+          Podaj swoje dane, abyśmy mogli skontaktować się z Tobą w sprawie zamówienia.
+        </p>
+      </div>
+
+      <div class="vitreous-card p-8">
+        <form id="customer-form" class="space-y-6">
+          <!-- Personal Information -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="firstName" class="block text-sm font-medium text-midnight-navy mb-2">Imię *</label>
+              <input type="text" id="firstName" name="firstName" required class="w-full p-4 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy placeholder-dove-gray focus:border-champagne-gold focus:outline-none transition-colors">
+            </div>
+            <div>
+              <label for="lastName" class="block text-sm font-medium text-midnight-navy mb-2">Nazwisko *</label>
+              <input type="text" id="lastName" name="lastName" required class="w-full p-4 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy placeholder-dove-gray focus:border-champagne-gold focus:outline-none transition-colors">
+            </div>
+          </div>
+
+          <!-- Contact Information -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="email" class="block text-sm font-medium text-midnight-navy mb-2">Email *</label>
+              <input type="email" id="email" name="email" required class="w-full p-4 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy placeholder-dove-gray focus:border-champagne-gold focus:outline-none transition-colors">
+            </div>
+            <div>
+              <label for="phone" class="block text-sm font-medium text-midnight-navy mb-2">Telefon *</label>
+              <input type="tel" id="phone" name="phone" required class="w-full p-4 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy placeholder-dove-gray focus:border-champagne-gold focus:outline-none transition-colors">
+            </div>
+          </div>
+
+          <!-- Delivery Option -->
+          <div>
+            <label class="block text-sm font-medium text-midnight-navy mb-4">Sposób odbioru *</label>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="delivery-option vitreous-card p-4 cursor-pointer border-2 border-transparent hover:border-champagne-gold transition-colors" data-delivery="pickup">
+                <div class="flex items-center">
+                  <div class="w-8 h-8 rounded-full mr-3 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+                    <i class="fa-solid fa-store text-sm text-midnight-navy"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-midnight-navy">Odbór własny</h4>
+                    <p class="text-sm text-dove-gray">Bezpłatnie</p>
+                  </div>
+                </div>
+              </div>
+              <div class="delivery-option vitreous-card p-4 cursor-pointer border-2 border-transparent hover:border-champagne-gold transition-colors" data-delivery="delivery">
+                <div class="flex items-center">
+                  <div class="w-8 h-8 rounded-full mr-3 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+                    <i class="fa-solid fa-truck text-sm text-midnight-navy"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-midnight-navy">Dostawa</h4>
+                    <p class="text-sm text-dove-gray">+15 zł</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Delivery Address (Hidden by default) -->
+          <div id="delivery-address" class="space-y-6 hidden">
+            <h3 class="text-lg font-bold text-midnight-navy mb-4">Adres dostawy</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="md:col-span-2">
+                <label for="street" class="block text-sm font-medium text-midnight-navy mb-2">Ulica i numer *</label>
+                <input type="text" id="street" name="street" class="w-full p-4 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy placeholder-dove-gray focus:border-champagne-gold focus:outline-none transition-colors">
+              </div>
+              <div>
+                <label for="postalCode" class="block text-sm font-medium text-midnight-navy mb-2">Kod pocztowy *</label>
+                <input type="text" id="postalCode" name="postalCode" class="w-full p-4 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy placeholder-dove-gray focus:border-champagne-gold focus:outline-none transition-colors">
+              </div>
+              <div>
+                <label for="city" class="block text-sm font-medium text-midnight-navy mb-2">Miasto *</label>
+                <input type="text" id="city" name="city" class="w-full p-4 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy placeholder-dove-gray focus:border-champagne-gold focus:outline-none transition-colors">
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 pt-6 justify-between">
+            <button type="button" id="back-to-configuration" class="pill-button-secondary flex items-center justify-center text-lg font-medium px-8 py-4 no-underline">
+              <i class="fa-solid fa-arrow-left h-5 w-5 mr-3"></i>
+              Wróć do konfiguracji
+            </button>
+            <button type="button" id="proceed-to-summary" class="pill-button flex items-center justify-center text-lg font-medium px-8 py-4 no-underline">
+              <i class="fa-solid fa-arrow-right h-5 w-5 mr-3"></i>
+              Przejdź do podsumowania
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Order Summary (Hidden by default) -->
+  <section id="order-summary-page" class="py-20 bg-porcelain-white relative overflow-hidden hidden">
+    <!-- Art Deco Elements -->
+    <div class="parallax-element" data-speed="0.3" style="position: absolute; left: 32px; top: 80px; z-index: 0; opacity: 0.5;">
+      <div class="art-deco-line"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.4" style="position: absolute; right: 32px; bottom: 80px; z-index: 0; opacity: 0.5;">
+      <div class="art-deco-line"></div>
+    </div>
+    
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-16">
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-midnight-navy mb-6">Podsumowanie zamówienia</h2>
+        <p class="text-xl text-dove-gray max-w-3xl mx-auto leading-relaxed">
+          Sprawdź szczegóły zamówienia przed finalizacją.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Order Details -->
+        <div class="space-y-6">
+          <div class="vitreous-card p-8">
+            <h3 class="text-2xl font-bold text-midnight-navy mb-6">Szczegóły zamówienia</h3>
+            <div id="final-order-summary" class="space-y-4">
+              <!-- Order details will be populated by JavaScript -->
+            </div>
+            <div class="mt-6 pt-6 border-t border-dove-gray/20">
+              <div class="flex justify-between items-center">
+                <span class="text-lg font-bold text-midnight-navy">Razem:</span>
+                <span id="final-total-price" class="text-2xl font-bold text-champagne-gold">0 zł</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Customer Information -->
+        <div class="space-y-6">
+          <div class="vitreous-card p-8">
+            <h3 class="text-2xl font-bold text-midnight-navy mb-6">Dane kontaktowe</h3>
+            <div id="customer-summary" class="space-y-4">
+              <!-- Customer details will be populated by JavaScript -->
+            </div>
+          </div>
+
+          <div class="vitreous-card p-8">
+            <h3 class="text-2xl font-bold text-midnight-navy mb-6">Sposób odbioru</h3>
+            <div id="delivery-summary" class="space-y-4">
+              <!-- Delivery details will be populated by JavaScript -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mt-12">
+        <button id="back-to-customer-data" class="pill-button-secondary flex items-center justify-center text-lg font-medium px-8 py-4 no-underline">
+          <i class="fa-solid fa-arrow-left h-5 w-5 mr-3"></i>
+          Wróć do danych
+        </button>
+        <button id="confirm-order" class="pill-button flex items-center justify-center text-lg font-medium px-8 py-4 no-underline">
+          <i class="fa-solid fa-check h-5 w-5 mr-3"></i>
+          Potwierdź zamówienie
+        </button>
       </div>
     </div>
   </section>
@@ -671,6 +857,8 @@
     let selectedCake = null;
     let selectedSize = null;
     let selectedDecorations = [];
+    let selectedDelivery = null;
+    let customerData = {};
     let basePrice = 0;
 
     // Initialize the page
@@ -706,12 +894,20 @@
 
       // Finalize order button
       document.getElementById('finalize-order').addEventListener('click', function() {
-        if (!selectedSize || !selectedTaste) {
+        const tasteSelect = document.getElementById('taste-select');
+        const selectedTasteValue = tasteSelect.value;
+        
+        if (!selectedSize || !selectedTasteValue) {
           alert('Proszę wybrać rozmiar i smak tortu przed złożeniem zamówienia.');
           return;
         }
-        // Here you would typically redirect to an order form
-        alert('Funkcja zamawiania będzie dostępna wkrótce!');
+        
+        // Update selectedTaste if it's not set
+        if (!selectedTaste) {
+          selectedTaste = selectedTasteValue;
+        }
+        
+        showCustomerData();
       });
 
       // Custom text input
@@ -722,6 +918,31 @@
         }
         updateOrderSummary();
       });
+
+
+
+      document.getElementById('back-to-configuration').addEventListener('click', function() {
+        showCakeConfiguration();
+      });
+
+      document.getElementById('proceed-to-summary').addEventListener('click', function() {
+        if (!validateCustomerForm()) {
+          return;
+        }
+        collectCustomerData();
+        showOrderSummary();
+      });
+
+      document.getElementById('back-to-customer-data').addEventListener('click', function() {
+        showCustomerData();
+      });
+
+      document.getElementById('confirm-order').addEventListener('click', function() {
+        submitOrder();
+      });
+
+      // Initialize delivery options
+      initializeDeliveryOptions();
 
       // Set current year in footer
       document.getElementById('current-year').textContent = new Date().getFullYear();
@@ -997,6 +1218,309 @@
       document.getElementById('occasion-selector').classList.remove('hidden');
       document.getElementById('cake-gallery').classList.add('hidden');
       document.getElementById('cake-configuration').classList.add('hidden');
+      document.getElementById('customer-data').classList.add('hidden');
+      document.getElementById('order-summary-page').classList.add('hidden');
+    }
+
+    function showCakeConfiguration() {
+      document.getElementById('occasion-selector').classList.add('hidden');
+      document.getElementById('cake-gallery').classList.add('hidden');
+      document.getElementById('cake-configuration').classList.remove('hidden');
+      document.getElementById('customer-data').classList.add('hidden');
+      document.getElementById('order-summary-page').classList.add('hidden');
+    }
+
+    function showCustomerData() {
+      document.getElementById('occasion-selector').classList.add('hidden');
+      document.getElementById('cake-gallery').classList.add('hidden');
+      document.getElementById('cake-configuration').classList.add('hidden');
+      document.getElementById('customer-data').classList.remove('hidden');
+      document.getElementById('order-summary-page').classList.add('hidden');
+    }
+
+    function showOrderSummary() {
+      document.getElementById('occasion-selector').classList.add('hidden');
+      document.getElementById('cake-gallery').classList.add('hidden');
+      document.getElementById('cake-configuration').classList.add('hidden');
+      document.getElementById('customer-data').classList.add('hidden');
+      document.getElementById('order-summary-page').classList.remove('hidden');
+    }
+
+    function initializeDeliveryOptions() {
+      const deliveryOptions = document.querySelectorAll('.delivery-option');
+      deliveryOptions.forEach(option => {
+        option.onclick = () => {
+          // Remove selection from all options
+          deliveryOptions.forEach(opt => {
+            opt.classList.remove('selected', 'border-champagne-gold', 'bg-champagne-gold/5');
+            opt.classList.add('border-transparent');
+          });
+          
+          // Select clicked option
+          option.classList.remove('border-transparent');
+          option.classList.add('selected', 'border-champagne-gold', 'bg-champagne-gold/5');
+          
+          selectedDelivery = option.dataset.delivery;
+          
+          // Show/hide delivery address
+          const deliveryAddress = document.getElementById('delivery-address');
+          if (selectedDelivery === 'delivery') {
+            deliveryAddress.classList.remove('hidden');
+            // Make address fields required
+            document.getElementById('street').required = true;
+            document.getElementById('postalCode').required = true;
+            document.getElementById('city').required = true;
+          } else {
+            deliveryAddress.classList.add('hidden');
+            // Remove required from address fields
+            document.getElementById('street').required = false;
+            document.getElementById('postalCode').required = false;
+            document.getElementById('city').required = false;
+          }
+        };
+      });
+    }
+
+    function validateCustomerForm() {
+      const requiredFields = ['firstName', 'lastName', 'email', 'phone'];
+      let isValid = true;
+      
+      requiredFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (!field.value.trim()) {
+          field.style.borderColor = '#ef4444';
+          isValid = false;
+        } else {
+          field.style.borderColor = '';
+        }
+      });
+      
+      if (!selectedDelivery) {
+        alert('Proszę wybrać sposób odbioru.');
+        isValid = false;
+      }
+      
+      if (selectedDelivery === 'delivery') {
+        const addressFields = ['street', 'postalCode', 'city'];
+        addressFields.forEach(fieldId => {
+          const field = document.getElementById(fieldId);
+          if (!field.value.trim()) {
+            field.style.borderColor = '#ef4444';
+            isValid = false;
+          } else {
+            field.style.borderColor = '';
+          }
+        });
+      }
+      
+      if (!isValid) {
+        alert('Proszę wypełnić wszystkie wymagane pola.');
+      }
+      
+      return isValid;
+    }
+
+    function collectCustomerData() {
+      customerData = {
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        delivery: selectedDelivery,
+        address: selectedDelivery === 'delivery' ? {
+          street: document.getElementById('street').value,
+          postalCode: document.getElementById('postalCode').value,
+          city: document.getElementById('city').value
+        } : null
+      };
+    }
+
+    function showOrderSummary() {
+      // Populate order summary
+      const finalOrderSummary = document.getElementById('final-order-summary');
+      const finalTotalPrice = document.getElementById('final-total-price');
+      
+      let total = 0;
+      let summaryHTML = '';
+      
+      // Base cake
+      if (selectedCake) {
+        const occasionData = cakeData[selectedCake.occasion];
+        summaryHTML += `
+          <div class="flex justify-between items-center">
+            <span class="text-midnight-navy">${occasionData.name} - Tort ${selectedCake.cakeNumber}</span>
+            <span class="text-champagne-gold">-</span>
+          </div>
+        `;
+      }
+      
+      // Size
+      if (selectedSize) {
+        const sizePrices = { small: 120, medium: 180, large: 250 };
+        const sizeNames = { small: 'Mały', medium: 'Średni', large: 'Duży' };
+        total += sizePrices[selectedSize];
+        
+        summaryHTML += `
+          <div class="flex justify-between items-center">
+            <span class="text-midnight-navy">Rozmiar: ${sizeNames[selectedSize]}</span>
+            <span class="text-champagne-gold">${sizePrices[selectedSize]} zł</span>
+          </div>
+        `;
+      }
+      
+      // Taste
+      if (selectedTaste) {
+        summaryHTML += `
+          <div class="flex justify-between items-center">
+            <span class="text-midnight-navy">Smak: ${selectedTaste}</span>
+            <span class="text-champagne-gold">-</span>
+          </div>
+        `;
+      }
+      
+      // Decorations
+      selectedDecorations.forEach(decoration => {
+        total += decoration.price;
+        let decorationName = decoration.name;
+        
+        if (decoration.name === 'text') {
+          const customText = document.getElementById('cake-text').value;
+          if (customText) {
+            decorationName = `Napisy: "${customText}"`;
+          }
+        }
+        
+        summaryHTML += `
+          <div class="flex justify-between items-center">
+            <span class="text-midnight-navy">+ ${decorationName}</span>
+            <span class="text-champagne-gold">+${decoration.price} zł</span>
+          </div>
+        `;
+      });
+      
+      // Delivery
+      if (selectedDelivery === 'delivery') {
+        total += 15;
+        summaryHTML += `
+          <div class="flex justify-between items-center">
+            <span class="text-midnight-navy">Dostawa</span>
+            <span class="text-champagne-gold">+15 zł</span>
+          </div>
+        `;
+      }
+      
+      finalOrderSummary.innerHTML = summaryHTML;
+      finalTotalPrice.textContent = `${total} zł`;
+      
+      // Populate customer summary
+      const customerSummary = document.getElementById('customer-summary');
+      customerSummary.innerHTML = `
+        <div class="space-y-2">
+          <div><strong>Imię i nazwisko:</strong> ${customerData.firstName} ${customerData.lastName}</div>
+          <div><strong>Email:</strong> ${customerData.email}</div>
+          <div><strong>Telefon:</strong> ${customerData.phone}</div>
+        </div>
+      `;
+      
+      // Populate delivery summary
+      const deliverySummary = document.getElementById('delivery-summary');
+      if (selectedDelivery === 'pickup') {
+        deliverySummary.innerHTML = `
+          <div class="space-y-2">
+            <div><strong>Sposób:</strong> Odbór własny</div>
+            <div class="text-sm text-dove-gray">Bezpłatnie</div>
+          </div>
+        `;
+      } else {
+        deliverySummary.innerHTML = `
+          <div class="space-y-2">
+            <div><strong>Sposób:</strong> Dostawa</div>
+            <div><strong>Adres:</strong></div>
+            <div class="text-sm text-dove-gray">
+              ${customerData.address.street}<br>
+              ${customerData.address.postalCode} ${customerData.address.city}
+            </div>
+            <div class="text-sm text-dove-gray">Koszt: +15 zł</div>
+          </div>
+        `;
+      }
+    }
+
+    function submitOrder() {
+      // Here you would typically send the order data to your backend
+      const orderData = {
+        cake: selectedCake,
+        size: selectedSize,
+        taste: selectedTaste,
+        decorations: selectedDecorations,
+        delivery: selectedDelivery,
+        customer: customerData,
+        total: calculateTotal()
+      };
+      
+      console.log('Order submitted:', orderData);
+      alert('Dziękujemy za zamówienie! Skontaktujemy się z Tobą wkrótce, aby potwierdzić szczegóły.');
+      
+      // Reset form and go back to start
+      resetForm();
+      showOccasionSelector();
+    }
+
+    function calculateTotal() {
+      let total = 0;
+      
+      if (selectedSize) {
+        const sizePrices = { small: 120, medium: 180, large: 250 };
+        total += sizePrices[selectedSize];
+      }
+      
+      selectedDecorations.forEach(decoration => {
+        total += decoration.price;
+      });
+      
+      if (selectedDelivery === 'delivery') {
+        total += 15;
+      }
+      
+      return total;
+    }
+
+    function resetForm() {
+      // Reset all selections
+      selectedOccasion = null;
+      selectedTaste = null;
+      selectedCake = null;
+      selectedSize = null;
+      selectedDecorations = [];
+      selectedDelivery = null;
+      customerData = {};
+      
+      // Reset form fields
+      document.getElementById('customer-form').reset();
+      document.getElementById('delivery-address').classList.add('hidden');
+      
+      // Reset size selection
+      document.querySelectorAll('.size-option').forEach(opt => {
+        opt.classList.remove('selected', 'border-champagne-gold', 'bg-champagne-gold/5');
+        opt.classList.add('border-transparent');
+      });
+      
+      // Reset delivery selection
+      document.querySelectorAll('.delivery-option').forEach(opt => {
+        opt.classList.remove('selected', 'border-champagne-gold', 'bg-champagne-gold/5');
+        opt.classList.add('border-transparent');
+      });
+      
+      // Reset taste selection
+      document.getElementById('taste-select').value = '';
+      
+      // Reset decoration checkboxes
+      document.querySelectorAll('.decoration-checkbox').forEach(checkbox => {
+        checkbox.checked = false;
+      });
+      
+      document.getElementById('custom-text-input').classList.add('hidden');
+      document.getElementById('cake-text').value = '';
     }
 
     function handleImageError(img, prefix, number) {
