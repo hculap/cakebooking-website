@@ -30,7 +30,7 @@ def generate_image(client, prompt, filename, size="1024x1024"):
             model="gpt-image-1",
             prompt=prompt,
             size=size,
-            quality="medium",
+            quality="high",
             n=1,
         )
         # Handle base64 image data from gpt-image-1 model
