@@ -57,6 +57,18 @@
       background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));
       color: var(--midnight-navy);
     }
+
+    .size-option.selected {
+      border-color: rgb(212, 175, 55) !important;
+      background-color: rgba(212, 175, 55, 0.1) !important;
+      box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2) !important;
+    }
+
+    .size-option:hover {
+      border-color: rgb(212, 175, 55) !important;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+    }
   </style>
 </head>
 <body class="font-sans text-midnight-navy pb-24 md:pb-0">
@@ -273,18 +285,18 @@
   </section>
 
   <!-- Cake Gallery (Hidden by default) -->
-  <section id="cake-gallery" class="py-20 bg-midnight-navy relative overflow-hidden hidden">
+  <section id="cake-gallery" class="py-20 bg-porcelain-white relative overflow-hidden hidden">
     <!-- Art Deco Elements -->
-    <div class="parallax-element" data-speed="0.3" style="position: absolute; left: 32px; top: 80px; z-index: 0;">
+    <div class="parallax-element" data-speed="0.3" style="position: absolute; left: 32px; top: 80px; z-index: 0; opacity: 0.5;">
       <div class="art-deco-line"></div>
     </div>
-    <div class="parallax-element" data-speed="0.4" style="position: absolute; right: 32px; bottom: 80px; z-index: 0;">
+    <div class="parallax-element" data-speed="0.4" style="position: absolute; right: 32px; bottom: 80px; z-index: 0; opacity: 0.5;">
       <div class="art-deco-line"></div>
     </div>
     
     <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
       <div class="text-center mb-16">
-        <h2 class="font-display text-3xl md:text-4xl font-bold text-pure-white mb-6">Wybierz swój tort</h2>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-midnight-navy mb-6">Wybierz swój tort</h2>
         <p class="text-xl text-dove-gray max-w-3xl mx-auto leading-relaxed">
           Przejrzyj nasze propozycje i wybierz tort, który najbardziej Ci się podoba.
         </p>
@@ -319,9 +331,9 @@
         <div class="sticky top-8">
           <div class="vitreous-card p-8">
             <h3 class="text-2xl font-bold text-midnight-navy mb-6">Twój wybrany tort</h3>
-            <div id="selected-cake-preview" class="w-full aspect-square rounded-lg bg-gradient-to-br from-champagne-gold/10 to-blush-rose/10 flex items-center justify-center mb-6">
-              <i class="fa-solid fa-cake-candles text-6xl text-champagne-gold opacity-50"></i>
-            </div>
+                         <div id="selected-cake-preview" class="w-full aspect-[3/4] rounded-lg bg-gradient-to-br from-champagne-gold/10 to-blush-rose/10 flex items-center justify-center mb-6">
+               <i class="fa-solid fa-cake-candles text-6xl text-champagne-gold opacity-50"></i>
+             </div>
             <div id="cake-info" class="space-y-4">
               <!-- Cake info will be populated by JavaScript -->
             </div>
@@ -336,7 +348,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="size-options">
               <div class="size-option vitreous-card p-4 text-center cursor-pointer border-2 border-transparent hover:border-champagne-gold transition-colors" data-size="small">
                 <div class="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
-                  <i class="fa-solid fa-circle text-xl text-midnight-navy"></i>
+                  <span class="text-xl font-bold text-midnight-navy">S</span>
                 </div>
                 <h4 class="font-bold text-midnight-navy mb-1">Mały</h4>
                 <p class="text-sm text-dove-gray">8-10 osób</p>
@@ -344,7 +356,7 @@
               </div>
               <div class="size-option vitreous-card p-4 text-center cursor-pointer border-2 border-transparent hover:border-champagne-gold transition-colors" data-size="medium">
                 <div class="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
-                  <i class="fa-solid fa-circle text-xl text-midnight-navy"></i>
+                  <span class="text-xl font-bold text-midnight-navy">M</span>
                 </div>
                 <h4 class="font-bold text-midnight-navy mb-1">Średni</h4>
                 <p class="text-sm text-dove-gray">15-20 osób</p>
@@ -352,7 +364,7 @@
               </div>
               <div class="size-option vitreous-card p-4 text-center cursor-pointer border-2 border-transparent hover:border-champagne-gold transition-colors" data-size="large">
                 <div class="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
-                  <i class="fa-solid fa-circle text-xl text-midnight-navy"></i>
+                  <span class="text-xl font-bold text-midnight-navy">L</span>
                 </div>
                 <h4 class="font-bold text-midnight-navy mb-1">Duży</h4>
                 <p class="text-sm text-dove-gray">25-30 osób</p>
@@ -364,8 +376,14 @@
           <!-- Taste Selection -->
           <div class="vitreous-card p-8">
             <h3 class="text-xl font-bold text-midnight-navy mb-6">Wybierz smak</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="taste-options-config">
-              <!-- Taste options will be populated by JavaScript -->
+            <div class="relative">
+              <select id="taste-select" class="w-full p-4 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy font-medium focus:border-champagne-gold focus:outline-none transition-colors">
+                <option value="">Wybierz smak tortu</option>
+                <!-- Taste options will be populated by JavaScript -->
+              </select>
+              <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+                <i class="fa-solid fa-chevron-down text-champagne-gold"></i>
+              </div>
             </div>
           </div>
 
@@ -402,6 +420,11 @@
                   <span class="text-lg font-bold text-champagne-gold">+15 zł</span>
                   <input type="checkbox" class="decoration-checkbox w-5 h-5 text-champagne-gold bg-transparent border-2 border-champagne-gold rounded focus:ring-champagne-gold" data-decoration="text" data-price="15">
                 </div>
+              </div>
+              <div id="custom-text-input" class="p-4 vitreous-card hidden">
+                <label for="cake-text" class="block text-sm font-medium text-midnight-navy mb-2">Tekst na torcie:</label>
+                <input type="text" id="cake-text" placeholder="np. 'Wszystkiego najlepszego Ania!'" class="w-full p-3 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy focus:border-champagne-gold focus:outline-none transition-colors">
+                <p class="text-xs text-dove-gray mt-1">Maksymalnie 30 znaków</p>
               </div>
             </div>
           </div>
@@ -691,6 +714,15 @@
         alert('Funkcja zamawiania będzie dostępna wkrótce!');
       });
 
+      // Custom text input
+      document.getElementById('cake-text').addEventListener('input', function() {
+        // Limit to 30 characters
+        if (this.value.length > 30) {
+          this.value = this.value.substring(0, 30);
+        }
+        updateOrderSummary();
+      });
+
       // Set current year in footer
       document.getElementById('current-year').textContent = new Date().getFullYear();
     });
@@ -717,7 +749,7 @@
         cakeImages.innerHTML = `
           <div class="col-span-full text-center py-12">
             <i class="fa-solid fa-image text-6xl text-dove-gray mb-4"></i>
-            <h3 class="text-xl font-bold text-pure-white mb-2">Brak zdjęć</h3>
+            <h3 class="text-xl font-bold text-midnight-navy mb-2">Brak zdjęć</h3>
             <p class="text-dove-gray">Zdjęcia dla tej kategorii będą dostępne wkrótce.</p>
           </div>
         `;
@@ -730,24 +762,29 @@
         imageCard.className = 'vitreous-card p-4 cursor-pointer border-2 border-transparent hover:border-champagne-gold transition-colors';
         imageCard.onclick = () => selectCake(occasion, i);
         
-        // Try different image extensions
-        const extensions = ['jpeg', 'jpg', 'png'];
-        let imageSrc = '';
+        // Map occasion to correct directory name
+        const directoryMap = {
+          'men': 'dal',
+          'women': 'dla_kobiet',
+          'baptism': 'chrzestne',
+          'wedding': 'weselne',
+          'bachelorette': 'wieczorpanienski',
+          'babyshower': 'babyshower',
+          'communion': 'komunia'
+        };
         
-        for (const ext of extensions) {
-          const testSrc = `images/${occasionData.imagePrefix}/${occasionData.imagePrefix}_${i.toString().padStart(2, '0')}.${ext}`;
-          // We'll use the first extension for now, the browser will handle missing images
-          if (!imageSrc) imageSrc = testSrc;
-        }
+        const directoryName = directoryMap[occasion] || occasionData.imagePrefix;
+        let imageSrc = `images/${directoryName}/${occasionData.imagePrefix}_${i.toString().padStart(2, '0')}.jpeg`;
         
         imageCard.innerHTML = `
-          <div class="aspect-square rounded-lg overflow-hidden mb-4 bg-gradient-to-br from-champagne-gold/10 to-blush-rose/10">
-            <img src="${imageSrc}" alt="Tort ${occasionData.name} ${i}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="aspect-[3/4] rounded-lg overflow-hidden mb-4 bg-gradient-to-br from-champagne-gold/10 to-blush-rose/10">
+            <img src="${imageSrc}" alt="Tort ${occasionData.name} ${i}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="handleImageError(this, '${occasionData.imagePrefix}', ${i})">
             <div class="w-full h-full flex items-center justify-center" style="display: none;">
               <i class="fa-solid fa-cake-candles text-4xl text-champagne-gold opacity-50"></i>
             </div>
           </div>
-          <h3 class="text-lg font-bold text-pure-white text-center">Tort ${i}</h3>
+          <h3 class="text-lg font-bold text-midnight-navy text-center">Tort ${i}</h3>
+          <p class="text-sm text-dove-gray text-center">Kliknij aby wybrać</p>
         `;
         
         cakeImages.appendChild(imageCard);
@@ -767,12 +804,25 @@
 
     function updateCakeConfiguration() {
       const occasionData = cakeData[selectedCake.occasion];
-      const cakeImageSrc = `images/${occasionData.imagePrefix}/${occasionData.imagePrefix}_${selectedCake.cakeNumber.toString().padStart(2, '0')}.jpeg`;
+      
+      // Map occasion to correct directory name
+      const directoryMap = {
+        'men': 'dal',
+        'women': 'dla_kobiet',
+        'baptism': 'chrzestne',
+        'wedding': 'weselne',
+        'bachelorette': 'wieczorpanienski',
+        'babyshower': 'babyshower',
+        'communion': 'komunia'
+      };
+      
+      const directoryName = directoryMap[selectedCake.occasion] || occasionData.imagePrefix;
+      const cakeImageSrc = `images/${directoryName}/${occasionData.imagePrefix}_${selectedCake.cakeNumber.toString().padStart(2, '0')}.jpeg`;
       
       // Update cake preview
       const previewContainer = document.getElementById('selected-cake-preview');
       previewContainer.innerHTML = `
-        <img src="${cakeImageSrc}" alt="Wybrany tort" class="w-full h-full object-cover rounded-lg" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <img src="${cakeImageSrc}" alt="Wybrany tort" class="w-full h-full object-cover rounded-lg" onerror="handleConfigImageError(this, '${occasionData.imagePrefix}', ${selectedCake.cakeNumber})">
         <div class="w-full h-full flex items-center justify-center" style="display: none;">
           <i class="fa-solid fa-cake-candles text-6xl text-champagne-gold opacity-50"></i>
         </div>
@@ -788,24 +838,14 @@
       `;
       
       // Populate taste options
-      const tasteOptions = document.getElementById('taste-options-config');
-      tasteOptions.innerHTML = '';
+      const tasteSelect = document.getElementById('taste-select');
+      tasteSelect.innerHTML = '<option value="">Wybierz smak tortu</option>';
       
       occasionData.tastes.forEach((taste, index) => {
-        const tasteOption = document.createElement('div');
-        tasteOption.className = 'taste-option-config vitreous-card p-4 cursor-pointer border-2 border-transparent hover:border-champagne-gold transition-colors';
-        tasteOption.onclick = () => selectTasteConfig(taste);
-        
-        tasteOption.innerHTML = `
-          <div class="flex items-center">
-            <div class="w-8 h-8 rounded-full mr-3 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
-              <i class="fa-solid fa-utensils text-sm text-midnight-navy"></i>
-            </div>
-            <span class="font-medium text-midnight-navy">${taste}</span>
-          </div>
-        `;
-        
-        tasteOptions.appendChild(tasteOption);
+        const option = document.createElement('option');
+        option.value = taste;
+        option.textContent = taste;
+        tasteSelect.appendChild(option);
       });
       
       // Initialize size selection
@@ -814,23 +854,14 @@
       // Initialize decoration checkboxes
       initializeDecorationCheckboxes();
       
+      // Initialize taste select
+      initializeTasteSelect();
+      
       // Update order summary
       updateOrderSummary();
     }
 
-    function selectTasteConfig(taste) {
-      selectedTaste = taste;
-      
-      // Update taste selection
-      document.querySelectorAll('.taste-option-config').forEach(option => {
-        option.classList.remove('border-champagne-gold');
-        option.classList.add('border-transparent');
-      });
-      event.target.closest('.taste-option-config').classList.remove('border-transparent');
-      event.target.closest('.taste-option-config').classList.add('border-champagne-gold');
-      
-      updateOrderSummary();
-    }
+
 
     function initializeSizeSelection() {
       const sizeOptions = document.querySelectorAll('.size-option');
@@ -838,13 +869,17 @@
         option.onclick = () => {
           // Remove selection from all options
           sizeOptions.forEach(opt => {
-            opt.classList.remove('border-champagne-gold');
+            opt.classList.remove('selected', 'border-champagne-gold', 'bg-champagne-gold/5', 'ring-2', 'ring-champagne-gold/20');
             opt.classList.add('border-transparent');
+            opt.style.backgroundColor = '';
+            opt.style.borderColor = '';
           });
           
           // Select clicked option
           option.classList.remove('border-transparent');
-          option.classList.add('border-champagne-gold');
+          option.classList.add('selected', 'border-champagne-gold', 'bg-champagne-gold/5', 'ring-2', 'ring-champagne-gold/20');
+          option.style.backgroundColor = 'rgba(212, 175, 55, 0.1)';
+          option.style.borderColor = 'rgb(212, 175, 55)';
           
           selectedSize = option.dataset.size;
           updateOrderSummary();
@@ -863,13 +898,32 @@
             if (!selectedDecorations.find(d => d.name === decoration)) {
               selectedDecorations.push({ name: decoration, price: price });
             }
+            
+            // Show text input if text decoration is selected
+            if (decoration === 'text') {
+              document.getElementById('custom-text-input').classList.remove('hidden');
+            }
           } else {
             selectedDecorations = selectedDecorations.filter(d => d.name !== decoration);
+            
+            // Hide text input if text decoration is deselected
+            if (decoration === 'text') {
+              document.getElementById('custom-text-input').classList.add('hidden');
+              document.getElementById('cake-text').value = '';
+            }
           }
           
           updateOrderSummary();
         };
       });
+    }
+
+    function initializeTasteSelect() {
+      const tasteSelect = document.getElementById('taste-select');
+      tasteSelect.onchange = () => {
+        selectedTaste = tasteSelect.value;
+        updateOrderSummary();
+      };
     }
 
     function updateOrderSummary() {
@@ -917,9 +971,19 @@
       // Decorations
       selectedDecorations.forEach(decoration => {
         total += decoration.price;
+        let decorationName = decoration.name;
+        
+        // Add custom text if available
+        if (decoration.name === 'text') {
+          const customText = document.getElementById('cake-text').value;
+          if (customText) {
+            decorationName = `Napisy: "${customText}"`;
+          }
+        }
+        
         summaryHTML += `
           <div class="flex justify-between items-center">
-            <span class="text-midnight-navy">+ ${decoration.name}</span>
+            <span class="text-midnight-navy">+ ${decorationName}</span>
             <span class="text-champagne-gold">+${decoration.price} zł</span>
           </div>
         `;
@@ -933,6 +997,54 @@
       document.getElementById('occasion-selector').classList.remove('hidden');
       document.getElementById('cake-gallery').classList.add('hidden');
       document.getElementById('cake-configuration').classList.add('hidden');
+    }
+
+    function handleImageError(img, prefix, number) {
+      const extensions = ['jpg', 'png'];
+      const currentSrc = img.src;
+      const currentExt = currentSrc.split('.').pop();
+      
+      // Extract directory from current path
+      const pathParts = currentSrc.split('/');
+      const directory = pathParts[pathParts.length - 2];
+      
+      // Remove current extension from tried extensions
+      const remainingExtensions = extensions.filter(ext => ext !== currentExt);
+      
+      if (remainingExtensions.length > 0) {
+        // Try next extension
+        const nextExt = remainingExtensions[0];
+        const newSrc = `images/${directory}/${prefix}_${number.toString().padStart(2, '0')}.${nextExt}`;
+        img.src = newSrc;
+      } else {
+        // All extensions failed, show placeholder
+        img.style.display = 'none';
+        img.nextElementSibling.style.display = 'flex';
+      }
+    }
+
+    function handleConfigImageError(img, prefix, number) {
+      const extensions = ['jpg', 'png'];
+      const currentSrc = img.src;
+      const currentExt = currentSrc.split('.').pop();
+      
+      // Extract directory from current path
+      const pathParts = currentSrc.split('/');
+      const directory = pathParts[pathParts.length - 2];
+      
+      // Remove current extension from tried extensions
+      const remainingExtensions = extensions.filter(ext => ext !== currentExt);
+      
+      if (remainingExtensions.length > 0) {
+        // Try next extension
+        const nextExt = remainingExtensions[0];
+        const newSrc = `images/${directory}/${prefix}_${number.toString().padStart(2, '0')}.${nextExt}`;
+        img.src = newSrc;
+      } else {
+        // All extensions failed, show placeholder
+        img.style.display = 'flex';
+        img.nextElementSibling.style.display = 'flex';
+      }
     }
   </script>
 </body>
