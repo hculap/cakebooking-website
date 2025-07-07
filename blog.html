@@ -33,6 +33,27 @@
     body:hover::-webkit-scrollbar-thumb {
       background-color: rgba(191, 202, 217, 0.7);
     }
+
+    /* Navigation Dropdown Styles */
+    .group:hover .group-hover\:rotate-180 {
+      transform: rotate(180deg);
+    }
+
+    /* Ensure dropdowns appear above other content */
+    .relative.group {
+      z-index: 50;
+    }
+
+    /* Smooth dropdown animations */
+    .group:hover .group-hover\:opacity-100 {
+      transition-delay: 0.1s;
+    }
+
+    /* Mobile menu improvements */
+    #mobile-menu {
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
   </style>
 </head>
 <body class="font-sans text-midnight-navy pb-24 md:pb-0">
@@ -46,36 +67,156 @@
             <span class="font-display font-bold text-xl text-pure-white">CakeBooking</span>
           </a>
         </div>
-        <div class="hidden md:flex items-center space-x-8">
-          <a href="index.html" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">Strona główna</a>
-          <a href="index.html#features" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">Funkcje</a>
-          <a href="wizualizator-tortow.html" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">Wizualizator 3D</a>
+        
+        <!-- Desktop Navigation -->
+        <div class="hidden lg:flex items-center space-x-6">
+          <!-- Main Menu Items -->
+          <div class="relative group">
+            <button class="flex items-center text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">
+              <span>Produkty</span>
+              <i class="fa-solid fa-chevron-down ml-1 text-xs transition-transform group-hover:rotate-180"></i>
+            </button>
+            <!-- Dropdown Menu -->
+            <div class="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top scale-95 group-hover:scale-100 border border-gray-100">
+              <div class="py-2">
+                <a href="wizualizator-tortow.html" class="flex items-center px-4 py-3 text-sm text-midnight-navy hover:bg-champagne-gold/10 transition-colors">
+                  <i class="fa-solid fa-palette w-5 h-5 mr-3 text-champagne-gold"></i>
+                  <div>
+                    <div class="font-medium">Wizualizator 3D</div>
+                    <div class="text-xs text-dove-gray">Projektuj własny tort</div>
+                  </div>
+                </a>
+                <a href="gotowy-tort.html" class="flex items-center px-4 py-3 text-sm text-midnight-navy hover:bg-champagne-gold/10 transition-colors">
+                  <i class="fa-solid fa-thumbs-up w-5 h-5 mr-3 text-champagne-gold"></i>
+                  <div>
+                    <div class="font-medium">Gotowe torty</div>
+                    <div class="text-xs text-dove-gray">Wybierz z gotowych propozycji</div>
+                  </div>
+                </a>
+                <a href="index.html#features" class="flex items-center px-4 py-3 text-sm text-midnight-navy hover:bg-champagne-gold/10 transition-colors">
+                  <i class="fa-solid fa-star w-5 h-5 mr-3 text-champagne-gold"></i>
+                  <div>
+                    <div class="font-medium">Funkcje</div>
+                    <div class="text-xs text-dove-gray">Poznaj możliwości</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative group">
+            <button class="flex items-center text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">
+              <span>Firma</span>
+              <i class="fa-solid fa-chevron-down ml-1 text-xs transition-transform group-hover:rotate-180"></i>
+            </button>
+            <!-- Dropdown Menu -->
+            <div class="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top scale-95 group-hover:scale-100 border border-gray-100">
+              <div class="py-2">
+                <a href="o-nas.html" class="flex items-center px-4 py-3 text-sm text-midnight-navy hover:bg-champagne-gold/10 transition-colors">
+                  <i class="fa-solid fa-users w-5 h-5 mr-3 text-champagne-gold"></i>
+                  <div>
+                    <div class="font-medium">O nas</div>
+                    <div class="text-xs text-dove-gray">Poznaj naszą historię</div>
+                  </div>
+                </a>
+                <a href="index.html#for-bakers-section" class="flex items-center px-4 py-3 text-sm text-midnight-navy hover:bg-champagne-gold/10 transition-colors">
+                  <i class="fa-solid fa-store w-5 h-5 mr-3 text-champagne-gold"></i>
+                  <div>
+                    <div class="font-medium">Dla cukierników</div>
+                    <div class="text-xs text-dove-gray">Dołącz do platformy</div>
+                  </div>
+                </a>
+                <a href="blog.html" class="flex items-center px-4 py-3 text-sm text-midnight-navy hover:bg-champagne-gold/10 transition-colors">
+                  <i class="fa-solid fa-blog w-5 h-5 mr-3 text-champagne-gold"></i>
+                  <div>
+                    <div class="font-medium">Blog</div>
+                    <div class="text-xs text-dove-gray">Inspiracje i porady</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
           <a href="index.html#how-it-works" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">Jak to działa</a>
-          <a href="index.html#for-bakers-section" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">Dla cukierników</a>
-          <a href="o-nas.html" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">O nas</a>
-          <a href="blog.html" class="text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">Blog</a>
           <a href="index.html#faq" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">FAQ</a>
-          <a href="zamowienie.html" class="pill-button text-sm font-medium no-underline">Zamów tort</a>
+          
+          <!-- CTA Button -->
+          <a href="zamowienie.html" class="pill-button flex items-center justify-center text-sm font-medium px-6 py-2 shadow-lg text-midnight-navy no-underline">
+            <i class="fa-solid fa-cake-candles h-4 w-4 mr-2"></i>
+            Zamów tort
+          </a>
         </div>
-        <div class="md:hidden flex items-center">
-          <button id="mobile-menu-button" aria-label="Otwórz menu nawigacyjne" aria-expanded="false" aria-controls="mobile-menu" class="inline-flex items-center justify-center p-2 rounded-md text-dove-gray hover:text-champagne-gold hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-champagne-gold transition-colors">
+
+        <!-- Mobile menu button -->
+        <div class="lg:hidden flex items-center">
+          <button id="mobile-menu-button"
+                  aria-label="Otwórz menu nawigacyjne"
+                  aria-expanded="false"
+                  aria-controls="mobile-menu"
+                  class="inline-flex items-center justify-center p-2 rounded-md text-dove-gray hover:text-champagne-gold hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-champagne-gold transition-colors">
             <i class="fa-solid fa-bars h-6 w-6"></i>
           </button>
         </div>
       </div>
     </div>
+
     <!-- Mobile menu -->
-    <div id="mobile-menu" class="hidden md:hidden bg-midnight-navy shadow-lg">
-      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-        <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">Strona główna</a>
-        <a href="index.html#features" class="block px-3 py-2 rounded-md text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">Funkcje</a>
-        <a href="wizualizator-tortow.html" class="block px-3 py-2 rounded-md text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">Wizualizator 3D</a>
-        <a href="index.html#how-it-works" class="block px-3 py-2 rounded-md text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">Jak to działa</a>
-        <a href="index.html#for-bakers-section" class="block px-3 py-2 rounded-md text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">Dla cukierników</a>
-        <a href="o-nas.html" class="block px-3 py-2 rounded-md text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">O nas</a>
-        <a href="blog.html" class="block px-3 py-2 rounded-md text-base font-medium text-champagne-gold hover:bg-white/10 transition-colors">Blog</a>
-        <a href="index.html#faq" class="block px-3 py-2 rounded-md text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">FAQ</a>
-        <a href="zamowienie.html" class="mt-2 w-full pill-button text-base font-medium no-underline">Zamów tort</a>
+    <div id="mobile-menu" class="hidden lg:hidden bg-midnight-navy shadow-lg">
+      <div class="px-4 py-6 space-y-4">
+        <!-- Products Section -->
+        <div class="space-y-2">
+          <div class="text-xs font-semibold text-champagne-gold uppercase tracking-wider mb-3">Produkty</div>
+          <a href="wizualizator-tortow.html" class="flex items-center px-3 py-3 rounded-lg text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">
+            <i class="fa-solid fa-palette w-5 h-5 mr-3"></i>
+            Wizualizator 3D
+          </a>
+          <a href="gotowy-tort.html" class="flex items-center px-3 py-3 rounded-lg text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">
+            <i class="fa-solid fa-thumbs-up w-5 h-5 mr-3"></i>
+            Gotowe torty
+          </a>
+          <a href="index.html#features" class="flex items-center px-3 py-3 rounded-lg text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">
+            <i class="fa-solid fa-star w-5 h-5 mr-3"></i>
+            Funkcje
+          </a>
+        </div>
+
+        <!-- Company Section -->
+        <div class="space-y-2">
+          <div class="text-xs font-semibold text-champagne-gold uppercase tracking-wider mb-3">Firma</div>
+          <a href="o-nas.html" class="flex items-center px-3 py-3 rounded-lg text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">
+            <i class="fa-solid fa-users w-5 h-5 mr-3"></i>
+            O nas
+          </a>
+          <a href="index.html#for-bakers-section" class="flex items-center px-3 py-3 rounded-lg text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">
+            <i class="fa-solid fa-store w-5 h-5 mr-3"></i>
+            Dla cukierników
+          </a>
+          <a href="blog.html" class="flex items-center px-3 py-3 rounded-lg text-base font-medium text-champagne-gold hover:bg-white/10 transition-colors">
+            <i class="fa-solid fa-blog w-5 h-5 mr-3"></i>
+            Blog
+          </a>
+        </div>
+
+        <!-- Other Links -->
+        <div class="space-y-2">
+          <div class="text-xs font-semibold text-champagne-gold uppercase tracking-wider mb-3">Pomoc</div>
+          <a href="index.html#how-it-works" class="flex items-center px-3 py-3 rounded-lg text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">
+            <i class="fa-solid fa-circle-info w-5 h-5 mr-3"></i>
+            Jak to działa
+          </a>
+          <a href="index.html#faq" class="flex items-center px-3 py-3 rounded-lg text-base font-medium text-dove-gray hover:text-champagne-gold hover:bg-white/10 transition-colors">
+            <i class="fa-solid fa-question-circle w-5 h-5 mr-3"></i>
+            FAQ
+          </a>
+        </div>
+
+        <!-- CTA Button -->
+        <div class="pt-4 border-t border-dove-gray/20">
+          <a href="zamowienie.html" class="w-full pill-button flex items-center justify-center text-base font-medium px-6 py-3 shadow-lg text-midnight-navy no-underline">
+            <i class="fa-solid fa-cake-candles h-5 w-5 mr-3"></i>
+            Zamów tort
+          </a>
+        </div>
       </div>
     </div>
   </nav>
