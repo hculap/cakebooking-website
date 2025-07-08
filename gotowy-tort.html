@@ -457,6 +457,7 @@
 
   <!-- Cake Configuration (Hidden by default) -->
   <section id="cake-configuration" class="py-20 bg-porcelain-white relative overflow-hidden hidden">
+    <div id="cake-config-anchor"></div>
     <!-- Art Deco Elements -->
     <div class="parallax-element" data-speed="0.3" style="position: absolute; left: 32px; top: 80px; z-index: 0; opacity: 0.5;">
       <div class="art-deco-line"></div>
@@ -1088,11 +1089,21 @@
       // Back to occasions buttons
       document.getElementById('back-to-occasions-from-gallery').addEventListener('click', function() {
         showOccasionSelector();
+        // Scroll to occasion selector
+        const anchor = document.getElementById('occasion-selector');
+        if (anchor) {
+          anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
 
       document.getElementById('back-to-gallery').addEventListener('click', function() {
         document.getElementById('cake-configuration').classList.add('hidden');
         document.getElementById('cake-gallery').classList.remove('hidden');
+        // Scroll to cake gallery
+        const anchor = document.getElementById('cake-gallery');
+        if (anchor) {
+          anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
 
       // Finalize order button
@@ -1111,6 +1122,11 @@
         }
         
         showCustomerData();
+        // Scroll to customer data section
+        const anchor = document.getElementById('customer-data');
+        if (anchor) {
+          anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
 
       // Custom text input
@@ -1126,6 +1142,11 @@
 
       document.getElementById('back-to-configuration').addEventListener('click', function() {
         showCakeConfiguration();
+        // Scroll to configurator header
+        const anchor = document.getElementById('cake-config-anchor');
+        if (anchor) {
+          anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
 
       document.getElementById('proceed-to-summary').addEventListener('click', function() {
@@ -1134,10 +1155,20 @@
         }
         collectCustomerData();
         showOrderSummary();
+        // Scroll to order summary section
+        const anchor = document.getElementById('order-summary-page');
+        if (anchor) {
+          anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
 
       document.getElementById('back-to-customer-data').addEventListener('click', function() {
         showCustomerData();
+        // Scroll to customer data section
+        const anchor = document.getElementById('customer-data');
+        if (anchor) {
+          anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
 
       document.getElementById('confirm-order').addEventListener('click', function() {
@@ -1157,6 +1188,12 @@
       // Hide occasion selector and show cake gallery
       document.getElementById('occasion-selector').classList.add('hidden');
       document.getElementById('cake-gallery').classList.remove('hidden');
+      
+      // Scroll to cake gallery
+      const anchor = document.getElementById('cake-gallery');
+      if (anchor) {
+        anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
       
       // Load cake images for the selected occasion
       loadCakeImages(occasion);
@@ -1221,6 +1258,11 @@
       // Hide cake gallery and show configuration
       document.getElementById('cake-gallery').classList.add('hidden');
       document.getElementById('cake-configuration').classList.remove('hidden');
+      // Scroll to configurator header
+      const anchor = document.getElementById('cake-config-anchor');
+      if (anchor) {
+        anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
       
       // Update cake preview and configuration
       updateCakeConfiguration();
@@ -1423,6 +1465,12 @@
       document.getElementById('cake-configuration').classList.add('hidden');
       document.getElementById('customer-data').classList.add('hidden');
       document.getElementById('order-summary-page').classList.add('hidden');
+      
+      // Scroll to occasion selector
+      const anchor = document.getElementById('occasion-selector');
+      if (anchor) {
+        anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
 
     function showCakeConfiguration() {
@@ -1431,6 +1479,12 @@
       document.getElementById('cake-configuration').classList.remove('hidden');
       document.getElementById('customer-data').classList.add('hidden');
       document.getElementById('order-summary-page').classList.add('hidden');
+      
+      // Scroll to configurator header
+      const anchor = document.getElementById('cake-config-anchor');
+      if (anchor) {
+        anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
 
     function showCustomerData() {
@@ -1439,6 +1493,12 @@
       document.getElementById('cake-configuration').classList.add('hidden');
       document.getElementById('customer-data').classList.remove('hidden');
       document.getElementById('order-summary-page').classList.add('hidden');
+      
+      // Scroll to customer data section
+      const anchor = document.getElementById('customer-data');
+      if (anchor) {
+        anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
 
 
@@ -1539,6 +1599,12 @@
       document.getElementById('cake-configuration').classList.add('hidden');
       document.getElementById('customer-data').classList.add('hidden');
       document.getElementById('order-summary-page').classList.remove('hidden');
+      
+      // Scroll to order summary section
+      const anchor = document.getElementById('order-summary-page');
+      if (anchor) {
+        anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
       
       // Populate order summary
       const finalOrderSummary = document.getElementById('final-order-summary');
