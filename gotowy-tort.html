@@ -1065,8 +1065,25 @@
     let customerData = {};
     let basePrice = 0;
 
+    // Step management for browser navigation
+    const STEPS = {
+      OCCASION: 'occasion',
+      GALLERY: 'gallery', 
+      CONFIGURATION: 'configuration',
+      CUSTOMER_DATA: 'customer-data',
+      ORDER_SUMMARY: 'order-summary'
+    };
+    
+    let currentStep = STEPS.OCCASION;
+
     // Initialize the page
     document.addEventListener('DOMContentLoaded', function() {
+      // Initialize browser history
+      initializeBrowserHistory();
+      
+      // Handle browser back/forward buttons
+      window.addEventListener('popstate', handlePopState);
+      
       // Mobile menu toggle
       const mobileMenuButton = document.getElementById('mobile-menu-button');
       const mobileMenu = document.getElementById('mobile-menu');
@@ -1088,22 +1105,11 @@
 
       // Back to occasions buttons
       document.getElementById('back-to-occasions-from-gallery').addEventListener('click', function() {
-        showOccasionSelector();
-        // Scroll to occasion selector
-        const anchor = document.getElementById('occasion-selector');
-        if (anchor) {
-          anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        navigateToStep(STEPS.OCCASION);
       });
 
       document.getElementById('back-to-gallery').addEventListener('click', function() {
-        document.getElementById('cake-configuration').classList.add('hidden');
-        document.getElementById('cake-gallery').classList.remove('hidden');
-        // Scroll to cake gallery
-        const anchor = document.getElementById('cake-gallery');
-        if (anchor) {
-          anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        navigateToStep(STEPS.GALLERY);
       });
 
       // Finalize order button
@@ -1121,12 +1127,7 @@
           selectedTaste = selectedTasteValue;
         }
         
-        showCustomerData();
-        // Scroll to customer data section
-        const anchor = document.getElementById('customer-data');
-        if (anchor) {
-          anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        navigateToStep(STEPS.CUSTOMER_DATA);
       });
 
       // Custom text input
@@ -1136,17 +1137,11 @@
           this.value = this.value.substring(0, 30);
         }
         updateOrderSummary();
+        updateBrowserHistory();
       });
 
-
-
       document.getElementById('back-to-configuration').addEventListener('click', function() {
-        showCakeConfiguration();
-        // Scroll to configurator header
-        const anchor = document.getElementById('cake-config-anchor');
-        if (anchor) {
-          anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        navigateToStep(STEPS.CONFIGURATION);
       });
 
       document.getElementById('proceed-to-summary').addEventListener('click', function() {
@@ -1154,21 +1149,11 @@
           return;
         }
         collectCustomerData();
-        showOrderSummary();
-        // Scroll to order summary section
-        const anchor = document.getElementById('order-summary-page');
-        if (anchor) {
-          anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        navigateToStep(STEPS.ORDER_SUMMARY);
       });
 
       document.getElementById('back-to-customer-data').addEventListener('click', function() {
-        showCustomerData();
-        // Scroll to customer data section
-        const anchor = document.getElementById('customer-data');
-        if (anchor) {
-          anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        navigateToStep(STEPS.CUSTOMER_DATA);
       });
 
       document.getElementById('confirm-order').addEventListener('click', function() {
@@ -1178,24 +1163,96 @@
       // Initialize delivery options
       initializeDeliveryOptions();
 
+      // Initialize customer form field listeners
+      initializeCustomerFormListeners();
+
       // Set current year in footer
       document.getElementById('current-year').textContent = new Date().getFullYear();
     });
 
-    function selectOccasion(occasion) {
-      selectedOccasion = occasion;
+    function initializeBrowserHistory() {
+      // Set initial state
+      const state = {
+        step: STEPS.OCCASION,
+        occasion: null,
+        cake: null,
+        size: null,
+        taste: null,
+        decorations: [],
+        delivery: null,
+        customerData: {}
+      };
       
-      // Hide occasion selector and show cake gallery
-      document.getElementById('occasion-selector').classList.add('hidden');
-      document.getElementById('cake-gallery').classList.remove('hidden');
+      history.replaceState(state, '', window.location.pathname);
+    }
+
+    function handlePopState(event) {
+      if (event.state) {
+        const state = event.state;
+        
+        // Restore state
+        selectedOccasion = state.occasion;
+        selectedCake = state.cake;
+        selectedSize = state.size;
+        selectedTaste = state.taste;
+        selectedDecorations = state.decorations || [];
+        selectedDelivery = state.delivery;
+        customerData = state.customerData || {};
+        
+        // Navigate to the step
+        navigateToStep(state.step, false); // false = don't update history
+      } else {
+        // Fallback to occasion selector
+        navigateToStep(STEPS.OCCASION, false);
+      }
+    }
+
+    function navigateToStep(step, updateHistory = true) {
+      currentStep = step;
       
-      // Scroll to cake gallery
-      const anchor = document.getElementById('cake-gallery');
-      if (anchor) {
-        anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Update history if needed
+      if (updateHistory) {
+        const state = {
+          step: step,
+          occasion: selectedOccasion,
+          cake: selectedCake,
+          size: selectedSize,
+          taste: selectedTaste,
+          decorations: selectedDecorations,
+          delivery: selectedDelivery,
+          customerData: customerData
+        };
+        
+        const url = step === STEPS.OCCASION ? 
+          window.location.pathname : 
+          `${window.location.pathname}#${step}`;
+        
+        history.pushState(state, '', url);
       }
       
-      // Load cake images for the selected occasion
+      // Show appropriate section
+      switch (step) {
+        case STEPS.OCCASION:
+          showOccasionSelector();
+          break;
+        case STEPS.GALLERY:
+          showCakeGallery();
+          break;
+        case STEPS.CONFIGURATION:
+          showCakeConfiguration();
+          break;
+        case STEPS.CUSTOMER_DATA:
+          showCustomerData();
+          break;
+        case STEPS.ORDER_SUMMARY:
+          showOrderSummary();
+          break;
+      }
+    }
+
+    function selectOccasion(occasion) {
+      selectedOccasion = occasion;
+      navigateToStep(STEPS.GALLERY);
       loadCakeImages(occasion);
     }
 
@@ -1254,17 +1311,7 @@
 
     function selectCake(occasion, cakeNumber) {
       selectedCake = { occasion, cakeNumber };
-      
-      // Hide cake gallery and show configuration
-      document.getElementById('cake-gallery').classList.add('hidden');
-      document.getElementById('cake-configuration').classList.remove('hidden');
-      // Scroll to configurator header
-      const anchor = document.getElementById('cake-config-anchor');
-      if (anchor) {
-        anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-      
-      // Update cake preview and configuration
+      navigateToStep(STEPS.CONFIGURATION);
       updateCakeConfiguration();
     }
 
@@ -1349,6 +1396,7 @@
           
           selectedSize = option.dataset.size;
           updateOrderSummary();
+          updateBrowserHistory();
         };
       });
     }
@@ -1380,6 +1428,7 @@
           }
           
           updateOrderSummary();
+          updateBrowserHistory();
         };
       });
     }
@@ -1389,7 +1438,28 @@
       tasteSelect.onchange = () => {
         selectedTaste = tasteSelect.value;
         updateOrderSummary();
+        updateBrowserHistory();
       };
+    }
+
+    function updateBrowserHistory() {
+      // Update the current history entry with new state
+      const state = {
+        step: currentStep,
+        occasion: selectedOccasion,
+        cake: selectedCake,
+        size: selectedSize,
+        taste: selectedTaste,
+        decorations: selectedDecorations,
+        delivery: selectedDelivery,
+        customerData: customerData
+      };
+      
+      const url = currentStep === STEPS.OCCASION ? 
+        window.location.pathname : 
+        `${window.location.pathname}#${currentStep}`;
+      
+      history.replaceState(state, '', url);
     }
 
     function updateOrderSummary() {
@@ -1473,6 +1543,25 @@
       }
     }
 
+    function showCakeGallery() {
+      document.getElementById('occasion-selector').classList.add('hidden');
+      document.getElementById('cake-gallery').classList.remove('hidden');
+      document.getElementById('cake-configuration').classList.add('hidden');
+      document.getElementById('customer-data').classList.add('hidden');
+      document.getElementById('order-summary-page').classList.add('hidden');
+      
+      // Scroll to cake gallery
+      const anchor = document.getElementById('cake-gallery');
+      if (anchor) {
+        anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      
+      // Load images if we have an occasion selected
+      if (selectedOccasion) {
+        loadCakeImages(selectedOccasion);
+      }
+    }
+
     function showCakeConfiguration() {
       document.getElementById('occasion-selector').classList.add('hidden');
       document.getElementById('cake-gallery').classList.add('hidden');
@@ -1484,6 +1573,11 @@
       const anchor = document.getElementById('cake-config-anchor');
       if (anchor) {
         anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      
+      // Update configuration if we have a cake selected
+      if (selectedCake) {
+        updateCakeConfiguration();
       }
     }
 
@@ -1499,97 +1593,38 @@
       if (anchor) {
         anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-    }
-
-
-
-    function initializeDeliveryOptions() {
-      const deliveryOptions = document.querySelectorAll('.delivery-option');
-      deliveryOptions.forEach(option => {
-        option.onclick = () => {
-          // Remove selection from all options
-          deliveryOptions.forEach(opt => {
+      
+      // Restore form data if available
+      if (customerData.firstName) {
+        document.getElementById('firstName').value = customerData.firstName;
+        document.getElementById('lastName').value = customerData.lastName;
+        document.getElementById('email').value = customerData.email;
+        document.getElementById('phone').value = customerData.phone;
+        
+        if (customerData.address) {
+          document.getElementById('street').value = customerData.address.street;
+          document.getElementById('postalCode').value = customerData.address.postalCode;
+          document.getElementById('city').value = customerData.address.city;
+        }
+        
+        // Restore delivery selection
+        if (selectedDelivery) {
+          document.querySelectorAll('.delivery-option').forEach(opt => {
             opt.classList.remove('selected', 'border-champagne-gold', 'bg-champagne-gold/5');
             opt.classList.add('border-transparent');
           });
           
-          // Select clicked option
-          option.classList.remove('border-transparent');
-          option.classList.add('selected', 'border-champagne-gold', 'bg-champagne-gold/5');
-          
-          selectedDelivery = option.dataset.delivery;
-          
-          // Show/hide delivery address
-          const deliveryAddress = document.getElementById('delivery-address');
-          if (selectedDelivery === 'delivery') {
-            deliveryAddress.classList.remove('hidden');
-            // Make address fields required
-            document.getElementById('street').required = true;
-            document.getElementById('postalCode').required = true;
-            document.getElementById('city').required = true;
-          } else {
-            deliveryAddress.classList.add('hidden');
-            // Remove required from address fields
-            document.getElementById('street').required = false;
-            document.getElementById('postalCode').required = false;
-            document.getElementById('city').required = false;
+          const selectedOption = document.querySelector(`[data-delivery="${selectedDelivery}"]`);
+          if (selectedOption) {
+            selectedOption.classList.remove('border-transparent');
+            selectedOption.classList.add('selected', 'border-champagne-gold', 'bg-champagne-gold/5');
+            
+            if (selectedDelivery === 'delivery') {
+              document.getElementById('delivery-address').classList.remove('hidden');
+            }
           }
-        };
-      });
-    }
-
-    function validateCustomerForm() {
-      const requiredFields = ['firstName', 'lastName', 'email', 'phone'];
-      let isValid = true;
-      
-      requiredFields.forEach(fieldId => {
-        const field = document.getElementById(fieldId);
-        if (!field.value.trim()) {
-          field.style.borderColor = '#ef4444';
-          isValid = false;
-        } else {
-          field.style.borderColor = '';
         }
-      });
-      
-      if (!selectedDelivery) {
-        alert('Proszę wybrać sposób odbioru.');
-        isValid = false;
       }
-      
-      if (selectedDelivery === 'delivery') {
-        const addressFields = ['street', 'postalCode', 'city'];
-        addressFields.forEach(fieldId => {
-          const field = document.getElementById(fieldId);
-          if (!field.value.trim()) {
-            field.style.borderColor = '#ef4444';
-            isValid = false;
-          } else {
-            field.style.borderColor = '';
-          }
-        });
-      }
-      
-      if (!isValid) {
-        alert('Proszę wypełnić wszystkie wymagane pola.');
-      }
-      
-      return isValid;
-    }
-
-    function collectCustomerData() {
-      customerData = {
-        firstName: document.getElementById('firstName').value,
-        lastName: document.getElementById('lastName').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        delivery: selectedDelivery,
-        address: selectedDelivery === 'delivery' ? {
-          street: document.getElementById('street').value,
-          postalCode: document.getElementById('postalCode').value,
-          city: document.getElementById('city').value
-        } : null
-      };
     }
 
     function showOrderSummary() {
@@ -1684,13 +1719,15 @@
       
       // Populate customer summary
       const customerSummary = document.getElementById('customer-summary');
-      customerSummary.innerHTML = `
-        <div class="space-y-2">
-          <div><strong>Imię i nazwisko:</strong> ${customerData.firstName} ${customerData.lastName}</div>
-          <div><strong>Email:</strong> ${customerData.email}</div>
-          <div><strong>Telefon:</strong> ${customerData.phone}</div>
-        </div>
-      `;
+      if (customerData.firstName) {
+        customerSummary.innerHTML = `
+          <div class="space-y-2">
+            <div><strong>Imię i nazwisko:</strong> ${customerData.firstName} ${customerData.lastName}</div>
+            <div><strong>Email:</strong> ${customerData.email}</div>
+            <div><strong>Telefon:</strong> ${customerData.phone}</div>
+          </div>
+        `;
+      }
       
       // Populate delivery summary
       const deliverySummary = document.getElementById('delivery-summary');
@@ -1701,7 +1738,7 @@
             <div class="text-sm text-dove-gray">Bezpłatnie</div>
           </div>
         `;
-      } else {
+      } else if (selectedDelivery === 'delivery' && customerData.address) {
         deliverySummary.innerHTML = `
           <div class="space-y-2">
             <div><strong>Sposób:</strong> Dostawa</div>
@@ -1714,6 +1751,97 @@
           </div>
         `;
       }
+    }
+
+    function initializeDeliveryOptions() {
+      const deliveryOptions = document.querySelectorAll('.delivery-option');
+      deliveryOptions.forEach(option => {
+        option.onclick = () => {
+          // Remove selection from all options
+          deliveryOptions.forEach(opt => {
+            opt.classList.remove('selected', 'border-champagne-gold', 'bg-champagne-gold/5');
+            opt.classList.add('border-transparent');
+          });
+          
+          // Select clicked option
+          option.classList.remove('border-transparent');
+          option.classList.add('selected', 'border-champagne-gold', 'bg-champagne-gold/5');
+          
+          selectedDelivery = option.dataset.delivery;
+          
+          // Show/hide delivery address
+          const deliveryAddress = document.getElementById('delivery-address');
+          if (selectedDelivery === 'delivery') {
+            deliveryAddress.classList.remove('hidden');
+            // Make address fields required
+            document.getElementById('street').required = true;
+            document.getElementById('postalCode').required = true;
+            document.getElementById('city').required = true;
+          } else {
+            deliveryAddress.classList.add('hidden');
+            // Remove required from address fields
+            document.getElementById('street').required = false;
+            document.getElementById('postalCode').required = false;
+            document.getElementById('city').required = false;
+          }
+          
+          updateBrowserHistory();
+        };
+      });
+    }
+
+    function validateCustomerForm() {
+      const requiredFields = ['firstName', 'lastName', 'email', 'phone'];
+      let isValid = true;
+      
+      requiredFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (!field.value.trim()) {
+          field.style.borderColor = '#ef4444';
+          isValid = false;
+        } else {
+          field.style.borderColor = '';
+        }
+      });
+      
+      if (!selectedDelivery) {
+        alert('Proszę wybrać sposób odbioru.');
+        isValid = false;
+      }
+      
+      if (selectedDelivery === 'delivery') {
+        const addressFields = ['street', 'postalCode', 'city'];
+        addressFields.forEach(fieldId => {
+          const field = document.getElementById(fieldId);
+          if (!field.value.trim()) {
+            field.style.borderColor = '#ef4444';
+            isValid = false;
+          } else {
+            field.style.borderColor = '';
+          }
+        });
+      }
+      
+      if (!isValid) {
+        alert('Proszę wypełnić wszystkie wymagane pola.');
+      }
+      
+      return isValid;
+    }
+
+    function collectCustomerData() {
+      customerData = {
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        delivery: selectedDelivery,
+        address: selectedDelivery === 'delivery' ? {
+          street: document.getElementById('street').value,
+          postalCode: document.getElementById('postalCode').value,
+          city: document.getElementById('city').value
+        } : null
+      };
     }
 
     function submitOrder() {
@@ -1839,6 +1967,29 @@
         img.style.display = 'flex';
         img.nextElementSibling.style.display = 'flex';
       }
+    }
+
+    function initializeCustomerFormListeners() {
+      const formFields = ['firstName', 'lastName', 'email', 'phone', 'street', 'postalCode', 'city'];
+      
+      formFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (field) {
+          field.addEventListener('input', function() {
+            // Update customerData object
+            if (fieldId === 'street' || fieldId === 'postalCode' || fieldId === 'city') {
+              if (!customerData.address) {
+                customerData.address = {};
+              }
+              customerData.address[fieldId] = this.value;
+            } else {
+              customerData[fieldId] = this.value;
+            }
+            
+            updateBrowserHistory();
+          });
+        }
+      });
     }
   </script>
 </body>
