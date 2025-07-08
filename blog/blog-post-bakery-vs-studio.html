@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cukiernia vs pracownia cukiernicza – różnice | Blog CakeBooking</title>
+  <meta name="description" content="Czym różni się tort zamówiony w cukierni od zamówionego w pracowni cukierniczej? Porównanie oferty, smaku, dekoracji, ceny i personalizacji.">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="font-sans text-midnight-navy pb-24 md:pb-0">
+  <!-- Navigation -->
+  <nav class="fixed w-full nav-midnight shadow-sm z-50">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <a href="../index.html" aria-label="CakeBooking - Strona główna" class="flex-shrink-0 flex items-center">
+            <i class="fa-solid fa-cake-candles text-pure-white text-3xl mr-3"></i>
+            <span class="font-display font-bold text-xl text-pure-white">CakeBooking</span>
+          </a>
+        </div>
+        <div class="hidden lg:flex items-center space-x-6">
+          <a href="../index.html#how-it-works" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">Jak to działa</a>
+          <a href="../index.html#faq" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">FAQ</a>
+          <a href="../zamowienie.html" class="pill-button flex items-center justify-center text-sm font-medium px-6 py-2 shadow-lg text-midnight-navy no-underline">
+            <i class="fa-solid fa-cake-candles h-4 w-4 mr-2"></i>
+            Zamów tort
+          </a>
+        </div>
+        <div class="lg:hidden flex items-center">
+          <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-dove-gray hover:text-champagne-gold hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-champagne-gold transition-colors">
+            <i class="fa-solid fa-bars h-6 w-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Article Hero Section -->
+  <section class="pt-32 pb-16 hero-gradient text-pure-white relative overflow-hidden">
+    <!-- Art Deco Elements -->
+    <div class="parallax-element" data-speed="0.3" style="position: absolute; left: 48px; top: 128px; z-index: 1;">
+      <div class="art-deco-line"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.4" style="position: absolute; right: 48px; top: 160px; z-index: 1;">
+      <div class="art-deco-line"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.2" style="position: absolute; left: 64px; top: 208px; z-index: 1;">
+      <div class="art-deco-dot"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.6" style="position: absolute; right: 64px; top: 240px; z-index: 1;">
+      <div class="art-deco-dot"></div>
+    </div>
+    <!-- Sparkles -->
+    <div class="parallax-element" data-speed="0.5" style="position: absolute; top: 20%; left: 10%;">
+      <div class="sparkle sparkle-enhanced" style="animation-delay: 0s;">✦</div>
+    </div>
+    <div class="parallax-element" data-speed="0.3" style="position: absolute; top: 30%; right: 15%;">
+      <div class="sparkle sparkle-enhanced" style="animation-delay: 0.3s;">✧</div>
+    </div>
+    <div class="parallax-element" data-speed="0.7" style="position: absolute; top: 50%; left: 20%;">
+      <div class="sparkle sparkle-enhanced" style="animation-delay: 0.6s;">✦</div>
+    </div>
+    <div class="parallax-element" data-speed="0.4" style="position: absolute; top: 25%; right: 25%;">
+      <div class="sparkle sparkle-enhanced" style="animation-delay: 0.9s;">✧</div>
+    </div>
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 relative z-10">
+      <!-- Breadcrumb -->
+      <nav class="mb-8" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-4">
+          <li>
+            <a href="../index.html" class="text-dove-gray hover:text-champagne-gold transition-colors">
+              <i class="fa-solid fa-home mr-2"></i>Strona główna
+            </a>
+          </li>
+          <li class="text-dove-gray">
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </li>
+          <li>
+            <a href="../blog.html" class="text-dove-gray hover:text-champagne-gold transition-colors">Blog</a>
+          </li>
+          <li class="text-dove-gray">
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </li>
+          <li class="text-champagne-gold">Cukiernia vs pracownia cukiernicza</li>
+        </ol>
+      </nav>
+      <!-- Article Meta -->
+      <div class="flex items-center mb-8">
+        <div class="w-16 h-16 rounded-full flex items-center justify-center mr-6" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+          <i class="fa-solid fa-balance-scale text-midnight-navy text-2xl"></i>
+        </div>
+        <div>
+          <div class="flex items-center space-x-6 text-sm text-dove-gray mb-2">
+            <span><i class="fa-solid fa-calendar-days mr-2"></i>Grudzień 2024</span>
+            <span><i class="fa-solid fa-clock mr-2"></i>5 min czytania</span>
+            <span><i class="fa-solid fa-tags mr-2"></i>Porównanie, Porady</span>
+          </div>
+          <div class="text-sm text-champagne-gold font-medium">ARTYKUŁ POPULARNY</div>
+        </div>
+      </div>
+      <!-- Title -->
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-pure-white leading-tight mb-6">
+          Cukiernia vs <span class="text-champagne-gold">pracownia cukiernicza</span> – różnice
+        </h1>
+        <p class="text-xl text-dove-gray leading-relaxed">
+          Czym różni się tort zamówiony w cukierni od zamówionego w pracowni cukierniczej? Porównanie oferty, smaku, dekoracji, ceny i personalizacji.
+        </p>
+      </div>
+    </div>
+  </section>
+  <!-- Hero Image -->
+  <section class="py-8 bg-porcelain-white">
+    <div class="max-w-5xl mx-auto px-6 lg:px-8">
+      <div class="vitreous-card p-0 overflow-hidden">
+        <img src="../images/blog-bakery-comparison.png" alt="Side-by-side comparison of a traditional bakery and a modern cake studio" class="w-full h-80 md:h-96 object-cover">
+      </div>
+    </div>
+  </section>
+  <!-- Article Content -->
+  <section class="py-16 bg-porcelain-white">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+      <article class="prose prose-lg max-w-none">
+        <h2 class="font-bold text-2xl mb-4">Cukiernia – produkcja masowa i stała oferta</h2>
+        <ul class="list-disc pl-6 mb-6">
+          <li>Sklep stacjonarny, witryna, ciastka, kawa</li>
+          <li>Stałe, powtarzalne modele tortów</li>
+          <li>Standardowe smaki i dekoracje</li>
+          <li>Niższa cena, szybka dostępność</li>
+        </ul>
+        <h2 class="font-bold text-2xl mb-4">Pracownia cukiernicza – personalizacja i sztuka</h2>
+        <ul class="list-disc pl-6 mb-6">
+          <li>Mała, prywatna działalność, często bez witryny</li>
+          <li>Każdy tort to projekt indywidualny</li>
+          <li>Możliwość zamówienia tortów artystycznych, 3D, tematycznych, wegańskich, bezcukrowych</li>
+          <li>Wyższa cena, dłuższy czas realizacji</li>
+        </ul>
+        <h2 class="font-bold text-2xl mb-4">Porównanie</h2>
+        <table class="table-auto w-full mb-8">
+          <thead>
+            <tr class="bg-midnight-navy text-pure-white">
+              <th class="px-4 py-2">Element</th>
+              <th class="px-4 py-2">Cukiernia</th>
+              <th class="px-4 py-2">Pracownia cukiernicza</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="px-4 py-2">Oferta</td><td class="px-4 py-2">Standardowa, katalogowa</td><td class="px-4 py-2">Indywidualna, „na zamówienie”</td></tr>
+            <tr><td class="px-4 py-2">Smaki</td><td class="px-4 py-2">Klasyczne (śmietana, owoce, czekolada)</td><td class="px-4 py-2">Dowolne (np. mango-limonka, matcha, pistacja, karmel z solą)</td></tr>
+            <tr><td class="px-4 py-2">Dekoracja</td><td class="px-4 py-2">Prosta, powtarzalna</td><td class="px-4 py-2">Ręczna, artystyczna, tematyczna</td></tr>
+            <tr><td class="px-4 py-2">Cena</td><td class="px-4 py-2">Niższa (150–300 zł za 2–3 kg)</td><td class="px-4 py-2">Wyższa (od 300 do 1000+ zł)</td></tr>
+            <tr><td class="px-4 py-2">Termin realizacji</td><td class="px-4 py-2">Czasem nawet z dnia na dzień</td><td class="px-4 py-2">Minimum kilka dni, czasem 2–3 tygodnie</td></tr>
+            <tr><td class="px-4 py-2">Kontakt</td><td class="px-4 py-2">Obsługa w lokalu</td><td class="px-4 py-2">Bezpośrednio z cukiernikiem</td></tr>
+            <tr><td class="px-4 py-2">Dostępność</td><td class="px-4 py-2">Stacjonarna, codzienna</td><td class="px-4 py-2">Tylko na zamówienie</td></tr>
+            <tr><td class="px-4 py-2">Personalizacja</td><td class="px-4 py-2">Ograniczona</td><td class="px-4 py-2">Bardzo wysoka</td></tr>
+          </tbody>
+        </table>
+        <div class="bg-gradient-to-r from-champagne-gold/5 to-blush-rose/5 p-6 rounded-xl">
+          <h3 class="font-bold text-midnight-navy mb-4">Podsumowanie – który wybrać?</h3>
+          <ul class="list-disc pl-6">
+            <li>Tort klasyczny, szybko, w rozsądnej cenie – <strong>Cukiernia</strong></li>
+            <li>Tort artystyczny, z konkretnym motywem, na ważną okazję – <strong>Pracownia cukiernicza</strong></li>
+            <li>Tort bez glutenu / laktozy / wegański / autorski – <strong>Pracownia cukiernicza</strong></li>
+            <li>Masz inspirację z Pinteresta i chcesz „taki sam tort” – <strong>Pracownia</strong></li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+  <!-- Related Articles -->
+  <section class="py-16 bg-porcelain-white">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+      <h3 class="font-display text-2xl font-bold text-midnight-navy mb-8">Przeczytaj także</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="border rounded-lg overflow-hidden">
+          <img src="../images/blog-cake-ordering-mistakes.png" alt="Common cake ordering mistakes" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h4 class="font-semibold text-midnight-navy mb-2">
+              <a href="blog-post-mistakes.html" class="hover:text-champagne-gold transition-colors">Jak uniknąć błędów przy zamawianiu tortów?</a>
+            </h4>
+            <p class="text-dove-gray text-sm mb-3">10 najczęstszych błędów i jak ich uniknąć podczas zamawiania idealnego tortu.</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-gray-500">7 min czytania</span>
+              <a href="blog-post-mistakes.html" class="text-champagne-gold text-sm hover:underline">Czytaj więcej →</a>
+            </div>
+          </div>
+        </div>
+        <div class="border rounded-lg overflow-hidden">
+          <img src="../images/blog-cake-pricing-breakdown.png" alt="Cake pricing breakdown" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h4 class="font-semibold text-midnight-navy mb-2">
+              <a href="blog-post-pricing.html" class="hover:text-champagne-gold transition-colors">Skąd się bierze cena za tort?</a>
+            </h4>
+            <p class="text-dove-gray text-sm mb-3">Wszystkie czynniki wpływające na koszt finalny tortu - od składników po pracę.</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-gray-500">5 min czytania</span>
+              <a href="blog-post-pricing.html" class="text-champagne-gold text-sm hover:underline">Czytaj więcej →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer class="bg-midnight-navy text-dove-gray py-12">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-8">
+        <!-- Brand -->
+        <div class="lg:col-span-2">
+          <div class="flex items-center mb-4">
+            <a href="../index.html" aria-label="CakeBooking - Strona główna" class="flex items-center">
+              <i class="fa-solid fa-cake-candles text-champagne-gold text-3xl mr-3"></i>
+              <span class="font-display font-bold text-xl text-pure-white">CakeBooking</span>
+            </a>
+          </div>
+          <p class="text-dove-gray leading-relaxed mb-6 max-w-md">
+            Koncepcja aplikacji łączącej miłośników tortów z najlepszymi cukierniami. Projektuj, zamawiaj i ciesz się wymarzonym tortem.
+          </p>
+          <div class="flex space-x-3">
+            <a href="#" aria-label="Facebook" class="text-dove-gray hover:text-champagne-gold transition-colors">
+              <i class="fa-brands fa-facebook-f h-5 w-5"></i>
+            </a>
+            <a href="#" aria-label="Twitter" class="text-dove-gray hover:text-champagne-gold transition-colors">
+              <i class="fa-brands fa-x-twitter h-5 w-5"></i>
+            </a>
+            <a href="#" aria-label="Instagram" class="text-dove-gray hover:text-champagne-gold transition-colors">
+              <i class="fa-brands fa-instagram h-5 w-5"></i>
+            </a>
+          </div>
+        </div>
+        <!-- Produkty -->
+        <div>
+          <h4 class="text-pure-white font-medium mb-4 flex items-center">
+            <i class="fa-solid fa-cube mr-2 text-champagne-gold"></i>
+            Produkty
+          </h4>
+          <ul class="space-y-2">
+            <li><a href="../wizualizator-tortow.html" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-palette mr-2 text-xs"></i>
+              Wizualizator 3D
+            </a></li>
+            <li><a href="../gotowy-tort.html" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-thumbs-up mr-2 text-xs"></i>
+              Gotowe torty
+            </a></li>
+            <li><a href="../index.html#features" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-star mr-2 text-xs"></i>
+              Funkcje
+            </a></li>
+            <li><a href="../zamowienie.html" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-cake-candles mr-2 text-xs"></i>
+              Zamów tort
+            </a></li>
+          </ul>
+        </div>
+        <!-- Firma -->
+        <div>
+          <h4 class="text-pure-white font-medium mb-4 flex items-center">
+            <i class="fa-solid fa-building mr-2 text-champagne-gold"></i>
+            Firma
+          </h4>
+          <ul class="space-y-2">
+            <li><a href="../o-nas.html" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-users mr-2 text-xs"></i>
+              O nas
+            </a></li>
+            <li><a href="../index.html#for-bakers-section" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-store mr-2 text-xs"></i>
+              Dla cukierników
+            </a></li>
+            <li><a href="../blog.html" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-blog mr-2 text-xs"></i>
+              Blog
+            </a></li>
+            <li><a href="#" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-handshake mr-2 text-xs"></i>
+              Partnerzy
+            </a></li>
+          </ul>
+        </div>
+        <!-- Pomoc -->
+        <div>
+          <h4 class="text-pure-white font-medium mb-4 flex items-center">
+            <i class="fa-solid fa-life-ring mr-2 text-champagne-gold"></i>
+            Pomoc
+          </h4>
+          <ul class="space-y-2">
+            <li><a href="../index.html#how-it-works" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-circle-info mr-2 text-xs"></i>
+              Jak to działa
+            </a></li>
+            <li><a href="../index.html#faq" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-question-circle mr-2 text-xs"></i>
+              FAQ
+            </a></li>
+            <li><a href="#" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-headset mr-2 text-xs"></i>
+              Wsparcie
+            </a></li>
+            <li><a href="#" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-envelope mr-2 text-xs"></i>
+              Kontakt
+            </a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- Legal Links -->
+      <div class="pt-6 border-t border-dove-gray/20 mb-6">
+        <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+          <div class="flex flex-wrap justify-center md:justify-start space-x-6 text-sm">
+            <a href="#" class="hover:text-champagne-gold transition-colors">Polityka prywatności</a>
+            <a href="#" class="hover:text-champagne-gold transition-colors">Warunki użytkowania</a>
+            <a href="#" class="hover:text-champagne-gold transition-colors">Regulamin</a>
+            <a href="#" class="hover:text-champagne-gold transition-colors">Cookies</a>
+          </div>
+          <div class="flex space-x-3">
+            <a href="#" aria-label="LinkedIn" class="text-dove-gray hover:text-champagne-gold transition-colors">
+              <i class="fa-brands fa-linkedin h-4 w-4"></i>
+            </a>
+            <a href="#" aria-label="YouTube" class="text-dove-gray hover:text-champagne-gold transition-colors">
+              <i class="fa-brands fa-youtube h-4 w-4"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Copyright -->
+      <div class="pt-6 border-t border-dove-gray/20 text-center md:text-left">
+        <p class="text-dove-gray text-sm">
+          © <span id="current-year">2025</span> CakeBooking. Koncepcja aplikacji - prezentacja projektu.
+        </p>
+      </div>
+    </div>
+  </footer>
+  <script src="../scripts.js"></script>
+  <script src="../cookies.js"></script>
+</body>
+</html> 

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jaki tort wybrać na wesele? - CakeBooking Blog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="font-sans text-midnight-navy pb-24 md:pb-0">
+  <!-- Navigation -->
+  <nav class="fixed w-full nav-midnight shadow-sm z-50">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <a href="../index.html" class="flex-shrink-0 flex items-center">
+            <i class="fa-solid fa-cake-candles text-pure-white text-3xl mr-3"></i>
+            <span class="font-display font-bold text-xl text-pure-white">CakeBooking</span>
+          </a>
+        </div>
+        <div class="hidden lg:flex items-center space-x-6">
+          <a href="../index.html#how-it-works" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">Jak to działa</a>
+          <a href="../index.html#faq" class="text-dove-gray hover:text-champagne-gold px-3 py-2 text-sm font-medium transition-colors">FAQ</a>
+          <a href="../zamowienie.html" class="pill-button flex items-center justify-center text-sm font-medium px-6 py-2 shadow-lg text-midnight-navy no-underline">
+            <i class="fa-solid fa-cake-candles h-4 w-4 mr-2"></i>
+            Zamów tort
+          </a>
+        </div>
+        <div class="lg:hidden flex items-center">
+          <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-dove-gray hover:text-champagne-gold hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-champagne-gold transition-colors">
+            <i class="fa-solid fa-bars h-6 w-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Article Hero Section -->
+  <section class="pt-32 pb-16 hero-gradient text-pure-white relative overflow-hidden">
+    <!-- Art Deco Elements -->
+    <div class="parallax-element" data-speed="0.3" style="position: absolute; left: 48px; top: 128px; z-index: 1;">
+      <div class="art-deco-line"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.4" style="position: absolute; right: 48px; top: 160px; z-index: 1;">
+      <div class="art-deco-line"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.2" style="position: absolute; left: 64px; top: 208px; z-index: 1;">
+      <div class="art-deco-dot"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.6" style="position: absolute; right: 64px; top: 240px; z-index: 1;">
+      <div class="art-deco-dot"></div>
+    </div>
+    <!-- Sparkles -->
+    <div class="parallax-element" data-speed="0.5" style="position: absolute; top: 20%; left: 10%;">
+      <div class="sparkle sparkle-enhanced" style="animation-delay: 0s;">✦</div>
+    </div>
+    <div class="parallax-element" data-speed="0.3" style="position: absolute; top: 30%; right: 15%;">
+      <div class="sparkle sparkle-enhanced" style="animation-delay: 0.3s;">✧</div>
+    </div>
+    <div class="parallax-element" data-speed="0.7" style="position: absolute; top: 50%; left: 20%;">
+      <div class="sparkle sparkle-enhanced" style="animation-delay: 0.6s;">✦</div>
+    </div>
+    <div class="parallax-element" data-speed="0.4" style="position: absolute; top: 25%; right: 25%;">
+      <div class="sparkle sparkle-enhanced" style="animation-delay: 0.9s;">✧</div>
+    </div>
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 relative z-10">
+      <!-- Breadcrumb -->
+      <nav class="mb-8" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-4">
+          <li>
+            <a href="../index.html" class="text-dove-gray hover:text-champagne-gold transition-colors">
+              <i class="fa-solid fa-home mr-2"></i>Strona główna
+            </a>
+          </li>
+          <li class="text-dove-gray">
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </li>
+          <li>
+            <a href="../blog.html" class="text-dove-gray hover:text-champagne-gold transition-colors">Blog</a>
+          </li>
+          <li class="text-dove-gray">
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </li>
+          <li class="text-champagne-gold">Jaki tort wybrać na wesele?</li>
+        </ol>
+      </nav>
+      <!-- Article Meta -->
+      <div class="flex items-center mb-8">
+        <div class="w-16 h-16 rounded-full flex items-center justify-center mr-6" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
+          <i class="fa-solid fa-heart text-midnight-navy text-2xl"></i>
+        </div>
+        <div>
+          <div class="flex items-center space-x-6 text-sm text-dove-gray mb-2">
+            <span><i class="fa-solid fa-calendar-days mr-2"></i>Grudzień 2024</span>
+            <span><i class="fa-solid fa-clock mr-2"></i>7 min czytania</span>
+            <span><i class="fa-solid fa-tags mr-2"></i>Wesele, Inspiracje</span>
+          </div>
+          <div class="text-sm text-champagne-gold font-medium">ARTYKUŁ POPULARNY</div>
+        </div>
+      </div>
+      <!-- Title -->
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-pure-white leading-tight mb-6">
+          Jaki tort wybrać na <span class="text-champagne-gold">wesele</span>?
+        </h1>
+        <p class="text-xl text-dove-gray leading-relaxed">
+          Przegląd najpiękniejszych stylów tortów weselnych, inspiracje i praktyczne porady na wybór idealnego tortu na Twój wielki dzień.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero Image Section -->
+  <section class="py-16 bg-porcelain-white relative overflow-hidden">
+    <div class="max-w-5xl mx-auto px-6 lg:px-8">
+      <div class="vitreous-card p-0 overflow-hidden">
+        <img src="../images/test-wedding-cake.png" alt="Elegancki tort weselny z dekoracyjną różą na granatowym tle art deco" class="w-full h-80 md:h-96 object-cover">
+      </div>
+    </div>
+  </section>
+
+  <!-- Article Content -->
+  <section class="py-16 bg-porcelain-white">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+      <article class="prose prose-lg max-w-none">
+        <h2 class="font-display text-3xl font-bold text-midnight-navy mb-6">Style tortów weselnych</h2>
+        
+        <h3 class="text-2xl font-bold text-midnight-navy mb-4">1. Tort klasyczny – elegancja i ponadczasowość</h3>
+        <p class="text-dove-gray leading-relaxed mb-4">
+          Styl: biały lub kremowy, gładki krem, kwiaty żywe lub cukrowe, złocenia, topper z inicjałami.
+        </p>
+        <p class="text-dove-gray leading-relaxed mb-4">
+          Dla kogo: dla par ceniących tradycję i styl glamour / minimalistyczny.
+        </p>
+        
+        <div class="bg-midnight-navy text-pure-white p-6 rounded-xl mb-8">
+          <h4 class="font-bold text-champagne-gold mb-4">Szczegóły:</h4>
+          <ul class="space-y-2">
+            <li><strong>Smaki:</strong> Wanilia z malinami, Biała czekolada z truskawkami, Delikatna śmietanka z musem owocowym</li>
+            <li><strong>Ilość porcji:</strong> 60–100</li>
+            <li><strong>Cena:</strong> ok. 800–1800 zł (zależnie od dekoracji i ilości pięter)</li>
+            <li><strong>Wygląd:</strong> 2–3 piętra, jasna kolorystyka, subtelne kwiaty i elegancki topper</li>
+          </ul>
+        </div>
+
+        <h3 class="text-2xl font-bold text-midnight-navy mb-4">2. Tort rustykalny / boho – naturalny i lekki</h3>
+        <p class="text-dove-gray leading-relaxed mb-4">
+          Styl: naked cake lub semi-naked (czyli z cienką warstwą kremu), świeże owoce, zioła, kwiaty polne.
+        </p>
+        <p class="text-dove-gray leading-relaxed mb-4">
+          Dla kogo: idealny na wesele w stodole, plenerze, styl slow wedding.
+        </p>
+        
+        <div class="bg-midnight-navy text-pure-white p-6 rounded-xl mb-8">
+          <h4 class="font-bold text-champagne-gold mb-4">Szczegóły:</h4>
+          <ul class="space-y-2">
+            <li><strong>Smaki:</strong> Cytrynowy z lemon curd, Jogurtowo-malinowy, Lawendowy z białą czekoladą</li>
+            <li><strong>Ilość porcji:</strong> 40–80</li>
+            <li><strong>Cena:</strong> ok. 600–1200 zł</li>
+            <li><strong>Wygląd:</strong> styl „domowy ale elegancki" – bez masy cukrowej, z dużą ilością owoców i zieleni</li>
+          </ul>
+        </div>
+
+        <h3 class="text-2xl font-bold text-midnight-navy mb-4">3. Tort nowoczesny – geometryczny, artystyczny</h3>
+        <p class="text-dove-gray leading-relaxed mb-4">
+          Styl: marmur, drip, lustrzana polewa, ostrzejsze kształty, dekoracje z izomaltu lub metalu.
+        </p>
+        <p class="text-dove-gray leading-relaxed mb-4">
+          Dla kogo: dla par, które chcą się wyróżnić, lubią design i styl „wow".
+        </p>
+        
+        <div class="bg-midnight-navy text-pure-white p-6 rounded-xl mb-8">
+          <h4 class="font-bold text-champagne-gold mb-4">Szczegóły:</h4>
+          <ul class="space-y-2">
+            <li><strong>Smaki:</strong> Karmel z solą morską, Oreo z musem czekoladowym, Malina z matchą</li>
+            <li><strong>Ilość porcji:</strong> 50–70</li>
+            <li><strong>Cena:</strong> 700–1400 zł</li>
+            <li><strong>Wygląd:</strong> odważne kolory (czarny, złoto, butelkowa zieleń), nowoczesne linie, nieregularne piętra</li>
+          </ul>
+        </div>
+
+        <h3 class="text-2xl font-bold text-midnight-navy mb-4">4. Tort alternatywny – słodki stół, mini torciki, makaroniki</h3>
+        <p class="text-dove-gray leading-relaxed mb-4">
+          Styl: zamiast jednego dużego tortu – bufet z małych deserów lub mini tortów.
+        </p>
+        <p class="text-dove-gray leading-relaxed mb-4">
+          Dla kogo: pary, które wolą luźniejszy klimat, np. wesele w ogrodzie, brunch.
+        </p>
+        
+        <div class="bg-midnight-navy text-pure-white p-6 rounded-xl mb-8">
+          <h4 class="font-bold text-champagne-gold mb-4">Szczegóły:</h4>
+          <ul class="space-y-2">
+            <li><strong>Smaki:</strong> Mix smaków: mango-marakuja, kokos-limonka, pistacja-malina</li>
+            <li><strong>Ilość porcji:</strong> 80+ (w formie porcji finger food)</li>
+            <li><strong>Cena:</strong> od 10–15 zł / porcja, czyli 800–1200 zł+ przy dużym słodkim stole</li>
+            <li><strong>Wygląd:</strong> estetyczne, małe desery – idealne do zdjęć i dla gości, którzy nie jedzą dużych kawałków tortu</li>
+          </ul>
+        </div>
+
+        <h3 class="text-2xl font-bold text-midnight-navy mb-4">5. Tort personalizowany / tematyczny</h3>
+        <p class="text-dove-gray leading-relaxed mb-4">
+          Styl: np. z mapą świata (dla podróżników), z kwiatami pasującymi do bukietu, z grafiką akwarelową.
+        </p>
+        <p class="text-dove-gray leading-relaxed mb-4">
+          Dla kogo: dla par chcących wyrazić siebie i swój motyw przewodni.
+        </p>
+        
+        <div class="bg-midnight-navy text-pure-white p-6 rounded-xl mb-8">
+          <h4 class="font-bold text-champagne-gold mb-4">Szczegóły:</h4>
+          <ul class="space-y-2">
+            <li><strong>Smaki:</strong> dopasowane indywidualnie</li>
+            <li><strong>Cena:</strong> od 900 do 2000 zł+ (zależnie od pracochłonności dekoracji)</li>
+            <li><strong>Ilość porcji:</strong> 60–100</li>
+            <li><strong>Wygląd:</strong> artystyczne torty z historią – często zamawiane na podstawie inspiracji z Pinteresta</li>
+          </ul>
+        </div>
+
+        <h2 class="font-display text-3xl font-bold text-midnight-navy mb-6">Jak dobrać tort na wesele? – 3 kroki:</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+            <div class="text-center mb-4">
+              <i class="fa-solid fa-palette text-3xl text-champagne-gold"></i>
+            </div>
+            <h4 class="font-bold text-midnight-navy mb-3 text-center">1. Styl wesela</h4>
+            <p class="text-sm text-dove-gray text-center">Eleganckie? rustykalne? plener? glamour?</p>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+            <div class="text-center mb-4">
+              <i class="fa-solid fa-sun text-3xl text-champagne-gold"></i>
+            </div>
+            <h4 class="font-bold text-midnight-navy mb-3 text-center">2. Pora roku</h4>
+            <p class="text-sm text-dove-gray text-center">Latem wybieraj lżejsze smaki i mniej tłuste kremy</p>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+            <div class="text-center mb-4">
+              <i class="fa-solid fa-users text-3xl text-champagne-gold"></i>
+            </div>
+            <h4 class="font-bold text-midnight-navy mb-3 text-center">3. Liczba gości</h4>
+            <p class="text-sm text-dove-gray text-center">Przyjmuje się ok. 100 g tortu na osobę</p>
+          </div>
+        </div>
+
+        <h2 class="font-display text-3xl font-bold text-midnight-navy mb-6">Jak oszczędzić na torcie weselnym?</h2>
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-start">
+            <i class="fa-solid fa-check text-champagne-gold mt-1 mr-3"></i>
+            <span class="text-dove-gray">Zrezygnuj z masy cukrowej i bardzo skomplikowanych dekoracji.</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fa-solid fa-check text-champagne-gold mt-1 mr-3"></i>
+            <span class="text-dove-gray">Wybierz 2 piętra zamiast 3 (dodaj tylko „dekoracyjne piętro atrapa").</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fa-solid fa-check text-champagne-gold mt-1 mr-3"></i>
+            <span class="text-dove-gray">Zamów z wyprzedzeniem – last minute kosztuje więcej.</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fa-solid fa-check text-champagne-gold mt-1 mr-3"></i>
+            <span class="text-dove-gray">Zapytaj o wspólny pakiet tort + słodki stół – zwykle taniej niż osobno.</span>
+          </li>
+        </ul>
+
+        <div class="bg-gradient-to-r from-champagne-gold/5 to-blush-rose/5 p-6 rounded-xl">
+          <h3 class="font-bold text-midnight-navy mb-4">💡 Wskazówka</h3>
+          <p class="text-dove-gray leading-relaxed">
+            Pamiętaj, że tort weselny to nie tylko deser – to element, który będzie na zdjęciach i w pamięci gości. 
+            Warto zainwestować w jakość, która będzie pasować do stylu i atmosfery Waszego wesela.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Back to Blog -->
+  <section class="py-16 bg-porcelain-white">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative z-10">
+      <a href="../blog.html" class="pill-button inline-flex items-center text-lg font-medium px-8 py-4 no-underline shadow-lg hover:shadow-xl">
+        <i class="fa-solid fa-arrow-left h-5 w-5 mr-3"></i>
+        Powrót do bloga
+      </a>
+    </div>
+  </section>
+
+  <!-- Related Articles -->
+  <section class="py-16 bg-midnight-navy">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+      <h2 class="font-display text-3xl font-bold text-pure-white mb-8 text-center">Powiązane artykuły</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="border rounded-lg overflow-hidden">
+          <img src="../images/blog-cake-pricing-breakdown.png" alt="Infografika z rozbiciem ceny tortu, składniki, praca, dekoracje, nowoczesny styl cukierni" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h4 class="font-semibold text-pure-white mb-2">
+              <a href="blog-post-pricing.html" class="hover:text-champagne-gold transition-colors">Skąd się bierze cena za tort?</a>
+            </h4>
+            <p class="text-dove-gray text-sm">Wszystkie czynniki wpływające na koszt finalny tortu - od składników po pracę.</p>
+          </div>
+        </div>
+        <div class="border rounded-lg overflow-hidden">
+          <img src="../images/blog-cake-size-calculator.png" alt="Cake size comparison chart showing different cake diameters and portions" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h4 class="font-semibold text-pure-white mb-2">
+              <a href="blog-post-cake-size.html" class="hover:text-champagne-gold transition-colors">Jak dobrać wielkość tortu pod ilość porcji?</a>
+            </h4>
+            <p class="text-dove-gray text-sm">Praktyczny przewodnik po rozmiarach tortów na różne okazje.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-midnight-navy text-dove-gray py-12">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-8">
+        <!-- Brand -->
+        <div class="lg:col-span-2">
+          <div class="flex items-center mb-4">
+            <a href="../index.html" aria-label="CakeBooking - Strona główna" class="flex items-center">
+              <i class="fa-solid fa-cake-candles text-champagne-gold text-3xl mr-3"></i>
+              <span class="font-display font-bold text-xl text-pure-white">CakeBooking</span>
+            </a>
+          </div>
+          <p class="text-dove-gray leading-relaxed mb-6 max-w-md">
+            Koncepcja aplikacji łączącej miłośników tortów z najlepszymi cukierniami. Projektuj, zamawiaj i ciesz się wymarzonym tortem.
+          </p>
+          <div class="flex space-x-3">
+            <a href="#" aria-label="Facebook" class="text-dove-gray hover:text-champagne-gold transition-colors">
+              <i class="fa-brands fa-facebook-f h-5 w-5"></i>
+            </a>
+            <a href="#" aria-label="Twitter" class="text-dove-gray hover:text-champagne-gold transition-colors">
+              <i class="fa-brands fa-x-twitter h-5 w-5"></i>
+            </a>
+            <a href="#" aria-label="Instagram" class="text-dove-gray hover:text-champagne-gold transition-colors">
+              <i class="fa-brands fa-instagram h-5 w-5"></i>
+            </a>
+          </div>
+        </div>
+        <!-- Produkty -->
+        <div>
+          <h4 class="text-pure-white font-medium mb-4 flex items-center">
+            <i class="fa-solid fa-cube mr-2 text-champagne-gold"></i>
+            Produkty
+          </h4>
+          <ul class="space-y-2">
+            <li><a href="../wizualizator-tortow.html" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-palette mr-2 text-xs"></i>
+              Wizualizator 3D
+            </a></li>
+            <li><a href="../gotowy-tort.html" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-thumbs-up mr-2 text-xs"></i>
+              Gotowe torty
+            </a></li>
+            <li><a href="../index.html#features" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-star mr-2 text-xs"></i>
+              Funkcje
+            </a></li>
+            <li><a href="../zamowienie.html" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-cake-candles mr-2 text-xs"></i>
+              Zamów tort
+            </a></li>
+          </ul>
+        </div>
+        <!-- Firma -->
+        <div>
+          <h4 class="text-pure-white font-medium mb-4 flex items-center">
+            <i class="fa-solid fa-building mr-2 text-champagne-gold"></i>
+            Firma
+          </h4>
+          <ul class="space-y-2">
+            <li><a href="../o-nas.html" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-users mr-2 text-xs"></i>
+              O nas
+            </a></li>
+            <li><a href="../index.html#for-bakers-section" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-store mr-2 text-xs"></i>
+              Dla cukierników
+            </a></li>
+            <li><a href="../blog.html" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-blog mr-2 text-xs"></i>
+              Blog
+            </a></li>
+            <li><a href="#" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-handshake mr-2 text-xs"></i>
+              Partnerzy
+            </a></li>
+          </ul>
+        </div>
+        <!-- Pomoc -->
+        <div>
+          <h4 class="text-pure-white font-medium mb-4 flex items-center">
+            <i class="fa-solid fa-life-ring mr-2 text-champagne-gold"></i>
+            Pomoc
+          </h4>
+          <ul class="space-y-2">
+            <li><a href="../index.html#how-it-works" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-circle-info mr-2 text-xs"></i>
+              Jak to działa
+            </a></li>
+            <li><a href="../index.html#faq" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-question-circle mr-2 text-xs"></i>
+              FAQ
+            </a></li>
+            <li><a href="#" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-headset mr-2 text-xs"></i>
+              Wsparcie
+            </a></li>
+            <li><a href="#" class="hover:text-champagne-gold transition-colors flex items-center">
+              <i class="fa-solid fa-envelope mr-2 text-xs"></i>
+              Kontakt
+            </a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- Legal Links -->
+      <div class="pt-6 border-t border-dove-gray/20 mb-6">
+        <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+          <div class="flex flex-wrap justify-center md:justify-start space-x-6 text-sm">
+            <a href="#" class="hover:text-champagne-gold transition-colors">Polityka prywatności</a>
+            <a href="#" class="hover:text-champagne-gold transition-colors">Warunki użytkowania</a>
+            <a href="#" class="hover:text-champagne-gold transition-colors">Regulamin</a>
+            <a href="#" class="hover:text-champagne-gold transition-colors">Cookies</a>
+          </div>
+          <div class="flex space-x-3">
+            <a href="#" aria-label="LinkedIn" class="text-dove-gray hover:text-champagne-gold transition-colors">
+              <i class="fa-brands fa-linkedin h-4 w-4"></i>
+            </a>
+            <a href="#" aria-label="YouTube" class="text-dove-gray hover:text-champagne-gold transition-colors">
+              <i class="fa-brands fa-youtube h-4 w-4"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Copyright -->
+      <div class="pt-6 border-t border-dove-gray/20 text-center md:text-left">
+        <p class="text-dove-gray text-sm">
+          © <span id="current-year">2025</span> CakeBooking. Koncepcja aplikacji - prezentacja projektu.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../scripts.js"></script>
+  <script src="../cookies.js"></script>
+</body>
+</html> 
