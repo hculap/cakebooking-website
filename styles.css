@@ -4,6 +4,7 @@
   --midnight-navy: #0F2238;
   --porcelain-white: #F7F5F2;
   --blush-rose: #D9A8A6;
+  --playful-pink: #F472B6; /* New playful pink */
   --champagne-gold-start: #D7B88F;
   --champagne-gold-end: #F1E0C8;
   --dove-gray: #BFCAD9;
@@ -92,6 +93,23 @@ html::-webkit-scrollbar {
   box-shadow: 0 12px 24px -15px rgba(0, 0, 0, 0.3);
 }
 
+.pill-button-pink {
+  background: var(--playful-pink);
+  color: var(--pure-white);
+  height: 48px;
+  border-radius: 24px;
+  box-shadow: 0 8px 16px -15px rgba(244, 114, 182, 0.4);
+  transition: all 160ms ease;
+  border: none;
+  padding: 0 24px;
+  font-weight: 600;
+}
+
+.pill-button-pink:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 12px 24px -15px rgba(244, 114, 182, 0.5);
+}
+
 .pill-button-secondary {
   background: var(--porcelain-white);
   border: 2px solid var(--blush-rose);
@@ -177,9 +195,29 @@ html::-webkit-scrollbar {
 
 
 .sparkle {
+  color: var(--playful-pink);
+  animation: sparkle 0.8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.sparkle-gold {
   color: var(--champagne-gold-start);
   animation: sparkle 0.8s ease-in-out infinite alternate;
   pointer-events: none;
+}
+
+.text-gradient-gold-pink {
+  background: linear-gradient(135deg, var(--champagne-gold-start), var(--playful-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.icon-gradient-gold-pink {
+  background: linear-gradient(135deg, var(--champagne-gold-start), var(--playful-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 @keyframes sparkle {
@@ -188,7 +226,7 @@ html::-webkit-scrollbar {
 }
 
 .art-deco-line {
-  background: linear-gradient(to bottom, transparent, var(--champagne-gold-start), transparent);
+  background: linear-gradient(to bottom, transparent, var(--playful-pink), transparent);
   width: 2px;
   height: 120px;
 }
@@ -294,9 +332,9 @@ html::-webkit-scrollbar {
 .art-deco-dot {
   width: 8px;
   height: 8px;
-  background: var(--champagne-gold-start);
+  background: var(--playful-pink);
   border-radius: 50%;
-  box-shadow: 0 0 8px var(--champagne-gold-start);
+  box-shadow: 0 0 8px var(--playful-pink);
 }
 
 .hero-gradient {
