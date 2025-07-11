@@ -28,3 +28,5 @@ images/*.zip
 # Source Documents
 # Ignore source text/document files.
 *.docx.txt 
+# Local Netlify folder
+.netlify

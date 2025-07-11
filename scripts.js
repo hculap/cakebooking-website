@@ -148,42 +148,48 @@ window.addEventListener('hashchange', checkHashForTab);
 
 // Randomize art-deco-line positions on page load
 function randomizeArtDecoLines() {
-    document.querySelectorAll('.art-deco-line').forEach(line => {
-        const parentElement = line.closest('.parallax-element');
-        if (parentElement) {
-            // Get current position
-            const currentTop = parseInt(parentElement.style.top) || 0;
-            const currentBottom = parseInt(parentElement.style.bottom) || 0;
-            
-            // Add random offset to Y position (-100px to +100px)
-            const randomOffset = Math.floor(Math.random() * 200) - 100;
-            
-            if (parentElement.style.top) {
-                const newTop = Math.max(20, currentTop + randomOffset);
-                parentElement.style.top = `${newTop}px`;
-            } else if (parentElement.style.bottom) {
-                const newBottom = Math.max(20, currentBottom + randomOffset);
-                parentElement.style.bottom = `${newBottom}px`;
+    const artDecoLines = document.querySelectorAll('.art-deco-line');
+    if (artDecoLines.length > 0) {
+        artDecoLines.forEach(line => {
+            const parentElement = line.closest('.parallax-element');
+            if (parentElement) {
+                // Get current position
+                const currentTop = parseInt(parentElement.style.top) || 0;
+                const currentBottom = parseInt(parentElement.style.bottom) || 0;
+                
+                // Add random offset to Y position (-100px to +100px)
+                const randomOffset = Math.floor(Math.random() * 200) - 100;
+                
+                if (parentElement.style.top) {
+                    const newTop = Math.max(20, currentTop + randomOffset);
+                    parentElement.style.top = `${newTop}px`;
+                } else if (parentElement.style.bottom) {
+                    const newBottom = Math.max(20, currentBottom + randomOffset);
+                    parentElement.style.bottom = `${newBottom}px`;
+                }
             }
-        }
-    });
+        });
+    }
 }
 
 // Parallax effect on scroll - subtle and natural
 function updateParallax() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     
-    document.querySelectorAll('.parallax-element').forEach(el => {
-        // Skip art-deco-line elements from parallax movement
-        if (el.querySelector('.art-deco-line')) {
-            return;
-        }
-        
-        const speed = parseFloat(el.getAttribute('data-speed')) || 0.5;
-        // Make it much more subtle by dividing by 10 and reducing the speed multiplier
-        const yPos = -(scrollTop * speed * 0.1);
-        el.style.transform = `translateY(${yPos}px)`;
-    });
+    const parallaxElements = document.querySelectorAll('.parallax-element');
+    if (parallaxElements.length > 0) {
+        parallaxElements.forEach(el => {
+            // Skip art-deco-line elements from parallax movement
+            if (el.querySelector('.art-deco-line')) {
+                return;
+            }
+            
+            const speed = parseFloat(el.getAttribute('data-speed')) || 0.5;
+            // Make it much more subtle by dividing by 10 and reducing the speed multiplier
+            const yPos = -(scrollTop * speed * 0.1);
+            el.style.transform = `translateY(${yPos}px)`;
+        });
+    }
 }
 
 // Throttle scroll events for smoother performance
@@ -206,22 +212,25 @@ window.addEventListener('DOMContentLoaded', randomizeArtDecoLines);
 // Bottom nav scroll behavior
 let lastScrollTop = 0;
 const bottomNav = document.getElementById('bottom-nav');
-window.addEventListener('scroll', function() {
-  let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  if (scrollTop > lastScrollTop && scrollTop > 200) {
-    // Downscroll
-    bottomNav.classList.add('hidden-nav');
-  } else {
-    // Upscroll
-    bottomNav.classList.remove('hidden-nav');
-  }
-  lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-}, { passive: true });
+if (bottomNav) {
+  window.addEventListener('scroll', function() {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrollTop > lastScrollTop && scrollTop > 200) {
+      // Downscroll
+      bottomNav.classList.add('hidden-nav');
+    } else {
+      // Upscroll
+      bottomNav.classList.remove('hidden-nav');
+    }
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+  }, { passive: true });
+}
 
 // Interactive Hero Cake
 const cakeDesign = document.getElementById('cake-design');
-if (cakeDesign) {
-    document.querySelector('.hero-gradient').addEventListener('mousemove', (e) => {
+const heroGradient = document.querySelector('.hero-gradient');
+if (cakeDesign && heroGradient) {
+    heroGradient.addEventListener('mousemove', (e) => {
         const { left, top, width, height } = cakeDesign.getBoundingClientRect();
         const x = e.clientX - left - width / 2;
         const y = e.clientY - top - height / 2;
@@ -233,7 +242,7 @@ if (cakeDesign) {
         cakeDesign.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
     });
     
-    document.querySelector('.hero-gradient').addEventListener('mouseleave', () => {
+    heroGradient.addEventListener('mouseleave', () => {
         cakeDesign.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
         cakeDesign.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
     });
@@ -246,46 +255,55 @@ document.addEventListener('DOMContentLoaded', function() {
     const faqAccordion = document.getElementById('faq-accordion');
     const noResults = document.getElementById('no-results');
 
-    // Initialize all FAQ items as closed
-    function initializeFAQ() {
-        faqQuestions.forEach(question => {
+    // Only initialize FAQ if elements exist
+    if (faqQuestions.length > 0) {
+        // Initialize all FAQ items as closed
+        function initializeFAQ() {
+            faqQuestions.forEach(question => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('.faq-icon');
+                
+                if (answer && icon) {
+                    answer.style.maxHeight = '0px';
+                    icon.style.transform = 'rotate(0deg)';
+                }
+            });
+        }
+
+        // Toggle FAQ item
+        function toggleFAQ(question) {
             const answer = question.nextElementSibling;
             const icon = question.querySelector('.faq-icon');
             
-            answer.style.maxHeight = '0px';
-            icon.style.transform = 'rotate(0deg)';
-        });
-    }
+            if (!answer || !icon) return;
+            
+            const isOpen = answer.style.maxHeight !== '0px' && answer.style.maxHeight !== '';
 
-    // Toggle FAQ item
-    function toggleFAQ(question) {
-        const answer = question.nextElementSibling;
-        const icon = question.querySelector('.faq-icon');
-        const isOpen = answer.style.maxHeight !== '0px' && answer.style.maxHeight !== '';
+            if (isOpen) {
+                // Close
+                answer.style.maxHeight = '0px';
+                icon.style.transform = 'rotate(0deg)';
+                question.setAttribute('aria-expanded', 'false');
+            } else {
+                // Close all others first
+                faqQuestions.forEach(otherQuestion => {
+                    if (otherQuestion !== question) {
+                        const otherAnswer = otherQuestion.nextElementSibling;
+                        const otherIcon = otherQuestion.querySelector('.faq-icon');
+                        if (otherAnswer && otherIcon) {
+                            otherAnswer.style.maxHeight = '0px';
+                            otherIcon.style.transform = 'rotate(0deg)';
+                            otherQuestion.setAttribute('aria-expanded', 'false');
+                        }
+                    }
+                });
 
-        if (isOpen) {
-            // Close
-            answer.style.maxHeight = '0px';
-            icon.style.transform = 'rotate(0deg)';
-            question.setAttribute('aria-expanded', 'false');
-        } else {
-            // Close all others first
-            faqQuestions.forEach(otherQuestion => {
-                if (otherQuestion !== question) {
-                    const otherAnswer = otherQuestion.nextElementSibling;
-                    const otherIcon = otherQuestion.querySelector('.faq-icon');
-                    otherAnswer.style.maxHeight = '0px';
-                    otherIcon.style.transform = 'rotate(0deg)';
-                    otherQuestion.setAttribute('aria-expanded', 'false');
-                }
-            });
-
-            // Open this one
-            answer.style.maxHeight = answer.scrollHeight + 'px';
-            icon.style.transform = 'rotate(180deg)';
-            question.setAttribute('aria-expanded', 'true');
+                // Open this one
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+                question.setAttribute('aria-expanded', 'true');
+            }
         }
-    }
 
     // Add click listeners to FAQ questions
     faqQuestions.forEach(question => {
@@ -298,75 +316,85 @@ document.addEventListener('DOMContentLoaded', function() {
         question.setAttribute('aria-expanded', 'false');
     });
 
-    // FAQ Search functionality
-    if (faqSearch) {
-        faqSearch.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase().trim();
-            const faqItems = document.querySelectorAll('.faq-item');
-            let visibleCount = 0;
+        // FAQ Search functionality
+        if (faqSearch && faqAccordion && noResults) {
+            faqSearch.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                const faqItems = document.querySelectorAll('.faq-item');
+                let visibleCount = 0;
 
-            faqItems.forEach(item => {
-                const question = item.querySelector('.faq-question h3').textContent.toLowerCase();
-                const answer = item.querySelector('.faq-answer p').textContent.toLowerCase();
-                
-                if (searchTerm === '' || question.includes(searchTerm) || answer.includes(searchTerm)) {
-                    item.style.display = 'block';
-                    item.style.opacity = '1';
-                    item.style.transform = 'translateY(0)';
-                    visibleCount++;
-                } else {
-                    item.style.opacity = '0';
-                    item.style.transform = 'translateY(-10px)';
-                    setTimeout(() => {
-                        if (!item.querySelector('.faq-question h3').textContent.toLowerCase().includes(faqSearch.value.toLowerCase()) && 
-                            !item.querySelector('.faq-answer p').textContent.toLowerCase().includes(faqSearch.value.toLowerCase())) {
-                            item.style.display = 'none';
+                faqItems.forEach(item => {
+                    const questionElement = item.querySelector('.faq-question h3');
+                    const answerElement = item.querySelector('.faq-answer p');
+                    
+                    if (questionElement && answerElement) {
+                        const question = questionElement.textContent.toLowerCase();
+                        const answer = answerElement.textContent.toLowerCase();
+                        
+                        if (searchTerm === '' || question.includes(searchTerm) || answer.includes(searchTerm)) {
+                            item.style.display = 'block';
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                            visibleCount++;
+                        } else {
+                            item.style.opacity = '0';
+                            item.style.transform = 'translateY(-10px)';
+                            setTimeout(() => {
+                                if (!item.querySelector('.faq-question h3')?.textContent.toLowerCase().includes(faqSearch.value.toLowerCase()) && 
+                                    !item.querySelector('.faq-answer p')?.textContent.toLowerCase().includes(faqSearch.value.toLowerCase())) {
+                                    item.style.display = 'none';
+                                }
+                            }, 300);
                         }
-                    }, 300);
+                    }
+                });
+
+                // Show/hide no results message
+                if (visibleCount === 0 && searchTerm !== '') {
+                    noResults.classList.remove('hidden');
+                    faqAccordion.style.opacity = '0.5';
+                } else {
+                    noResults.classList.add('hidden');
+                    faqAccordion.style.opacity = '1';
                 }
             });
 
-            // Show/hide no results message
-            if (visibleCount === 0 && searchTerm !== '') {
-                noResults.classList.remove('hidden');
-                faqAccordion.style.opacity = '0.5';
-            } else {
-                noResults.classList.add('hidden');
-                faqAccordion.style.opacity = '1';
-            }
-        });
+            // Add search icon animation
+            faqSearch.addEventListener('focus', function() {
+                const searchIcon = this.previousElementSibling?.querySelector('i');
+                if (searchIcon) {
+                    searchIcon.style.transform = 'scale(1.1)';
+                    searchIcon.style.color = 'var(--champagne-gold-start)';
+                }
+            });
 
-        // Add search icon animation
-        faqSearch.addEventListener('focus', function() {
-            const searchIcon = this.previousElementSibling.querySelector('i');
-            searchIcon.style.transform = 'scale(1.1)';
-            searchIcon.style.color = 'var(--champagne-gold-start)';
-        });
+            faqSearch.addEventListener('blur', function() {
+                const searchIcon = this.previousElementSibling?.querySelector('i');
+                if (searchIcon) {
+                    searchIcon.style.transform = 'scale(1)';
+                    searchIcon.style.color = '';
+                }
+            });
+        }
 
-        faqSearch.addEventListener('blur', function() {
-            const searchIcon = this.previousElementSibling.querySelector('i');
-            searchIcon.style.transform = 'scale(1)';
-            searchIcon.style.color = '';
+        // Initialize FAQ
+        initializeFAQ();
+
+        // Add smooth scrolling to FAQ items when they open
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', function() {
+                setTimeout(() => {
+                    const rect = this.getBoundingClientRect();
+                    const isInView = rect.top >= 0 && rect.bottom <= window.innerHeight;
+                    
+                    if (!isInView) {
+                        this.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'nearest' 
+                        });
+                    }
+                }, 300); // Wait for animation to complete
+            });
         });
     }
-
-    // Initialize FAQ
-    initializeFAQ();
-
-    // Add smooth scrolling to FAQ items when they open
-    faqQuestions.forEach(question => {
-        question.addEventListener('click', function() {
-            setTimeout(() => {
-                const rect = this.getBoundingClientRect();
-                const isInView = rect.top >= 0 && rect.bottom <= window.innerHeight;
-                
-                if (!isInView) {
-                    this.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'nearest' 
-                    });
-                }
-            }, 300); // Wait for animation to complete
-        });
-    });
 });

@@ -1,0 +1,26 @@
+{
+  "name": "cakebooking-web",
+  "version": "1.0.0",
+  "description": "CakeBooking website with AI cake visualizer",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "echo 'No build step required'"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "node-fetch": "^3.3.2",
+    "dotenv": "^16.3.1"
+  },
+  "keywords": [
+    "cake",
+    "booking",
+    "ai",
+    "visualizer"
+  ],
+  "author": "CakeBooking Team",
+  "license": "MIT"
+} 

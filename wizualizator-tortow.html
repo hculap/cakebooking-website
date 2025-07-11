@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wizualizator Tortów 3D | CakeBooking</title>
-  <meta name="description" content="Zaprojektuj swój wymarzony tort w 3D! Interaktywny wizualizator pozwala wybrać rozmiar, smak, kolor i dekoracje.">
+  <title>Wizualizator Tortów AI | CakeBooking</title>
+  <meta name="description" content="Zaprojektuj swój wymarzony tort z AI! Interaktywny wizualizator generuje realistyczne obrazy na podstawie Twoich wyborów.">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -12,14 +12,12 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   
-  <!-- Three.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
   
   <!-- Custom CSS -->
   <link rel="stylesheet" href="styles.css">
   <style>
-    #cake-canvas {
+    #image-container {
       border-radius: 16px;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
@@ -99,6 +97,17 @@
     #mobile-menu {
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
+    }
+
+    /* Sticky positioning improvements */
+    .sticky {
+      position: -webkit-sticky;
+      position: sticky;
+    }
+    
+    /* Ensure the sticky element has proper z-index */
+    .sticky.top-0 {
+      z-index: 10;
     }
   </style>
 </head>
@@ -299,16 +308,16 @@
           Zaprojektuj swój wymarzony tort w interaktywnym środowisku 3D. Wybierz rozmiar, smak, kolor i dekoracje, a zobaczysz rezultat w czasie rzeczywistym.
         </p>
         <div class="flex items-center justify-center space-x-6 text-sm text-dove-gray">
-          <span><i class="fa-solid fa-cube mr-2 text-champagne-gold"></i>Wizualizacja 3D</span>
+          <span><i class="fa-solid fa-robot mr-2 text-champagne-gold"></i>Generowanie AI</span>
           <span><i class="fa-solid fa-palette mr-2 text-champagne-gold"></i>Personalizacja</span>
-          <span><i class="fa-solid fa-bolt mr-2 text-champagne-gold"></i>Czas rzeczywisty</span>
+          <span><i class="fa-solid fa-magic mr-2 text-champagne-gold"></i>Realistyczne obrazy</span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Main Visualizer Section -->
-  <section class="py-20 bg-porcelain-white relative overflow-hidden">
+  <section class="py-20 pb-40 bg-porcelain-white relative overflow-hidden">
     <!-- Art Deco Elements -->
     <div class="parallax-element" data-speed="0.2" style="position: absolute; left: 32px; top: 200px; z-index: 0; opacity: 0.5;">
       <div class="art-deco-dot"></div>
@@ -320,51 +329,54 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
-        <!-- 3D Canvas -->
+        <!-- AI Image Generator -->
         <div class="lg:col-span-2">
-          <div class="relative">
-            <canvas id="cake-canvas" class="w-full" style="height: 600px;"></canvas>
-            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur rounded-lg p-3">
-              <div class="flex items-center space-x-2 text-sm text-midnight-navy">
-                <i class="fa-solid fa-mouse text-champagne-gold"></i>
-                <span>Przeciągnij aby obrócić • Scroll aby przybliżyć</span>
+          <div class="relative sticky top-0">
+            <!-- Image Display Area -->
+            <div id="image-container" class="w-full bg-gray-100 rounded-2xl overflow-hidden" style="aspect-ratio: 1; max-width: 600px; margin: 0 auto; display: flex; align-items: center; justify-content: center;">
+              <!-- Placeholder -->
+              <div id="placeholder" class="text-center">
+                <div class="w-32 h-32 mx-auto mb-4 bg-gray-200 rounded-full flex items-center justify-center">
+                  <i class="fa-solid fa-cake-candles text-6xl text-gray-400"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-600 mb-2">Wizualizacja Twojego tortu</h3>
+                <p class="text-gray-500">Wybierz opcje i kliknij "Generuj obraz" aby zobaczyć swój tort</p>
               </div>
+              
+              <!-- Loading State -->
+              <div id="loading" class="text-center hidden">
+                <div class="w-32 h-32 mx-auto mb-4 bg-champagne-gold/20 rounded-full flex items-center justify-center">
+                  <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-champagne-gold"></div>
+                </div>
+                <h3 class="text-xl font-semibold text-midnight-navy mb-2">Generuję obraz...</h3>
+                <p class="text-dove-gray">To może potrwać kilka sekund</p>
+              </div>
+              
+              <!-- Generated Image -->
+              <img id="generated-image" class="w-full h-full object-cover hidden" alt="Wygenerowany tort">
+            </div>
+            
+            <!-- Generate Button -->
+            <div class="mt-6 text-center">
+              <button 
+                id="generate-btn" 
+                class="pill-button flex items-center justify-center mx-auto text-lg font-medium px-8 py-4 shadow-lg text-midnight-navy no-underline">
+                <i class="fa-solid fa-magic h-5 w-5 mr-3"></i>
+                Generuj obraz tortu
+              </button>
+              <p class="text-sm text-dove-gray mt-2">
+                <i class="fa-solid fa-info-circle mr-1"></i>
+                Obraz zostanie wygenerowany przez AI na podstawie Twoich wyborów
+              </p>
             </div>
           </div>
           
-          <!-- AI Prompt Generator -->
-          <div class="mt-6 control-panel p-6">
-            <h4 class="font-semibold text-midnight-navy mb-4 flex items-center">
-              <i class="fa-solid fa-robot mr-3 text-champagne-gold"></i>
-              Prompt dla AI Image Generator
-            </h4>
-            <p class="text-sm text-dove-gray mb-4">
-              Skopiuj poniższy prompt do generatora obrazów AI (np. DALL-E, MidJourney, Stable Diffusion) aby stworzyć realistyczną wizualizację Twojego tortu:
-            </p>
-            <div class="relative">
-              <textarea 
-                id="ai-prompt" 
-                readonly 
-                class="w-full h-24 p-3 border border-gray-300 rounded-lg text-sm text-midnight-navy bg-gray-50 resize-none focus:outline-none focus:ring-2 focus:ring-champagne-gold focus:border-transparent"
-                placeholder="Prompt zostanie wygenerowany na podstawie Twoich wyborów...">
-              </textarea>
-              <button 
-                id="copy-prompt" 
-                class="absolute top-2 right-2 px-3 py-1 bg-champagne-gold text-midnight-navy text-xs rounded-md hover:bg-opacity-80 transition-colors"
-                title="Skopiuj prompt">
-                <i class="fa-solid fa-copy mr-1"></i>
-                Kopiuj
-              </button>
-            </div>
-            <div class="mt-2 text-xs text-dove-gray">
-              💡 Wskazówka: Dodaj na końcu ", professional photography, studio lighting, high quality" dla lepszych rezultatów
-            </div>
-          </div>
+
         </div>
 
         <!-- Control Panel -->
         <div class="lg:col-span-1">
-          <div class="control-panel p-6 sticky top-24">
+          <div class="control-panel p-6 overflow-y-auto">
             <h3 class="font-display text-2xl font-bold text-midnight-navy mb-6 text-center">
               <i class="fa-solid fa-sliders mr-3 text-champagne-gold"></i>
               Personalizuj Tort
@@ -590,6 +602,14 @@
               </button>
             </div>
 
+            <!-- Extra content for scroll space -->
+            <div class="pt-12 pb-8">
+              <div class="text-center text-dove-gray text-sm">
+                <i class="fa-solid fa-info-circle mr-2"></i>
+                Przewiń w dół, aby zobaczyć więcej opcji
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -735,7 +755,8 @@
   <!-- Scripts -->
   <script src="scripts.js"></script>
   <script src="cookies.js"></script>
-  <script id="cake-visualizer-script">
+  <script src="cake-visualizer-ai.js"></script>
+  <script>
     // Cake Visualizer 3D Application
     let scene, camera, renderer, controls;
     let cake = {};
