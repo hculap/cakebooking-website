@@ -226,26 +226,26 @@ if (bottomNav) {
   }, { passive: true });
 }
 
-// Interactive Hero Cake
+// Automatic Hero Cake Animation
 const cakeDesign = document.getElementById('cake-design');
-const heroGradient = document.querySelector('.hero-gradient');
-if (cakeDesign && heroGradient) {
-    heroGradient.addEventListener('mousemove', (e) => {
-        const { left, top, width, height } = cakeDesign.getBoundingClientRect();
-        const x = e.clientX - left - width / 2;
-        const y = e.clientY - top - height / 2;
-        
-        const rotateX = -y / 40;
-        const rotateY = x / 40;
-        
-        cakeDesign.style.transition = 'transform 0.1s ease-out';
-        cakeDesign.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-    });
+if (cakeDesign) {
+    let startTime = Date.now();
     
-    heroGradient.addEventListener('mouseleave', () => {
-        cakeDesign.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
-        cakeDesign.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-    });
+    function animateCake() {
+        const elapsed = (Date.now() - startTime) / 1000; // Convert to seconds
+        
+        // Smooth continuous rotation with different speeds for X and Y axes
+        const rotateX = Math.sin(elapsed * 0.3) * 3; // Gentle vertical tilt
+        const rotateY = Math.sin(elapsed * 0.2) * 5; // Gentle horizontal rotation
+        const scale = 1 + Math.sin(elapsed * 0.4) * 0.02; // Very subtle breathing effect
+        
+        cakeDesign.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(${scale}, ${scale}, ${scale})`;
+        
+        requestAnimationFrame(animateCake);
+    }
+    
+    // Start the animation
+    animateCake();
 }
 
 // FAQ Accordion Functionality
