@@ -298,10 +298,16 @@
           </div>
         </div>
         <div class="md:w-1/2 relative">
-          <div class="w-full aspect-[3/2] relative">
-            <!-- Visually enhanced placeholder for the hero cake -->
-            <div id="cake-design" class="absolute inset-0 rounded-3xl shadow-2xl flex items-center justify-center">
-              <img src="images/hero.png" alt="Elegant wedding cake showcase" class="w-full h-full object-cover rounded-3xl">
+          <div class="w-full max-w-md mx-auto aspect-square relative">
+            <div id="hero-carousel" class="absolute inset-0 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden bg-white">
+              <img src="images/hero/hero1.jpeg" alt="Hero image" class="hero-carousel-img w-full h-full object-cover rounded-3xl transition-opacity duration-1000 opacity-100 absolute inset-0" style="z-index:2;">
+              <img src="images/hero/hero2.jpeg" alt="Hero image" class="hero-carousel-img w-full h-full object-cover rounded-3xl transition-opacity duration-1000 opacity-0 absolute inset-0" style="z-index:1;">
+              <img src="images/hero/hero3.jpeg" alt="Hero image" class="hero-carousel-img w-full h-full object-cover rounded-3xl transition-opacity duration-1000 opacity-0 absolute inset-0" style="z-index:1;">
+              <img src="images/hero/hero4.jpeg" alt="Hero image" class="hero-carousel-img w-full h-full object-cover rounded-3xl transition-opacity duration-1000 opacity-0 absolute inset-0" style="z-index:1;">
+              <img src="images/hero/hero5.jpeg" alt="Hero image" class="hero-carousel-img w-full h-full object-cover rounded-3xl transition-opacity duration-1000 opacity-0 absolute inset-0" style="z-index:1;">
+              <img src="images/hero/hero6.jpeg" alt="Hero image" class="hero-carousel-img w-full h-full object-cover rounded-3xl transition-opacity duration-1000 opacity-0 absolute inset-0" style="z-index:1;">
+              <img src="images/hero/hero7.jpeg" alt="Hero image" class="hero-carousel-img w-full h-full object-cover rounded-3xl transition-opacity duration-1000 opacity-0 absolute inset-0" style="z-index:1;">
+              <img src="images/hero/hero8.jpeg" alt="Hero image" class="hero-carousel-img w-full h-full object-cover rounded-3xl transition-opacity duration-1000 opacity-0 absolute inset-0" style="z-index:1;">
             </div>
           </div>
           <div class="absolute -bottom-6 -right-6 w-32 h-32 rounded-full opacity-15 blur-xl" style="background: var(--champagne-gold-start);" aria-hidden="true"></div>
@@ -1428,5 +1434,19 @@
 
   <script src="scripts.js"></script>
   <script src="cookies.js"></script>
+  <script>
+  (function() {
+    const images = document.querySelectorAll('#hero-carousel .hero-carousel-img');
+    let current = 0;
+    const total = images.length;
+    setInterval(() => {
+      images[current].style.opacity = 0;
+      images[current].style.zIndex = 1;
+      current = (current + 1) % total;
+      images[current].style.opacity = 1;
+      images[current].style.zIndex = 2;
+    }, 4000);
+  })();
+  </script>
 </body>
 </html>
