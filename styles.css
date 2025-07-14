@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&family=Parisienne&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap');
 
 :root {
   --midnight-navy: #0F2238;
@@ -38,7 +38,10 @@ html::-webkit-scrollbar {
 }
 
 .font-script {
-  font-family: 'Parisienne', cursive;
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
 
 .bg-midnight-navy {
