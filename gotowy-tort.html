@@ -108,6 +108,60 @@
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
     }
+
+    /* Modal animations */
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9) translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    #success-modal .transform,
+    #error-modal .transform {
+      animation: modalSlideIn 0.3s ease-out;
+    }
+
+    /* Success modal gradient text */
+    #success-modal h3 {
+      color: #1f2937 !important; /* Dark gray */
+    }
+
+    #success-modal p {
+      color: #374151 !important; /* Medium gray */
+    }
+
+    #success-modal .fa-check {
+      color: #1f2937 !important; /* Dark gray for success icon */
+    }
+
+    #error-modal h3 {
+      color: #1f2937 !important; /* Dark gray */
+    }
+
+    #error-modal p {
+      color: #374151 !important; /* Medium gray */
+    }
+
+    /* Ensure all modal text is visible */
+    #success-modal,
+    #error-modal {
+      color: #1f2937;
+    }
+
+    #success-modal p,
+    #error-modal p {
+      color: #374151 !important;
+    }
+
+    /* Error modal styling */
+    #error-modal .bg-red-50 {
+      border: 1px solid rgba(239, 68, 68, 0.1);
+    }
   </style>
 </head>
 <body class="font-sans text-midnight-navy pb-24 md:pb-0">
@@ -911,8 +965,150 @@
     </div>
   </footer>
 
+  <!-- Success Modal -->
+  <div id="success-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full transform scale-95 transition-transform duration-300">
+        <div class="p-8 text-center">
+          <!-- Success Icon -->
+          <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-playful-pink to-champagne-gold flex items-center justify-center">
+            <i class="fa-solid fa-check text-3xl text-gray-900"></i>
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-2xl font-display font-bold text-gray-900 mb-4">
+            Zamówienie złożone!
+          </h3>
+
+          <!-- Message -->
+          <p class="text-gray-700 leading-relaxed mb-6">
+            Dziękujemy za zamówienie! Nasz zespół przygotuje Twój tort zgodnie z wybranymi opcjami i skontaktuje się wkrótce w sprawie potwierdzenia zamówienia.
+          </p>
+
+          <!-- Contact Info -->
+          <div class="bg-gray-50 rounded-xl p-4 mb-6">
+            <p class="text-sm text-gray-700 mb-2">
+              <i class="fa-solid fa-clock mr-2 text-playful-pink"></i>
+              <strong class="text-gray-900">Czas realizacji:</strong> 2-3 dni robocze
+            </p>
+            <p class="text-sm text-gray-700">
+              <i class="fa-solid fa-envelope mr-2 text-playful-pink"></i>
+              <strong class="text-gray-900">Kontakt:</strong> kontakt@cakebooking.pl
+            </p>
+          </div>
+
+          <!-- Close Button -->
+          <button id="close-success-modal" class="w-full pill-button-pink text-white font-medium py-3 px-6 shadow-lg">
+            <i class="fa-solid fa-check mr-2"></i>
+            Rozumiem
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Modal -->
+  <div id="error-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full transform scale-95 transition-transform duration-300">
+        <div class="p-8 text-center">
+          <!-- Error Icon -->
+          <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-red-400 to-red-600 flex items-center justify-center">
+            <i class="fa-solid fa-exclamation-triangle text-3xl text-white"></i>
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-2xl font-display font-bold text-gray-900 mb-4">
+            Błąd zamówienia
+          </h3>
+
+          <!-- Message -->
+          <p id="error-message" class="text-gray-700 leading-relaxed mb-6">
+            Przepraszamy, wystąpił błąd podczas składania zamówienia. Spróbuj ponownie lub skontaktuj się z nami telefonicznie.
+          </p>
+
+          <!-- Contact Info -->
+          <div class="bg-red-50 rounded-xl p-4 mb-6">
+            <p class="text-sm text-red-800 mb-2">
+              <i class="fa-solid fa-phone mr-2"></i>
+              <strong class="text-red-900">Telefon:</strong> +48 123 456 789
+            </p>
+            <p class="text-sm text-red-800">
+              <i class="fa-solid fa-envelope mr-2"></i>
+              <strong class="text-red-900">Email:</strong> kontakt@cakebooking.pl
+            </p>
+          </div>
+
+          <!-- Close Button -->
+          <button id="close-error-modal" class="w-full bg-gradient-to-r from-red-400 to-red-600 hover:from-red-500 hover:to-red-700 text-white font-medium py-3 px-6 rounded-xl shadow-lg transition-all duration-300">
+            <i class="fa-solid fa-redo mr-2"></i>
+            Spróbuj ponownie
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="cookies.js"></script>
+  <!-- Modal Management Functions -->
   <script>
+    // Modal management functions
+    function showModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.remove('hidden');
+        // Trigger animation
+        setTimeout(() => {
+          modal.classList.remove('opacity-0');
+          modal.querySelector('.transform').classList.remove('scale-95');
+        }, 10);
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function hideModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.add('opacity-0');
+        modal.querySelector('.transform').classList.add('scale-95');
+        setTimeout(() => {
+          modal.classList.add('hidden');
+          // Restore body scroll
+          document.body.style.overflow = '';
+        }, 300);
+      }
+    }
+
+    // Modal event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      // Modal close buttons
+      document.getElementById('close-success-modal')?.addEventListener('click', () => {
+        hideModal('success-modal');
+      });
+
+      document.getElementById('close-error-modal')?.addEventListener('click', () => {
+        hideModal('error-modal');
+      });
+
+      // Close modals when clicking outside
+      document.getElementById('success-modal')?.addEventListener('click', (e) => {
+        if (e.target.id === 'success-modal') {
+          hideModal('success-modal');
+        }
+      });
+
+      document.getElementById('error-modal')?.addEventListener('click', (e) => {
+        if (e.target.id === 'error-modal') {
+          hideModal('error-modal');
+        }
+      });
+    });
+  </script>
+
+  <script>
+
+
     // Cake data with image mappings
     const cakeData = {
       communion: {
@@ -1059,6 +1255,7 @@
     let selectedOccasion = null;
     let selectedTaste = null;
     let selectedCake = null;
+    let selectedCakeImageUrl = null; // Store the current cake image URL
     let selectedSize = null;
     let selectedDecorations = [];
     let selectedDelivery = null;
@@ -1118,7 +1315,13 @@
         const selectedTasteValue = tasteSelect.value;
         
         if (!selectedSize || !selectedTasteValue) {
-          alert('Proszę wybrać rozmiar i smak tortu przed złożeniem zamówienia.');
+          // Set custom error message for size/taste validation
+          const errorMsg = document.getElementById('error-message');
+          if (errorMsg) {
+            errorMsg.textContent = 'Proszę wybrać rozmiar i smak tortu przed złożeniem zamówienia.';
+          }
+          // Show error modal for validation
+          showModal('error-modal');
           return;
         }
         
@@ -1292,7 +1495,7 @@
         };
         
         const directoryName = directoryMap[occasion] || occasionData.imagePrefix;
-        let imageSrc = `images/${directoryName}/${occasionData.imagePrefix}_${i.toString().padStart(2, '0')}.jpeg`;
+        let imageSrc = `images/${directoryName}/${occasionData.imagePrefix}_${i.toString().padStart(2, '0')}.png`;
         
         imageCard.innerHTML = `
           <div class="aspect-[3/4] rounded-lg overflow-hidden mb-4 bg-gradient-to-br from-champagne-gold/10 to-blush-rose/10">
@@ -1330,8 +1533,14 @@
       };
       
       const directoryName = directoryMap[selectedCake.occasion] || occasionData.imagePrefix;
-      const cakeImageSrc = `images/${directoryName}/${occasionData.imagePrefix}_${selectedCake.cakeNumber.toString().padStart(2, '0')}.jpeg`;
-      
+
+      // Try PNG first (as mentioned by user), with JPEG fallback
+      const cakeImageBase = `images/${directoryName}/${occasionData.imagePrefix}_${selectedCake.cakeNumber.toString().padStart(2, '0')}`;
+      const cakeImageSrc = `${cakeImageBase}.png`;
+
+      // Store the current cake image URL (base path for webhook)
+      selectedCakeImageUrl = cakeImageSrc;
+
       // Update cake preview
       const previewContainer = document.getElementById('selected-cake-preview');
       previewContainer.innerHTML = `
@@ -1805,7 +2014,13 @@
       });
       
       if (!selectedDelivery) {
-        alert('Proszę wybrać sposób odbioru.');
+        // Set custom error message for delivery validation
+        const errorMsg = document.getElementById('error-message');
+        if (errorMsg) {
+          errorMsg.textContent = 'Proszę wybrać sposób odbioru zamówienia.';
+        }
+        // Show error modal for validation
+        showModal('error-modal');
         isValid = false;
       }
       
@@ -1823,7 +2038,13 @@
       }
       
       if (!isValid) {
-        alert('Proszę wypełnić wszystkie wymagane pola.');
+        // Set custom error message for required fields validation
+        const errorMsg = document.getElementById('error-message');
+        if (errorMsg) {
+          errorMsg.textContent = 'Proszę wypełnić wszystkie wymagane pola.';
+        }
+        // Show error modal for validation
+        showModal('error-modal');
       }
       
       return isValid;
@@ -1854,6 +2075,7 @@
         delivery: selectedDelivery,
         customer: customerData,
         total: calculateTotal(),
+        cakeImageUrl: selectedCakeImageUrl, // Use stored relative path
         orderType: 'ready_cake' // Specify this is from ready cake selection
       };
 
@@ -1875,17 +2097,30 @@
         });
 
         if (success) {
-          alert('Dziękujemy za zamówienie! Skontaktujemy się z Tobą wkrótce, aby potwierdzić szczegóły.');
+          // Show success modal
+          showModal('success-modal');
 
           // Reset form and go back to start
           resetForm();
           showOccasionSelector();
         } else {
-          alert('Wystąpił błąd podczas składania zamówienia. Spróbuj ponownie lub skontaktuj się z nami.');
+          // Reset error message to default for submission errors
+          const errorMsg = document.getElementById('error-message');
+          if (errorMsg) {
+            errorMsg.textContent = 'Wystąpił błąd podczas składania zamówienia. Spróbuj ponownie lub skontaktuj się z nami telefonicznie.';
+          }
+          // Show error modal
+          showModal('error-modal');
         }
       } catch (error) {
         console.error('Order submission error:', error);
-        alert('Wystąpił błąd podczas składania zamówienia. Spróbuj ponownie.');
+        // Reset error message to default for submission errors
+        const errorMsg = document.getElementById('error-message');
+        if (errorMsg) {
+          errorMsg.textContent = 'Wystąpił błąd podczas składania zamówienia. Spróbuj ponownie lub skontaktuj się z nami telefonicznie.';
+        }
+        // Show error modal
+        showModal('error-modal');
       } finally {
         // Reset button state
         confirmButton.disabled = false;
@@ -1951,20 +2186,26 @@
     }
 
     function handleImageError(img, prefix, number) {
-      const extensions = ['jpg', 'png'];
+      const extensions = ['png', 'jpg', 'jpeg']; // Try all formats
       const currentSrc = img.src;
       const currentExt = currentSrc.split('.').pop();
-      
+
       // Extract directory from current path
       const pathParts = currentSrc.split('/');
       const directory = pathParts[pathParts.length - 2];
-      
-      // Remove current extension from tried extensions
-      const remainingExtensions = extensions.filter(ext => ext !== currentExt);
-      
-      if (remainingExtensions.length > 0) {
+
+      // Get all tried extensions from onerror calls
+      const triedExtensions = img.dataset.triedExtensions ? img.dataset.triedExtensions.split(',') : [];
+
+      // Add current extension to tried list
+      triedExtensions.push(currentExt);
+      img.dataset.triedExtensions = triedExtensions.join(',');
+
+      // Find next extension to try
+      const nextExt = extensions.find(ext => !triedExtensions.includes(ext));
+
+      if (nextExt) {
         // Try next extension
-        const nextExt = remainingExtensions[0];
         const newSrc = `images/${directory}/${prefix}_${number.toString().padStart(2, '0')}.${nextExt}`;
         img.src = newSrc;
       } else {
@@ -1975,20 +2216,26 @@
     }
 
     function handleConfigImageError(img, prefix, number) {
-      const extensions = ['jpg', 'png'];
+      const extensions = ['png', 'jpg', 'jpeg']; // Try all formats
       const currentSrc = img.src;
       const currentExt = currentSrc.split('.').pop();
-      
+
       // Extract directory from current path
       const pathParts = currentSrc.split('/');
       const directory = pathParts[pathParts.length - 2];
-      
-      // Remove current extension from tried extensions
-      const remainingExtensions = extensions.filter(ext => ext !== currentExt);
-      
-      if (remainingExtensions.length > 0) {
+
+      // Get all tried extensions from onerror calls
+      const triedExtensions = img.dataset.triedExtensions ? img.dataset.triedExtensions.split(',') : [];
+
+      // Add current extension to tried list
+      triedExtensions.push(currentExt);
+      img.dataset.triedExtensions = triedExtensions.join(',');
+
+      // Find next extension to try
+      const nextExt = extensions.find(ext => !triedExtensions.includes(ext));
+
+      if (nextExt) {
         // Try next extension
-        const nextExt = remainingExtensions[0];
         const newSrc = `images/${directory}/${prefix}_${number.toString().padStart(2, '0')}.${nextExt}`;
         img.src = newSrc;
       } else {

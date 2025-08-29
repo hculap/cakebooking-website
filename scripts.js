@@ -207,7 +207,7 @@ async function sendContactFormToWebhook(formData) {
  * @returns {string} - Formatted message for bakery
  */
 function formatOrderMessage(orderData) {
-    const { customer, cake, size, taste, decorations = [], delivery, total, orderType } = orderData;
+    const { customer, cake, size, taste, decorations = [], delivery, total, orderType, cakeImageUrl } = orderData;
 
     let message = `🧁 NOWE ZAMÓWIENIE TORTU\n\n`;
     message += `📅 Data zamówienia: ${new Date().toLocaleString('pl-PL')}\n`;
@@ -236,6 +236,13 @@ function formatOrderMessage(orderData) {
     message += `\n🎂 SZCZEGÓŁY TORTU:\n`;
     if (cake?.name) {
         message += `• Tort: ${cake.name}\n`;
+    }
+    if (cakeImageUrl) {
+        // Include image path for bakery reference
+        const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+        const fullImageUrl = baseUrl ? `${baseUrl}/${cakeImageUrl}` : cakeImageUrl;
+        message += `• Zdjęcie tortu: ${fullImageUrl}\n`;
+        message += `  (Ścieżka: ${cakeImageUrl})\n`;
     }
     if (size) {
         const sizeNames = { small: 'Mały (do 8 osób)', medium: 'Średni (do 12 osób)', large: 'Duży (do 16 osób)' };
