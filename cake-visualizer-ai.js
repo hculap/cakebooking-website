@@ -218,31 +218,79 @@ async function generateImage() {
   
   try {
     const prompt = generatePrompt();
-    
-    // Call the simple server endpoint
-    const response = await fetch('/api/generate-image', {
+
+    // Send generation request to our webhook
+    const webhookPayload = {
+      eventType: 'cake_image_generation',
+      timestamp: new Date().toISOString(),
+      userAgent: navigator.userAgent,
+      url: window.location.href,
+      data: {
+        prompt: prompt,
+        config: config,
+        size: '1024x1024',
+        formType: 'cake_image_generation'
+      }
+    };
+
+    const response = await fetch(WEBHOOK_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        prompt: prompt,
-        size: '1024x1024'
-      })
+      body: JSON.stringify(webhookPayload)
     });
-    
-    const result = await response.json();
-    
-    if (result.error) {
-      throw new Error(result.error);
+
+    if (!response.ok) {
+      throw new Error(`Webhook request failed: ${response.status}`);
     }
-    
+
+    const result = await response.json();
+    console.log('🎨 Webhook response:', result);
+
+    // Handle base64 image data from webhook response
+    if (result.image && result.image.startsWith('data:image/')) {
+      // If webhook returns data URL with base64
+      result.imageUrl = result.image;
+      result.status = "success";
+      console.log('✅ Using data URL format from webhook');
+    } else if (result.image) {
+      // If webhook returns just base64, convert to data URL
+      result.imageUrl = `data:image/png;base64,${result.image}`;
+      result.status = "success";
+      console.log('✅ Converting base64 to data URL');
+    } else if (result.status !== "success") {
+      throw new Error(result.error || 'No image data received from webhook');
+    }
+
     if (result.status === "success" && result.imageUrl) {
       // Success! Display the image directly
       generatedImage.src = result.imageUrl;
       generatedImage.onload = () => {
         loading.classList.add('hidden');
         generatedImage.classList.remove('hidden');
+
+        // Send prompt to webhook for bakery tracking
+        // Structure the data to match what formatCakeDesignMessage expects
+        const designData = {
+          ...config, // Spread the config to get size, layers, etc.
+          aiPrompt: prompt, // Add the generated prompt
+          generatedImageUrl: result.imageUrl,
+          timestamp: new Date().toISOString()
+        };
+
+        sendCakeDesignToWebhook(designData, {
+          // Customer data if available (could be enhanced later)
+          name: 'Cake Visualizer User',
+          email: 'visualizer@cakebooking.com',
+          message: `Wygenerowano obraz tortu z promptem: "${prompt}"`
+        }).then(success => {
+          if (success) {
+            console.log('✅ Cake design prompt sent to webhook successfully');
+          } else {
+            console.error('❌ Failed to send cake design prompt to webhook');
+          }
+        });
       };
       generatedImage.onerror = () => {
         throw new Error('Nie udało się załadować obrazu');

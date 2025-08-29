@@ -592,10 +592,6 @@
 
             <!-- Action Buttons -->
             <div class="pt-6 space-y-3">
-              <button id="save-design" class="w-full pill-button-pink py-3 text-base font-medium text-white">
-                <i class="fa-solid fa-save mr-2"></i>
-                Zapisz projekt
-              </button>
               <button id="order-cake" class="w-full pill-button-secondary py-3 text-base font-medium">
                 <i class="fa-solid fa-shopping-cart mr-2"></i>
                 Zamów ten tort
@@ -1121,44 +1117,8 @@
       });
       
       // Action buttons
-      document.getElementById('save-design').addEventListener('click', () => {
-        alert('Projekt zapisany! (funkcjonalność demonstracyjna)');
-      });
-      
-      document.getElementById('order-cake').addEventListener('click', async () => {
-        // Prepare cake design data
-        const designData = {
-          ...config,
-          aiPrompt: generateAIPrompt(),
-          canvasImage: getCanvasImageData(),
-          orderType: 'custom_visualizer'
-        };
-
-        // Show loading state
-        const orderButton = document.getElementById('order-cake');
-        const originalText = orderButton.innerHTML;
-        orderButton.disabled = true;
-        orderButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin h-5 w-5 mr-3"></i>Przetwarzanie...';
-
-        try {
-          // Send cake design to webhook
-          const success = await sendCakeDesignToWebhook(designData);
-
-          if (success) {
-            alert('Dziękujemy za zamówienie projektu tortu! Skontaktujemy się z Tobą wkrótce z dalszymi instrukcjami.');
-          } else {
-            alert('Wystąpił błąd podczas składania zamówienia. Spróbuj ponownie lub skontaktuj się z nami.');
-            console.error('Cake design order submission failed');
-          }
-        } catch (error) {
-          console.error('Cake design order error:', error);
-          alert('Wystąpił błąd podczas składania zamówienia. Spróbuj ponownie.');
-        } finally {
-          // Reset button state
-          orderButton.disabled = false;
-          orderButton.innerHTML = originalText;
-        }
-      });
+      // Note: save-design button has been removed
+      // Order functionality is handled in the modal script below
       
       // Copy prompt button
       document.getElementById('copy-prompt').addEventListener('click', copyPromptToClipboard);
@@ -1353,6 +1313,451 @@
 
     // Initialize when page loads
     document.addEventListener('DOMContentLoaded', init);
+  </script>
+
+  <!-- Order Modal for Cake Visualizer -->
+  <div id="order-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto transform scale-95 transition-transform duration-300">
+        <div class="p-8">
+          <!-- Header -->
+          <div class="text-center mb-6">
+            <h3 class="text-2xl font-display font-bold text-gray-900 mb-2">
+              Zamów wygenerowany tort
+            </h3>
+            <p class="text-gray-600">
+              Wypełnij dane zamówienia dla Twojego spersonalizowanego tortu
+            </p>
+          </div>
+
+          <!-- Order Form -->
+          <form id="order-form" class="space-y-6">
+            <!-- Customer Information -->
+            <div class="bg-gray-50 rounded-xl p-6">
+              <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                <i class="fa-solid fa-user mr-2 text-playful-pink"></i>
+                Dane osobowe
+              </h4>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Imię *</label>
+                  <input type="text" id="first-name" name="first-name" required
+                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-playful-pink focus:border-transparent transition-all">
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Nazwisko *</label>
+                  <input type="text" id="last-name" name="last-name" required
+                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-playful-pink focus:border-transparent transition-all">
+                </div>
+              </div>
+
+              <div class="mt-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                <input type="email" id="email" name="email" required
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-playful-pink focus:border-transparent transition-all">
+              </div>
+
+              <div class="mt-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Telefon *</label>
+                <input type="tel" id="phone" name="phone" required
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-playful-pink focus:border-transparent transition-all">
+              </div>
+            </div>
+
+            <!-- Delivery Information -->
+            <div class="bg-gray-50 rounded-xl p-6">
+              <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                <i class="fa-solid fa-truck mr-2 text-playful-pink"></i>
+                Dostawa
+              </h4>
+
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Adres dostawy</label>
+                  <input type="text" id="street" name="street" placeholder="Ulica i numer"
+                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-playful-pink focus:border-transparent transition-all">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Kod pocztowy</label>
+                    <input type="text" id="postal-code" name="postal-code" placeholder="00-000"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-playful-pink focus:border-transparent transition-all">
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Miasto</label>
+                    <input type="text" id="city" name="city"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-playful-pink focus:border-transparent transition-all">
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Data dostawy</label>
+                  <input type="date" id="delivery-date" name="delivery-date"
+                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-playful-pink focus:border-transparent transition-all">
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Uwagi do zamówienia</label>
+                  <textarea id="notes" name="notes" rows="3" placeholder="Dodatkowe informacje..."
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-playful-pink focus:border-transparent transition-all resize-none"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="bg-gradient-to-r from-playful-pink/10 to-champagne-gold/10 rounded-xl p-6">
+              <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                <i class="fa-solid fa-clipboard-list mr-2 text-playful-pink"></i>
+                Podsumowanie zamówienia
+              </h4>
+
+              <div class="space-y-2 text-sm">
+                <p><strong>Tort:</strong> Wygenerowany na podstawie Twoich preferencji</p>
+                <p><strong>Rozmiar:</strong> <span id="summary-size">Średni</span></p>
+                <p><strong>Kolor:</strong> <span id="summary-color">Wybrany</span></p>
+                <p><strong>Smak:</strong> <span id="summary-flavor">Wybrany</span></p>
+                <p><strong>Okazja:</strong> <span id="summary-occasion">Wybrana</span></p>
+                <p class="text-playful-pink font-semibold"><strong>Wartość:</strong> Cena ustalana indywidualnie</p>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex space-x-4 pt-4">
+              <button type="button" id="cancel-order" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-3 px-6 rounded-xl transition-all duration-300">
+                Anuluj
+              </button>
+
+              <button type="submit" id="submit-order" class="flex-1 pill-button-pink text-white font-medium py-3 px-6 shadow-lg">
+                <i class="fa-solid fa-paper-plane mr-2"></i>
+                Wyślij zamówienie
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Modal for Order -->
+  <div id="order-success-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full transform scale-95 transition-transform duration-300">
+        <div class="p-8 text-center">
+          <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-playful-pink to-champagne-gold flex items-center justify-center">
+            <i class="fa-solid fa-check text-3xl text-gray-900"></i>
+          </div>
+
+          <h3 class="text-2xl font-display font-bold text-gray-900 mb-4">
+            Zamówienie wysłane!
+          </h3>
+
+          <p class="text-gray-700 leading-relaxed mb-6">
+            Dziękujemy za zamówienie spersonalizowanego tortu! Nasz zespół przeanalizuje Twoje zamówienie i skontaktuje się wkrótce w sprawie szczegółów i ceny.
+          </p>
+
+          <div class="bg-gray-50 rounded-xl p-4 mb-6">
+            <p class="text-sm text-gray-700 mb-2">
+              <i class="fa-solid fa-clock mr-2 text-playful-pink"></i>
+              <strong class="text-gray-900">Czas realizacji:</strong> 3-5 dni roboczych
+            </p>
+            <p class="text-sm text-gray-700">
+              <i class="fa-solid fa-envelope mr-2 text-playful-pink"></i>
+              <strong class="text-gray-900">Kontakt:</strong> kontakt@cakebooking.pl
+            </p>
+          </div>
+
+          <button id="close-order-success" class="w-full pill-button-pink text-white font-medium py-3 px-6 shadow-lg">
+            <i class="fa-solid fa-check mr-2"></i>
+            Rozumiem
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Modal management functions
+    function showModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+          modal.classList.remove('opacity-0');
+          const modalContent = modal.querySelector('.transform');
+          if (modalContent) {
+            modalContent.classList.remove('scale-95');
+          }
+        }, 10);
+      }
+    }
+
+    function hideModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.add('opacity-0');
+        const modalContent = modal.querySelector('.transform');
+        if (modalContent) {
+          modalContent.classList.add('scale-95');
+        }
+        setTimeout(() => {
+          modal.classList.add('hidden');
+        }, 300);
+      }
+    }
+
+    // Order modal functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const orderCakeBtn = document.getElementById('order-cake');
+      const orderModal = document.getElementById('order-modal');
+      const orderForm = document.getElementById('order-form');
+      const cancelOrderBtn = document.getElementById('cancel-order');
+      const closeOrderSuccessBtn = document.getElementById('close-order-success');
+
+      // Show order modal when "Zamów ten tort" is clicked
+      if (orderCakeBtn) {
+        orderCakeBtn.addEventListener('click', function() {
+          // Update summary with current config
+          updateOrderSummary();
+          showModal('order-modal');
+        });
+      }
+
+      // Cancel order
+      if (cancelOrderBtn) {
+        cancelOrderBtn.addEventListener('click', function() {
+          hideModal('order-modal');
+        });
+      }
+
+      // Close success modal
+      if (closeOrderSuccessBtn) {
+        closeOrderSuccessBtn.addEventListener('click', function() {
+          hideModal('order-success-modal');
+        });
+      }
+
+      // Close modals when clicking outside
+      [orderModal, document.getElementById('order-success-modal')].forEach(modal => {
+        if (modal) {
+          modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+              hideModal(modal.id);
+            }
+          });
+        }
+      });
+
+      // Handle order form submission
+      if (orderForm) {
+        orderForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          submitCakeOrder();
+        });
+      }
+    });
+
+    // Update order summary with current cake configuration
+    function updateOrderSummary() {
+      const sizeNames = { small: 'Mały', medium: 'Średni', large: 'Duży' };
+      const colorNames = {
+        white: 'biały', pink: 'różowy', blue: 'niebieski', green: 'zielony',
+        orange: 'pomarańczowy', brown: 'brązowy', red: 'czerwony',
+        purple: 'fioletowy', yellow: 'żółty', black: 'czarny'
+      };
+      const occasionNames = {
+        birthday: 'urodzinowy', wedding: 'ślubny', anniversary: 'rocznicowy',
+        graduation: 'na ukończenie szkoły', celebration: 'świąteczny'
+      };
+      const flavorNames = {
+        vanilla: 'waniliowy', chocolate: 'czekoladowy', strawberry: 'truskawkowy',
+        lemon: 'cytrynowy', caramel: 'karmelowy'
+      };
+
+      document.getElementById('summary-size').textContent = sizeNames[config.size] || config.size;
+      document.getElementById('summary-color').textContent = colorNames[config.color] || config.color;
+      document.getElementById('summary-flavor').textContent = flavorNames[config.flavor] || config.flavor;
+      document.getElementById('summary-occasion').textContent = occasionNames[config.occasion] || config.occasion;
+    }
+
+    // Submit cake order to webhook
+    async function submitCakeOrder() {
+      const submitBtn = document.getElementById('submit-order');
+      const originalText = submitBtn.innerHTML;
+
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Wysyłanie...';
+
+      try {
+        // Get generated image as base64
+        const generatedImage = document.getElementById('generated-image');
+        let imageBase64 = null;
+
+        if (generatedImage && generatedImage.src) {
+          if (generatedImage.src.startsWith('data:image/')) {
+            // Extract base64 from data URL
+            imageBase64 = generatedImage.src.split(',')[1];
+          }
+        }
+
+        // Prepare customer data
+        const customerData = {
+          firstName: document.getElementById('first-name').value,
+          lastName: document.getElementById('last-name').value,
+          email: document.getElementById('email').value,
+          phone: document.getElementById('phone').value
+        };
+
+        // Prepare delivery data
+        const deliveryData = {
+          street: document.getElementById('street').value,
+          postalCode: document.getElementById('postal-code').value,
+          city: document.getElementById('city').value,
+          deliveryDate: document.getElementById('delivery-date').value,
+          notes: document.getElementById('notes').value
+        };
+
+        // Prepare order data
+        const orderData = {
+          cake: {
+            type: 'generated_visualizer',
+            config: config,
+            generatedImageBase64: imageBase64,
+            generatedPrompt: generatePrompt()
+          },
+          size: config.size,
+          customer: customerData,
+          delivery: deliveryData,
+          orderType: 'generated_cake',
+          timestamp: new Date().toISOString()
+        };
+
+        // Send to webhook
+        const success = await sendCakeOrderToWebhook(orderData, customerData);
+
+        if (success) {
+          console.log('✅ Generated cake order sent successfully');
+          hideModal('order-modal');
+          showModal('order-success-modal');
+        } else {
+          throw new Error('Failed to send order to webhook');
+        }
+
+      } catch (error) {
+        console.error('❌ Error submitting cake order:', error);
+        alert('Wystąpił błąd podczas wysyłania zamówienia. Spróbuj ponownie.');
+      } finally {
+        // Reset button state
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+      }
+    }
+
+    // Send cake order to webhook
+    async function sendCakeOrderToWebhook(orderData, customerData) {
+      const data = {
+        orderData: orderData,
+        customerData: customerData,
+        formType: 'generated_cake_order',
+        orderDate: new Date().toISOString()
+      };
+
+      // Create formatted message for order processing
+      const orderMessage = formatGeneratedCakeOrderMessage(orderData, customerData);
+
+      // Add formatted message to webhook data
+      const webhookData = {
+        ...data,
+        orderMessage: orderMessage
+      };
+
+      return await sendToWebhook(webhookData, 'generated_cake_order');
+    }
+
+    // Format order message for generated cake
+    function formatGeneratedCakeOrderMessage(orderData, customerData) {
+      const { cake, customer, delivery, size } = orderData;
+      const { config, generatedPrompt, generatedImageBase64 } = cake;
+
+      let message = `🧁 NOWE ZAMÓWIENIE TORTU WYGENEROWANEGO\n\n`;
+      message += `📅 Data zamówienia: ${new Date().toLocaleString('pl-PL')}\n\n`;
+
+      // Cake Configuration
+      message += `🎂 KONFIGURACJA TORTU:\n`;
+      const sizeNames = { small: 'Mały (do 8 osób)', medium: 'Średni (do 12 osób)', large: 'Duży (do 16 osób)' };
+      message += `• Rozmiar: ${sizeNames[size] || size}\n`;
+      message += `• Warstwy: ${config.layers || 2}\n`;
+      message += `• Kolor podstawowy: ${config.color || 'Niezdefiniowany'}\n`;
+      if (config.additionalColor) {
+        message += `• Kolor dodatkowy: ${config.additionalColor}\n`;
+      }
+      message += `• Smak: ${config.flavor || 'Niezdefiniowany'}\n`;
+      message += `• Okazja: ${config.occasion || 'Niezdefiniowana'}\n`;
+      if (config.cakeText) {
+        message += `• Napis na torcie: "${config.cakeText}"\n`;
+      }
+
+      // Decorations
+      if (config.decorations && Object.keys(config.decorations).length > 0) {
+        message += `\n✨ DEKORACJE:\n`;
+        const decorationNames = {
+          candles: 'Świeczki', flowers: 'Kwiaty', berries: 'Jagody', sprinkles: 'Posypka'
+        };
+        Object.entries(config.decorations).forEach(([key, value]) => {
+          if (value === true) {
+            message += `• ${decorationNames[key] || key}\n`;
+          }
+        });
+      }
+
+      // AI Generation Info
+      message += `\n🤖 INFORMACJE O GENEROWANIU:\n`;
+      message += `• Status generowania: Wygenerowany przez AI\n`;
+      if (generatedPrompt) {
+        message += `• Prompt AI: ${generatedPrompt}\n`;
+      }
+      message += `• Obraz wygenerowany: ${generatedImageBase64 ? 'Tak (base64)' : 'Nie'}\n`;
+
+      // Customer Information
+      if (customer && Object.keys(customer).length > 0) {
+        message += `\n👤 DANE KLIENTA:\n`;
+        if (customer.firstName || customer.lastName) {
+          message += `• Imię i nazwisko: ${customer.firstName || ''} ${customer.lastName || ''}\n`;
+        }
+        if (customer.email) {
+          message += `• Email: ${customer.email}\n`;
+        }
+        if (customer.phone) {
+          message += `• Telefon: ${customer.phone}\n`;
+        }
+      }
+
+      // Delivery Information
+      if (delivery && Object.keys(delivery).length > 0) {
+        message += `\n🚚 DOSTAWA:\n`;
+        if (delivery.street) {
+          message += `• Adres: ${delivery.street}\n`;
+        }
+        if (delivery.postalCode || delivery.city) {
+          message += `• Kod pocztowy i miasto: ${delivery.postalCode || ''} ${delivery.city || ''}\n`;
+        }
+        if (delivery.deliveryDate) {
+          message += `• Data dostawy: ${delivery.deliveryDate}\n`;
+        }
+        if (delivery.notes) {
+          message += `• Uwagi: ${delivery.notes}\n`;
+        }
+      }
+
+      message += `\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+      message += `⚡ Prosimy o szybkie przygotowanie oferty dla klienta!\n`;
+
+      return message;
+    }
   </script>
 </body>
 </html> 
