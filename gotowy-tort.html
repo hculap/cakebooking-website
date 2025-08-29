@@ -1499,7 +1499,7 @@
         
         imageCard.innerHTML = `
           <div class="aspect-[3/4] rounded-lg overflow-hidden mb-4 bg-gradient-to-br from-champagne-gold/10 to-blush-rose/10">
-            <img src="${imageSrc}" alt="Tort ${occasionData.name} ${i}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="handleImageError(this, '${occasionData.imagePrefix}', ${i})">
+            <img src="${imageSrc}" alt="Tort ${occasionData.name} ${i}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onload="handleImageLoad(this, '${occasionData.imagePrefix}', ${i})" onerror="handleImageError(this, '${occasionData.imagePrefix}', ${i})">
             <div class="w-full h-full flex items-center justify-center" style="display: none;">
               <i class="fa-solid fa-cake-candles text-4xl icon-gradient-gold-pink opacity-50"></i>
             </div>
@@ -1544,7 +1544,7 @@
       // Update cake preview
       const previewContainer = document.getElementById('selected-cake-preview');
       previewContainer.innerHTML = `
-        <img src="${cakeImageSrc}" alt="Wybrany tort" class="w-full h-full object-cover rounded-lg" onerror="handleConfigImageError(this, '${occasionData.imagePrefix}', ${selectedCake.cakeNumber})">
+        <img src="${cakeImageSrc}" alt="Wybrany tort" class="w-full h-full object-cover rounded-lg" onload="handleConfigImageLoad(this, '${occasionData.imagePrefix}', ${selectedCake.cakeNumber})" onerror="handleConfigImageError(this, '${occasionData.imagePrefix}', ${selectedCake.cakeNumber})">
         <div class="w-full h-full flex items-center justify-center" style="display: none;">
           <i class="fa-solid fa-cake-candles text-6xl icon-gradient-gold-pink opacity-50"></i>
         </div>
@@ -2185,6 +2185,23 @@
       document.getElementById('cake-text').value = '';
     }
 
+    function handleImageLoad(img, prefix, number) {
+      // Store the successful image URL for webhook messages
+      const imageUrl = img.src;
+      const cakeKey = `${prefix}_${number}`;
+      if (window.successfulCakeImages) {
+        window.successfulCakeImages[cakeKey] = imageUrl;
+      } else {
+        window.successfulCakeImages = {};
+        window.successfulCakeImages[cakeKey] = imageUrl;
+      }
+    }
+
+    function handleConfigImageLoad(img, prefix, number) {
+      // Update the selected cake image URL with the correct extension
+      selectedCakeImageUrl = img.src;
+    }
+
     function handleImageError(img, prefix, number) {
       const extensions = ['png', 'jpg', 'jpeg']; // Try all formats
       const currentSrc = img.src;
@@ -2208,6 +2225,8 @@
         // Try next extension
         const newSrc = `images/${directory}/${prefix}_${number.toString().padStart(2, '0')}.${nextExt}`;
         img.src = newSrc;
+        // Clear the tried extensions for the new attempt
+        img.dataset.triedExtensions = '';
       } else {
         // All extensions failed, show placeholder
         img.style.display = 'none';
@@ -2238,6 +2257,8 @@
         // Try next extension
         const newSrc = `images/${directory}/${prefix}_${number.toString().padStart(2, '0')}.${nextExt}`;
         img.src = newSrc;
+        // Clear the tried extensions for the new attempt
+        img.dataset.triedExtensions = '';
       } else {
         // All extensions failed, show placeholder
         img.style.display = 'flex';
