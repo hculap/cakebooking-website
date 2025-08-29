@@ -52,6 +52,60 @@
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
     }
+
+    /* Modal animations */
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9) translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    #success-modal .transform,
+    #error-modal .transform {
+      animation: modalSlideIn 0.3s ease-out;
+    }
+
+    /* Modal text improvements */
+    #success-modal h3 {
+      color: #1f2937 !important; /* Dark gray */
+    }
+
+    #success-modal p {
+      color: #374151 !important; /* Medium gray */
+    }
+
+    #success-modal .fa-check {
+      color: #1f2937 !important; /* Dark gray for success icon */
+    }
+
+    #error-modal h3 {
+      color: #1f2937 !important; /* Dark gray */
+    }
+
+    #error-modal p {
+      color: #374151 !important; /* Medium gray */
+    }
+
+    /* Ensure all modal text is visible */
+    #success-modal,
+    #error-modal {
+      color: #1f2937;
+    }
+
+    #success-modal p,
+    #error-modal p {
+      color: #374151 !important;
+    }
+
+    /* Error modal styling */
+    #error-modal .bg-red-50 {
+      border: 1px solid rgba(239, 68, 68, 0.1);
+    }
   </style>
 </head>
 <body class="font-sans text-midnight-navy pb-24 md:pb-0">
@@ -566,7 +620,189 @@
     </div>
   </footer>
 
+  <!-- Contact Form Webhook Integration -->
+  <script>
+    // Modal management functions
+    function showModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.remove('hidden');
+        // Trigger animation
+        setTimeout(() => {
+          modal.classList.remove('opacity-0');
+          modal.querySelector('.transform').classList.remove('scale-95');
+        }, 10);
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function hideModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.add('opacity-0');
+        modal.querySelector('.transform').classList.add('scale-95');
+        setTimeout(() => {
+          modal.classList.add('hidden');
+          // Restore body scroll
+          document.body.style.overflow = '';
+        }, 300);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const contactForm = document.querySelector('.vitreous-card form');
+
+      // Modal event listeners
+      document.getElementById('close-success-modal')?.addEventListener('click', () => {
+        hideModal('success-modal');
+      });
+
+      document.getElementById('close-error-modal')?.addEventListener('click', () => {
+        hideModal('error-modal');
+      });
+
+      // Close modals when clicking outside
+      document.getElementById('success-modal')?.addEventListener('click', (e) => {
+        if (e.target.id === 'success-modal') {
+          hideModal('success-modal');
+        }
+      });
+
+      document.getElementById('error-modal')?.addEventListener('click', (e) => {
+        if (e.target.id === 'error-modal') {
+          hideModal('error-modal');
+        }
+      });
+
+      if (contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+          e.preventDefault();
+
+          const submitButton = this.querySelector('button[type="submit"]');
+          const originalText = submitButton.innerHTML;
+
+          // Show loading state
+          submitButton.disabled = true;
+          submitButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin h-5 w-5 mr-3"></i>Wysyłanie...';
+
+          try {
+            // Send form data to webhook
+            const formData = new FormData(this);
+            const success = await sendContactFormToWebhook(formData);
+
+            if (success) {
+              // Show success modal
+              showModal('success-modal');
+
+              // Reset form
+              this.reset();
+
+              // Scroll to top
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+              // Show error modal
+              showModal('error-modal');
+            }
+          } catch (error) {
+            console.error('Form submission error:', error);
+            // Show error modal
+            showModal('error-modal');
+          } finally {
+            // Reset button state
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalText;
+          }
+        });
+      }
+    });
+  </script>
+
   <script src="scripts.js"></script>
   <script src="cookies.js"></script>
+
+  <!-- Success Modal -->
+  <div id="success-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full transform scale-95 transition-transform duration-300">
+        <div class="p-8 text-center">
+          <!-- Success Icon -->
+          <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-playful-pink to-champagne-gold flex items-center justify-center">
+            <i class="fa-solid fa-check text-3xl text-gray-900"></i>
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-2xl font-display font-bold text-gray-900 mb-4">
+            Wiadomość wysłana!
+          </h3>
+
+          <!-- Message -->
+          <p class="text-gray-700 leading-relaxed mb-6">
+            Dziękujemy za wiadomość! Nasz zespół przeanalizuje Twoje zapytanie i odpowie najszybciej jak to możliwe.
+          </p>
+
+          <!-- Contact Info -->
+          <div class="bg-gray-50 rounded-xl p-4 mb-6">
+            <p class="text-sm text-gray-700 mb-2">
+              <i class="fa-solid fa-clock mr-2 text-playful-pink"></i>
+              <strong class="text-gray-900">Czas odpowiedzi:</strong> 24-48 godzin
+            </p>
+            <p class="text-sm text-gray-700">
+              <i class="fa-solid fa-envelope mr-2 text-playful-pink"></i>
+              <strong class="text-gray-900">Alternatywnie:</strong> kontakt@cakebooking.pl
+            </p>
+          </div>
+
+          <!-- Close Button -->
+          <button id="close-success-modal" class="w-full pill-button-pink text-white font-medium py-3 px-6 shadow-lg">
+            <i class="fa-solid fa-check mr-2"></i>
+            Rozumiem
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Modal -->
+  <div id="error-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full transform scale-95 transition-transform duration-300">
+        <div class="p-8 text-center">
+          <!-- Error Icon -->
+          <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-red-400 to-red-600 flex items-center justify-center">
+            <i class="fa-solid fa-exclamation-triangle text-3xl text-white"></i>
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-2xl font-display font-bold text-gray-900 mb-4">
+            Błąd wysyłania
+          </h3>
+
+          <!-- Message -->
+          <p class="text-gray-700 leading-relaxed mb-6">
+            Przepraszamy, wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie lub skontaktuj się z nami telefonicznie.
+          </p>
+
+          <!-- Contact Info -->
+          <div class="bg-red-50 rounded-xl p-4 mb-6">
+            <p class="text-sm text-red-800 mb-2">
+              <i class="fa-solid fa-phone mr-2"></i>
+              <strong class="text-red-900">Telefon:</strong> +48 123 456 789
+            </p>
+            <p class="text-sm text-red-800">
+              <i class="fa-solid fa-envelope mr-2"></i>
+              <strong class="text-red-900">Email:</strong> kontakt@cakebooking.pl
+            </p>
+          </div>
+
+          <!-- Close Button -->
+          <button id="close-error-modal" class="w-full bg-gradient-to-r from-red-400 to-red-600 hover:from-red-500 hover:to-red-700 text-white font-medium py-3 px-6 rounded-xl shadow-lg transition-all duration-300">
+            <i class="fa-solid fa-redo mr-2"></i>
+            Spróbuj ponownie
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html> 

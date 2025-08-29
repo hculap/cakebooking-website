@@ -30,3 +30,5 @@ images/*.zip
 *.docx.txt 
 # Local Netlify folder
 .netlify
+cloudflared/*.json
+cloudflared/cert.pem

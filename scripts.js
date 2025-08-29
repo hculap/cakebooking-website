@@ -115,6 +115,293 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
+// Webhook utility functions
+const WEBHOOK_URL = 'https://hook.eu1.make.com/qcelwbyfxwo2n31203lpt9fj0p4z3dil';
+
+/**
+ * Send data to webhook
+ * @param {Object} data - The data to send
+ * @param {string} eventType - Type of event (contact_form, order_form, etc.)
+ * @returns {Promise<boolean>} - Success status
+ */
+async function sendToWebhook(data, eventType) {
+    try {
+        const payload = {
+            eventType: eventType,
+            timestamp: new Date().toISOString(),
+            userAgent: navigator.userAgent,
+            url: window.location.href,
+            data: data
+        };
+
+        const response = await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload)
+        });
+
+        return response.ok;
+    } catch (error) {
+        console.error('Webhook error:', error);
+        return false;
+    }
+}
+
+/**
+ * Format contact details into a Polish message with bullet points
+ * @param {Object} contactData - Contact form data
+ * @returns {string} - Formatted message for contact handling
+ */
+function formatContactMessage(contactData) {
+    const { 'first-name': firstName, 'last-name': lastName, email, phone, subject, message } = contactData;
+
+    let formattedMessage = `💬 NOWA WIADOMOŚĆ KONTAKTOWA\n\n`;
+    formattedMessage += `📅 Data wiadomości: ${new Date().toLocaleString('pl-PL')}\n\n`;
+
+    // Contact Information
+    formattedMessage += `👤 DANE KONTAKTOWE:\n`;
+    formattedMessage += `• Imię i nazwisko: ${firstName || ''} ${lastName || ''}\n`;
+    formattedMessage += `• Email: ${email || ''}\n`;
+    formattedMessage += `• Telefon: ${phone || ''}\n\n`;
+
+    // Message Details
+    formattedMessage += `📋 SZCZEGÓŁY WIADOMOŚCI:\n`;
+    formattedMessage += `• Temat: ${subject || ''}\n`;
+    formattedMessage += `• Wiadomość:\n${message || ''}\n\n`;
+
+    formattedMessage += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+    formattedMessage += `⚡ Prosimy o szybką odpowiedź na wiadomość!\n`;
+
+    return formattedMessage;
+}
+
+/**
+ * Send contact form data to webhook
+ * @param {FormData|Object} formData - Contact form data
+ * @returns {Promise<boolean>} - Success status
+ */
+async function sendContactFormToWebhook(formData) {
+    const data = formData instanceof FormData ? Object.fromEntries(formData) : formData;
+    const contactData = {
+        ...data,
+        formType: 'contact'
+    };
+
+    // Create formatted message for contact handling
+    const contactMessage = formatContactMessage(contactData);
+
+    // Add formatted message to webhook data
+    const webhookData = {
+        ...contactData,
+        contactMessage: contactMessage
+    };
+
+    return await sendToWebhook(webhookData, 'contact_form');
+}
+
+/**
+ * Format order details into a Polish message with bullet points
+ * @param {Object} orderData - Complete order data
+ * @returns {string} - Formatted message for bakery
+ */
+function formatOrderMessage(orderData) {
+    const { customer, cake, size, taste, decorations = [], delivery, total, orderType } = orderData;
+
+    let message = `🧁 NOWE ZAMÓWIENIE TORTU\n\n`;
+    message += `📅 Data zamówienia: ${new Date().toLocaleString('pl-PL')}\n`;
+    message += `🏷️ Typ zamówienia: ${orderType === 'ready_cake' ? 'Tort gotowy' : 'Tort na zamówienie'}\n\n`;
+
+    // Customer Information
+    message += `👤 DANE KLIENTA:\n`;
+    message += `• Imię i nazwisko: ${customer?.firstName || ''} ${customer?.lastName || ''}\n`;
+    message += `• Email: ${customer?.email || ''}\n`;
+    message += `• Telefon: ${customer?.phone || ''}\n`;
+
+    // Delivery Information
+    message += `\n🚚 SPOSÓB ODBIORU:\n`;
+    if (delivery === 'pickup') {
+        message += `• Odbiór własny\n`;
+    } else if (delivery === 'delivery') {
+        message += `• Dostawa pod adres\n`;
+        if (customer?.address) {
+            message += `• Adres: ${customer.address.street || ''}\n`;
+            message += `• Kod pocztowy: ${customer.address.postalCode || ''}\n`;
+            message += `• Miasto: ${customer.address.city || ''}\n`;
+        }
+    }
+
+    // Cake Details
+    message += `\n🎂 SZCZEGÓŁY TORTU:\n`;
+    if (cake?.name) {
+        message += `• Tort: ${cake.name}\n`;
+    }
+    if (size) {
+        const sizeNames = { small: 'Mały (do 8 osób)', medium: 'Średni (do 12 osób)', large: 'Duży (do 16 osób)' };
+        message += `• Rozmiar: ${sizeNames[size] || size}\n`;
+    }
+    if (taste) {
+        message += `• Smak: ${taste}\n`;
+    }
+
+    // Decorations
+    if (decorations && decorations.length > 0) {
+        message += `\n✨ DEKORACJE:\n`;
+        decorations.forEach(decoration => {
+            if (typeof decoration === 'string') {
+                message += `• ${decoration}\n`;
+            } else if (decoration.name) {
+                message += `• ${decoration.name} (+${decoration.price} zł)\n`;
+            }
+        });
+    }
+
+    // Total
+    if (total) {
+        message += `\n💰 ŁĄCZNA KWOTA: ${total} zł\n`;
+    }
+
+    // Special notes
+    if (customer?.notes || orderData.notes) {
+        message += `\n📝 UWAGI SPECJALNE:\n`;
+        message += `${customer?.notes || orderData.notes}\n`;
+    }
+
+    message += `\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+    message += `⚡ Prosimy o pilne przygotowanie zamówienia!\n`;
+
+    return message;
+}
+
+/**
+ * Send order form data to webhook
+ * @param {FormData|Object} formData - Order form data
+ * @param {Object} additionalData - Additional order data (cake config, etc.)
+ * @returns {Promise<boolean>} - Success status
+ */
+async function sendOrderFormToWebhook(formData, additionalData = {}) {
+    const data = formData instanceof FormData ? Object.fromEntries(formData) : formData;
+    const orderData = {
+        ...data,
+        ...additionalData,
+        formType: 'order',
+        orderDate: new Date().toISOString()
+    };
+
+    // Create formatted message for bakery
+    const bakeryMessage = formatOrderMessage(orderData);
+
+    // Add formatted message to webhook data
+    const webhookData = {
+        ...orderData,
+        bakeryMessage: bakeryMessage
+    };
+
+    return await sendToWebhook(webhookData, 'order_form');
+}
+
+/**
+ * Format cake design details into a Polish message with bullet points
+ * @param {Object} designData - Cake design configuration
+ * @param {Object} customerData - Customer information if available
+ * @returns {string} - Formatted message for design processing
+ */
+function formatCakeDesignMessage(designData, customerData = {}) {
+    const { size, layers, cakeText, occasion, color, additionalColor, specialTheme, flavor, decorations, aiPrompt } = designData;
+
+    let message = `🎨 NOWE ZLECENIE PROJEKTU TORTU\n\n`;
+    message += `📅 Data zlecenia: ${new Date().toLocaleString('pl-PL')}\n\n`;
+
+    // Design Specifications
+    message += `🎂 PARAMETRY TORTU:\n`;
+    const sizeNames = { small: 'Mały (do 8 osób)', medium: 'Średni (do 12 osób)', large: 'Duży (do 16 osób)' };
+    message += `• Rozmiar: ${sizeNames[size] || size}\n`;
+    message += `• Liczba warstw: ${layers || 2}\n`;
+    message += `• Smak: ${flavor || 'Niezdefiniowany'}\n`;
+    message += `• Kolor podstawowy: ${color || 'Niezdefiniowany'}\n`;
+    if (additionalColor) {
+        message += `• Kolor dodatkowy: ${additionalColor}\n`;
+    }
+
+    // Occasion and Theme
+    message += `\n🎉 OKAZJA I TEMAT:\n`;
+    message += `• Okazja: ${occasion || 'Niezdefiniowana'}\n`;
+    if (specialTheme) {
+        message += `• Temat specjalny: ${specialTheme}\n`;
+    }
+    if (cakeText) {
+        message += `• Tekst na torcie: "${cakeText}"\n`;
+    }
+
+    // Decorations
+    if (decorations && Object.keys(decorations).length > 0) {
+        message += `\n✨ DEKORACJE:\n`;
+        Object.entries(decorations).forEach(([key, value]) => {
+            if (value === true) {
+                const decorationNames = {
+                    candles: 'Świeczki',
+                    flowers: 'Kwiaty',
+                    berries: 'Jagody',
+                    sprinkles: 'Posypka'
+                };
+                message += `• ${decorationNames[key] || key}\n`;
+            }
+        });
+    }
+
+    // AI Prompt
+    if (aiPrompt) {
+        message += `\n🤖 PROMPT DO AI:\n`;
+        message += `${aiPrompt}\n\n`;
+    }
+
+    // Customer Information (if available)
+    if (customerData && Object.keys(customerData).length > 0) {
+        message += `👤 DANE KLIENTA:\n`;
+        if (customerData.firstName || customerData.lastName) {
+            message += `• Imię i nazwisko: ${customerData.firstName || ''} ${customerData.lastName || ''}\n`;
+        }
+        if (customerData.email) {
+            message += `• Email: ${customerData.email}\n`;
+        }
+        if (customerData.phone) {
+            message += `• Telefon: ${customerData.phone}\n`;
+        }
+    }
+
+    message += `\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+    message += `⚡ Prosimy o przygotowanie projektu wizualizacji!\n`;
+
+    return message;
+}
+
+/**
+ * Send cake design data to webhook
+ * @param {Object} designData - Cake design configuration
+ * @param {Object} customerData - Customer information if available
+ * @returns {Promise<boolean>} - Success status
+ */
+async function sendCakeDesignToWebhook(designData, customerData = {}) {
+    const data = {
+        designData: designData,
+        customerData: customerData,
+        formType: 'cake_design',
+        designDate: new Date().toISOString()
+    };
+
+    // Create formatted message for design processing
+    const designMessage = formatCakeDesignMessage(designData, customerData);
+
+    // Add formatted message to webhook data
+    const webhookData = {
+        ...data,
+        designMessage: designMessage
+    };
+
+    return await sendToWebhook(webhookData, 'cake_design');
+}
+
 // Update copyright year
 const yearSpan = document.getElementById('current-year');
 if (yearSpan) {

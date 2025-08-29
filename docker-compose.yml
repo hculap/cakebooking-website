@@ -1,0 +1,41 @@
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:1.106.3
+    command: ["n8n"]
+    restart: unless-stopped
+    environment:
+      - N8N_EDITOR_BASE_URL=https://n8n.szymonpaluch.com/
+      - WEBHOOK_URL=https://n8n.szymonpaluch.com/
+      - N8N_HOST=n8n.szymonpaluch.com
+      - N8N_PROTOCOL=https
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_PORT=5678
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=n8n_db
+      - DB_POSTGRESDB_USER=n8n_user
+      - DB_POSTGRESDB_PASSWORD=secure_n8n_password_123
+      - N8N_ENCRYPTION_KEY=0ZPygejSfk5Bb0JdPIKQGOzowATGJr0QAH7t3VqjTtA=
+    networks:
+      - internal
+      - assistants
+    volumes:
+      - /Users/szymonpaluch/.n8n:/home/node/.n8n
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    depends_on:
+      - n8n
+    networks:
+      - internal
+    volumes:
+      - ./cloudflared:/etc/cloudflared
+    command: tunnel --config /etc/cloudflared/config.yml run n8n
+
+networks:
+  internal: {}
+  assistants:
+    external: true
+    name: assistant_assistants_network

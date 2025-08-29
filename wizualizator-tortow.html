@@ -1125,12 +1125,54 @@
         alert('Projekt zapisany! (funkcjonalność demonstracyjna)');
       });
       
-      document.getElementById('order-cake').addEventListener('click', () => {
-        alert('Przekierowanie do formularza zamówienia... (funkcjonalność demonstracyjna)');
+      document.getElementById('order-cake').addEventListener('click', async () => {
+        // Prepare cake design data
+        const designData = {
+          ...config,
+          aiPrompt: generateAIPrompt(),
+          canvasImage: getCanvasImageData(),
+          orderType: 'custom_visualizer'
+        };
+
+        // Show loading state
+        const orderButton = document.getElementById('order-cake');
+        const originalText = orderButton.innerHTML;
+        orderButton.disabled = true;
+        orderButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin h-5 w-5 mr-3"></i>Przetwarzanie...';
+
+        try {
+          // Send cake design to webhook
+          const success = await sendCakeDesignToWebhook(designData);
+
+          if (success) {
+            alert('Dziękujemy za zamówienie projektu tortu! Skontaktujemy się z Tobą wkrótce z dalszymi instrukcjami.');
+          } else {
+            alert('Wystąpił błąd podczas składania zamówienia. Spróbuj ponownie lub skontaktuj się z nami.');
+            console.error('Cake design order submission failed');
+          }
+        } catch (error) {
+          console.error('Cake design order error:', error);
+          alert('Wystąpił błąd podczas składania zamówienia. Spróbuj ponownie.');
+        } finally {
+          // Reset button state
+          orderButton.disabled = false;
+          orderButton.innerHTML = originalText;
+        }
       });
       
       // Copy prompt button
       document.getElementById('copy-prompt').addEventListener('click', copyPromptToClipboard);
+
+      // Helper functions for webhook integration
+      function generateAIPrompt() {
+        const promptElement = document.getElementById('ai-prompt');
+        return promptElement ? promptElement.textContent : '';
+      }
+
+      function getCanvasImageData() {
+        const canvas = document.querySelector('canvas');
+        return canvas ? canvas.toDataURL('image/png') : null;
+      }
       
       // New input event listeners
       document.getElementById('cake-layers').addEventListener('input', (e) => {

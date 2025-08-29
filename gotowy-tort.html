@@ -1844,8 +1844,8 @@
       };
     }
 
-    function submitOrder() {
-      // Here you would typically send the order data to your backend
+    async function submitOrder() {
+      // Prepare order data
       const orderData = {
         cake: selectedCake,
         size: selectedSize,
@@ -1853,15 +1853,44 @@
         decorations: selectedDecorations,
         delivery: selectedDelivery,
         customer: customerData,
-        total: calculateTotal()
+        total: calculateTotal(),
+        orderType: 'ready_cake' // Specify this is from ready cake selection
       };
-      
-      console.log('Order submitted:', orderData);
-      alert('Dziękujemy za zamówienie! Skontaktujemy się z Tobą wkrótce, aby potwierdzić szczegóły.');
-      
-      // Reset form and go back to start
-      resetForm();
-      showOccasionSelector();
+
+      console.log('Submitting order:', orderData);
+
+      // Show loading state
+      const confirmButton = document.getElementById('confirm-order');
+      const originalText = confirmButton.innerHTML;
+      confirmButton.disabled = true;
+      confirmButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin h-5 w-5 mr-3"></i>Przetwarzanie...';
+
+      try {
+        // Send order data to webhook
+        const success = await sendOrderFormToWebhook(orderData, {
+          cakeDetails: selectedCake,
+          sizeDetails: selectedSize,
+          tasteDetails: selectedTaste,
+          decorationDetails: selectedDecorations
+        });
+
+        if (success) {
+          alert('Dziękujemy za zamówienie! Skontaktujemy się z Tobą wkrótce, aby potwierdzić szczegóły.');
+
+          // Reset form and go back to start
+          resetForm();
+          showOccasionSelector();
+        } else {
+          alert('Wystąpił błąd podczas składania zamówienia. Spróbuj ponownie lub skontaktuj się z nami.');
+        }
+      } catch (error) {
+        console.error('Order submission error:', error);
+        alert('Wystąpił błąd podczas składania zamówienia. Spróbuj ponownie.');
+      } finally {
+        // Reset button state
+        confirmButton.disabled = false;
+        confirmButton.innerHTML = originalText;
+      }
     }
 
     function calculateTotal() {
@@ -1992,5 +2021,8 @@
       });
     }
   </script>
+
+  <script src="scripts.js"></script>
+  <script src="cookies.js"></script>
 </body>
 </html> 
