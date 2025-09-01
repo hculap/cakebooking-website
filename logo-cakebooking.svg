@@ -1,0 +1,27 @@
+<svg width="120" height="40" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cake Sygnet -->
+  <g transform="translate(2, 4)">
+    <!-- Cherry -->
+    <circle cx="16" cy="4" r="2.5" fill="#E479B4"/>
+    <path d="M16 1.5 Q18 0 20 2" stroke="#4A5D3A" stroke-width="1" fill="none"/>
+    
+    <!-- Cake Layer 4 (top, smallest) -->
+    <ellipse cx="16" cy="8" rx="6" ry="2" fill="#E479B4"/>
+    <path d="M10 8 Q13 6 16 8 Q19 6 22 8" stroke="#C44A7F" stroke-width="1" fill="none"/>
+    
+    <!-- Cake Layer 3 -->
+    <ellipse cx="16" cy="12" rx="8" ry="2.5" fill="#DCB688"/>
+    <path d="M8 12 Q12 10 16 12 Q20 10 24 12" stroke="#C4A073" stroke-width="1" fill="none"/>
+    
+    <!-- Cake Layer 2 -->
+    <ellipse cx="16" cy="16" rx="10" ry="3" fill="#E479B4"/>
+    <path d="M6 16 Q11 14 16 16 Q21 14 26 16" stroke="#C44A7F" stroke-width="1" fill="none"/>
+    
+    <!-- Cake Layer 1 (bottom, largest) -->
+    <ellipse cx="16" cy="20" rx="12" ry="3.5" fill="#DCB688"/>
+    <path d="M4 20 Q10 18 16 20 Q22 18 28 20" stroke="#C4A073" stroke-width="1" fill="none"/>
+  </g>
+  
+  <!-- CakeBooking Text -->
+  <text x="36" y="28" font-family="Playfair Display, serif" font-size="16" font-weight="600" fill="#1A2C46">CakeBooking</text>
+</svg>

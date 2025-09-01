@@ -1,0 +1,23 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <!-- Simplified Cake Sygnet for Favicon -->
+  <g transform="translate(0, 2)">
+    <!-- Cherry -->
+    <circle cx="16" cy="4" r="2" fill="#E479B4"/>
+    
+    <!-- Cake Layer 4 (top, smallest) -->
+    <ellipse cx="16" cy="8" rx="5" ry="1.5" fill="#E479B4"/>
+    <path d="M11 8 Q13.5 7 16 8 Q18.5 7 21 8" stroke="#C44A7F" stroke-width="0.8" fill="none"/>
+    
+    <!-- Cake Layer 3 -->
+    <ellipse cx="16" cy="12" rx="7" ry="2" fill="#DCB688"/>
+    <path d="M9 12 Q12.5 11 16 12 Q19.5 11 23 12" stroke="#C4A073" stroke-width="0.8" fill="none"/>
+    
+    <!-- Cake Layer 2 -->
+    <ellipse cx="16" cy="16" rx="9" ry="2.5" fill="#E479B4"/>
+    <path d="M7 16 Q11.5 15 16 16 Q20.5 15 25 16" stroke="#C44A7F" stroke-width="0.8" fill="none"/>
+    
+    <!-- Cake Layer 1 (bottom, largest) -->
+    <ellipse cx="16" cy="20" rx="11" ry="3" fill="#DCB688"/>
+    <path d="M5 20 Q10.5 19 16 20 Q21.5 19 27 20" stroke="#C4A073" stroke-width="0.8" fill="none"/>
+  </g>
+</svg>

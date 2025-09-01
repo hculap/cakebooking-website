@@ -1,12 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap');
 
 :root {
-  --midnight-navy: #0F2238;
+  /* Official CakeBooking Brand Colors */
+  --midnight-navy: #1A2C46; /* Tortowy granat */
+  --playful-pink: #E479B4; /* Lukrowy róż */
+  --champagne-gold-start: #DCB688; /* Kajmakowy beż */
+  --champagne-gold-end: #E8C7A0; /* Lighter beige for gradients */
+  
+  /* Supporting colors */
   --porcelain-white: #F7F5F2;
   --blush-rose: #D9A8A6;
-  --playful-pink: #F472B6; /* New playful pink */
-  --champagne-gold-start: #D7B88F;
-  --champagne-gold-end: #F1E0C8;
   --dove-gray: #BFCAD9;
   --pure-white: #FFFFFF;
 }
@@ -35,6 +38,32 @@ html::-webkit-scrollbar {
 .font-display {
   font-family: 'Playfair Display', serif;
   letter-spacing: -0.01em;
+}
+
+/* Enhanced Playfair Display Typography System */
+.font-display-regular {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.font-display-bold {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Brand typography for key elements */
+h1, h2, h3, .brand-heading {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.brand-subheading {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 .font-script {
