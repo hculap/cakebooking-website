@@ -2225,8 +2225,6 @@
         // Try next extension
         const newSrc = `images/${directory}/${prefix}_${number.toString().padStart(2, '0')}.${nextExt}`;
         img.src = newSrc;
-        // Clear the tried extensions for the new attempt
-        img.dataset.triedExtensions = '';
       } else {
         // All extensions failed, show placeholder
         img.style.display = 'none';
@@ -2257,11 +2255,9 @@
         // Try next extension
         const newSrc = `images/${directory}/${prefix}_${number.toString().padStart(2, '0')}.${nextExt}`;
         img.src = newSrc;
-        // Clear the tried extensions for the new attempt
-        img.dataset.triedExtensions = '';
       } else {
         // All extensions failed, show placeholder
-        img.style.display = 'flex';
+        img.style.display = 'none';
         img.nextElementSibling.style.display = 'flex';
       }
     }
