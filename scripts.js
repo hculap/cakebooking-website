@@ -224,7 +224,7 @@ function formatContactMessageHTML(contactData) {
  * @returns {string} - Formatted HTML message for bakery
  */
 function formatOrderMessageHTML(orderData) {
-    const { customer, cake, size, taste, decorations = [], delivery, total, orderType, cakeImageUrl, generatedPrompt } = orderData;
+    const { customer, cake, size, taste, decorations = [], delivery, total, orderType, cakeImageUrl, generatedPrompt, layers, cakeText, occasion, color, additionalColor, specialTheme, flavor, deliveryAddress, deliveryDate, notes } = orderData;
     
     let html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f7f5f2; padding: 20px; border-radius: 12px;">
@@ -254,13 +254,21 @@ function formatOrderMessageHTML(orderData) {
         html += `<p style="margin: 8px 0; color: #4a5568;">• Odbiór własny</p>`;
     } else if (delivery === 'delivery') {
         html += `<p style="margin: 8px 0; color: #4a5568;">• Dostawa pod adres</p>`;
-        if (customer?.address) {
+        if (deliveryAddress) {
             html += `<ul style="list-style: none; padding: 0 0 0 20px; margin: 8px 0; color: #4a5568;">`;
-            html += `<li style="margin: 4px 0;">Adres: ${customer.address.street || ''}</li>`;
-            html += `<li style="margin: 4px 0;">Kod pocztowy: ${customer.address.postalCode || ''}</li>`;
-            html += `<li style="margin: 4px 0;">Miasto: ${customer.address.city || ''}</li>`;
+            html += `<li style="margin: 4px 0;">Adres: ${deliveryAddress.street || ''}</li>`;
+            html += `<li style="margin: 4px 0;">Kod pocztowy: ${deliveryAddress.postalCode || ''}</li>`;
+            html += `<li style="margin: 4px 0;">Miasto: ${deliveryAddress.city || ''}</li>`;
             html += `</ul>`;
         }
+    }
+    
+    if (deliveryDate) {
+        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Data dostawy:</strong> ${deliveryDate}</p>`;
+    }
+    
+    if (notes) {
+        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Uwagi:</strong> ${notes}</p>`;
     }
     html += `</div>`;
     
@@ -274,10 +282,39 @@ function formatOrderMessageHTML(orderData) {
     }
     if (size) {
         const sizeText = typeof size === 'object' ? size.name : size;
-        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Rozmiar:</strong> ${sizeText}</p>`;
+        const sizeNames = { small: 'Mały', medium: 'Średni', large: 'Duży' };
+        const displaySize = sizeNames[size] || sizeText || size;
+        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Rozmiar:</strong> ${displaySize}</p>`;
+    }
+    if (layers) {
+        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Liczba warstw:</strong> ${layers}</p>`;
+    }
+    if (flavor) {
+        const flavorNames = { vanilla: 'Waniliowy', chocolate: 'Czekoladowy', strawberry: 'Truskawkowy', lemon: 'Cytrynowy', carrot: 'Marchewkowy' };
+        const displayFlavor = flavorNames[flavor] || flavor;
+        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Smak:</strong> ${displayFlavor}</p>`;
     }
     if (taste) {
         html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Smak:</strong> ${taste}</p>`;
+    }
+    if (color) {
+        const colorNames = { white: 'Biały', pink: 'Różowy', blue: 'Niebieski', green: 'Zielony', orange: 'Pomarańczowy', brown: 'Brązowy', red: 'Czerwony', purple: 'Fioletowy', yellow: 'Żółty', black: 'Czarny' };
+        const displayColor = colorNames[color] || color;
+        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Kolor główny:</strong> ${displayColor}</p>`;
+    }
+    if (additionalColor) {
+        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Kolor dodatkowy:</strong> ${additionalColor}</p>`;
+    }
+    if (occasion) {
+        const occasionNames = { birthday: 'Urodzinowy', wedding: 'Ślubny', anniversary: 'Rocznicowy', graduation: 'Na ukończenie szkoły', celebration: 'Świąteczny' };
+        const displayOccasion = occasionNames[occasion] || occasion;
+        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Okazja:</strong> ${displayOccasion}</p>`;
+    }
+    if (cakeText) {
+        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Napis na torcie:</strong> "${cakeText}"</p>`;
+    }
+    if (specialTheme) {
+        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Specjalny motyw:</strong> ${specialTheme}</p>`;
     }
     
     // Generated cake prompt
@@ -289,10 +326,33 @@ function formatOrderMessageHTML(orderData) {
     }
     
     // Decorations
-    if (decorations.length > 0) {
+    if (decorations && typeof decorations === 'object' && Object.keys(decorations).length > 0) {
+        // Handle cake visualizer decorations object format
+        const selectedDecorations = [];
+        const decorationNames = { candles: 'Świeczki', flowers: 'Kwiaty cukrowe', berries: 'Owoce', sprinkles: 'Posypka' };
+        
+        Object.entries(decorations).forEach(([key, value]) => {
+            if (value === true) {
+                selectedDecorations.push(decorationNames[key] || key);
+            }
+        });
+        
+        if (selectedDecorations.length > 0) {
+            html += `<div style="margin: 12px 0;"><strong style="color: #4a5568;">Dekoracje:</strong><ul style="margin: 8px 0; padding-left: 20px; color: #4a5568;">`;
+            selectedDecorations.forEach(decoration => {
+                html += `<li style="margin: 4px 0;">${decoration}</li>`;
+            });
+            html += `</ul></div>`;
+        }
+    } else if (decorations && Array.isArray(decorations) && decorations.length > 0) {
+        // Handle traditional decorations array format
         html += `<div style="margin: 12px 0;"><strong style="color: #4a5568;">Dekoracje:</strong><ul style="margin: 8px 0; padding-left: 20px; color: #4a5568;">`;
         decorations.forEach(decoration => {
-            html += `<li style="margin: 4px 0;">${decoration.name} (+${decoration.price} zł)</li>`;
+            if (typeof decoration === 'string') {
+                html += `<li style="margin: 4px 0;">${decoration}</li>`;
+            } else if (decoration.name) {
+                html += `<li style="margin: 4px 0;">${decoration.name} (+${decoration.price} zł)</li>`;
+            }
         });
         html += `</ul></div>`;
     }
@@ -358,11 +418,11 @@ async function sendContactFormToWebhook(formData) {
  * @returns {string} - Formatted message for bakery
  */
 function formatOrderMessage(orderData) {
-    const { customer, cake, size, taste, decorations = [], delivery, total, orderType, cakeImageUrl } = orderData;
+    const { customer, cake, size, taste, decorations = [], delivery, total, orderType, cakeImageUrl, layers, cakeText, occasion, color, additionalColor, specialTheme, flavor, deliveryAddress, deliveryDate, notes } = orderData;
 
     let message = `🧁 NOWE ZAMÓWIENIE TORTU\n\n`;
     message += `📅 Data zamówienia: ${new Date().toLocaleString('pl-PL')}\n`;
-    message += `🏷️ Typ zamówienia: ${orderType === 'ready_cake' ? 'Tort gotowy' : 'Tort na zamówienie'}\n\n`;
+    message += `🏷️ ${orderType === 'ready_cake' ? 'Tort gotowy' : orderType === 'generated_cake' ? 'Tort wygenerowany AI' : 'Tort na zamówienie'}\n\n`;
 
     // Customer Information
     message += `👤 DANE KLIENTA:\n`;
@@ -376,11 +436,19 @@ function formatOrderMessage(orderData) {
         message += `• Odbiór własny\n`;
     } else if (delivery === 'delivery') {
         message += `• Dostawa pod adres\n`;
-        if (customer?.address) {
-            message += `• Adres: ${customer.address.street || ''}\n`;
-            message += `• Kod pocztowy: ${customer.address.postalCode || ''}\n`;
-            message += `• Miasto: ${customer.address.city || ''}\n`;
+        if (deliveryAddress) {
+            message += `  - Adres: ${deliveryAddress.street || ''}\n`;
+            message += `  - Kod pocztowy: ${deliveryAddress.postalCode || ''}\n`;
+            message += `  - Miasto: ${deliveryAddress.city || ''}\n`;
         }
+    }
+    
+    if (deliveryDate) {
+        message += `• Data dostawy: ${deliveryDate}\n`;
+    }
+    
+    if (notes) {
+        message += `• Uwagi: ${notes}\n`;
     }
 
     // Cake Details
@@ -389,22 +457,72 @@ function formatOrderMessage(orderData) {
         message += `• Tort: ${cake.name}\n`;
     }
     if (cakeImageUrl) {
-        // Include image path for bakery reference
-        const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
-        const fullImageUrl = baseUrl ? `${baseUrl}/${cakeImageUrl}` : cakeImageUrl;
-        message += `• Zdjęcie tortu: ${fullImageUrl}\n`;
-        message += `  (Ścieżka: ${cakeImageUrl})\n`;
+        // Handle base64 images vs regular image paths
+        if (cakeImageUrl.startsWith('data:image/')) {
+            message += `• Zdjęcie tortu: [OBRAZ AI - DOŁĄCZONY DO EMAILA]\n`;
+        } else {
+            // Regular image path handling
+            const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+            const fullImageUrl = baseUrl ? `${baseUrl}/${cakeImageUrl}` : cakeImageUrl;
+            message += `• Zdjęcie tortu: ${fullImageUrl}\n`;
+            message += `  (Ścieżka: ${cakeImageUrl})\n`;
+        }
     }
     if (size) {
         const sizeNames = { small: 'Mały (do 8 osób)', medium: 'Średni (do 12 osób)', large: 'Duży (do 16 osób)' };
         message += `• Rozmiar: ${sizeNames[size] || size}\n`;
     }
+    if (layers) {
+        message += `• Liczba warstw: ${layers}\n`;
+    }
+    if (flavor) {
+        const flavorNames = { vanilla: 'Waniliowy', chocolate: 'Czekoladowy', strawberry: 'Truskawkowy', lemon: 'Cytrynowy', carrot: 'Marchewkowy' };
+        const displayFlavor = flavorNames[flavor] || flavor;
+        message += `• Smak: ${displayFlavor}\n`;
+    }
     if (taste) {
         message += `• Smak: ${taste}\n`;
     }
+    if (color) {
+        const colorNames = { white: 'Biały', pink: 'Różowy', blue: 'Niebieski', green: 'Zielony', orange: 'Pomarańczowy', brown: 'Brązowy', red: 'Czerwony', purple: 'Fioletowy', yellow: 'Żółty', black: 'Czarny' };
+        const displayColor = colorNames[color] || color;
+        message += `• Kolor główny: ${displayColor}\n`;
+    }
+    if (additionalColor) {
+        message += `• Kolor dodatkowy: ${additionalColor}\n`;
+    }
+    if (occasion) {
+        const occasionNames = { birthday: 'Urodzinowy', wedding: 'Ślubny', anniversary: 'Rocznicowy', graduation: 'Na ukończenie szkoły', celebration: 'Świąteczny' };
+        const displayOccasion = occasionNames[occasion] || occasion;
+        message += `• Okazja: ${displayOccasion}\n`;
+    }
+    if (cakeText) {
+        message += `• Napis na torcie: "${cakeText}"\n`;
+    }
+    if (specialTheme) {
+        message += `• Specjalny motyw: ${specialTheme}\n`;
+    }
 
     // Decorations
-    if (decorations && decorations.length > 0) {
+    if (decorations && typeof decorations === 'object' && Object.keys(decorations).length > 0) {
+        // Handle cake visualizer decorations object format
+        const selectedDecorations = [];
+        const decorationNames = { candles: 'Świeczki', flowers: 'Kwiaty cukrowe', berries: 'Owoce', sprinkles: 'Posypka' };
+        
+        Object.entries(decorations).forEach(([key, value]) => {
+            if (value === true) {
+                selectedDecorations.push(decorationNames[key] || key);
+            }
+        });
+        
+        if (selectedDecorations.length > 0) {
+            message += `\n✨ DEKORACJE:\n`;
+            selectedDecorations.forEach(decoration => {
+                message += `• ${decoration}\n`;
+            });
+        }
+    } else if (decorations && Array.isArray(decorations) && decorations.length > 0) {
+        // Handle traditional decorations array format
         message += `\n✨ DEKORACJE:\n`;
         decorations.forEach(decoration => {
             if (typeof decoration === 'string') {
@@ -420,10 +538,16 @@ function formatOrderMessage(orderData) {
         message += `\n💰 ŁĄCZNA KWOTA: ${total} zł\n`;
     }
 
+    // AI Prompt for generated cakes
+    if (orderData.generatedPrompt) {
+        message += `\n🤖 PROMPT AI:\n`;
+        message += `${orderData.generatedPrompt}\n`;
+    }
+
     // Special notes
-    if (customer?.notes || orderData.notes) {
+    if (customer?.notes || orderData.notes || notes) {
         message += `\n📝 UWAGI SPECJALNE:\n`;
-        message += `${customer?.notes || orderData.notes}\n`;
+        message += `${customer?.notes || orderData.notes || notes}\n`;
     }
 
     message += `\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
@@ -447,13 +571,26 @@ async function sendOrderFormToWebhook(formData, additionalData = {}) {
         orderDate: new Date().toISOString()
     };
 
-    // Create formatted messages for bakery
-    const plainTextMessage = formatOrderMessage(orderData);
-    const htmlMessage = formatOrderMessageHTML(orderData);
-
-    // Add formatted messages to webhook data
-    const webhookData = {
+    // Extract base64 image URL for HTML message only
+    const fullImageUrl = orderData.cakeImageUrl;
+    const hasBase64Image = fullImageUrl && fullImageUrl.startsWith('data:image/');
+    
+    // Create clean order data for webhook (replace base64 with placeholder)
+    const cleanOrderData = {
         ...orderData,
+        cakeImageUrl: hasBase64Image ? '[AI_GENERATED_IMAGE]' : orderData.cakeImageUrl
+    };
+
+    // Create formatted messages - HTML gets full image, plain text gets placeholder
+    const plainTextMessage = formatOrderMessage(cleanOrderData);
+    const htmlMessage = formatOrderMessageHTML({
+        ...cleanOrderData,
+        cakeImageUrl: fullImageUrl // HTML message gets the full base64 image
+    });
+
+    // Add formatted messages to webhook data (using clean data)
+    const webhookData = {
+        ...cleanOrderData,
         plainTextMessage: plainTextMessage,
         htmlMessage: htmlMessage
     };
