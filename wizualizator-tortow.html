@@ -749,9 +749,8 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="scripts.js"></script>
   <script src="cookies.js"></script>
-  <script src="cake-visualizer-ai.js"></script>
+  <script src="cake-visualizer-complete.js"></script>
   <script>
     // AI Cake Visualizer Configuration
     const config = {
@@ -774,6 +773,12 @@
     function init() {
       // Initialize AI visualizer
       console.log('AI cake visualizer initialized');
+      
+      // Check if external functions are available
+      if (typeof generateImage === 'undefined') {
+        console.error('⚠️ generateImage function not available. Check cake-visualizer-complete.js loading.');
+        // Continue anyway to set up other functionality
+      }
       
       // Event listeners
       setupEventListeners();
@@ -1348,58 +1353,7 @@
       }
     }
 
-    // Send cake order to webhook (using standardized function)
-    async function sendCakeOrderToWebhook(orderData, customerData) {
-      // Extract base64 for HTML message only
-      const imageBase64ForHtml = orderData.cake?.generatedImageBase64;
-      
-      // Create clean order data without large base64 strings
-      const cleanOrderData = {
-        ...orderData,
-        cake: {
-          ...orderData.cake,
-          generatedImageBase64: imageBase64ForHtml ? '[AI_GENERATED_IMAGE_REMOVED]' : null
-        }
-      };
-      
-      // Restructure data to match standardized format
-      const standardizedOrderData = {
-        customer: customerData,
-        cake: {
-          name: 'Tort wygenerowany AI',
-          config: orderData.cake?.config,
-          generatedPrompt: orderData.cake?.generatedPrompt
-        },
-        size: orderData.size,
-        layers: orderData.layers,
-        cakeText: orderData.cakeText,
-        occasion: orderData.occasion,
-        color: orderData.color,
-        additionalColor: orderData.additionalColor,
-        specialTheme: orderData.specialTheme,
-        flavor: orderData.flavor,
-        decorations: orderData.decorations,
-        delivery: orderData.delivery?.street ? 'delivery' : 'pickup',
-        deliveryAddress: orderData.delivery?.street ? {
-          street: orderData.delivery.street,
-          postalCode: orderData.delivery.postalCode,
-          city: orderData.delivery.city
-        } : null,
-        deliveryDate: orderData.delivery?.deliveryDate,
-        notes: orderData.delivery?.notes,
-        total: orderData.total || 0,
-        orderType: 'generated_cake',
-        cakeImageUrl: imageBase64ForHtml ? `data:image/png;base64,${imageBase64ForHtml}` : null,
-        generatedPrompt: orderData.cake?.generatedPrompt,
-        formType: 'generated_cake_order',
-        orderDate: new Date().toISOString()
-      };
-
-      return await sendOrderFormToWebhook(standardizedOrderData, {
-        cakeConfig: orderData.cake?.config,
-        originalOrderData: cleanOrderData // Send cleaned version without full base64
-      });
-    }
+    // Order submission now handled by cake-visualizer-complete.js
 
   </script>
 </body>

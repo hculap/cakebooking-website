@@ -124,29 +124,113 @@ const WEBHOOK_URL = 'https://hook.eu1.make.com/qcelwbyfxwo2n31203lpt9fj0p4z3dil'
  * @param {string} eventType - Type of event (contact_form, order_form, etc.)
  * @returns {Promise<boolean>} - Success status
  */
-async function sendToWebhook(data, eventType) {
+// Make webhook functions global
+window.sendToWebhook = async function sendToWebhook(data, eventType) {
     try {
-        const payload = {
-            eventType: eventType,
-            timestamp: new Date().toISOString(),
-            userAgent: navigator.userAgent,
-            url: window.location.href,
-            data: data
-        };
-
-        const response = await fetch(WEBHOOK_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload)
-        });
-
-        return response.ok;
+        // Check if we have image data to send as multipart
+        const hasImageData = data.imageFile || data.imageBlob;
+        
+        if (hasImageData) {
+            console.log('📤 Sending multipart form data with image...');
+            return await sendMultipartWebhook(data, eventType);
+        } else {
+            console.log('📤 Sending JSON data (no image)...');
+            return await sendJsonWebhook(data, eventType);
+        }
     } catch (error) {
         console.error('Webhook error:', error);
         return false;
     }
+}
+
+async function sendJsonWebhook(data, eventType) {
+    const payload = {
+        eventType: eventType,
+        timestamp: new Date().toISOString(),
+        userAgent: navigator.userAgent,
+        url: window.location.href,
+        data: data
+    };
+
+    const payloadString = JSON.stringify(payload);
+    const payloadSizeKB = Math.round(payloadString.length / 1024);
+    console.log(`📦 JSON payload size: ${payloadSizeKB} KB`);
+
+    const response = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: payloadString
+    });
+
+    if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`❌ JSON webhook failed: ${response.status} ${response.statusText}`);
+        console.error(`❌ Response: ${errorText}`);
+        return false;
+    }
+
+    console.log(`✅ JSON webhook success: ${response.status}`);
+    return response.ok;
+}
+
+async function sendMultipartWebhook(data, eventType) {
+    const formData = new FormData();
+    
+    // Add basic webhook data
+    formData.append('eventType', eventType);
+    formData.append('timestamp', new Date().toISOString());
+    formData.append('userAgent', navigator.userAgent);
+    formData.append('url', window.location.href);
+    
+    // Add all data fields as form fields
+    const flattenObject = (obj, prefix = 'data') => {
+        for (const [key, value] of Object.entries(obj)) {
+            const fieldName = prefix ? `${prefix}[${key}]` : key;
+            
+            if (key === 'imageFile' || key === 'imageBlob') {
+                // Skip image data here - handle separately
+                continue;
+            } else if (value && typeof value === 'object' && !Array.isArray(value)) {
+                flattenObject(value, fieldName);
+            } else if (Array.isArray(value)) {
+                value.forEach((item, index) => {
+                    if (typeof item === 'object') {
+                        flattenObject(item, `${fieldName}[${index}]`);
+                    } else {
+                        formData.append(`${fieldName}[${index}]`, String(item));
+                    }
+                });
+            } else if (value !== null && value !== undefined) {
+                formData.append(fieldName, String(value));
+            }
+        }
+    };
+    
+    flattenObject(data);
+    
+    // Add image file if present
+    if (data.imageBlob) {
+        const filename = data.imageMetadata?.filename || 'cake-design.png';
+        formData.append('imageFile', data.imageBlob, filename);
+        console.log(`📎 Added image file: ${filename} (${data.imageBlob.size} bytes)`);
+    }
+
+    const response = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        body: formData // No Content-Type header - let browser set multipart boundary
+    });
+
+    if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`❌ Multipart webhook failed: ${response.status} ${response.statusText}`);
+        console.error(`❌ Response: ${errorText}`);
+        return false;
+    }
+
+    console.log(`✅ Multipart webhook success: ${response.status}`);
+    return response.ok;
 }
 
 /**
@@ -224,7 +308,7 @@ function formatContactMessageHTML(contactData) {
  * @returns {string} - Formatted HTML message for bakery
  */
 function formatOrderMessageHTML(orderData) {
-    const { customer, cake, size, taste, decorations = [], delivery, total, orderType, cakeImageUrl, generatedPrompt, layers, cakeText, occasion, color, additionalColor, specialTheme, flavor, deliveryAddress, deliveryDate, notes } = orderData;
+    const { customer, cake, size, taste, decorations = [], delivery, total, orderType, cakeImageUrl, generatedPrompt, layers, cakeText, occasion, color, additionalColor, specialTheme, flavor, deliveryAddress, deliveryDate, notes, hasImageAttachment } = orderData;
     
     let html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f7f5f2; padding: 20px; border-radius: 12px;">
@@ -359,13 +443,30 @@ function formatOrderMessageHTML(orderData) {
     
     html += `</div>`;
     
-    // Cake Image
-    if (cakeImageUrl) {
+    // Cake Image - Show attachment message instead of embedded image
+    if (hasImageAttachment || cakeImageUrl) {
         html += `
         <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;">
-            <h3 style="color: #0F2238; margin: 0 0 15px 0; border-bottom: 2px solid #F472B6; padding-bottom: 8px;">🖼️ ZDJĘCIE TORTU</h3>
-            <img src="${cakeImageUrl}" alt="Zamówiony tort" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);" />
-        </div>`;
+            <h3 style="color: #0F2238; margin: 0 0 15px 0; border-bottom: 2px solid #F472B6; padding-bottom: 8px;">🖼️ ZDJĘCIE TORTU</h3>`;
+        
+        if (hasImageAttachment) {
+            html += `
+            <div style="background: linear-gradient(135deg, #F472B6, #D7B88F); color: white; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                <p style="margin: 0; font-size: 16px; font-weight: bold;">📎 Obraz tortu AI załączony do zamówienia</p>
+                <p style="margin: 8px 0 0 0; font-size: 14px; opacity: 0.9;">Plik obrazu został przesłany wraz z danymi zamówienia</p>
+            </div>`;
+        } else if (cakeImageUrl && !cakeImageUrl.startsWith('data:image/')) {
+            // Handle regular image URLs (non-base64)
+            html += `<img src="${cakeImageUrl}" alt="Zamówiony tort" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);" />`;
+        } else {
+            html += `
+            <div style="background: #f0f0f0; color: #666; padding: 15px; border-radius: 8px; border: 2px dashed #ccc;">
+                <p style="margin: 0; font-size: 14px;">🎨 Obraz tortu został wygenerowany przez AI</p>
+                <p style="margin: 8px 0 0 0; font-size: 12px;">Obraz jest dostępny w załącznikach do tego emaila</p>
+            </div>`;
+        }
+        
+        html += `</div>`;
     }
     
     // Total
@@ -679,7 +780,7 @@ function formatCakeDesignMessage(designData, customerData = {}) {
  * @param {Object} customerData - Customer information if available
  * @returns {Promise<boolean>} - Success status
  */
-async function sendCakeDesignToWebhook(designData, customerData = {}) {
+window.sendCakeDesignToWebhook = async function sendCakeDesignToWebhook(designData, customerData = {}) {
     const data = {
         designData: designData,
         customerData: customerData,

@@ -36,10 +36,10 @@ app.post('/api/generate-image', async (req, res) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "gpt-image-1",
+        model: "dall-e-3",
         prompt: prompt,
         size: size,
-        quality: "high",
+        quality: "hd",
         n: 1
       })
     });
