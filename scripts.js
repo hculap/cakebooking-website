@@ -149,7 +149,7 @@ async function sendJsonWebhook(data, eventType) {
         timestamp: new Date().toISOString(),
         userAgent: navigator.userAgent,
         url: window.location.href,
-        data: data
+        ...(data || {}) 
     };
 
     const payloadString = JSON.stringify(payload);
@@ -503,11 +503,10 @@ async function sendContactFormToWebhook(formData) {
     const plainTextMessage = formatContactMessage(contactData);
     const htmlMessage = formatContactMessageHTML(contactData);
 
-    // Add formatted messages to webhook data
+    // Send only formatted messages (like visualizer)
     const webhookData = {
-        ...contactData,
-        plainTextMessage: plainTextMessage,
-        htmlMessage: htmlMessage
+        htmlMessage: htmlMessage,
+        plainTextMessage: plainTextMessage
     };
 
     return await sendToWebhook(webhookData, 'contact_form');
@@ -689,11 +688,10 @@ async function sendOrderFormToWebhook(formData, additionalData = {}) {
         cakeImageUrl: fullImageUrl // HTML message gets the full base64 image
     });
 
-    // Add formatted messages to webhook data (using clean data)
+    // Send only formatted messages (like visualizer)
     const webhookData = {
-        ...cleanOrderData,
-        plainTextMessage: plainTextMessage,
-        htmlMessage: htmlMessage
+        htmlMessage: htmlMessage,
+        plainTextMessage: plainTextMessage
     };
 
     return await sendToWebhook(webhookData, 'order_form');
@@ -797,11 +795,10 @@ window.sendCakeDesignToWebhook = async function sendCakeDesignToWebhook(designDa
         cake: { name: 'Projekt tortu na zamówienie' }
     });
 
-    // Add formatted messages to webhook data
+    // Send only formatted messages (like visualizer)
     const webhookData = {
-        ...data,
-        plainTextMessage: plainTextMessage,
-        htmlMessage: htmlMessage
+        htmlMessage: htmlMessage,
+        plainTextMessage: plainTextMessage
     };
 
     return await sendToWebhook(webhookData, 'cake_design');
