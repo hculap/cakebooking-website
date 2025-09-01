@@ -109,6 +109,18 @@
     .sticky.top-0 {
       z-index: 10;
     }
+
+    /* Custom radio button styling */
+    .radio-indicator {
+      transition: all 0.3s ease;
+      border-width: 2px;
+    }
+
+    /* Tailwind utilities for pink colors */
+    .text-playful-pink { color: #F472B6; }
+    .border-playful-pink { border-color: #F472B6; }
+    .bg-playful-pink { background-color: #F472B6; }
+    .bg-playful-pink\/5 { background-color: rgba(244, 114, 182, 0.05); }
   </style>
 </head>
 <body class="font-sans text-midnight-navy pb-24 md:pb-0">
@@ -1053,11 +1065,43 @@
               </div>
             </div>
 
-            <!-- Delivery Information -->
+            <!-- Delivery Method Selection -->
             <div class="bg-gray-50 rounded-xl p-6">
               <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
                 <i class="fa-solid fa-truck mr-2 text-playful-pink"></i>
-                Dostawa
+                Sposób odbioru *
+              </h4>
+
+              <div class="grid grid-cols-2 gap-4 mb-6">
+                <label class="flex items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-playful-pink transition-colors">
+                  <input type="radio" name="delivery-method" value="pickup" class="sr-only delivery-method-radio">
+                  <div class="flex items-center">
+                    <div class="w-4 h-4 border-2 border-gray-400 rounded-full mr-3 radio-indicator"></div>
+                    <div>
+                      <div class="font-medium text-gray-900">Odbiór własny</div>
+                      <div class="text-sm text-gray-600">Bezpłatny odbiór w cukierni</div>
+                    </div>
+                  </div>
+                </label>
+                
+                <label class="flex items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-playful-pink transition-colors">
+                  <input type="radio" name="delivery-method" value="delivery" class="sr-only delivery-method-radio">
+                  <div class="flex items-center">
+                    <div class="w-4 h-4 border-2 border-gray-400 rounded-full mr-3 radio-indicator"></div>
+                    <div>
+                      <div class="font-medium text-gray-900">Dostawa</div>
+                      <div class="text-sm text-gray-600">Dostawa pod wskazany adres</div>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Delivery Information -->
+            <div id="delivery-info" class="bg-gray-50 rounded-xl p-6 hidden">
+              <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                <i class="fa-solid fa-map-marker-alt mr-2 text-playful-pink"></i>
+                Adres dostawy
               </h4>
 
               <div class="space-y-4">
@@ -1245,6 +1289,41 @@
           submitCakeOrder();
         });
       }
+
+      // Handle delivery method selection
+      const deliveryMethodRadios = document.querySelectorAll('input[name="delivery-method"]');
+      const deliveryInfo = document.getElementById('delivery-info');
+      
+      deliveryMethodRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+          // Update visual radio indicator
+          deliveryMethodRadios.forEach(r => {
+            const label = r.closest('label');
+            const indicator = label.querySelector('.radio-indicator');
+            
+            if (r.checked) {
+              label.classList.add('border-playful-pink', 'bg-playful-pink/5');
+              label.classList.remove('border-gray-300');
+              indicator.classList.add('border-playful-pink');
+              indicator.classList.remove('border-gray-400');
+              indicator.innerHTML = '<div class="w-2 h-2 bg-playful-pink rounded-full m-auto mt-0.5"></div>';
+            } else {
+              label.classList.remove('border-playful-pink', 'bg-playful-pink/5');
+              label.classList.add('border-gray-300');
+              indicator.classList.remove('border-playful-pink');
+              indicator.classList.add('border-gray-400');
+              indicator.innerHTML = '';
+            }
+          });
+
+          // Show/hide delivery info based on selection
+          if (this.value === 'delivery') {
+            deliveryInfo.classList.remove('hidden');
+          } else {
+            deliveryInfo.classList.add('hidden');
+          }
+        });
+      });
     });
 
     // Update order summary with current cake configuration
@@ -1272,6 +1351,24 @@
 
     // Submit cake order to webhook
     async function submitCakeOrder() {
+      // Validate required fields
+      const deliveryMethod = document.querySelector('input[name="delivery-method"]:checked');
+      if (!deliveryMethod) {
+        alert('Proszę wybrać sposób odbioru (odbiór własny lub dostawa).');
+        return;
+      }
+
+      // If delivery is selected, validate delivery fields
+      if (deliveryMethod.value === 'delivery') {
+        const street = document.getElementById('street').value.trim();
+        const city = document.getElementById('city').value.trim();
+        
+        if (!street || !city) {
+          alert('Przy dostawie wymagane są adres i miasto.');
+          return;
+        }
+      }
+
       const submitBtn = document.getElementById('submit-order');
       const originalText = submitBtn.innerHTML;
 
@@ -1299,14 +1396,26 @@
           phone: document.getElementById('phone').value
         };
 
-        // Prepare delivery data
-        const deliveryData = {
-          street: document.getElementById('street').value,
-          postalCode: document.getElementById('postal-code').value,
-          city: document.getElementById('city').value,
-          deliveryDate: document.getElementById('delivery-date').value,
-          notes: document.getElementById('notes').value
-        };
+        // Get delivery method
+        const deliveryMethod = document.querySelector('input[name="delivery-method"]:checked')?.value || 'pickup';
+        
+        // Prepare delivery data (only if delivery is selected)
+        let deliveryData = null;
+        if (deliveryMethod === 'delivery') {
+          deliveryData = {
+            street: document.getElementById('street').value,
+            postalCode: document.getElementById('postal-code').value,
+            city: document.getElementById('city').value,
+            deliveryDate: document.getElementById('delivery-date').value,
+            notes: document.getElementById('notes').value
+          };
+        } else {
+          // For pickup, just include notes if provided
+          const notes = document.getElementById('notes').value;
+          if (notes) {
+            deliveryData = { notes: notes };
+          }
+        }
 
         // Prepare order data
         const orderData = {
@@ -1328,6 +1437,7 @@
           decorations: config.decorations,
           customer: customerData,
           delivery: deliveryData,
+          deliveryMethod: deliveryMethod,
           orderType: 'generated_cake',
           timestamp: new Date().toISOString()
         };

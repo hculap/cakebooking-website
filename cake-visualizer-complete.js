@@ -385,7 +385,7 @@ async function generateImage() {
 
 // Format order details into HTML for email display
 function formatOrderMessageHTML(orderData) {
-    const { customer, cake, size, layers, cakeText, occasion, color, additionalColor, specialTheme, flavor, decorations = {}, delivery, deliveryAddress, deliveryDate, notes, total, orderType, hasImageAttachment, generatedPrompt } = orderData;
+    const { customer, cake, size, layers, cakeText, occasion, color, additionalColor, specialTheme, flavor, decorations = {}, delivery, deliveryMethod, deliveryAddress, deliveryDate, notes, total, orderType, hasImageAttachment, generatedPrompt } = orderData;
     
     let html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f7f5f2; padding: 20px; border-radius: 12px;">
@@ -411,15 +411,20 @@ function formatOrderMessageHTML(orderData) {
         <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
             <h3 style="color: #0F2238; margin: 0 0 15px 0; border-bottom: 2px solid #F472B6; padding-bottom: 8px;">🚚 SPOSÓB ODBIORU</h3>`;
     
-    if (delivery === 'pickup') {
+    // Use deliveryMethod if available, fallback to old delivery field
+    const method = deliveryMethod || delivery;
+    
+    if (method === 'pickup') {
         html += `<p style="margin: 8px 0; color: #4a5568;">• Odbiór własny</p>`;
-    } else if (delivery === 'delivery') {
+    } else if (method === 'delivery') {
         html += `<p style="margin: 8px 0; color: #4a5568;">• Dostawa pod adres</p>`;
-        if (deliveryAddress) {
+        // Check both delivery object and direct delivery fields
+        const address = deliveryAddress || delivery;
+        if (address && (address.street || address.postalCode || address.city)) {
             html += `<ul style="list-style: none; padding: 0 0 0 20px; margin: 8px 0; color: #4a5568;">`;
-            html += `<li style="margin: 4px 0;">Adres: ${deliveryAddress.street || ''}</li>`;
-            html += `<li style="margin: 4px 0;">Kod pocztowy: ${deliveryAddress.postalCode || ''}</li>`;
-            html += `<li style="margin: 4px 0;">Miasto: ${deliveryAddress.city || ''}</li>`;
+            if (address.street) html += `<li style="margin: 4px 0;">Adres: ${address.street}</li>`;
+            if (address.postalCode) html += `<li style="margin: 4px 0;">Kod pocztowy: ${address.postalCode}</li>`;
+            if (address.city) html += `<li style="margin: 4px 0;">Miasto: ${address.city}</li>`;
             html += `</ul>`;
         }
     }
@@ -537,7 +542,7 @@ function formatOrderMessageHTML(orderData) {
 
 // Format order details into plain text for email
 function formatOrderMessage(orderData) {
-    const { customer, cake, size, layers, cakeText, occasion, color, additionalColor, specialTheme, flavor, decorations = {}, delivery, deliveryAddress, deliveryDate, notes, total, orderType, generatedPrompt } = orderData;
+    const { customer, cake, size, layers, cakeText, occasion, color, additionalColor, specialTheme, flavor, decorations = {}, delivery, deliveryMethod, deliveryAddress, deliveryDate, notes, total, orderType, generatedPrompt } = orderData;
 
     let message = `🧁 NOWE ZAMÓWIENIE TORTU\n\n`;
     message += `📅 ${new Date().toLocaleString('pl-PL')}\n`;
@@ -551,14 +556,20 @@ function formatOrderMessage(orderData) {
 
     // Delivery Information
     message += `\n🚚 SPOSÓB ODBIORU:\n`;
-    if (delivery === 'pickup') {
+    
+    // Use deliveryMethod if available, fallback to old delivery field
+    const method = deliveryMethod || delivery;
+    
+    if (method === 'pickup') {
         message += `• Odbiór własny\n`;
-    } else if (delivery === 'delivery') {
+    } else if (method === 'delivery') {
         message += `• Dostawa pod adres\n`;
-        if (deliveryAddress) {
-            message += `  - Adres: ${deliveryAddress.street || ''}\n`;
-            message += `  - Kod pocztowy: ${deliveryAddress.postalCode || ''}\n`;
-            message += `  - Miasto: ${deliveryAddress.city || ''}\n`;
+        // Check both delivery object and direct delivery fields
+        const address = deliveryAddress || delivery;
+        if (address && (address.street || address.postalCode || address.city)) {
+            if (address.street) message += `  - Adres: ${address.street}\n`;
+            if (address.postalCode) message += `  - Kod pocztowy: ${address.postalCode}\n`;
+            if (address.city) message += `  - Miasto: ${address.city}\n`;
         }
     }
     
