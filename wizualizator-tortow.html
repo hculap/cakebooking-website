@@ -341,8 +341,9 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
-        <!-- AI Image Generator -->
-        <div class="lg:col-span-2">
+
+        <!-- AI Image Generator (Mobile Second, Desktop Left) -->
+        <div class="lg:col-span-2 order-2 lg:order-1">
           <div class="relative sticky top-32">
             <!-- Image Display Area -->
             <div id="image-container" class="w-full bg-gray-100 rounded-2xl overflow-hidden" style="aspect-ratio: 1; max-width: 600px; margin: 0 auto; display: flex; align-items: center; justify-content: center;">
@@ -370,24 +371,27 @@
             
             <!-- Generate Button -->
             <div class="mt-6 text-center">
-              <button 
-                id="generate-btn" 
-                class="pill-button-pink text-white no-underline inline-flex items-center justify-center">
-                <i class="fa-solid fa-magic h-5 w-5 mr-3"></i>
-                Generuj obraz tortu
+              <button id="generate-btn" class="pill-button-pink w-full py-4 text-lg font-semibold transition-all hover:scale-[1.02]">
+                <i class="fa-solid fa-wand-magic-sparkles h-5 w-5 mr-3"></i>
+                Generuj wizualizację
               </button>
-              <p class="text-sm text-dove-gray mt-2">
+              
+              <!-- Order Button (Initially Hidden) -->
+              <button id="order-cake" class="pill-button-gold w-full py-4 text-lg font-semibold mt-4 hidden transition-all hover:scale-[1.02]">
+                <i class="fa-solid fa-cart-shopping h-5 w-5 mr-3"></i>
+                Zamów ten tort
+              </button>
+              
+              <p class="text-xs text-dove-gray mt-4 flex items-center justify-center">
                 <i class="fa-solid fa-info-circle mr-1"></i>
                 Obraz zostanie wygenerowany przez AI na podstawie Twoich wyborów
               </p>
             </div>
           </div>
-          
-
         </div>
 
-        <!-- Control Panel -->
-        <div class="lg:col-span-1">
+        <!-- Control Panel (Mobile First, Desktop Right) -->
+        <div class="lg:col-span-1 order-1 lg:order-2">
           <div class="control-panel p-6 overflow-y-auto">
             <h3 class="font-display text-2xl font-bold text-midnight-navy mb-6 text-center">
               <i class="fa-solid fa-sliders mr-3 icon-gradient-gold-pink"></i>
