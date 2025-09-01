@@ -1,24 +1,6 @@
 // Cake Visualizer AI Image Generator
 let isGenerating = false;
 
-// Configuration
-const config = {
-  size: 'small',
-  layers: 2,
-  cakeText: '',
-  occasion: 'birthday',
-  color: 'white',
-  additionalColor: '',
-  specialTheme: '',
-  flavor: 'vanilla',
-  decorations: {
-    candles: true,
-    flowers: false,
-    berries: false,
-    sprinkles: false
-  }
-};
-
 // Color names mapping
 const colorNames = {
   white: 'biały',
@@ -58,95 +40,6 @@ const flavorNames = {
   caramel: 'karmelowy'
 };
 
-function init() {
-  // Event listeners
-  setupEventListeners();
-}
-
-function setupEventListeners() {
-  // Size buttons
-  document.querySelectorAll('[data-size]').forEach(button => {
-    button.addEventListener('click', () => {
-      document.querySelectorAll('[data-size]').forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
-      config.size = button.dataset.size;
-    });
-  });
-
-  // Layer input
-  const cakeLayers = document.getElementById('cake-layers');
-  if (cakeLayers) {
-    cakeLayers.addEventListener('input', (e) => {
-      config.layers = parseInt(e.target.value) || 2;
-    });
-  }
-
-  // Cake text
-  const cakeText = document.getElementById('cake-text');
-  if (cakeText) {
-    cakeText.addEventListener('input', (e) => {
-      config.cakeText = e.target.value;
-    });
-  }
-
-  // Occasion buttons
-  document.querySelectorAll('[data-occasion]').forEach(button => {
-    button.addEventListener('click', () => {
-      document.querySelectorAll('[data-occasion]').forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
-      config.occasion = button.dataset.occasion;
-    });
-  });
-
-  // Color swatches
-  document.querySelectorAll('.color-swatch').forEach(swatch => {
-    swatch.addEventListener('click', () => {
-      document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
-      swatch.classList.add('active');
-      config.color = swatch.dataset.color;
-    });
-  });
-
-  // Additional color
-  const additionalColor = document.getElementById('additional-color');
-  if (additionalColor) {
-    additionalColor.addEventListener('change', (e) => {
-      config.additionalColor = e.target.value;
-    });
-  }
-
-  // Special theme
-  const specialTheme = document.getElementById('special-theme');
-  if (specialTheme) {
-    specialTheme.addEventListener('change', (e) => {
-      config.specialTheme = e.target.value;
-    });
-  }
-
-  // Flavor buttons
-  document.querySelectorAll('[data-flavor]').forEach(button => {
-    button.addEventListener('click', () => {
-      document.querySelectorAll('[data-flavor]').forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
-      config.flavor = button.dataset.flavor;
-    });
-  });
-
-  // Decoration checkboxes
-  document.querySelectorAll('[data-decoration]').forEach(checkbox => {
-    checkbox.addEventListener('change', (e) => {
-      config.decorations[checkbox.dataset.decoration] = e.target.checked;
-    });
-  });
-
-  // Generate button
-  const generateBtn = document.getElementById('generate-btn');
-  if (generateBtn) {
-    generateBtn.addEventListener('click', generateImage);
-  }
-
-
-}
 
 
 
@@ -219,18 +112,12 @@ async function generateImage() {
   try {
     const prompt = generatePrompt();
 
-    // Send generation request to our webhook
-    const webhookPayload = {
-      eventType: 'cake_image_generation',
-      timestamp: new Date().toISOString(),
-      userAgent: navigator.userAgent,
-      url: window.location.href,
-      data: {
-        prompt: prompt,
-        config: config,
-        size: '1024x1024',
-        formType: 'cake_image_generation'
-      }
+    // Send generation request using standardized webhook
+    const imageGenerationData = {
+      prompt: prompt,
+      config: config,
+      size: '1024x1024',
+      formType: 'cake_image_generation'
     };
 
     const response = await fetch(WEBHOOK_URL, {
@@ -238,7 +125,13 @@ async function generateImage() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(webhookPayload)
+      body: JSON.stringify({
+        eventType: 'cake_image_generation',
+        timestamp: new Date().toISOString(),
+        userAgent: navigator.userAgent,
+        url: window.location.href,
+        data: imageGenerationData
+      })
     });
 
     if (!response.ok) {
@@ -334,6 +227,4 @@ async function generateImage() {
 
 
 
-
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', init); 
+ 

@@ -178,6 +178,155 @@ function formatContactMessage(contactData) {
 }
 
 /**
+ * Format contact details into HTML for email display
+ * @param {Object} contactData - Contact form data
+ * @returns {string} - Formatted HTML message for email
+ */
+function formatContactMessageHTML(contactData) {
+    const { 'first-name': firstName, 'last-name': lastName, email, phone, subject, message } = contactData;
+    
+    const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f7f5f2; padding: 20px; border-radius: 12px;">
+        <div style="background: linear-gradient(135deg, #0F2238, #1a3a5c); color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+            <h2 style="margin: 0; font-size: 24px;">💬 NOWA WIADOMOŚĆ KONTAKTOWA</h2>
+            <p style="margin: 10px 0 0 0; opacity: 0.9;">📅 ${new Date().toLocaleString('pl-PL')}</p>
+        </div>
+        
+        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h3 style="color: #0F2238; margin: 0 0 15px 0; border-bottom: 2px solid #F472B6; padding-bottom: 8px;">👤 DANE KONTAKTOWE</h3>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                <li style="margin: 8px 0; color: #4a5568;"><strong>Imię i nazwisko:</strong> ${firstName || ''} ${lastName || ''}</li>
+                <li style="margin: 8px 0; color: #4a5568;"><strong>Email:</strong> <a href="mailto:${email || ''}" style="color: #F472B6; text-decoration: none;">${email || ''}</a></li>
+                <li style="margin: 8px 0; color: #4a5568;"><strong>Telefon:</strong> ${phone || ''}</li>
+            </ul>
+        </div>
+        
+        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h3 style="color: #0F2238; margin: 0 0 15px 0; border-bottom: 2px solid #F472B6; padding-bottom: 8px;">📋 SZCZEGÓŁY WIADOMOŚCI</h3>
+            <div style="margin: 12px 0; color: #4a5568;"><strong>Temat:</strong> ${subject || ''}</div>
+            <div style="margin: 12px 0;">
+                <strong style="color: #4a5568;">Wiadomość:</strong>
+                <div style="background: #f7f5f2; padding: 15px; border-radius: 6px; margin-top: 8px; border-left: 4px solid #F472B6; white-space: pre-wrap; color: #2d3748;">${message || ''}</div>
+            </div>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #F472B6, #D7B88F); color: white; padding: 15px; border-radius: 8px; text-align: center;">
+            <strong>⚡ Prosimy o szybką odpowiedź na wiadomość!</strong>
+        </div>
+    </div>`;
+    
+    return html;
+}
+
+/**
+ * Format order details into HTML for email display
+ * @param {Object} orderData - Complete order data
+ * @returns {string} - Formatted HTML message for bakery
+ */
+function formatOrderMessageHTML(orderData) {
+    const { customer, cake, size, taste, decorations = [], delivery, total, orderType, cakeImageUrl, generatedPrompt } = orderData;
+    
+    let html = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f7f5f2; padding: 20px; border-radius: 12px;">
+        <div style="background: linear-gradient(135deg, #0F2238, #1a3a5c); color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+            <h2 style="margin: 0; font-size: 24px;">🧁 NOWE ZAMÓWIENIE TORTU</h2>
+            <p style="margin: 10px 0 5px 0; opacity: 0.9;">📅 ${new Date().toLocaleString('pl-PL')}</p>
+            <p style="margin: 5px 0 0 0; opacity: 0.9;">🏷️ ${orderType === 'ready_cake' ? 'Tort gotowy' : orderType === 'generated_cake' ? 'Tort wygenerowany AI' : 'Tort na zamówienie'}</p>
+        </div>`;
+    
+    // Customer Information
+    html += `
+        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h3 style="color: #0F2238; margin: 0 0 15px 0; border-bottom: 2px solid #F472B6; padding-bottom: 8px;">👤 DANE KLIENTA</h3>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                <li style="margin: 8px 0; color: #4a5568;"><strong>Imię i nazwisko:</strong> ${customer?.firstName || ''} ${customer?.lastName || ''}</li>
+                <li style="margin: 8px 0; color: #4a5568;"><strong>Email:</strong> <a href="mailto:${customer?.email || ''}" style="color: #F472B6; text-decoration: none;">${customer?.email || ''}</a></li>
+                <li style="margin: 8px 0; color: #4a5568;"><strong>Telefon:</strong> ${customer?.phone || ''}</li>
+            </ul>
+        </div>`;
+    
+    // Delivery Information
+    html += `
+        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h3 style="color: #0F2238; margin: 0 0 15px 0; border-bottom: 2px solid #F472B6; padding-bottom: 8px;">🚚 SPOSÓB ODBIORU</h3>`;
+    
+    if (delivery === 'pickup') {
+        html += `<p style="margin: 8px 0; color: #4a5568;">• Odbiór własny</p>`;
+    } else if (delivery === 'delivery') {
+        html += `<p style="margin: 8px 0; color: #4a5568;">• Dostawa pod adres</p>`;
+        if (customer?.address) {
+            html += `<ul style="list-style: none; padding: 0 0 0 20px; margin: 8px 0; color: #4a5568;">`;
+            html += `<li style="margin: 4px 0;">Adres: ${customer.address.street || ''}</li>`;
+            html += `<li style="margin: 4px 0;">Kod pocztowy: ${customer.address.postalCode || ''}</li>`;
+            html += `<li style="margin: 4px 0;">Miasto: ${customer.address.city || ''}</li>`;
+            html += `</ul>`;
+        }
+    }
+    html += `</div>`;
+    
+    // Cake Details
+    html += `
+        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h3 style="color: #0F2238; margin: 0 0 15px 0; border-bottom: 2px solid #F472B6; padding-bottom: 8px;">🎂 SZCZEGÓŁY TORTU</h3>`;
+    
+    if (cake?.name) {
+        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Tort:</strong> ${cake.name}</p>`;
+    }
+    if (size) {
+        const sizeText = typeof size === 'object' ? size.name : size;
+        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Rozmiar:</strong> ${sizeText}</p>`;
+    }
+    if (taste) {
+        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Smak:</strong> ${taste}</p>`;
+    }
+    
+    // Generated cake prompt
+    if (generatedPrompt) {
+        html += `<div style="margin: 12px 0;">
+            <strong style="color: #4a5568;">Prompt AI:</strong>
+            <div style="background: #f7f5f2; padding: 15px; border-radius: 6px; margin-top: 8px; border-left: 4px solid #D7B88F; font-family: monospace; font-size: 14px; color: #2d3748;">${generatedPrompt}</div>
+        </div>`;
+    }
+    
+    // Decorations
+    if (decorations.length > 0) {
+        html += `<div style="margin: 12px 0;"><strong style="color: #4a5568;">Dekoracje:</strong><ul style="margin: 8px 0; padding-left: 20px; color: #4a5568;">`;
+        decorations.forEach(decoration => {
+            html += `<li style="margin: 4px 0;">${decoration.name} (+${decoration.price} zł)</li>`;
+        });
+        html += `</ul></div>`;
+    }
+    
+    html += `</div>`;
+    
+    // Cake Image
+    if (cakeImageUrl) {
+        html += `
+        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;">
+            <h3 style="color: #0F2238; margin: 0 0 15px 0; border-bottom: 2px solid #F472B6; padding-bottom: 8px;">🖼️ ZDJĘCIE TORTU</h3>
+            <img src="${cakeImageUrl}" alt="Zamówiony tort" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);" />
+        </div>`;
+    }
+    
+    // Total
+    if (total) {
+        html += `
+        <div style="background: linear-gradient(135deg, #F472B6, #D7B88F); color: white; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 15px;">
+            <h3 style="margin: 0; font-size: 24px;">💰 SUMA: ${total} zł</h3>
+        </div>`;
+    }
+    
+    // Call to action
+    html += `
+        <div style="background: linear-gradient(135deg, #D7B88F, #F1E0C8); color: #0F2238; padding: 15px; border-radius: 8px; text-align: center;">
+            <strong>⚡ Prosimy o kontakt z klientem w celu potwierdzenia zamówienia!</strong>
+        </div>
+    </div>`;
+    
+    return html;
+}
+
+/**
  * Send contact form data to webhook
  * @param {FormData|Object} formData - Contact form data
  * @returns {Promise<boolean>} - Success status
@@ -189,13 +338,15 @@ async function sendContactFormToWebhook(formData) {
         formType: 'contact'
     };
 
-    // Create formatted message for contact handling
-    const contactMessage = formatContactMessage(contactData);
+    // Create formatted messages for contact handling
+    const plainTextMessage = formatContactMessage(contactData);
+    const htmlMessage = formatContactMessageHTML(contactData);
 
-    // Add formatted message to webhook data
+    // Add formatted messages to webhook data
     const webhookData = {
         ...contactData,
-        contactMessage: contactMessage
+        plainTextMessage: plainTextMessage,
+        htmlMessage: htmlMessage
     };
 
     return await sendToWebhook(webhookData, 'contact_form');
@@ -296,13 +447,15 @@ async function sendOrderFormToWebhook(formData, additionalData = {}) {
         orderDate: new Date().toISOString()
     };
 
-    // Create formatted message for bakery
-    const bakeryMessage = formatOrderMessage(orderData);
+    // Create formatted messages for bakery
+    const plainTextMessage = formatOrderMessage(orderData);
+    const htmlMessage = formatOrderMessageHTML(orderData);
 
-    // Add formatted message to webhook data
+    // Add formatted messages to webhook data
     const webhookData = {
         ...orderData,
-        bakeryMessage: bakeryMessage
+        plainTextMessage: plainTextMessage,
+        htmlMessage: htmlMessage
     };
 
     return await sendToWebhook(webhookData, 'order_form');
@@ -397,13 +550,20 @@ async function sendCakeDesignToWebhook(designData, customerData = {}) {
         designDate: new Date().toISOString()
     };
 
-    // Create formatted message for design processing
-    const designMessage = formatCakeDesignMessage(designData, customerData);
+    // Create formatted messages for design processing
+    const plainTextMessage = formatCakeDesignMessage(designData, customerData);
+    const htmlMessage = formatOrderMessageHTML({ 
+        ...data, 
+        orderType: 'cake_design', 
+        generatedPrompt: designData.aiPrompt,
+        cake: { name: 'Projekt tortu na zamówienie' }
+    });
 
-    // Add formatted message to webhook data
+    // Add formatted messages to webhook data
     const webhookData = {
         ...data,
-        designMessage: designMessage
+        plainTextMessage: plainTextMessage,
+        htmlMessage: htmlMessage
     };
 
     return await sendToWebhook(webhookData, 'cake_design');

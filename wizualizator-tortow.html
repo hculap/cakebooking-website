@@ -753,12 +753,7 @@
   <script src="cookies.js"></script>
   <script src="cake-visualizer-ai.js"></script>
   <script>
-    // Cake Visualizer 3D Application
-    let scene, camera, renderer, controls;
-    let cake = {};
-    let decorations = {};
-    
-    // Configuration
+    // AI Cake Visualizer Configuration
     const config = {
       size: 'small',
       layers: 2,
@@ -776,292 +771,15 @@
       }
     };
 
-    // Colors mapping
-    const colors = {
-      white: 0xffffff,
-      pink: 0xf8b4d1,
-      blue: 0x6b73ff,
-      green: 0x9ccc65,
-      orange: 0xffa726,
-      brown: 0x8d6e63,
-      red: 0xe91e63,
-      purple: 0x9c27b0,
-      yellow: 0xffeb3b,
-      black: 0x424242
-    };
-
-    // Size configurations (diameter/radius only)
-    const sizes = {
-      small: { radius: 1.5, baseHeight: 0.6 },
-      medium: { radius: 2, baseHeight: 0.8 },
-      large: { radius: 2.5, baseHeight: 1.0 }
-    };
-
     function init() {
-      const canvas = document.getElementById('cake-canvas');
-      const container = canvas.parentElement;
-      
-      // Scene setup
-      scene = new THREE.Scene();
-      scene.background = new THREE.Color(0xf8f9fa);
-      
-      // Camera setup
-      camera = new THREE.PerspectiveCamera(75, container.clientWidth / 600, 0.1, 1000);
-      camera.position.set(4, 4, 4);
-      
-      // Renderer setup
-      renderer = new THREE.WebGLRenderer({ 
-        canvas: canvas, 
-        antialias: true,
-        alpha: true 
-      });
-      renderer.setSize(container.clientWidth, 600);
-      renderer.shadowMap.enabled = true;
-      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-      
-      // Controls
-      controls = new THREE.OrbitControls(camera, renderer.domElement);
-      controls.enableDamping = true;
-      controls.dampingFactor = 0.05;
-      controls.screenSpacePanning = false;
-      controls.minDistance = 2;
-      controls.maxDistance = 10;
-      controls.maxPolarAngle = Math.PI / 2;
-      
-      // Lighting
-      setupLighting();
-      
-      // Initial cake
-      createCake();
+      // Initialize AI visualizer
+      console.log('AI cake visualizer initialized');
       
       // Event listeners
       setupEventListeners();
       
       // Generate initial AI prompt
       updateAIPrompt();
-      
-      // Animation loop
-      animate();
-    }
-
-    function setupLighting() {
-      // Ambient light
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-      scene.add(ambientLight);
-      
-      // Main directional light
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-      directionalLight.position.set(10, 10, 5);
-      directionalLight.castShadow = true;
-      directionalLight.shadow.mapSize.width = 2048;
-      directionalLight.shadow.mapSize.height = 2048;
-      directionalLight.shadow.camera.near = 0.5;
-      directionalLight.shadow.camera.far = 50;
-      scene.add(directionalLight);
-      
-      // Fill light
-      const fillLight = new THREE.DirectionalLight(0xffffff, 0.3);
-      fillLight.position.set(-5, 5, -5);
-      scene.add(fillLight);
-      
-      // Ground plane for shadows
-      const planeGeometry = new THREE.PlaneGeometry(20, 20);
-      const planeMaterial = new THREE.ShadowMaterial({ opacity: 0.2 });
-      const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-      plane.rotation.x = -Math.PI / 2;
-      plane.position.y = -0.1;
-      plane.receiveShadow = true;
-      scene.add(plane);
-    }
-
-    function createCake() {
-      // Clear existing cake
-      if (cake.group) {
-        scene.remove(cake.group);
-      }
-      
-      cake.group = new THREE.Group();
-      
-      const sizeConfig = sizes[config.size];
-      const color = colors[config.color];
-      const numLayers = Math.max(1, Math.min(5, config.layers)); // Ensure 1-5 layers
-      
-      // Calculate layer heights based on number of layers
-      const totalHeight = sizeConfig.baseHeight * numLayers;
-      const layerHeight = totalHeight / numLayers;
-      
-      // Create cake layers
-      for (let i = 0; i < numLayers; i++) {
-        const layerRadius = sizeConfig.radius - (i * 0.2); // Smaller reduction for more layers
-        
-        // Base layer
-        const geometry = new THREE.CylinderGeometry(layerRadius, layerRadius, layerHeight, 32);
-        const material = new THREE.MeshPhongMaterial({ 
-          color: color,
-          shininess: 30 
-        });
-        const layer = new THREE.Mesh(geometry, material);
-        layer.position.y = i * layerHeight + layerHeight / 2;
-        layer.castShadow = true;
-        layer.receiveShadow = true;
-        
-        cake.group.add(layer);
-        
-        // Frosting edge
-        const edgeGeometry = new THREE.TorusGeometry(layerRadius, 0.08, 8, 16);
-        const edgeMaterial = new THREE.MeshPhongMaterial({ 
-          color: 0xffffff,
-          shininess: 60 
-        });
-        const edge = new THREE.Mesh(edgeGeometry, edgeMaterial);
-        edge.position.y = i * layerHeight + layerHeight;
-        edge.rotation.x = Math.PI / 2;
-        
-        cake.group.add(edge);
-      }
-      
-      // Add cake text if provided
-      if (config.cakeText && config.cakeText.trim()) {
-        addCakeText(totalHeight);
-      }
-      
-      scene.add(cake.group);
-      updateDecorations();
-    }
-
-    function addCakeText(cakeHeight) {
-      // Create a simple representation of text (using a box for now)
-      // In a real implementation, you might use TextGeometry or a texture
-      const textGeometry = new THREE.BoxGeometry(1, 0.1, 0.2);
-      const textMaterial = new THREE.MeshPhongMaterial({ 
-        color: 0x333333,
-        shininess: 30 
-      });
-      const textMesh = new THREE.Mesh(textGeometry, textMaterial);
-      textMesh.position.y = cakeHeight + 0.1;
-      cake.group.add(textMesh);
-    }
-
-    function updateDecorations() {
-      // Clear existing decorations
-      Object.values(decorations).forEach(decoration => {
-        if (decoration) scene.remove(decoration);
-      });
-      decorations = {};
-      
-      const sizeConfig = sizes[config.size];
-      const numLayers = Math.max(1, Math.min(5, config.layers));
-      const totalHeight = sizeConfig.baseHeight * numLayers;
-      
-      // Candles
-      if (config.decorations.candles) {
-        decorations.candles = new THREE.Group();
-        const candleCount = config.size === 'small' ? 3 : (config.size === 'medium' ? 5 : 8);
-        
-        for (let i = 0; i < candleCount; i++) {
-          const angle = (i / candleCount) * Math.PI * 2;
-          const radius = sizeConfig.radius * 0.6;
-          
-          // Candle body
-          const candleGeometry = new THREE.CylinderGeometry(0.03, 0.03, 0.4, 8);
-          const candleMaterial = new THREE.MeshPhongMaterial({ color: 0xffffcc });
-          const candle = new THREE.Mesh(candleGeometry, candleMaterial);
-          
-          candle.position.x = Math.cos(angle) * radius;
-          candle.position.z = Math.sin(angle) * radius;
-          candle.position.y = totalHeight + 0.2;
-          
-          // Flame
-          const flameGeometry = new THREE.SphereGeometry(0.05, 8, 6);
-          const flameMaterial = new THREE.MeshBasicMaterial({ 
-            color: 0xff6600,
-            emissive: 0xff3300,
-            emissiveIntensity: 0.5
-          });
-          const flame = new THREE.Mesh(flameGeometry, flameMaterial);
-          flame.position.y = 0.25;
-          flame.scale.y = 1.5;
-          
-          candle.add(flame);
-          decorations.candles.add(candle);
-        }
-        
-        scene.add(decorations.candles);
-      }
-      
-      // Flowers
-      if (config.decorations.flowers) {
-        decorations.flowers = new THREE.Group();
-        const flowerCount = 4;
-        
-        for (let i = 0; i < flowerCount; i++) {
-          const angle = (i / flowerCount) * Math.PI * 2;
-          const radius = sizeConfig.radius * 0.8;
-          
-          const flowerGeometry = new THREE.SphereGeometry(0.1, 8, 6);
-          const flowerMaterial = new THREE.MeshPhongMaterial({ color: 0xff69b4 });
-          const flower = new THREE.Mesh(flowerGeometry, flowerMaterial);
-          
-          flower.position.x = Math.cos(angle) * radius;
-          flower.position.z = Math.sin(angle) * radius;
-          flower.position.y = totalHeight + 0.05;
-          
-          decorations.flowers.add(flower);
-        }
-        
-        scene.add(decorations.flowers);
-      }
-      
-      // Berries
-      if (config.decorations.berries) {
-        decorations.berries = new THREE.Group();
-        const berryCount = 8;
-        
-        for (let i = 0; i < berryCount; i++) {
-          const angle = Math.random() * Math.PI * 2;
-          const radius = Math.random() * sizeConfig.radius * 0.7;
-          
-          const berryGeometry = new THREE.SphereGeometry(0.04, 8, 6);
-          const berryMaterial = new THREE.MeshPhongMaterial({ color: 0x8b0000 });
-          const berry = new THREE.Mesh(berryGeometry, berryMaterial);
-          
-          berry.position.x = Math.cos(angle) * radius;
-          berry.position.z = Math.sin(angle) * radius;
-          berry.position.y = totalHeight + 0.02;
-          
-          decorations.berries.add(berry);
-        }
-        
-        scene.add(decorations.berries);
-      }
-      
-      // Sprinkles
-      if (config.decorations.sprinkles) {
-        decorations.sprinkles = new THREE.Group();
-        const sprinkleCount = 20;
-        
-        for (let i = 0; i < sprinkleCount; i++) {
-          const angle = Math.random() * Math.PI * 2;
-          const radius = Math.random() * sizeConfig.radius;
-          
-          const sprinkleGeometry = new THREE.CylinderGeometry(0.01, 0.01, 0.08, 4);
-          const sprinkleColors = [0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 0xff00ff];
-          const sprinkleMaterial = new THREE.MeshPhongMaterial({ 
-            color: sprinkleColors[Math.floor(Math.random() * sprinkleColors.length)]
-          });
-          const sprinkle = new THREE.Mesh(sprinkleGeometry, sprinkleMaterial);
-          
-          sprinkle.position.x = Math.cos(angle) * radius;
-          sprinkle.position.z = Math.sin(angle) * radius;
-          sprinkle.position.y = totalHeight + 0.01;
-          sprinkle.rotation.x = Math.random() * Math.PI;
-          sprinkle.rotation.z = Math.random() * Math.PI;
-          
-          decorations.sprinkles.add(sprinkle);
-        }
-        
-        scene.add(decorations.sprinkles);
-      }
     }
 
     function setupEventListeners() {
@@ -1071,7 +789,6 @@
           document.querySelectorAll('[data-size]').forEach(b => b.classList.remove('active'));
           e.target.closest('button').classList.add('active');
           config.size = e.target.closest('button').dataset.size;
-          createCake();
           updateAIPrompt();
         });
       });
@@ -1092,7 +809,6 @@
           document.querySelectorAll('[data-color]').forEach(s => s.classList.remove('active'));
           e.target.classList.add('active');
           config.color = e.target.dataset.color;
-          createCake();
           updateAIPrompt();
         });
       });
@@ -1111,86 +827,52 @@
       document.querySelectorAll('.decoration-checkbox').forEach(checkbox => {
         checkbox.addEventListener('change', (e) => {
           config.decorations[e.target.dataset.decoration] = e.target.checked;
-          updateDecorations();
           updateAIPrompt();
         });
       });
       
-      // Action buttons
-      // Note: save-design button has been removed
-      // Order functionality is handled in the modal script below
-      
-      // Copy prompt button
-      document.getElementById('copy-prompt').addEventListener('click', copyPromptToClipboard);
-
-      // Helper functions for webhook integration
-      function generateAIPrompt() {
-        const promptElement = document.getElementById('ai-prompt');
-        return promptElement ? promptElement.textContent : '';
-      }
-
-      function getCanvasImageData() {
-        const canvas = document.querySelector('canvas');
-        return canvas ? canvas.toDataURL('image/png') : null;
-      }
-      
-      // New input event listeners
-      document.getElementById('cake-layers').addEventListener('input', (e) => {
-        config.layers = parseInt(e.target.value) || 2;
-        createCake();
-        updateAIPrompt();
-      });
-      
-      document.getElementById('cake-text').addEventListener('input', (e) => {
-        config.cakeText = e.target.value;
-        createCake();
-        updateAIPrompt();
-      });
-      
-      document.getElementById('additional-color').addEventListener('change', (e) => {
-        config.additionalColor = e.target.value;
-        updateAIPrompt();
-      });
-      
-      document.getElementById('special-theme').addEventListener('input', (e) => {
-        config.specialTheme = e.target.value;
-        updateAIPrompt();
-      });
-      
-      // Window resize
-      window.addEventListener('resize', onWindowResize, false);
-    }
-
-    function onWindowResize() {
-      const canvas = document.getElementById('cake-canvas');
-      const container = canvas.parentElement;
-      
-      camera.aspect = container.clientWidth / 600;
-      camera.updateProjectionMatrix();
-      renderer.setSize(container.clientWidth, 600);
-    }
-
-    function animate() {
-      requestAnimationFrame(animate);
-      controls.update();
-      
-      // Animate flame flicker
-      if (decorations.candles) {
-        decorations.candles.children.forEach(candle => {
-          const flame = candle.children[0];
-          if (flame) {
-            flame.scale.y = 1.5 + Math.sin(Date.now() * 0.01) * 0.2;
-            flame.material.emissiveIntensity = 0.5 + Math.sin(Date.now() * 0.008) * 0.2;
-          }
+      // Input event listeners
+      const cakeLayersInput = document.getElementById('cake-layers');
+      if (cakeLayersInput) {
+        cakeLayersInput.addEventListener('input', (e) => {
+          config.layers = parseInt(e.target.value) || 2;
+          updateAIPrompt();
         });
       }
       
-      renderer.render(scene, camera);
+      const cakeTextInput = document.getElementById('cake-text');
+      if (cakeTextInput) {
+        cakeTextInput.addEventListener('input', (e) => {
+          config.cakeText = e.target.value;
+          updateAIPrompt();
+        });
+      }
+      
+      const additionalColorInput = document.getElementById('additional-color');
+      if (additionalColorInput) {
+        additionalColorInput.addEventListener('change', (e) => {
+          config.additionalColor = e.target.value;
+          updateAIPrompt();
+        });
+      }
+      
+      const specialThemeInput = document.getElementById('special-theme');
+      if (specialThemeInput) {
+        specialThemeInput.addEventListener('input', (e) => {
+          config.specialTheme = e.target.value;
+          updateAIPrompt();
+        });
+      }
+      
+      // Generate button
+      const generateBtn = document.getElementById('generate-btn');
+      if (generateBtn) {
+        generateBtn.addEventListener('click', generateImage);
+      }
     }
 
     // Generate AI prompt based on current configuration
     function generateAIPrompt() {
-      const sizeConfig = sizes[config.size];
       const numLayers = Math.max(1, Math.min(5, config.layers));
       
       // Size and layers description
@@ -1657,107 +1339,31 @@
       }
     }
 
-    // Send cake order to webhook
+    // Send cake order to webhook (using standardized function)
     async function sendCakeOrderToWebhook(orderData, customerData) {
-      const data = {
-        orderData: orderData,
-        customerData: customerData,
+      // Restructure data to match standardized format
+      const standardizedOrderData = {
+        customer: customerData,
+        cake: {
+          name: 'Tort wygenerowany AI',
+          ...orderData.cake
+        },
+        size: orderData.size,
+        delivery: orderData.delivery,
+        total: orderData.total || 0,
+        orderType: 'generated_cake',
+        cakeImageUrl: orderData.cake?.generatedImageBase64 ? `data:image/png;base64,${orderData.cake.generatedImageBase64}` : null,
+        generatedPrompt: orderData.cake?.generatedPrompt,
         formType: 'generated_cake_order',
         orderDate: new Date().toISOString()
       };
 
-      // Create formatted message for order processing
-      const orderMessage = formatGeneratedCakeOrderMessage(orderData, customerData);
-
-      // Add formatted message to webhook data
-      const webhookData = {
-        ...data,
-        orderMessage: orderMessage
-      };
-
-      return await sendToWebhook(webhookData, 'generated_cake_order');
+      return await sendOrderFormToWebhook(standardizedOrderData, {
+        cakeConfig: orderData.cake?.config,
+        originalOrderData: orderData
+      });
     }
 
-    // Format order message for generated cake
-    function formatGeneratedCakeOrderMessage(orderData, customerData) {
-      const { cake, customer, delivery, size } = orderData;
-      const { config, generatedPrompt, generatedImageBase64 } = cake;
-
-      let message = `🧁 NOWE ZAMÓWIENIE TORTU WYGENEROWANEGO\n\n`;
-      message += `📅 Data zamówienia: ${new Date().toLocaleString('pl-PL')}\n\n`;
-
-      // Cake Configuration
-      message += `🎂 KONFIGURACJA TORTU:\n`;
-      const sizeNames = { small: 'Mały (do 8 osób)', medium: 'Średni (do 12 osób)', large: 'Duży (do 16 osób)' };
-      message += `• Rozmiar: ${sizeNames[size] || size}\n`;
-      message += `• Warstwy: ${config.layers || 2}\n`;
-      message += `• Kolor podstawowy: ${config.color || 'Niezdefiniowany'}\n`;
-      if (config.additionalColor) {
-        message += `• Kolor dodatkowy: ${config.additionalColor}\n`;
-      }
-      message += `• Smak: ${config.flavor || 'Niezdefiniowany'}\n`;
-      message += `• Okazja: ${config.occasion || 'Niezdefiniowana'}\n`;
-      if (config.cakeText) {
-        message += `• Napis na torcie: "${config.cakeText}"\n`;
-      }
-
-      // Decorations
-      if (config.decorations && Object.keys(config.decorations).length > 0) {
-        message += `\n✨ DEKORACJE:\n`;
-        const decorationNames = {
-          candles: 'Świeczki', flowers: 'Kwiaty', berries: 'Jagody', sprinkles: 'Posypka'
-        };
-        Object.entries(config.decorations).forEach(([key, value]) => {
-          if (value === true) {
-            message += `• ${decorationNames[key] || key}\n`;
-          }
-        });
-      }
-
-      // AI Generation Info
-      message += `\n🤖 INFORMACJE O GENEROWANIU:\n`;
-      message += `• Status generowania: Wygenerowany przez AI\n`;
-      if (generatedPrompt) {
-        message += `• Prompt AI: ${generatedPrompt}\n`;
-      }
-      message += `• Obraz wygenerowany: ${generatedImageBase64 ? 'Tak (base64)' : 'Nie'}\n`;
-
-      // Customer Information
-      if (customer && Object.keys(customer).length > 0) {
-        message += `\n👤 DANE KLIENTA:\n`;
-        if (customer.firstName || customer.lastName) {
-          message += `• Imię i nazwisko: ${customer.firstName || ''} ${customer.lastName || ''}\n`;
-        }
-        if (customer.email) {
-          message += `• Email: ${customer.email}\n`;
-        }
-        if (customer.phone) {
-          message += `• Telefon: ${customer.phone}\n`;
-        }
-      }
-
-      // Delivery Information
-      if (delivery && Object.keys(delivery).length > 0) {
-        message += `\n🚚 DOSTAWA:\n`;
-        if (delivery.street) {
-          message += `• Adres: ${delivery.street}\n`;
-        }
-        if (delivery.postalCode || delivery.city) {
-          message += `• Kod pocztowy i miasto: ${delivery.postalCode || ''} ${delivery.city || ''}\n`;
-        }
-        if (delivery.deliveryDate) {
-          message += `• Data dostawy: ${delivery.deliveryDate}\n`;
-        }
-        if (delivery.notes) {
-          message += `• Uwagi: ${delivery.notes}\n`;
-        }
-      }
-
-      message += `\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-      message += `⚡ Prosimy o szybkie przygotowanie oferty dla klienta!\n`;
-
-      return message;
-    }
   </script>
 </body>
 </html> 
