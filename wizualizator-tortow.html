@@ -333,7 +333,7 @@
   </section>
 
   <!-- Main Visualizer Section -->
-  <section class="py-20 pb-40 bg-porcelain-white relative">
+  <section id="visualizer-section" class="py-20 pb-40 bg-porcelain-white relative">
     <!-- Art Deco Elements -->
     <div class="parallax-element" data-speed="0.2" style="position: absolute; left: 32px; top: 200px; z-index: 0; opacity: 0.5;">
       <div class="art-deco-dot"></div>
@@ -341,7 +341,7 @@
     <div class="parallax-element" data-speed="0.6" style="position: absolute; right: 32px; bottom: 200px; z-index: 0; opacity: 0.5;">
       <div class="art-deco-dot"></div>
     </div>
-    
+
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
@@ -381,7 +381,7 @@
               </button>
               
               <!-- Order Button (Initially Hidden) -->
-              <button id="order-cake" class="pill-button-gold w-full py-4 text-lg font-semibold mt-4 hidden transition-all hover:scale-[1.02]">
+              <button class="pill-button-gold w-full py-4 text-lg font-semibold mt-4 hidden transition-all hover:scale-[1.02]" data-order-button>
                 <i class="fa-solid fa-cart-shopping h-5 w-5 mr-3"></i>
                 <span class="order-button-label">Zamów ten tort</span>
               </button>
@@ -408,68 +408,56 @@
                 <i class="fa-solid fa-resize mr-3 icon-gradient-gold-pink"></i>
                 Rozmiar
               </h4>
-              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              <div class="grid grid-cols-3 gap-3 mb-3">
                 <button class="option-button active py-4 px-4 rounded-lg text-sm font-medium" data-size="small">
                   <div class="text-center">
                     <div class="text-lg mb-1">🍰</div>
                     <div class="font-semibold">Mały</div>
-                    <div class="text-xs opacity-75 mt-1">10 porcji • Ø 18 cm</div>
+                    <div class="text-xs opacity-75 mt-1">8 porcji • Ø 12 cm</div>
+                    <div class="text-xs font-bold mt-1">190 zł</div>
                   </div>
                 </button>
                 <button class="option-button py-4 px-4 rounded-lg text-sm font-medium" data-size="medium">
                   <div class="text-center">
                     <div class="text-lg mb-1">🎂</div>
                     <div class="font-semibold">Średni</div>
-                    <div class="text-xs opacity-75 mt-1">18 porcji • Ø 22 cm</div>
+                    <div class="text-xs opacity-75 mt-1">12 porcji • Ø 14 cm</div>
+                    <div class="text-xs font-bold mt-1">235 zł</div>
                   </div>
                 </button>
                 <button class="option-button py-4 px-4 rounded-lg text-sm font-medium" data-size="large">
                   <div class="text-center">
                     <div class="text-lg mb-1">🎂</div>
                     <div class="font-semibold">Duży</div>
-                    <div class="text-xs opacity-75 mt-1">26 porcji • Ø 26 cm</div>
-                  </div>
-                </button>
-                <button class="option-button py-4 px-4 rounded-lg text-sm font-medium" data-size="artistic">
-                  <div class="text-center">
-                    <div class="text-lg mb-1">🎨</div>
-                    <div class="font-semibold uppercase tracking-wide text-xs">TORT ARTYSTYCZNY</div>
-                    <div class="text-xs opacity-75 mt-1">Indywidualne zamówienie</div>
-                    <div class="text-xs opacity-60">Wycena po wysłaniu zapytania</div>
+                    <div class="text-xs opacity-75 mt-1">20 porcji • Ø 20 cm</div>
+                    <div class="text-xs font-bold mt-1">330 zł</div>
                   </div>
                 </button>
               </div>
-              <p class="mt-3 text-xs text-dove-gray text-center md:text-left">
-                Warianty mały/średni/duży obejmują dwie przełożenia kremu w jednej warstwie. Większa liczba pięter dostępna jest w torcie artystycznym.
-              </p>
-            </div>
 
-            <!-- Dynamic Pricing -->
-            <div class="control-section pb-6 mb-6">
-              <h4 class="font-semibold text-midnight-navy mb-4 flex items-center">
-                <i class="fa-solid fa-coins mr-3 icon-gradient-gold-pink"></i>
-                Szacowana cena
-              </h4>
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="price-cards">
-                <div class="rounded-lg border border-dove-gray/30 bg-white/70 p-4 flex flex-col items-center text-center" data-price-card="small">
-                  <div class="text-sm font-semibold text-dove-gray uppercase tracking-wide">Mały</div>
-                  <div class="text-xl font-display font-bold mt-2 text-midnight-navy" data-price-value="small">-- zł</div>
-                  <div class="text-xs text-dove-gray mt-2">Do 10 porcji</div>
+              <!-- Artistic Cake Option -->
+              <button class="option-button w-full py-4 px-6 rounded-lg text-sm font-medium" data-size="artistic">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center">
+                    <div class="text-2xl mr-3">🎨</div>
+                    <div class="text-left">
+                      <div class="font-semibold uppercase tracking-wide text-xs">Tort Artystyczny</div>
+                      <div class="text-xs opacity-75 mt-1">Indywidualne zamówienie według Twojego projektu</div>
+                    </div>
+                  </div>
+                  <div class="text-xs font-bold">Wycena indywidualna</div>
                 </div>
-                <div class="rounded-lg border border-dove-gray/30 bg-white/70 p-4 flex flex-col items-center text-center" data-price-card="medium">
-                  <div class="text-sm font-semibold text-dove-gray uppercase tracking-wide">Średni</div>
-                  <div class="text-xl font-display font-bold mt-2 text-midnight-navy" data-price-value="medium">-- zł</div>
-                  <div class="text-xs text-dove-gray mt-2">Do 18 porcji</div>
-                </div>
-                <div class="rounded-lg border border-dove-gray/30 bg-white/70 p-4 flex flex-col items-center text-center" data-price-card="large">
-                  <div class="text-sm font-semibold text-dove-gray uppercase tracking-wide">Duży</div>
-                  <div class="text-xl font-display font-bold mt-2 text-midnight-navy" data-price-value="large">-- zł</div>
-                  <div class="text-xs text-dove-gray mt-2">Do 26 porcji</div>
-                </div>
+              </button>
+
+              <div class="mt-3 bg-champagne-gold/10 rounded-lg p-3 border border-champagne-gold/30">
+                <p class="text-xs text-midnight-navy font-medium mb-1">
+                  <i class="fa-solid fa-info-circle mr-1 text-champagne-gold"></i>
+                  Ceny są szacowane i będą zależeć od złożoności projektu
+                </p>
+                <p class="text-xs text-dove-gray">
+                  Warianty mały/średni/duży obejmują dwie przełożenia kremu w jednej warstwie. Większa liczba pięter dostępna jest w torcie artystycznym.
+                </p>
               </div>
-              <p class="mt-3 text-xs text-dove-gray">
-                Kolory dodatkowe wliczone w cenę. Tort artystyczny jest wyceniany indywidualnie po wysłaniu zapytania z wybranymi parametrami.
-              </p>
             </div>
 
             <!-- Number of Layers -->
@@ -607,20 +595,105 @@
                 Smak
               </h4>
               <div class="space-y-2">
-                <button class="option-button active w-full py-3 px-4 rounded-lg text-sm font-medium text-left" data-flavor="vanilla">
-                  🍦 Waniliowy — w cenie
+                <button class="option-button active w-full py-3 px-4 rounded-lg text-sm font-medium text-left" data-flavor="truskawkowy-raj">
+                  <div class="flex items-start">
+                    <div class="text-lg mr-3">🍓</div>
+                    <div>
+                      <div class="font-semibold">Truskawkowy Raj</div>
+                      <div class="text-xs opacity-80">Delikatny biszkopt, krem śmietankowy, mus truskawkowy</div>
+                      <div class="text-xs font-semibold text-playful-pink mt-1" data-flavor-price="truskawkowy-raj"></div>
+                    </div>
+                  </div>
                 </button>
-                <button class="option-button w-full py-3 px-4 rounded-lg text-sm font-medium text-left" data-flavor="chocolate">
-                  🍫 Czekoladowy — +20 zł
+                <button class="option-button w-full py-3 px-4 rounded-lg text-sm font-medium text-left" data-flavor="czekoladowa-pokusa">
+                  <div class="flex items-start">
+                    <div class="text-lg mr-3">🍫</div>
+                    <div>
+                      <div class="font-semibold">Czekoladowa Pokusa</div>
+                      <div class="text-xs opacity-80">Wilgotny czekoladowy biszkopt, krem z gorzkiej i mlecznej czekolady, czarna porzeczka</div>
+                      <div class="text-xs font-semibold text-playful-pink mt-1" data-flavor-price="czekoladowa-pokusa"></div>
+                    </div>
+                  </div>
                 </button>
-                <button class="option-button w-full py-3 px-4 rounded-lg text-sm font-medium text-left" data-flavor="strawberry">
-                  🍓 Truskawkowy — +25 zł
+                <button class="option-button w-full py-3 px-4 rounded-lg text-sm font-medium text-left" data-flavor="malinowa-rozkosz">
+                  <div class="flex items-start">
+                    <div class="text-lg mr-3">🍰</div>
+                    <div>
+                      <div class="font-semibold">Malinowa Rozkosz</div>
+                      <div class="text-xs opacity-80">Biszkopt waniliowy, mus malinowy, krem z białą czekoladą</div>
+                      <div class="text-xs font-semibold text-playful-pink mt-1" data-flavor-price="malinowa-rozkosz"></div>
+                    </div>
+                  </div>
                 </button>
-                <button class="option-button w-full py-3 px-4 rounded-lg text-sm font-medium text-left" data-flavor="lemon">
-                  🍋 Cytrynowy — +15 zł
+                <button class="option-button w-full py-3 px-4 rounded-lg text-sm font-medium text-left" data-flavor="tropikalny-szal">
+                  <div class="flex items-start">
+                    <div class="text-lg mr-3">🥭</div>
+                    <div>
+                      <div class="font-semibold">Tropikalny Szał</div>
+                      <div class="text-xs opacity-80">Biszkopt kokosowy, krem mango-passion, akcent ananasa</div>
+                      <div class="text-xs font-semibold text-playful-pink mt-1" data-flavor-price="tropikalny-szal"></div>
+                    </div>
+                  </div>
                 </button>
-                <button class="option-button w-full py-3 px-4 rounded-lg text-sm font-medium text-left" data-flavor="carrot">
-                  🥕 Marchewkowy — +30 zł
+                <button class="option-button w-full py-3 px-4 rounded-lg text-sm font-medium text-left" data-flavor="waniliowy-sen">
+                  <div class="flex items-start">
+                    <div class="text-lg mr-3">🌼</div>
+                    <div>
+                      <div class="font-semibold">Waniliowy Sen</div>
+                      <div class="text-xs opacity-80">Klasyczny waniliowy biszkopt, delikatny krem śmietankowy z wanilią, mango</div>
+                      <div class="text-xs font-semibold text-playful-pink mt-1" data-flavor-price="waniliowy-sen"></div>
+                    </div>
+                  </div>
+                </button>
+                <button class="option-button w-full py-3 px-4 rounded-lg text-sm font-medium text-left" data-flavor="orzechowa-rozpusta">
+                  <div class="flex items-start">
+                    <div class="text-lg mr-3">🌰</div>
+                    <div>
+                      <div class="font-semibold">Orzechowa Rozpusta</div>
+                      <div class="text-xs opacity-80">Biszkopt czekoladowo-orzechowy, krem z orzechów laskowych, Nutella</div>
+                      <div class="text-xs font-semibold text-playful-pink mt-1" data-flavor-price="orzechowa-rozpusta"></div>
+                    </div>
+                  </div>
+                </button>
+                <button class="option-button w-full py-3 px-4 rounded-lg text-sm font-medium text-left" data-flavor="cytrynowa-chmurka">
+                  <div class="flex items-start">
+                    <div class="text-lg mr-3">🍋</div>
+                    <div>
+                      <div class="font-semibold">Cytrynowa Orzeźwiająca Chmurka</div>
+                      <div class="text-xs opacity-80">Biszkopt cytrynowy, lemon curd, lekki krem mascarpone</div>
+                      <div class="text-xs font-semibold text-playful-pink mt-1" data-flavor-price="cytrynowa-chmurka"></div>
+                    </div>
+                  </div>
+                </button>
+                <button class="option-button w-full py-3 px-4 rounded-lg text-sm font-medium text-left" data-flavor="kawowe-love">
+                  <div class="flex items-start">
+                    <div class="text-lg mr-3">☕</div>
+                    <div>
+                      <div class="font-semibold">Kawowe Love</div>
+                      <div class="text-xs opacity-80">Biszkopt kawowy, krem tiramisu, nutka kakao</div>
+                      <div class="text-xs font-semibold text-playful-pink mt-1" data-flavor-price="kawowe-love"></div>
+                    </div>
+                  </div>
+                </button>
+                <button class="option-button w-full py-3 px-4 rounded-lg text-sm font-medium text-left" data-flavor="pistacjowy-oblok">
+                  <div class="flex items-start">
+                    <div class="text-lg mr-3">🥧</div>
+                    <div>
+                      <div class="font-semibold">Pistacjowy Obłok</div>
+                      <div class="text-xs opacity-80">Biszkopt waniliowy, mus malinowy, krem pistacjowy</div>
+                      <div class="text-xs font-semibold text-playful-pink mt-1" data-flavor-price="pistacjowy-oblok"></div>
+                    </div>
+                  </div>
+                </button>
+                <button class="option-button w-full py-3 px-4 rounded-lg text-sm font-medium text-left" data-flavor="kraina-raffaello">
+                  <div class="flex items-start">
+                    <div class="text-lg mr-3">🥥</div>
+                    <div>
+                      <div class="font-semibold">Kraina Raffaello</div>
+                      <div class="text-xs opacity-80">Biszkopt kokosowy, krem śmietankowy z kokosem, pralinki kokosowe</div>
+                      <div class="text-xs font-semibold text-playful-pink mt-1" data-flavor-price="kraina-raffaello"></div>
+                    </div>
+                  </div>
                 </button>
               </div>
             </div>
@@ -631,29 +704,184 @@
                 <i class="fa-solid fa-magic mr-3 icon-gradient-gold-pink"></i>
                 Dodatki
               </h4>
-              <div class="space-y-2">
-                <label class="flex items-center space-x-3 cursor-pointer">
-                  <input type="checkbox" class="decoration-checkbox" data-decoration="candles" checked>
-                  <span class="text-sm">🕯️ Świeczki (w cenie)</span>
-                </label>
-                <label class="flex items-center space-x-3 cursor-pointer">
-                  <input type="checkbox" class="decoration-checkbox" data-decoration="flowers">
-                  <span class="text-sm">🌸 Kwiaty cukrowe (+45 zł)</span>
-                </label>
-                <label class="flex items-center space-x-3 cursor-pointer">
-                  <input type="checkbox" class="decoration-checkbox" data-decoration="berries">
-                  <span class="text-sm">🫐 Owoce (+25 zł)</span>
-                </label>
-                <label class="flex items-center space-x-3 cursor-pointer">
-                  <input type="checkbox" class="decoration-checkbox" data-decoration="sprinkles">
-                  <span class="text-sm">✨ Posypka (+15 zł)</span>
-                </label>
+              <div class="space-y-5">
+                <div>
+                  <h5 class="text-xs font-semibold text-dove-gray uppercase tracking-wide mb-2">Figurki</h5>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <label class="flex items-center justify-between p-3 bg-white/60 border border-gray-200 rounded-lg cursor-pointer hover:border-playful-pink transition-colors">
+                      <div>
+                        <span class="block text-sm font-semibold text-midnight-navy">Słonik</span>
+                        <span class="text-xs text-dove-gray">Figurka</span>
+                      </div>
+                      <div class="flex items-center space-x-3">
+                        <span class="text-sm font-semibold text-midnight-navy">60 zł</span>
+                        <input type="checkbox" class="decoration-checkbox h-4 w-4 accent-playful-pink" data-decoration="figurki-slonik">
+                      </div>
+                    </label>
+                    <label class="flex items-center justify-between p-3 bg-white/60 border border-gray-200 rounded-lg cursor-pointer hover:border-playful-pink transition-colors">
+                      <div>
+                        <span class="block text-sm font-semibold text-midnight-navy">Miś</span>
+                        <span class="text-xs text-dove-gray">Figurka</span>
+                      </div>
+                      <div class="flex items-center space-x-3">
+                        <span class="text-sm font-semibold text-midnight-navy">60 zł</span>
+                        <input type="checkbox" class="decoration-checkbox h-4 w-4 accent-playful-pink" data-decoration="figurki-mis">
+                      </div>
+                    </label>
+                    <label class="flex items-center justify-between p-3 bg-white/60 border border-gray-200 rounded-lg cursor-pointer hover:border-playful-pink transition-colors">
+                      <div>
+                        <span class="block text-sm font-semibold text-midnight-navy">Aniołek</span>
+                        <span class="text-xs text-dove-gray">Figurka</span>
+                      </div>
+                      <div class="flex items-center space-x-3">
+                        <span class="text-sm font-semibold text-midnight-navy">70 zł</span>
+                        <input type="checkbox" class="decoration-checkbox h-4 w-4 accent-playful-pink" data-decoration="figurki-aniol">
+                      </div>
+                    </label>
+                    <label class="flex items-center justify-between p-3 bg-white/60 border border-gray-200 rounded-lg cursor-pointer hover:border-playful-pink transition-colors">
+                      <div>
+                        <span class="block text-sm font-semibold text-midnight-navy">Kokarda</span>
+                        <span class="text-xs text-dove-gray">Figurka</span>
+                      </div>
+                      <div class="flex items-center space-x-3">
+                        <span class="text-sm font-semibold text-midnight-navy">40 zł</span>
+                        <input type="checkbox" class="decoration-checkbox h-4 w-4 accent-playful-pink" data-decoration="figurki-kokarda">
+                      </div>
+                    </label>
+                    <label class="flex items-center justify-between p-3 bg-white/60 border border-gray-200 rounded-lg cursor-pointer hover:border-playful-pink transition-colors">
+                      <div>
+                        <span class="block text-sm font-semibold text-midnight-navy">Piesek</span>
+                        <span class="text-xs text-dove-gray">Figurka</span>
+                      </div>
+                      <div class="flex items-center space-x-3">
+                        <span class="text-sm font-semibold text-midnight-navy">60 zł</span>
+                        <input type="checkbox" class="decoration-checkbox h-4 w-4 accent-playful-pink" data-decoration="figurki-piesek">
+                      </div>
+                    </label>
+                    <label class="flex items-center justify-between p-3 bg-white/60 border border-gray-200 rounded-lg cursor-pointer hover:border-playful-pink transition-colors">
+                      <div>
+                        <span class="block text-sm font-semibold text-midnight-navy">Jednorożec</span>
+                        <span class="text-xs text-dove-gray">Figurka</span>
+                      </div>
+                      <div class="flex items-center space-x-3">
+                        <span class="text-sm font-semibold text-midnight-navy">70 zł</span>
+                        <input type="checkbox" class="decoration-checkbox h-4 w-4 accent-playful-pink" data-decoration="figurki-jednorozec">
+                      </div>
+                    </label>
+                    <label class="flex items-center justify-between p-3 bg-white/60 border border-gray-200 rounded-lg cursor-pointer hover:border-playful-pink transition-colors">
+                      <div>
+                        <span class="block text-sm font-semibold text-midnight-navy">Kotek</span>
+                        <span class="text-xs text-dove-gray">Figurka</span>
+                      </div>
+                      <div class="flex items-center space-x-3">
+                        <span class="text-sm font-semibold text-midnight-navy">60 zł</span>
+                        <input type="checkbox" class="decoration-checkbox h-4 w-4 accent-playful-pink" data-decoration="figurki-kotek">
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <div>
+                  <h5 class="text-xs font-semibold text-dove-gray uppercase tracking-wide mb-2">Pozostałe dodatki</h5>
+                  <div class="space-y-2">
+                    <label class="flex items-center justify-between p-3 bg-white/60 border border-gray-200 rounded-lg cursor-pointer hover:border-playful-pink transition-colors">
+                      <div>
+                        <span class="block text-sm font-semibold text-midnight-navy">Wydruk jadalny</span>
+                        <span class="text-xs text-dove-gray">Miejsce na zdjęcie</span>
+                      </div>
+                      <div class="flex items-center space-x-3">
+                        <span class="text-sm font-semibold text-midnight-navy">20 zł</span>
+                        <input type="checkbox" class="decoration-checkbox h-4 w-4 accent-playful-pink" data-decoration="wydruk-zdjecie">
+                      </div>
+                    </label>
+                    <label class="flex items-center justify-between p-3 bg-white/60 border border-gray-200 rounded-lg">
+                      <div>
+                        <span class="block text-sm font-semibold text-midnight-navy">Kwiaty</span>
+                        <span class="text-xs text-dove-gray">Cena za sztukę</span>
+                      </div>
+                      <div class="flex items-center space-x-3">
+                        <span class="text-xs text-dove-gray">10 zł / szt.</span>
+                        <input type="number" min="0" value="0" class="decoration-quantity w-20 border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-playful-pink" data-decoration="kwiaty">
+                      </div>
+                    </label>
+                    <label class="flex items-center justify-between p-3 bg-white/60 border border-gray-200 rounded-lg">
+                      <div>
+                        <span class="block text-sm font-semibold text-midnight-navy">Makaroniki</span>
+                        <span class="text-xs text-dove-gray">Dowolna ilość</span>
+                      </div>
+                      <div class="flex items-center space-x-3">
+                        <span class="text-xs text-dove-gray">6 zł / szt.</span>
+                        <input type="number" min="0" value="0" class="decoration-quantity w-20 border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-playful-pink" data-decoration="makaroniki">
+                      </div>
+                    </label>
+                    <label class="flex items-center justify-between p-3 bg-white/60 border border-gray-200 rounded-lg cursor-pointer hover:border-playful-pink transition-colors">
+                      <div>
+                        <span class="block text-sm font-semibold text-midnight-navy">Napis</span>
+                        <span class="text-xs text-dove-gray">Do 30 znaków</span>
+                      </div>
+                      <div class="flex items-center space-x-3">
+                        <span class="text-sm font-semibold text-midnight-navy">15 zł</span>
+                        <input type="checkbox" class="decoration-checkbox h-4 w-4 accent-playful-pink" data-decoration="napis">
+                      </div>
+                    </label>
+                    <label class="flex items-center justify-between p-3 bg-white/60 border border-gray-200 rounded-lg">
+                      <div>
+                        <span class="block text-sm font-semibold text-midnight-navy">Kwiaty cukrowe</span>
+                        <span class="text-xs text-dove-gray">Cena za sztukę</span>
+                      </div>
+                      <div class="flex items-center space-x-3">
+                        <span class="text-xs text-dove-gray">5 zł / szt.</span>
+                        <input type="number" min="0" value="0" class="decoration-quantity w-20 border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-playful-pink" data-decoration="kwiaty-cukrowe">
+                      </div>
+                    </label>
+                    <label class="flex items-center justify-between p-3 bg-white/60 border border-gray-200 rounded-lg">
+                      <div>
+                        <span class="block text-sm font-semibold text-midnight-navy">Świeczki</span>
+                        <span class="text-xs text-dove-gray">Cena za sztukę</span>
+                      </div>
+                      <div class="flex items-center space-x-3">
+                        <span class="text-xs text-dove-gray">3 zł / szt.</span>
+                        <input type="number" min="0" value="0" class="decoration-quantity w-20 border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-playful-pink" data-decoration="swieczki">
+                      </div>
+                    </label>
+                    <label class="flex items-center justify-between p-3 bg-white/60 border border-gray-200 rounded-lg">
+                      <div>
+                        <span class="block text-sm font-semibold text-midnight-navy">Świeczka cyfra</span>
+                        <span class="text-xs text-dove-gray">Cena za sztukę</span>
+                      </div>
+                      <div class="flex items-center space-x-3">
+                        <span class="text-xs text-dove-gray">10 zł / szt.</span>
+                        <input type="number" min="0" value="0" class="decoration-quantity w-20 border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-playful-pink" data-decoration="swieczka-cyfra">
+                      </div>
+                    </label>
+                    <label class="flex items-center justify-between p-3 bg-white/60 border border-gray-200 rounded-lg">
+                      <div>
+                        <span class="block text-sm font-semibold text-midnight-navy">Owoce</span>
+                        <span class="text-xs text-dove-gray">Porcja 100 g</span>
+                      </div>
+                      <div class="flex items-center space-x-3">
+                        <span class="text-xs text-dove-gray">10 zł / 100 g</span>
+                        <input type="number" min="0" value="0" class="decoration-quantity w-20 border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-playful-pink" data-decoration="owoce">
+                      </div>
+                    </label>
+                    <label class="flex items-center justify-between p-3 bg-white/60 border border-gray-200 rounded-lg">
+                      <div>
+                        <span class="block text-sm font-semibold text-midnight-navy">Posypka</span>
+                        <span class="text-xs text-dove-gray">Porcja 20 g</span>
+                      </div>
+                      <div class="flex items-center space-x-3">
+                        <span class="text-xs text-dove-gray">5 zł / 20 g</span>
+                        <input type="number" min="0" value="0" class="decoration-quantity w-20 border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-playful-pink" data-decoration="posypka">
+                      </div>
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
 
             <!-- Action Buttons -->
             <div class="pt-6 space-y-3">
-              <button id="order-cake" class="w-full pill-button-secondary py-3 text-base font-medium">
+              <button class="w-full pill-button-secondary py-3 text-base font-medium" data-order-button>
                 <i class="fa-solid fa-shopping-cart mr-2"></i>
                 <span class="order-button-label">Zamów ten tort</span>
               </button>
@@ -672,6 +900,902 @@
       </div>
     </div>
   </section>
+
+  <!-- Scripts -->
+  <script src="cookies.js"></script>
+  <script src="cake-visualizer-complete.js"></script>
+  <script>
+    (function() {
+    // AI Cake Visualizer Configuration
+    const pricingRules = {
+      basePrices: {
+        small: 190,
+        medium: 235,
+        large: 330
+      }
+    };
+
+      const addonDefinitions = window.addonDefinitions;
+      if (!addonDefinitions) {
+        console.error('Addon definitions are not available. Please ensure cake-visualizer-complete.js is loaded.');
+        return;
+      }
+
+      const flavorPerPortionAdjustments = window.flavorPerPortionAdjustments || {
+        'truskawkowy-raj': 0,
+        'czekoladowa-pokusa': 2,
+        'malinowa-rozkosz': 1.5,
+        'tropikalny-szal': 1.5,
+        'waniliowy-sen': 1,
+        'orzechowa-rozpusta': 2.5,
+        'cytrynowa-chmurka': 1.5,
+        'kawowe-love': 1.5,
+        'pistacjowy-oblok': 3.5,
+        'kraina-raffaello': 2.5
+      };
+
+      const sizePortions = window.sizePortions || {
+        small: 8,
+        medium: 12,
+        large: 20,
+        artistic: null
+      };
+
+    function createDefaultDecorationsState() {
+      const defaults = {};
+      Object.entries(addonDefinitions).forEach(([key, definition]) => {
+        defaults[key] = definition.type === 'quantity' ? 0 : false;
+      });
+      return defaults;
+    }
+
+      function getFlavorPriceAdjustment(sizeKey, flavorKey) {
+        const perPortion = flavorPerPortionAdjustments[flavorKey] || 0;
+        if (!perPortion) return 0;
+        const portions = sizePortions[sizeKey];
+        if (!portions) return 0;
+        return perPortion * portions;
+      }
+
+      function formatPerPortionValue(value) {
+        if (!Number.isFinite(value)) return '';
+        const hasFraction = Math.abs(value % 1) > 0;
+        return value.toLocaleString('pl-PL', {
+          minimumFractionDigits: hasFraction ? 2 : 0,
+          maximumFractionDigits: hasFraction ? 2 : 0
+        });
+      }
+
+      function updateFlavorPriceBadges() {
+        Object.entries(flavorPerPortionAdjustments).forEach(([flavorKey, perPortion]) => {
+          const badge = document.querySelector(`[data-flavor-price="${flavorKey}"]`);
+          if (!badge) return;
+
+          if (!perPortion) {
+            badge.textContent = 'W cenie w każdym rozmiarze';
+            return;
+          }
+
+          const portions = sizePortions[config.size];
+          if (portions) {
+            const total = getFlavorPriceAdjustment(config.size, flavorKey);
+            const perPortionText = formatPerPortionValue(perPortion);
+            badge.textContent = `+${priceFormatter.format(total)} zł (${perPortionText} zł / porcja, ${portions} porcji)`;
+          } else {
+            const perPortionText = formatPerPortionValue(perPortion);
+            badge.textContent = `+${perPortionText} zł / porcja`;
+          }
+        });
+      }
+
+      const config = {
+      size: 'small',
+      layers: 1,
+      cakeText: '',
+      occasion: 'birthday',
+      color: 'white',
+      additionalColor: '',
+      specialTheme: '',
+      flavor: 'truskawkowy-raj',
+      decorations: createDefaultDecorationsState()
+    };
+      const artisticDraft = {
+      cakeText: '',
+      specialTheme: ''
+    };
+
+    function init() {
+      // Initialize AI visualizer
+      console.log('AI cake visualizer initialized');
+      
+      // Check if external functions are available
+      if (typeof generateImage === 'undefined') {
+        console.error('⚠️ generateImage function not available. Check cake-visualizer-complete.js loading.');
+        // Continue anyway to set up other functionality
+      }
+      
+      // Event listeners
+      setupEventListeners();
+
+      // Initial UI sync
+      refreshSizeDependentFields();
+      updatePricing();
+      updateAIPrompt();
+      updateFlavorPriceBadges();
+    }
+
+    function setupEventListeners() {
+      // Size buttons
+      const sizeButtons = document.querySelectorAll('[data-size]');
+      sizeButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const targetButton = e.currentTarget;
+          sizeButtons.forEach(b => b.classList.remove('active'));
+          targetButton.classList.add('active');
+          config.size = targetButton.dataset.size;
+          onConfigurationChange();
+        });
+      });
+      
+      // Occasion buttons
+      const occasionButtons = document.querySelectorAll('[data-occasion]');
+      occasionButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const targetButton = e.currentTarget;
+          occasionButtons.forEach(b => b.classList.remove('active'));
+          targetButton.classList.add('active');
+          config.occasion = targetButton.dataset.occasion;
+          onConfigurationChange();
+        });
+      });
+      
+      // Color swatches
+      const colorSwatches = document.querySelectorAll('[data-color]');
+      colorSwatches.forEach(swatch => {
+        swatch.addEventListener('click', (e) => {
+          const targetSwatch = e.currentTarget;
+          colorSwatches.forEach(s => s.classList.remove('active'));
+          targetSwatch.classList.add('active');
+          config.color = targetSwatch.dataset.color;
+          onConfigurationChange();
+        });
+      });
+      
+      // Flavor buttons
+      const flavorButtons = document.querySelectorAll('[data-flavor]');
+      flavorButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const targetButton = e.currentTarget;
+          flavorButtons.forEach(b => b.classList.remove('active'));
+          targetButton.classList.add('active');
+          config.flavor = targetButton.dataset.flavor;
+          onConfigurationChange();
+        });
+      });
+      
+      // Decoration checkboxes
+      document.querySelectorAll('.decoration-checkbox').forEach(checkbox => {
+        const decorationKey = checkbox.dataset.decoration;
+        if (decorationKey in config.decorations) {
+          checkbox.checked = Boolean(config.decorations[decorationKey]);
+        }
+        checkbox.addEventListener('change', (e) => {
+          const key = e.currentTarget.dataset.decoration;
+          if (!(key in config.decorations)) return;
+          config.decorations[key] = e.currentTarget.checked;
+          onConfigurationChange();
+        });
+      });
+
+      // Decoration quantities
+      document.querySelectorAll('.decoration-quantity').forEach(input => {
+        const key = input.dataset.decoration;
+        if (key in config.decorations) {
+          input.value = config.decorations[key];
+        }
+        input.addEventListener('input', (e) => {
+          const datasetKey = e.currentTarget.dataset.decoration;
+          const definition = addonDefinitions[datasetKey];
+          if (!definition || definition.type !== 'quantity') return;
+
+          const parsedValue = parseInt(e.currentTarget.value, 10);
+          const sanitized = Math.max(0, Number.isFinite(parsedValue) ? parsedValue : 0);
+          config.decorations[datasetKey] = sanitized;
+          e.currentTarget.value = sanitized;
+          onConfigurationChange();
+        });
+      });
+      
+      // Input event listeners
+      const cakeLayersInput = document.getElementById('cake-layers');
+      if (cakeLayersInput) {
+        cakeLayersInput.addEventListener('input', (e) => {
+          const parsedValue = parseInt(e.target.value, 10);
+          if (config.size !== 'artistic') {
+            config.layers = 1;
+            cakeLayersInput.value = 1;
+            return;
+          }
+          const sanitized = Math.max(1, Math.min(5, parsedValue || 1));
+          config.layers = sanitized;
+          cakeLayersInput.value = sanitized;
+          onConfigurationChange();
+        });
+      }
+      
+      const cakeTextInput = document.getElementById('cake-text');
+      if (cakeTextInput) {
+        cakeTextInput.addEventListener('input', (e) => {
+          artisticDraft.cakeText = e.target.value;
+          config.cakeText = e.target.value;
+          onConfigurationChange();
+        });
+      }
+      
+      const additionalColorInput = document.getElementById('additional-color');
+      if (additionalColorInput) {
+        additionalColorInput.addEventListener('change', (e) => {
+          config.additionalColor = e.target.value;
+          onConfigurationChange();
+        });
+      }
+      
+      const specialThemeInput = document.getElementById('special-theme');
+      if (specialThemeInput) {
+        specialThemeInput.addEventListener('input', (e) => {
+          artisticDraft.specialTheme = e.target.value;
+          config.specialTheme = e.target.value;
+          onConfigurationChange();
+        });
+      }
+      
+      // Generate button
+      const generateBtn = document.getElementById('generate-btn');
+      if (generateBtn) {
+        generateBtn.addEventListener('click', generateImage);
+      }
+    }
+
+    function onConfigurationChange() {
+      refreshSizeDependentFields();
+      updateAIPrompt();
+      updatePricing();
+      updateFlavorPriceBadges();
+      if (typeof window.visualizerUpdateOrderSummary === 'function') {
+        window.visualizerUpdateOrderSummary();
+      }
+    }
+
+    function refreshSizeDependentFields() {
+      const isArtistic = config.size === 'artistic';
+
+      const cakeLayersInput = document.getElementById('cake-layers');
+      if (cakeLayersInput) {
+        cakeLayersInput.disabled = !isArtistic;
+        if (!isArtistic) {
+          config.layers = 1;
+          cakeLayersInput.value = 1;
+        } else {
+          const currentValue = parseInt(cakeLayersInput.value, 10);
+          const sanitized = Math.max(1, Math.min(5, currentValue || 1));
+          config.layers = sanitized;
+          cakeLayersInput.value = sanitized;
+        }
+      }
+
+      const cakeTextInput = document.getElementById('cake-text');
+      if (cakeTextInput) {
+        cakeTextInput.disabled = !isArtistic;
+        if (isArtistic) {
+          cakeTextInput.value = artisticDraft.cakeText;
+          config.cakeText = artisticDraft.cakeText;
+        } else {
+          artisticDraft.cakeText = cakeTextInput.value || artisticDraft.cakeText;
+          cakeTextInput.value = '';
+          config.cakeText = '';
+        }
+      }
+
+      const specialThemeInput = document.getElementById('special-theme');
+      if (specialThemeInput) {
+        specialThemeInput.disabled = !isArtistic;
+        if (isArtistic) {
+          specialThemeInput.value = artisticDraft.specialTheme;
+          config.specialTheme = artisticDraft.specialTheme;
+        } else {
+          artisticDraft.specialTheme = specialThemeInput.value || artisticDraft.specialTheme;
+          specialThemeInput.value = '';
+          config.specialTheme = '';
+        }
+      }
+
+      document.querySelectorAll('.order-button-label').forEach(label => {
+        label.textContent = isArtistic ? 'Wyślij zapytanie' : 'Zamów ten tort';
+      });
+    }
+
+    function getSelectedAddons() {
+      return Object.entries(config.decorations)
+        .filter(([key, value]) => {
+          const definition = addonDefinitions[key];
+          if (!definition) return false;
+          return definition.type === 'quantity' ? value > 0 : Boolean(value);
+        })
+        .map(([key, value]) => ({
+          key,
+          value,
+          definition: addonDefinitions[key]
+        }));
+    }
+
+    function calculateAddonsTotal() {
+      return getSelectedAddons().reduce((sum, { key, value, definition }) => {
+        if (definition.type === 'quantity') {
+          return sum + definition.price * value;
+        }
+        return sum + (value ? definition.price : 0);
+      }, 0);
+    }
+
+    function calculatePrice(sizeKey) {
+      const basePrice = pricingRules.basePrices[sizeKey];
+      if (typeof basePrice === 'undefined') {
+        return null;
+      }
+
+      let total = basePrice;
+      total += getFlavorPriceAdjustment(sizeKey, config.flavor);
+
+      total += calculateAddonsTotal();
+
+      return total;
+    }
+
+    function getCalculatedPrices() {
+      return ['small', 'medium', 'large'].reduce((acc, sizeKey) => {
+        const price = calculatePrice(sizeKey);
+        if (price !== null) {
+          acc[sizeKey] = price;
+        }
+        return acc;
+      }, {});
+    }
+
+    function updatePricing() {
+      const sizeKeys = ['small', 'medium', 'large'];
+      const isArtistic = config.size === 'artistic';
+      let selectedDisplay = INDIVIDUAL_PRICING_TEXT;
+
+      sizeKeys.forEach(sizeKey => {
+        const price = calculatePrice(sizeKey);
+        const valueElement = document.querySelector(`[data-price-value="${sizeKey}"]`);
+        if (valueElement && price !== null) {
+          valueElement.textContent = `${priceFormatter.format(price)} zł`;
+        }
+
+        const cardElement = document.querySelector(`[data-price-card="${sizeKey}"]`);
+        if (cardElement) {
+          const isSelected = !isArtistic && config.size === sizeKey;
+          cardElement.classList.toggle('border-playful-pink', isSelected);
+          cardElement.classList.toggle('shadow-lg', isSelected);
+          cardElement.classList.toggle('bg-white', isSelected);
+          cardElement.classList.toggle('bg-white/70', !isSelected);
+        }
+
+        if (!isArtistic && config.size === sizeKey && price !== null) {
+          selectedDisplay = `${priceFormatter.format(price)} zł`;
+        }
+      });
+
+      const summaryPriceElement = document.getElementById('summary-price');
+      if (summaryPriceElement) {
+        summaryPriceElement.textContent = selectedDisplay;
+      }
+
+      return selectedDisplay;
+    }
+
+    // Generate AI prompt based on current configuration
+    function generateAIPrompt() {
+      const isArtistic = config.size === 'artistic';
+      const numLayers = isArtistic ? Math.max(1, Math.min(5, config.layers)) : 1;
+      
+      // Size and layers description
+      const sizeText = isArtistic
+        ? 'custom artistic'
+        : config.size === 'small' ? 'small diameter' : 
+          config.size === 'medium' ? 'medium diameter' : 
+          'large diameter';
+      
+      const layerText = numLayers === 1 ? 'single-tier' : 
+                       numLayers === 2 ? 'two-tier' :
+                       numLayers === 3 ? 'three-tier' :
+                       numLayers === 4 ? 'four-tier' :
+                       'five-tier';
+      
+      const occasionText = {
+        birthday: 'birthday celebration',
+        wedding: 'elegant wedding',
+        anniversary: 'romantic anniversary',
+        graduation: 'graduation celebration',
+        celebration: 'special celebration'
+      }[config.occasion];
+      
+      const colorText = {
+        white: 'pure white',
+        pink: 'soft pink',
+        blue: 'sky blue',
+        green: 'fresh green',
+        orange: 'warm orange',
+        brown: 'rich chocolate brown',
+        red: 'vibrant red',
+        purple: 'royal purple',
+        yellow: 'sunny yellow',
+        black: 'elegant black'
+      }[config.color];
+      
+      const flavorDescriptions = {
+        'truskawkowy-raj': 'delicate sponge cake with whipped cream and strawberry mousse',
+        'czekoladowa-pokusa': 'moist chocolate sponge with dark and milk chocolate cream and blackcurrant accents',
+        'malinowa-rozkosz': 'vanilla sponge with raspberry mousse and white chocolate cream',
+        'tropikalny-szal': 'coconut sponge with mango passionfruit cream and pineapple accents',
+        'waniliowy-sen': 'classic vanilla sponge with light vanilla whipped cream and mango layers',
+        'orzechowa-rozpusta': 'chocolate hazelnut sponge with hazelnut cream and Nutella swirls',
+        'cytrynowa-chmurka': 'lemon sponge with lemon curd and airy mascarpone cream',
+        'kawowe-love': 'coffee sponge with tiramisu cream and cocoa dusting',
+        'pistacjowy-oblok': 'vanilla sponge with raspberry mousse and pistachio cream',
+        'kraina-raffaello': 'coconut sponge with creamy coconut filling and Raffaello-style pralines'
+      };
+      
+      const flavorText = flavorDescriptions[config.flavor] || 'signature flavor';
+      
+      // Additional color text
+      const additionalColorText = {
+        '': '',
+        'gold': 'with gold accents',
+        'silver': 'with silver details',
+        'rose-gold': 'with rose gold highlights',
+        'pearl': 'with pearl finish details',
+        'copper': 'with copper metallic accents',
+        'mint': 'with mint green accents',
+        'lavender': 'with lavender purple details',
+        'coral': 'with coral colored accents',
+        'turquoise': 'with turquoise blue details',
+        'burgundy': 'with burgundy red accents'
+      }[config.additionalColor];
+      
+      // Build decorations text
+      const selectedAddons = getSelectedAddons();
+      const decorationDescriptors = selectedAddons.map(({ value, definition }) => {
+        if (definition.type === 'quantity') {
+          return `${value}x ${definition.prompt}`;
+        }
+        return definition.prompt;
+      });
+      
+      const decorationText = decorationDescriptors.length > 0 ? 
+        `decorated with ${decorationDescriptors.join(', ')}` : 
+        'with elegant smooth frosting';
+      
+      // Cake text
+      const cakeTextPart = isArtistic && config.cakeText && config.cakeText.trim() ? 
+        `, featuring "${config.cakeText.trim()}" written in elegant lettering on top` : '';
+      
+      // Special theme
+      const themePart = isArtistic && config.specialTheme && config.specialTheme.trim() ? 
+        `, incorporating ${config.specialTheme.trim()} theme elements` : '';
+      
+      // Professional photography description
+      const photographyStyle = ', professional food photography, studio lighting setup with soft diffused lighting, high-end DSLR camera shot, macro lens detail, bokeh background, pristine white background or elegant marble surface, commercial bakery quality presentation, ultra-high resolution 8K, photorealistic rendering, magazine-quality food styling, perfect focus and clarity, rich texture details, appetizing and mouthwatering presentation, luxury confectionery advertisement style';
+      
+      // Generate the complete prompt
+      const prompt = `Stunning ${sizeText} ${layerText} ${flavorText} cake with ${colorText} frosting${additionalColorText}, ${decorationText}${cakeTextPart}${themePart}, perfect for ${occasionText}, placed on elegant cake stand${photographyStyle}`;
+      
+      return prompt;
+    }
+
+    // Update AI prompt display
+    function updateAIPrompt() {
+      const promptTextarea = document.getElementById('ai-prompt');
+      if (promptTextarea) {
+        promptTextarea.value = generateAIPrompt();
+      }
+    }
+
+    // Copy prompt to clipboard
+    function copyPromptToClipboard() {
+      const promptTextarea = document.getElementById('ai-prompt');
+      if (promptTextarea) {
+        promptTextarea.select();
+        promptTextarea.setSelectionRange(0, 99999); // For mobile devices
+        
+        try {
+          document.execCommand('copy');
+          
+          // Show feedback
+          const copyButton = document.getElementById('copy-prompt');
+          const originalText = copyButton.innerHTML;
+          copyButton.innerHTML = '<i class="fa-solid fa-check mr-1"></i>Skopiowano!';
+          copyButton.style.backgroundColor = '#4ade80';
+          
+          setTimeout(() => {
+            copyButton.innerHTML = originalText;
+            copyButton.style.backgroundColor = '';
+          }, 2000);
+          
+        } catch (err) {
+          console.error('Failed to copy text: ', err);
+        }
+      }
+    }
+
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', init);
+
+    // Expose commonly used helpers
+    window.updatePricing = updatePricing;
+    window.getSelectedAddons = getSelectedAddons;
+    window.calculateAddonsTotal = calculateAddonsTotal;
+    window.calculatePrice = calculatePrice;
+    window.getCalculatedPrices = getCalculatedPrices;
+    window.getFlavorPriceAdjustment = getFlavorPriceAdjustment;
+    window.updateFlavorPriceBadges = updateFlavorPriceBadges;
+    window.formatPerPortionValue = formatPerPortionValue;
+    window.priceFormatter = priceFormatter;
+    window.config = config;
+
+    })();
+  </script>
+
+  <!-- Sekcja zamówienia z wizualizatora -->
+  <section id="visualizer-order" class="py-20 bg-porcelain-white relative overflow-hidden hidden">
+    <!-- Art Deco Elements -->
+    <div class="parallax-element" data-speed="0.3" style="position: absolute; left: 32px; top: 80px; z-index: 0;">
+      <div class="art-deco-line"></div>
+    </div>
+    <div class="parallax-element" data-speed="0.4" style="position: absolute; right: 32px; bottom: 80px; z-index: 0;">
+      <div class="art-deco-line"></div>
+    </div>
+
+      <div class="max-w-4xl mx-auto px-6 lg:px-8 relative z-10">
+        <!-- Step 1: Customer Data -->
+        <section id="customer-data-step">
+          <div class="text-center mb-16">
+            <h2 class="font-display text-3xl md:text-4xl font-bold text-midnight-navy mb-6">Dane kontaktowe</h2>
+            <p class="text-xl text-dove-gray max-w-3xl mx-auto leading-relaxed">
+              Podaj swoje dane, abyśmy mogli skontaktować się z Tobą w sprawie zamówienia.
+            </p>
+          </div>
+
+          <div class="vitreous-card p-8">
+            <form id="customer-form" class="space-y-6">
+              <!-- Personal Information -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="first-name" class="block text-sm font-medium text-midnight-navy mb-2">Imię *</label>
+                  <input type="text" id="first-name" name="first-name" required class="w-full p-4 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy placeholder-dove-gray focus:border-playful-pink focus:outline-none transition-colors">
+                </div>
+                <div>
+                  <label for="last-name" class="block text-sm font-medium text-midnight-navy mb-2">Nazwisko *</label>
+                  <input type="text" id="last-name" name="last-name" required class="w-full p-4 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy placeholder-dove-gray focus:border-playful-pink focus:outline-none transition-colors">
+                </div>
+              </div>
+
+              <!-- Contact Information -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="email" class="block text-sm font-medium text-midnight-navy mb-2">Email *</label>
+                  <input type="email" id="email" name="email" required class="w-full p-4 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy placeholder-dove-gray focus:border-playful-pink focus:outline-none transition-colors">
+                </div>
+                <div>
+                  <label for="phone" class="block text-sm font-medium text-midnight-navy mb-2">Telefon *</label>
+                  <input type="tel" id="phone" name="phone" required class="w-full p-4 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy placeholder-dove-gray focus:border-playful-pink focus:outline-none transition-colors">
+                </div>
+              </div>
+
+              <!-- Order Notes -->
+              <div>
+                <label for="order-notes" class="block text-sm font-medium text-midnight-navy mb-2">Uwagi do zamówienia</label>
+                <textarea id="order-notes" name="order-notes" rows="3" placeholder="Dodatkowe uwagi do zamówienia..." class="w-full p-4 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy placeholder-dove-gray focus:border-playful-pink focus:outline-none transition-colors resize-none"></textarea>
+              </div>
+
+              <!-- Completion Date and Time -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="completion-date" class="block text-sm font-medium text-midnight-navy mb-2">Termin realizacji zamówienia *</label>
+                  <input type="date" id="completion-date" name="completion-date" required class="w-full p-4 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy placeholder-dove-gray focus:border-playful-pink focus:outline-none transition-colors">
+                </div>
+                <div>
+                  <label for="completion-time" class="block text-sm font-medium text-midnight-navy mb-2">Preferowana godzina odbioru *</label>
+                  <input type="time" id="completion-time" name="completion-time" required class="w-full p-4 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy placeholder-dove-gray focus:border-playful-pink focus:outline-none transition-colors">
+                </div>
+              </div>
+
+              <!-- Delivery Information Box -->
+              <div class="bg-white border border-playful-pink/20 rounded-xl p-4 mb-6">
+                <h5 class="font-semibold text-midnight-navy mb-3 flex items-center">
+                  <i class="fa-solid fa-truck mr-2 text-playful-pink"></i>
+                  Dostawa dla klientów
+                </h5>
+                <p class="text-sm text-dove-gray leading-relaxed mb-3">Warunki dostawy mogą różnić się w zależności od cukierni lub pracowni, z którą współpracujesz.</p>
+                <ul class="space-y-2 text-sm text-dove-gray leading-relaxed">
+                  <li class="flex"><span class="mr-2 text-playful-pink">•</span>Zawsze bezpłatny odbiór osobisty w cukierni/pracowni.</li>
+                  <li class="flex"><span class="mr-2 text-playful-pink">•</span>Dla cukierni Pan Tort Zielonka, ul. Marecka 17 oferujemy dostawę na terenie Warszawy.</li>
+                  <li class="flex"><span class="mr-2 text-playful-pink">•</span>Dostawa w promieniu 30 km od Warszawy (miejscowości ościenne) w cenie 40 zł.</li>
+                </ul>
+              </div>
+
+              <!-- Delivery Option -->
+              <div>
+                <label class="block text-sm font-medium text-midnight-navy mb-4">Sposób odbioru *</label>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="delivery-option vitreous-card p-4 cursor-pointer border-2 border-transparent hover:border-playful-pink transition-colors" data-delivery="pickup">
+                    <div class="flex items-center">
+                      <div class="w-8 h-8 rounded-full mr-3 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--playful-pink));">
+                        <i class="fa-solid fa-store text-sm text-midnight-navy"></i>
+                      </div>
+                      <div>
+                        <h4 class="font-bold text-midnight-navy">Odbór własny</h4>
+                        <p class="text-sm text-dove-gray">Bezpłatnie</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="delivery-option vitreous-card p-4 cursor-pointer border-2 border-transparent hover:border-playful-pink transition-colors" data-delivery="delivery">
+                    <div class="flex items-center">
+                      <div class="w-8 h-8 rounded-full mr-3 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--playful-pink));">
+                        <i class="fa-solid fa-truck text-sm text-midnight-navy"></i>
+                      </div>
+                      <div>
+                        <h4 class="font-bold text-midnight-navy">Dostawa</h4>
+                        <p class="text-sm text-dove-gray">ok. 40zł w okolicach Warszawy</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Delivery Address (Hidden by default) -->
+              <div id="delivery-info" class="space-y-6 hidden">
+                <h3 class="text-lg font-bold text-midnight-navy mb-4">Adres dostawy</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div class="md:col-span-2">
+                    <label for="street" class="block text-sm font-medium text-midnight-navy mb-2">Ulica i numer *</label>
+                    <input type="text" id="street" name="street" class="w-full p-4 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy placeholder-dove-gray focus:border-playful-pink focus:outline-none transition-colors">
+                  </div>
+                  <div>
+                    <label for="postal-code" class="block text-sm font-medium text-midnight-navy mb-2">Kod pocztowy *</label>
+                    <input type="text" id="postal-code" name="postal-code" class="w-full p-4 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy placeholder-dove-gray focus:border-playful-pink focus:outline-none transition-colors">
+                  </div>
+                  <div>
+                    <label for="city" class="block text-sm font-medium text-midnight-navy mb-2">Miasto *</label>
+                    <input type="text" id="city" name="city" class="w-full p-4 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy placeholder-dove-gray focus:border-playful-pink focus:outline-none transition-colors">
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-col sm:flex-row gap-4 pt-6 justify-between">
+                <button type="button" id="visualizer-order-hide" class="pill-button-secondary flex items-center justify-center text-lg font-medium px-8 py-4 no-underline">
+                  <i class="fa-solid fa-arrow-left h-5 w-5 mr-3"></i>
+                  Wróć do wizualizatora
+                </button>
+                <button type="button" id="proceed-to-summary" class="pill-button-pink flex items-center justify-center text-lg font-medium px-8 py-4 no-underline">
+                  Przejdź do podsumowania
+                  <i class="fa-solid fa-arrow-right h-5 w-5 ml-3"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+          <!-- Step 2: Order Summary -->
+          <section id="order-summary-step" class="hidden">
+            <div class="text-center mb-16">
+              <h2 class="font-display text-3xl md:text-4xl font-bold text-midnight-navy mb-6">Podsumowanie zamówienia</h2>
+              <p class="text-xl text-dove-gray max-w-3xl mx-auto leading-relaxed">
+                Sprawdź szczegóły zamówienia przed finalizacją.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              <!-- Order Details -->
+              <div class="space-y-6">
+                <div class="vitreous-card p-8">
+                  <h3 class="text-2xl font-bold text-midnight-navy mb-6">Szczegóły zamówienia</h3>
+                  <div id="final-order-summary" class="space-y-4">
+                    <div class="space-y-3">
+                      <div class="flex justify-between py-2 border-b border-dove-gray/10">
+                        <span class="text-dove-gray">Rodzaj:</span>
+                        <span class="font-semibold text-midnight-navy">Wizualizator 3D</span>
+                      </div>
+                      <div class="flex justify-between py-2 border-b border-dove-gray/10">
+                        <span class="text-dove-gray">Rozmiar:</span>
+                        <span class="font-semibold text-midnight-navy" id="summary-size-final">Średni</span>
+                      </div>
+                      <div class="flex justify-between py-2 border-b border-dove-gray/10">
+                        <span class="text-dove-gray">Smak:</span>
+                        <span class="font-semibold text-midnight-navy" id="summary-flavor-final">Wybrany</span>
+                      </div>
+                      <div class="flex justify-between py-2 border-b border-dove-gray/10">
+                        <span class="text-dove-gray">Kolor bazowy:</span>
+                        <span class="font-semibold text-midnight-navy" id="summary-color-final">Wybrany</span>
+                      </div>
+                      <div class="flex justify-between py-2 border-b border-dove-gray/10">
+                        <span class="text-dove-gray">Okazja:</span>
+                        <span class="font-semibold text-midnight-navy" id="summary-occasion-final">Wybrana</span>
+                      </div>
+                      <div class="flex justify-between py-2">
+                        <span class="text-dove-gray">Dodatki:</span>
+                        <span class="font-semibold text-midnight-navy" id="summary-addons-final">Brak</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mt-6 pt-6 border-t border-dove-gray/20">
+                    <div class="flex justify-between items-center">
+                      <span class="text-lg font-bold text-midnight-navy">Razem:</span>
+                      <span id="summary-price-final" class="text-2xl font-bold icon-gradient-gold-pink">0 zł</span>
+                    </div>
+                    <p class="text-xs text-dove-gray mt-2">Cena orientacyjna. Ostateczna kwota zostanie potwierdzona przez cukiernię.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Customer Information -->
+              <div class="space-y-6">
+                <div class="vitreous-card p-8">
+                  <h3 class="text-2xl font-bold text-midnight-navy mb-6">Dane kontaktowe</h3>
+                  <div id="customer-summary" class="space-y-4">
+                    <div class="space-y-3">
+                      <div class="flex justify-between py-2 border-b border-dove-gray/10">
+                        <span class="text-dove-gray">Imię i nazwisko:</span>
+                        <span class="font-semibold text-midnight-navy" id="summary-customer-name">-</span>
+                      </div>
+                      <div class="flex justify-between py-2 border-b border-dove-gray/10">
+                        <span class="text-dove-gray">Email:</span>
+                        <span class="font-semibold text-midnight-navy" id="summary-customer-email">-</span>
+                      </div>
+                      <div class="flex justify-between py-2 border-b border-dove-gray/10">
+                        <span class="text-dove-gray">Telefon:</span>
+                        <span class="font-semibold text-midnight-navy" id="summary-customer-phone">-</span>
+                      </div>
+                      <div id="summary-notes-container" class="hidden flex justify-between py-2">
+                        <span class="text-dove-gray">Uwagi:</span>
+                        <span class="font-semibold text-midnight-navy" id="summary-customer-notes">-</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="vitreous-card p-8">
+                  <h3 class="text-2xl font-bold text-midnight-navy mb-6">Sposób odbioru</h3>
+                  <div id="delivery-summary" class="space-y-4">
+                    <div class="space-y-3">
+                      <div class="flex justify-between py-2 border-b border-dove-gray/10">
+                        <span class="text-dove-gray">Termin realizacji:</span>
+                        <span class="font-semibold text-midnight-navy"><span id="summary-completion-date">-</span> o <span id="summary-completion-time">-</span></span>
+                      </div>
+                      <div class="flex justify-between py-2 border-b border-dove-gray/10">
+                        <span class="text-dove-gray">Metoda odbioru:</span>
+                        <span class="font-semibold text-midnight-navy" id="summary-delivery-method">-</span>
+                      </div>
+                      <div id="summary-delivery-address" class="hidden">
+                        <div class="flex justify-between py-2">
+                          <span class="text-dove-gray">Adres dostawy:</span>
+                          <span class="font-semibold text-midnight-navy text-right" id="summary-address">-</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <form id="visualizer-order-form">
+              <div class="flex flex-col sm:flex-row gap-4 justify-center mt-12">
+                <button type="button" id="back-to-customer-data" class="pill-button-secondary flex items-center justify-center text-lg font-medium px-8 py-4 no-underline">
+                  <i class="fa-solid fa-arrow-left h-5 w-5 mr-3"></i>
+                  Wróć do danych
+                </button>
+                <button type="submit" id="submit-order" class="pill-button-pink flex items-center justify-center text-lg font-medium px-8 py-4 no-underline">
+                  <i class="fa-solid fa-check h-5 w-5 mr-3"></i>
+                  Potwierdź zamówienie
+                </button>
+              </div>
+            </form>
+          </section>
+      </div>
+    </div>
+  </section>
+
+  <div id="visualizer-order-loading" class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center">
+    <div class="bg-white rounded-2xl shadow-xl px-8 py-6 flex items-center space-x-4">
+      <div class="animate-spin h-8 w-8 border-4 border-playful-pink border-t-transparent rounded-full"></div>
+      <p class="text-midnight-navy font-medium">Wysyłamy konfigurację do cukierni...</p>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="success-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full transform scale-95 transition-transform duration-300">
+        <div class="p-8 text-center">
+          <!-- Success Icon -->
+          <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-playful-pink to-champagne-gold flex items-center justify-center">
+            <i class="fa-solid fa-check text-3xl text-gray-900"></i>
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-2xl font-display font-bold text-gray-900 mb-4">
+            Zamówienie złożone!
+          </h3>
+
+          <!-- Message -->
+          <p class="text-gray-700 leading-relaxed mb-6">
+            Dziękujemy za zamówienie! Nasz zespół przygotuje Twój tort zgodnie z wybranymi opcjami i skontaktuje się wkrótce w sprawie potwierdzenia zamówienia.
+          </p>
+
+          <!-- Contact Info -->
+          <div class="bg-gray-50 rounded-xl p-4 mb-6">
+            <p class="text-sm text-gray-700 mb-2">
+              <i class="fa-solid fa-clock mr-2 text-playful-pink"></i>
+              <strong class="text-gray-900">Czas realizacji:</strong> 2-3 dni robocze
+            </p>
+            <p class="text-sm text-gray-700">
+              <i class="fa-solid fa-envelope mr-2 text-playful-pink"></i>
+              <strong class="text-gray-900">Kontakt:</strong> kontakt@cakebooking.pl
+            </p>
+          </div>
+
+          <!-- Close Button -->
+          <button id="close-success-modal" class="w-full pill-button-pink text-white font-medium py-3 px-6 shadow-lg">
+            <i class="fa-solid fa-check mr-2"></i>
+            Rozumiem
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Modal -->
+  <div id="error-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full transform scale-95 transition-transform duration-300">
+        <div class="p-8 text-center">
+          <!-- Error Icon -->
+          <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-red-400 to-red-600 flex items-center justify-center">
+            <i class="fa-solid fa-exclamation-triangle text-3xl text-white"></i>
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-2xl font-display font-bold text-gray-900 mb-4">
+            Błąd zamówienia
+          </h3>
+
+          <!-- Message -->
+          <p id="error-message" class="text-gray-700 leading-relaxed mb-6">
+            Przepraszamy, wystąpił błąd podczas składania zamówienia. Spróbuj ponownie lub skontaktuj się z nami telefonicznie.
+          </p>
+
+          <!-- Contact Info -->
+          <div class="bg-red-50 rounded-xl p-4 mb-6">
+            <p class="text-sm text-red-800 mb-2">
+              <i class="fa-solid fa-phone mr-2"></i>
+              <strong class="text-red-900">Telefon:</strong> +48 123 456 789
+            </p>
+            <p class="text-sm text-red-800">
+              <i class="fa-solid fa-envelope mr-2"></i>
+              <strong class="text-red-900">Email:</strong> kontakt@cakebooking.pl
+            </p>
+          </div>
+
+          <!-- Close Button -->
+          <button id="close-error-modal" class="w-full bg-gradient-to-r from-red-400 to-red-600 hover:from-red-500 hover:to-red-700 text-white font-medium py-3 px-6 rounded-xl shadow-lg transition-all duration-300">
+            <i class="fa-solid fa-redo mr-2"></i>
+            Spróbuj ponownie
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="bg-midnight-navy text-dove-gray py-12">
@@ -812,925 +1936,573 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
-  <script src="cookies.js"></script>
-  <script src="cake-visualizer-complete.js"></script>
   <script>
-    // AI Cake Visualizer Configuration
-    const pricingRules = {
-      basePrices: {
-        small: 220,
-        medium: 320,
-        large: 420
-      },
-      flavorAdjustments: {
-        vanilla: 0,
-        chocolate: 20,
-        strawberry: 25,
-        lemon: 15,
-        carrot: 30
-      },
-      decorationAdjustments: {
-        candles: 0,
-        flowers: 45,
-        berries: 25,
-        sprinkles: 15
-      }
-    };
+    document.addEventListener('DOMContentLoaded', () => {
+      const formatter = window.priceFormatter || new Intl.NumberFormat('pl-PL', { maximumFractionDigits: 0 });
+      const flavorAdjustPerPortion = window.flavorPerPortionAdjustments || {};
+      const sizePortionMap = window.sizePortions || { small: 8, medium: 12, large: 20, artistic: null };
+      const flavorAdjustFn = window.getFlavorPriceAdjustment || (() => 0);
+      const addonsSelector = window.getSelectedAddons || (() => []);
+      const perPortionFormatter = window.formatPerPortionValue || ((value) => value);
 
-    const config = {
-      size: 'small',
-      layers: 1,
-      cakeText: '',
-      occasion: 'birthday',
-      color: 'white',
-      additionalColor: '',
-      specialTheme: '',
-      flavor: 'vanilla',
-      decorations: {
-        candles: true,
-        flowers: false,
-        berries: false,
-        sprinkles: false
-      }
-    };
-    const artisticDraft = {
-      cakeText: '',
-      specialTheme: ''
-    };
+      const orderButtons = document.querySelectorAll('[data-order-button]');
+      const orderSection = document.getElementById('visualizer-order');
+      const visualizerSection = document.getElementById('visualizer-section');
+      const orderForm = document.getElementById('visualizer-order-form');
+      const hideOrderBtn = document.getElementById('visualizer-order-hide');
+      const deliveryInfo = document.getElementById('delivery-info');
+      const deliveryRadios = document.querySelectorAll('input[name="delivery-method"]');
+      const loadingOverlay = document.getElementById('visualizer-order-loading');
 
-    function init() {
-      // Initialize AI visualizer
-      console.log('AI cake visualizer initialized');
-      
-      // Check if external functions are available
-      if (typeof generateImage === 'undefined') {
-        console.error('⚠️ generateImage function not available. Check cake-visualizer-complete.js loading.');
-        // Continue anyway to set up other functionality
-      }
-      
-      // Event listeners
-      setupEventListeners();
+      // Modal management functions
+      function showModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (!modal) return;
 
-      // Initial UI sync
-      refreshSizeDependentFields();
-      updatePricing();
-      updateAIPrompt();
-    }
-
-    function setupEventListeners() {
-      // Size buttons
-      const sizeButtons = document.querySelectorAll('[data-size]');
-      sizeButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const targetButton = e.currentTarget;
-          sizeButtons.forEach(b => b.classList.remove('active'));
-          targetButton.classList.add('active');
-          config.size = targetButton.dataset.size;
-          onConfigurationChange();
-        });
-      });
-      
-      // Occasion buttons
-      const occasionButtons = document.querySelectorAll('[data-occasion]');
-      occasionButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const targetButton = e.currentTarget;
-          occasionButtons.forEach(b => b.classList.remove('active'));
-          targetButton.classList.add('active');
-          config.occasion = targetButton.dataset.occasion;
-          onConfigurationChange();
-        });
-      });
-      
-      // Color swatches
-      const colorSwatches = document.querySelectorAll('[data-color]');
-      colorSwatches.forEach(swatch => {
-        swatch.addEventListener('click', (e) => {
-          const targetSwatch = e.currentTarget;
-          colorSwatches.forEach(s => s.classList.remove('active'));
-          targetSwatch.classList.add('active');
-          config.color = targetSwatch.dataset.color;
-          onConfigurationChange();
-        });
-      });
-      
-      // Flavor buttons
-      const flavorButtons = document.querySelectorAll('[data-flavor]');
-      flavorButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const targetButton = e.currentTarget;
-          flavorButtons.forEach(b => b.classList.remove('active'));
-          targetButton.classList.add('active');
-          config.flavor = targetButton.dataset.flavor;
-          onConfigurationChange();
-        });
-      });
-      
-      // Decoration checkboxes
-      document.querySelectorAll('.decoration-checkbox').forEach(checkbox => {
-        checkbox.addEventListener('change', (e) => {
-          const decorationKey = e.currentTarget.dataset.decoration;
-          config.decorations[decorationKey] = e.currentTarget.checked;
-          onConfigurationChange();
-        });
-      });
-      
-      // Input event listeners
-      const cakeLayersInput = document.getElementById('cake-layers');
-      if (cakeLayersInput) {
-        cakeLayersInput.addEventListener('input', (e) => {
-          const parsedValue = parseInt(e.target.value, 10);
-          if (config.size !== 'artistic') {
-            config.layers = 1;
-            cakeLayersInput.value = 1;
-            return;
-          }
-          const sanitized = Math.max(1, Math.min(5, parsedValue || 1));
-          config.layers = sanitized;
-          cakeLayersInput.value = sanitized;
-          onConfigurationChange();
-        });
-      }
-      
-      const cakeTextInput = document.getElementById('cake-text');
-      if (cakeTextInput) {
-        cakeTextInput.addEventListener('input', (e) => {
-          artisticDraft.cakeText = e.target.value;
-          config.cakeText = e.target.value;
-          onConfigurationChange();
-        });
-      }
-      
-      const additionalColorInput = document.getElementById('additional-color');
-      if (additionalColorInput) {
-        additionalColorInput.addEventListener('change', (e) => {
-          config.additionalColor = e.target.value;
-          onConfigurationChange();
-        });
-      }
-      
-      const specialThemeInput = document.getElementById('special-theme');
-      if (specialThemeInput) {
-        specialThemeInput.addEventListener('input', (e) => {
-          artisticDraft.specialTheme = e.target.value;
-          config.specialTheme = e.target.value;
-          onConfigurationChange();
-        });
-      }
-      
-      // Generate button
-      const generateBtn = document.getElementById('generate-btn');
-      if (generateBtn) {
-        generateBtn.addEventListener('click', generateImage);
-      }
-    }
-
-    function onConfigurationChange() {
-      refreshSizeDependentFields();
-      updateAIPrompt();
-      updatePricing();
-    }
-
-    function refreshSizeDependentFields() {
-      const isArtistic = config.size === 'artistic';
-
-      const cakeLayersInput = document.getElementById('cake-layers');
-      if (cakeLayersInput) {
-        cakeLayersInput.disabled = !isArtistic;
-        if (!isArtistic) {
-          config.layers = 1;
-          cakeLayersInput.value = 1;
-        } else {
-          const currentValue = parseInt(cakeLayersInput.value, 10);
-          const sanitized = Math.max(1, Math.min(5, currentValue || 1));
-          config.layers = sanitized;
-          cakeLayersInput.value = sanitized;
-        }
-      }
-
-      const cakeTextInput = document.getElementById('cake-text');
-      if (cakeTextInput) {
-        cakeTextInput.disabled = !isArtistic;
-        if (isArtistic) {
-          cakeTextInput.value = artisticDraft.cakeText;
-          config.cakeText = artisticDraft.cakeText;
-        } else {
-          artisticDraft.cakeText = cakeTextInput.value || artisticDraft.cakeText;
-          cakeTextInput.value = '';
-          config.cakeText = '';
-        }
-      }
-
-      const specialThemeInput = document.getElementById('special-theme');
-      if (specialThemeInput) {
-        specialThemeInput.disabled = !isArtistic;
-        if (isArtistic) {
-          specialThemeInput.value = artisticDraft.specialTheme;
-          config.specialTheme = artisticDraft.specialTheme;
-        } else {
-          artisticDraft.specialTheme = specialThemeInput.value || artisticDraft.specialTheme;
-          specialThemeInput.value = '';
-          config.specialTheme = '';
-        }
-      }
-
-      document.querySelectorAll('.order-button-label').forEach(label => {
-        label.textContent = isArtistic ? 'Wyślij zapytanie' : 'Zamów ten tort';
-      });
-    }
-
-    function calculatePrice(sizeKey) {
-      const basePrice = pricingRules.basePrices[sizeKey];
-      if (typeof basePrice === 'undefined') {
-        return null;
-      }
-
-      let total = basePrice;
-      total += pricingRules.flavorAdjustments[config.flavor] || 0;
-
-      Object.entries(config.decorations).forEach(([key, isEnabled]) => {
-        if (isEnabled) {
-          total += pricingRules.decorationAdjustments[key] || 0;
-        }
-      });
-
-      return total;
-    }
-
-    function getCalculatedPrices() {
-      return ['small', 'medium', 'large'].reduce((acc, sizeKey) => {
-        const price = calculatePrice(sizeKey);
-        if (price !== null) {
-          acc[sizeKey] = price;
-        }
-        return acc;
-      }, {});
-    }
-
-    function updatePricing() {
-      const sizeKeys = ['small', 'medium', 'large'];
-      const isArtistic = config.size === 'artistic';
-      let selectedDisplay = INDIVIDUAL_PRICING_TEXT;
-
-      sizeKeys.forEach(sizeKey => {
-        const price = calculatePrice(sizeKey);
-        const valueElement = document.querySelector(`[data-price-value="${sizeKey}"]`);
-        if (valueElement && price !== null) {
-          valueElement.textContent = `${priceFormatter.format(price)} zł`;
-        }
-
-        const cardElement = document.querySelector(`[data-price-card="${sizeKey}"]`);
-        if (cardElement) {
-          const isSelected = !isArtistic && config.size === sizeKey;
-          cardElement.classList.toggle('border-playful-pink', isSelected);
-          cardElement.classList.toggle('shadow-lg', isSelected);
-          cardElement.classList.toggle('bg-white', isSelected);
-          cardElement.classList.toggle('bg-white/70', !isSelected);
-        }
-
-        if (!isArtistic && config.size === sizeKey && price !== null) {
-          selectedDisplay = `${priceFormatter.format(price)} zł`;
-        }
-      });
-
-      const summaryPriceElement = document.getElementById('summary-price');
-      if (summaryPriceElement) {
-        summaryPriceElement.textContent = selectedDisplay;
-      }
-
-      return selectedDisplay;
-    }
-
-    // Generate AI prompt based on current configuration
-    function generateAIPrompt() {
-      const isArtistic = config.size === 'artistic';
-      const numLayers = isArtistic ? Math.max(1, Math.min(5, config.layers)) : 1;
-      
-      // Size and layers description
-      const sizeText = isArtistic
-        ? 'custom artistic'
-        : config.size === 'small' ? 'small diameter' : 
-          config.size === 'medium' ? 'medium diameter' : 
-          'large diameter';
-      
-      const layerText = numLayers === 1 ? 'single-tier' : 
-                       numLayers === 2 ? 'two-tier' :
-                       numLayers === 3 ? 'three-tier' :
-                       numLayers === 4 ? 'four-tier' :
-                       'five-tier';
-      
-      const occasionText = {
-        birthday: 'birthday celebration',
-        wedding: 'elegant wedding',
-        anniversary: 'romantic anniversary',
-        graduation: 'graduation celebration',
-        celebration: 'special celebration'
-      }[config.occasion];
-      
-      const colorText = {
-        white: 'pure white',
-        pink: 'soft pink',
-        blue: 'sky blue',
-        green: 'fresh green',
-        orange: 'warm orange',
-        brown: 'rich chocolate brown',
-        red: 'vibrant red',
-        purple: 'royal purple',
-        yellow: 'sunny yellow',
-        black: 'elegant black'
-      }[config.color];
-      
-      const flavorText = {
-        vanilla: 'vanilla sponge',
-        chocolate: 'rich chocolate',
-        strawberry: 'strawberry',
-        lemon: 'lemon',
-        carrot: 'carrot cake'
-      }[config.flavor];
-      
-      // Additional color text
-      const additionalColorText = {
-        '': '',
-        'gold': 'with gold accents',
-        'silver': 'with silver details',
-        'rose-gold': 'with rose gold highlights',
-        'pearl': 'with pearl finish details',
-        'copper': 'with copper metallic accents',
-        'mint': 'with mint green accents',
-        'lavender': 'with lavender purple details',
-        'coral': 'with coral colored accents',
-        'turquoise': 'with turquoise blue details',
-        'burgundy': 'with burgundy red accents'
-      }[config.additionalColor];
-      
-      // Build decorations text
-      const decorations = [];
-      if (config.decorations.candles) decorations.push('birthday candles with flickering flames');
-      if (config.decorations.flowers) decorations.push('delicate sugar flowers');
-      if (config.decorations.berries) decorations.push('fresh berries');
-      if (config.decorations.sprinkles) decorations.push('colorful sprinkles');
-      
-      const decorationText = decorations.length > 0 ? 
-        `decorated with ${decorations.join(', ')}` : 
-        'with elegant smooth frosting';
-      
-      // Cake text
-      const cakeTextPart = isArtistic && config.cakeText && config.cakeText.trim() ? 
-        `, featuring "${config.cakeText.trim()}" written in elegant lettering on top` : '';
-      
-      // Special theme
-      const themePart = isArtistic && config.specialTheme && config.specialTheme.trim() ? 
-        `, incorporating ${config.specialTheme.trim()} theme elements` : '';
-      
-      // Professional photography description
-      const photographyStyle = ', professional food photography, studio lighting setup with soft diffused lighting, high-end DSLR camera shot, macro lens detail, bokeh background, pristine white background or elegant marble surface, commercial bakery quality presentation, ultra-high resolution 8K, photorealistic rendering, magazine-quality food styling, perfect focus and clarity, rich texture details, appetizing and mouthwatering presentation, luxury confectionery advertisement style';
-      
-      // Generate the complete prompt
-      const prompt = `Stunning ${sizeText} ${layerText} ${flavorText} cake with ${colorText} frosting${additionalColorText}, ${decorationText}${cakeTextPart}${themePart}, perfect for ${occasionText}, placed on elegant cake stand${photographyStyle}`;
-      
-      return prompt;
-    }
-
-    // Update AI prompt display
-    function updateAIPrompt() {
-      const promptTextarea = document.getElementById('ai-prompt');
-      if (promptTextarea) {
-        promptTextarea.value = generateAIPrompt();
-      }
-    }
-
-    // Copy prompt to clipboard
-    function copyPromptToClipboard() {
-      const promptTextarea = document.getElementById('ai-prompt');
-      if (promptTextarea) {
-        promptTextarea.select();
-        promptTextarea.setSelectionRange(0, 99999); // For mobile devices
-        
-        try {
-          document.execCommand('copy');
-          
-          // Show feedback
-          const copyButton = document.getElementById('copy-prompt');
-          const originalText = copyButton.innerHTML;
-          copyButton.innerHTML = '<i class="fa-solid fa-check mr-1"></i>Skopiowano!';
-          copyButton.style.backgroundColor = '#4ade80';
-          
-          setTimeout(() => {
-            copyButton.innerHTML = originalText;
-            copyButton.style.backgroundColor = '';
-          }, 2000);
-          
-        } catch (err) {
-          console.error('Failed to copy text: ', err);
-        }
-      }
-    }
-
-    // Initialize when page loads
-    document.addEventListener('DOMContentLoaded', init);
-  </script>
-
-  <!-- Order Modal for Cake Visualizer -->
-  <div id="order-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300">
-    <div class="flex items-center justify-center min-h-screen p-4">
-      <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto transform scale-95 transition-transform duration-300">
-        <div class="p-8">
-          <!-- Header -->
-          <div class="text-center mb-6">
-            <h3 class="text-2xl font-display font-bold text-gray-900 mb-2">
-              Zamów wygenerowany tort
-            </h3>
-            <p class="text-gray-600">
-              Wypełnij dane zamówienia dla Twojego spersonalizowanego tortu
-            </p>
-          </div>
-
-          <!-- Order Form -->
-          <form id="order-form" class="space-y-6">
-            <!-- Customer Information -->
-            <div class="bg-gray-50 rounded-xl p-6">
-              <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                <i class="fa-solid fa-user mr-2 text-playful-pink"></i>
-                Dane osobowe
-              </h4>
-
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Imię *</label>
-                  <input type="text" id="first-name" name="first-name" required
-                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-playful-pink focus:border-transparent transition-all">
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Nazwisko *</label>
-                  <input type="text" id="last-name" name="last-name" required
-                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-playful-pink focus:border-transparent transition-all">
-                </div>
-              </div>
-
-              <div class="mt-4">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
-                <input type="email" id="email" name="email" required
-                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-playful-pink focus:border-transparent transition-all">
-              </div>
-
-              <div class="mt-4">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Telefon *</label>
-                <input type="tel" id="phone" name="phone" required
-                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-playful-pink focus:border-transparent transition-all">
-              </div>
-            </div>
-
-            <!-- Delivery Method Selection -->
-            <div class="bg-gray-50 rounded-xl p-6">
-              <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                <i class="fa-solid fa-truck mr-2 text-playful-pink"></i>
-                Sposób odbioru *
-              </h4>
-
-              <div class="grid grid-cols-2 gap-4 mb-6">
-                <label class="flex items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-playful-pink transition-colors">
-                  <input type="radio" name="delivery-method" value="pickup" class="sr-only delivery-method-radio">
-                  <div class="flex items-center">
-                    <div class="w-4 h-4 border-2 border-gray-400 rounded-full mr-3 radio-indicator"></div>
-                    <div>
-                      <div class="font-medium text-gray-900">Odbiór własny</div>
-                      <div class="text-sm text-gray-600">Bezpłatny odbiór w cukierni</div>
-                    </div>
-                  </div>
-                </label>
-                
-                <label class="flex items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-playful-pink transition-colors">
-                  <input type="radio" name="delivery-method" value="delivery" class="sr-only delivery-method-radio">
-                  <div class="flex items-center">
-                    <div class="w-4 h-4 border-2 border-gray-400 rounded-full mr-3 radio-indicator"></div>
-                    <div>
-                      <div class="font-medium text-gray-900">Dostawa</div>
-                      <div class="text-sm text-gray-600">Dostawa pod wskazany adres</div>
-                    </div>
-                  </div>
-                </label>
-              </div>
-            </div>
-
-            <!-- Delivery Information -->
-            <div id="delivery-info" class="bg-gray-50 rounded-xl p-6 hidden">
-              <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                <i class="fa-solid fa-map-marker-alt mr-2 text-playful-pink"></i>
-                Adres dostawy
-              </h4>
-
-              <!-- Delivery Information Box -->
-              <div class="bg-white border border-playful-pink/20 rounded-xl p-4 mb-6">
-                <h5 class="font-semibold text-midnight-navy mb-3 flex items-center">
-                  <i class="fa-solid fa-truck mr-2 text-playful-pink"></i>
-                  Dostawa dla klientów
-                </h5>
-                <p class="text-sm text-dove-gray leading-relaxed mb-3">Warunki dostawy mogą różnić się w zależności od cukierni lub pracowni, z którą współpracujesz.</p>
-                <ul class="space-y-2 text-sm text-dove-gray leading-relaxed">
-                  <li class="flex"><span class="mr-2 text-playful-pink">•</span>Zawsze bezpłatny odbiór osobisty w cukierni/pracowni.</li>
-                  <li class="flex"><span class="mr-2 text-playful-pink">•</span>Dla cukierni Pan Tort Zielonka, ul. Marecka 17 oferujemy dostawę na terenie Warszawy.</li>
-                  <li class="flex"><span class="mr-2 text-playful-pink">•</span>Dostawa w promieniu 30 km od Warszawy (miejscowości ościenne) w cenie 40 zł.</li>
-                </ul>
-              </div>
-
-              <div class="space-y-4">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Adres dostawy</label>
-                  <input type="text" id="street" name="street" placeholder="Ulica i numer"
-                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-playful-pink focus:border-transparent transition-all">
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Kod pocztowy</label>
-                    <input type="text" id="postal-code" name="postal-code" placeholder="00-000"
-                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-playful-pink focus:border-transparent transition-all">
-                  </div>
-
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Miasto</label>
-                    <input type="text" id="city" name="city"
-                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-playful-pink focus:border-transparent transition-all">
-                  </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Data dostawy</label>
-                    <input type="date" id="delivery-date" name="delivery-date"
-                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-playful-pink focus:border-transparent transition-all">
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Preferowana godzina</label>
-                    <input type="time" id="delivery-time" name="delivery-time"
-                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-playful-pink focus:border-transparent transition-all">
-                  </div>
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Uwagi do zamówienia</label>
-                  <textarea id="notes" name="notes" rows="3" placeholder="Dodatkowe informacje..."
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-playful-pink focus:border-transparent transition-all resize-none"></textarea>
-                </div>
-              </div>
-            </div>
-
-            <!-- Order Summary -->
-            <div class="bg-gradient-to-r from-playful-pink/10 to-champagne-gold/10 rounded-xl p-6">
-              <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                <i class="fa-solid fa-clipboard-list mr-2 text-playful-pink"></i>
-                Podsumowanie zamówienia
-              </h4>
-
-              <div class="space-y-2 text-sm">
-                <p><strong>Tort:</strong> Wygenerowany na podstawie Twoich preferencji</p>
-                <p><strong>Rozmiar:</strong> <span id="summary-size">Średni</span></p>
-                <p><strong>Kolor:</strong> <span id="summary-color">Wybrany</span></p>
-                <p><strong>Smak:</strong> <span id="summary-flavor">Wybrany</span></p>
-                <p><strong>Okazja:</strong> <span id="summary-occasion">Wybrana</span></p>
-                <p class="text-playful-pink font-semibold"><strong>Orientacyjna cena:</strong> <span id="summary-price">-- zł</span></p>
-              </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="flex space-x-4 pt-4">
-              <button type="button" id="cancel-order" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-3 px-6 rounded-xl transition-all duration-300">
-                Anuluj
-              </button>
-
-              <button type="submit" id="submit-order" class="flex-1 pill-button-pink text-white font-medium py-3 px-6 shadow-lg">
-                <i class="fa-solid fa-paper-plane mr-2"></i>
-                Wyślij zamówienie
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Success Modal for Order -->
-  <div id="order-success-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300">
-    <div class="flex items-center justify-center min-h-screen p-4">
-      <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full transform scale-95 transition-transform duration-300">
-        <div class="p-8 text-center">
-          <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-playful-pink to-champagne-gold flex items-center justify-center">
-            <i class="fa-solid fa-check text-3xl text-gray-900"></i>
-          </div>
-
-          <h3 class="text-2xl font-display font-bold text-gray-900 mb-4">
-            Zamówienie wysłane!
-          </h3>
-
-          <p class="text-gray-700 leading-relaxed mb-6">
-            Dziękujemy za zamówienie spersonalizowanego tortu! Nasz zespół przeanalizuje Twoje zamówienie i skontaktuje się wkrótce w sprawie szczegółów i ceny.
-          </p>
-
-          <div class="bg-gray-50 rounded-xl p-4 mb-6">
-            <p class="text-sm text-gray-700 mb-2">
-              <i class="fa-solid fa-clock mr-2 text-playful-pink"></i>
-              <strong class="text-gray-900">Czas realizacji:</strong> 3-5 dni roboczych
-            </p>
-            <p class="text-sm text-gray-700">
-              <i class="fa-solid fa-envelope mr-2 text-playful-pink"></i>
-              <strong class="text-gray-900">Kontakt:</strong> kontakt@cakebooking.pl
-            </p>
-          </div>
-
-          <button id="close-order-success" class="w-full pill-button-pink text-white font-medium py-3 px-6 shadow-lg">
-            <i class="fa-solid fa-check mr-2"></i>
-            Rozumiem
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Modal management functions
-    function showModal(modalId) {
-      const modal = document.getElementById(modalId);
-      if (modal) {
         modal.classList.remove('hidden');
-        setTimeout(() => {
-          modal.classList.remove('opacity-0');
-          const modalContent = modal.querySelector('.transform');
-          if (modalContent) {
-            modalContent.classList.remove('scale-95');
-          }
-        }, 10);
+        // Trigger reflow
+        modal.offsetHeight;
+        modal.classList.remove('opacity-0');
+        modal.querySelector('.transform')?.classList.remove('scale-95');
       }
-    }
 
-    function hideModal(modalId) {
-      const modal = document.getElementById(modalId);
-      if (modal) {
+      function hideModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (!modal) return;
+
         modal.classList.add('opacity-0');
-        const modalContent = modal.querySelector('.transform');
-        if (modalContent) {
-          modalContent.classList.add('scale-95');
-        }
+        modal.querySelector('.transform')?.classList.add('scale-95');
         setTimeout(() => {
           modal.classList.add('hidden');
         }, 300);
       }
-    }
 
-    // Order modal functionality
-    document.addEventListener('DOMContentLoaded', function() {
-      const orderCakeBtn = document.getElementById('order-cake');
-      const orderModal = document.getElementById('order-modal');
-      const orderForm = document.getElementById('order-form');
-      const cancelOrderBtn = document.getElementById('cancel-order');
-      const closeOrderSuccessBtn = document.getElementById('close-order-success');
+      // Modal close buttons
+      document.getElementById('close-success-modal')?.addEventListener('click', () => {
+        hideModal('success-modal');
+      });
 
-      // Show order modal when "Zamów ten tort" is clicked
-      if (orderCakeBtn) {
-        orderCakeBtn.addEventListener('click', function() {
-          // Update summary with current config
-          updateOrderSummary();
-          showModal('order-modal');
-        });
-      }
-
-      // Cancel order
-      if (cancelOrderBtn) {
-        cancelOrderBtn.addEventListener('click', function() {
-          hideModal('order-modal');
-        });
-      }
-
-      // Close success modal
-      if (closeOrderSuccessBtn) {
-        closeOrderSuccessBtn.addEventListener('click', function() {
-          hideModal('order-success-modal');
-        });
-      }
+      document.getElementById('close-error-modal')?.addEventListener('click', () => {
+        hideModal('error-modal');
+      });
 
       // Close modals when clicking outside
-      [orderModal, document.getElementById('order-success-modal')].forEach(modal => {
-        if (modal) {
-          modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-              hideModal(modal.id);
-            }
-          });
+      document.getElementById('success-modal')?.addEventListener('click', (e) => {
+        if (e.target.id === 'success-modal') {
+          hideModal('success-modal');
         }
       });
 
-      // Handle order form submission
-      if (orderForm) {
-        orderForm.addEventListener('submit', function(e) {
-          e.preventDefault();
-          submitCakeOrder();
+      document.getElementById('error-modal')?.addEventListener('click', (e) => {
+        if (e.target.id === 'error-modal') {
+          hideModal('error-modal');
+        }
+      });
+
+      function resetDeliveryStyles() {
+        deliveryRadios.forEach(r => {
+          const label = r.closest('.delivery-option');
+          const indicator = label?.querySelector('.radio-indicator');
+          if (!label || !indicator) return;
+          label.classList.remove('border-playful-pink', 'bg-playful-pink/5');
+          label.classList.add('border-gray-200');
+          indicator.classList.remove('border-playful-pink');
+          indicator.classList.add('border-gray-300');
+          indicator.innerHTML = '';
         });
       }
 
-      // Handle delivery method selection
-      const deliveryMethodRadios = document.querySelectorAll('input[name="delivery-method"]');
-      const deliveryInfo = document.getElementById('delivery-info');
-      
-      deliveryMethodRadios.forEach(radio => {
-        radio.addEventListener('change', function() {
-          // Update visual radio indicator
-          deliveryMethodRadios.forEach(r => {
-            const label = r.closest('label');
-            const indicator = label.querySelector('.radio-indicator');
-            
-            if (r.checked) {
-              label.classList.add('border-playful-pink', 'bg-playful-pink/5');
-              label.classList.remove('border-gray-300');
-              indicator.classList.add('border-playful-pink');
-              indicator.classList.remove('border-gray-400');
-              indicator.innerHTML = '<div class="w-2 h-2 bg-playful-pink rounded-full m-auto mt-0.5"></div>';
+      function updateOrderSummary() {
+        if (typeof window.updatePricing === 'function') {
+          window.updatePricing();
+        }
+        if (typeof window.updateFlavorPriceBadges === 'function') {
+          window.updateFlavorPriceBadges();
+        }
+
+        const config = window.config;
+        if (!config) return;
+
+        const sizeNames = { small: 'Mały', medium: 'Średni', large: 'Duży', artistic: 'Tort artystyczny' };
+        const colorNames = {
+          white: 'biały', pink: 'różowy', blue: 'niebieski', green: 'zielony',
+          orange: 'pomarańczowy', brown: 'brązowy', red: 'czerwony',
+          purple: 'fioletowy', yellow: 'żółty', black: 'czarny'
+        };
+        const occasionNames = {
+          birthday: 'urodzinowy', wedding: 'ślubny', anniversary: 'rocznicowy',
+          graduation: 'na ukończenie szkoły', celebration: 'świąteczny'
+        };
+        const flavorNames = window.flavorNames || {
+          'truskawkowy-raj': 'Truskawkowy Raj',
+          'czekoladowa-pokusa': 'Czekoladowa Pokusa',
+          'malinowa-rozkosz': 'Malinowa Rozkosz',
+          'tropikalny-szal': 'Tropikalny Szał',
+          'waniliowy-sen': 'Waniliowy Sen',
+          'orzechowa-rozpusta': 'Orzechowa Rozpusta',
+          'cytrynowa-chmurka': 'Cytrynowa Orzeźwiająca Chmurka',
+          'kawowe-love': 'Kawowe Love',
+          'pistacjowy-oblok': 'Pistacjowy Obłok',
+          'kraina-raffaello': 'Kraina Raffaello'
+        };
+
+        const summarySizeElement = document.getElementById('summary-size');
+        if (summarySizeElement) {
+          summarySizeElement.textContent = sizeNames[config.size] || config.size;
+        }
+
+        const summaryColorElement = document.getElementById('summary-color');
+        if (summaryColorElement) {
+          summaryColorElement.textContent = colorNames[config.color] || config.color;
+        }
+
+        const summaryOccasionElement = document.getElementById('summary-occasion');
+        if (summaryOccasionElement) {
+          summaryOccasionElement.textContent = occasionNames[config.occasion] || config.occasion;
+        }
+
+        const summaryFlavorElement = document.getElementById('summary-flavor');
+        if (summaryFlavorElement) {
+          const flavorLabel = flavorNames[config.flavor] || config.flavor;
+          const flavorSurcharge = flavorAdjustFn(config.size, config.flavor);
+          const perPortionValue = flavorAdjustPerPortion[config.flavor] || 0;
+          const portions = sizePortionMap[config.size];
+
+          if (flavorSurcharge > 0 && portions) {
+            summaryFlavorElement.textContent = `${flavorLabel} (+${formatter.format(flavorSurcharge)} zł)`;
+          } else if (perPortionValue > 0) {
+            summaryFlavorElement.textContent = `${flavorLabel} (+${perPortionFormatter(perPortionValue)} zł / porcja)`;
+          } else {
+            summaryFlavorElement.textContent = `${flavorLabel} (w cenie)`;
+          }
+        }
+
+        const summaryAddonsElement = document.getElementById('summary-addons');
+        if (summaryAddonsElement) {
+          const selectedAddons = addonsSelector();
+          if (selectedAddons.length === 0) {
+            summaryAddonsElement.textContent = 'Brak';
+          } else {
+            const addonsText = selectedAddons.map(({ value, definition }) => {
+              if (definition.type === 'quantity') {
+                const total = definition.price * value;
+                const unitLabel = definition.unitLabel ? ` ${definition.unitLabel}` : '';
+                return `${definition.label} — ${value}${unitLabel} (${formatter.format(total)} zł)`;
+              }
+              return `${definition.label} — ${formatter.format(definition.price)} zł`;
+            }).join(', ');
+            summaryAddonsElement.textContent = addonsText;
+          }
+        }
+
+        const summaryPriceElement = document.getElementById('summary-price');
+        if (summaryPriceElement && typeof window.calculatePrice === 'function') {
+          const price = calculatePrice(config.size);
+          summaryPriceElement.textContent = Number.isFinite(price) ? `${formatter.format(price)} zł` : '-- zł';
+        }
+
+        // Update final summary price (Step 2)
+        const summaryPriceFinalElement = document.getElementById('summary-price-final');
+        if (summaryPriceFinalElement && typeof window.calculatePrice === 'function') {
+          if (config.size === 'artistic') {
+            summaryPriceFinalElement.textContent = 'Wycena indywidualna';
+          } else {
+            const price = calculatePrice(config.size);
+            summaryPriceFinalElement.textContent = Number.isFinite(price) ? `${formatter.format(price)} zł` : '-- zł';
+          }
+        }
+      }
+
+      orderButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Check if image has been generated
+          const generatedImage = document.getElementById('generated-image');
+          const hasGeneratedImage = generatedImage && !generatedImage.classList.contains('hidden') && generatedImage.src;
+
+          if (!hasGeneratedImage) {
+            // Show error modal if no image generated
+            document.getElementById('error-message').textContent = 'Najpierw wygeneruj obraz tortu, aby przejść do formularza zamówienia.';
+            showModal('error-modal');
+            return;
+          }
+
+          // Hide visualizer, show order form
+          visualizerSection.classList.add('hidden');
+          orderSection.classList.remove('hidden');
+          resetDeliveryStyles();
+          deliveryInfo.classList.add('hidden');
+          updateOrderSummary();
+          // Ensure we show Step 1 when opening the form
+          showCustomerDataStep();
+          // Scroll to top smoothly
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+
+      hideOrderBtn?.addEventListener('click', () => {
+        // Hide order form, show visualizer
+        orderSection.classList.add('hidden');
+        visualizerSection.classList.remove('hidden');
+        resetDeliveryStyles();
+        deliveryInfo.classList.add('hidden');
+        orderForm?.reset();
+        // Reset to step 1
+        showCustomerDataStep();
+        // Scroll to visualizer smoothly
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Step navigation
+      const customerDataStep = document.getElementById('customer-data-step');
+      const orderSummaryStep = document.getElementById('order-summary-step');
+      const proceedToSummaryBtn = document.getElementById('proceed-to-summary');
+      const backToCustomerDataBtn = document.getElementById('back-to-customer-data');
+
+      function showCustomerDataStep() {
+        customerDataStep?.classList.remove('hidden');
+        orderSummaryStep?.classList.add('hidden');
+        orderSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      function showOrderSummaryStep() {
+        customerDataStep?.classList.add('hidden');
+        orderSummaryStep?.classList.remove('hidden');
+
+        // Populate summary with customer data
+        const firstName = document.getElementById('first-name').value.trim();
+        const lastName = document.getElementById('last-name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const notes = document.getElementById('order-notes').value.trim();
+        const completionDate = document.getElementById('completion-date').value;
+        const completionTime = document.getElementById('completion-time').value;
+
+        document.getElementById('summary-customer-name').textContent = `${firstName} ${lastName}`;
+        document.getElementById('summary-customer-email').textContent = email;
+        document.getElementById('summary-customer-phone').textContent = phone;
+
+        if (notes) {
+          document.getElementById('summary-customer-notes').textContent = notes;
+          document.getElementById('summary-notes-container').classList.remove('hidden');
+        } else {
+          document.getElementById('summary-notes-container').classList.add('hidden');
+        }
+
+        // Format date
+        if (completionDate) {
+          const dateObj = new Date(completionDate + 'T00:00:00');
+          const formattedDate = dateObj.toLocaleDateString('pl-PL', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
+          document.getElementById('summary-completion-date').textContent = formattedDate;
+        }
+        document.getElementById('summary-completion-time').textContent = completionTime || '-';
+
+        // Delivery method
+        if (selectedDeliveryMethod === 'delivery') {
+          const street = document.getElementById('street').value.trim();
+          const postalCode = document.getElementById('postal-code').value.trim();
+          const city = document.getElementById('city').value.trim();
+
+          document.getElementById('summary-delivery-method').textContent = 'Dostawa (40 zł)';
+          document.getElementById('summary-address').textContent = `${street}, ${postalCode} ${city}`;
+          document.getElementById('summary-delivery-address').classList.remove('hidden');
+        } else {
+          document.getElementById('summary-delivery-method').textContent = 'Odbiór własny (bezpłatny)';
+          document.getElementById('summary-delivery-address').classList.add('hidden');
+        }
+
+        // Copy cake configuration to summary-final elements
+        const config = window.config;
+        if (config) {
+          const sizeNames = { small: 'Mały', medium: 'Średni', large: 'Duży', artistic: 'Tort artystyczny' };
+          const colorNames = {
+            white: 'biały', pink: 'różowy', blue: 'niebieski', green: 'zielony',
+            orange: 'pomarańczowy', brown: 'brązowy', red: 'czerwony',
+            purple: 'fioletowy', yellow: 'żółty', black: 'czarny'
+          };
+          const occasionNames = {
+            birthday: 'urodzinowy', wedding: 'ślubny', anniversary: 'rocznicowy',
+            graduation: 'na ukończenie szkoły', celebration: 'świąteczny'
+          };
+          const flavorNames = window.flavorNames || {
+            'truskawkowy-raj': 'Truskawkowy Raj',
+            'czekoladowa-pokusa': 'Czekoladowa Pokusa',
+            'malinowa-rozkosz': 'Malinowa Rozkosz',
+            'tropikalny-szal': 'Tropikalny Szał',
+            'waniliowy-sen': 'Waniliowy Sen',
+            'orzechowa-rozpusta': 'Orzechowa Rozpusta',
+            'cytrynowa-chmurka': 'Cytrynowa Orzeźwiająca Chmurka',
+            'kawowe-love': 'Kawowe Love',
+            'pistacjowy-oblok': 'Pistacjowy Obłok',
+            'kraina-raffaello': 'Kraina Raffaello'
+          };
+
+          document.getElementById('summary-size-final').textContent = sizeNames[config.size] || config.size;
+          document.getElementById('summary-color-final').textContent = colorNames[config.color] || config.color;
+          document.getElementById('summary-occasion-final').textContent = occasionNames[config.occasion] || config.occasion;
+
+          const flavorLabel = flavorNames[config.flavor] || config.flavor;
+          document.getElementById('summary-flavor-final').textContent = flavorLabel;
+
+          // Addons
+          const addons = addonsSelector();
+          if (addons && addons.length > 0) {
+            document.getElementById('summary-addons-final').textContent = addons.join(', ');
+          } else {
+            document.getElementById('summary-addons-final').textContent = 'Brak';
+          }
+
+          // Price
+          const summaryPriceElement = document.getElementById('summary-price-final');
+          if (summaryPriceElement) {
+            if (config.size === 'artistic') {
+              summaryPriceElement.textContent = 'Wycena indywidualna';
             } else {
-              label.classList.remove('border-playful-pink', 'bg-playful-pink/5');
-              label.classList.add('border-gray-300');
-              indicator.classList.remove('border-playful-pink');
-              indicator.classList.add('border-gray-400');
-              indicator.innerHTML = '';
+              const price = calculatePrice(config.size);
+              summaryPriceElement.textContent = Number.isFinite(price) ? `${formatter.format(price)} zł` : '-- zł';
             }
+          }
+        }
+
+        orderSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      function validateCustomerData() {
+        const firstName = document.getElementById('first-name').value.trim();
+        const lastName = document.getElementById('last-name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const completionDate = document.getElementById('completion-date').value;
+        const completionTime = document.getElementById('completion-time').value;
+
+        if (!firstName || !lastName || !email || !phone || !completionDate || !completionTime) {
+          document.getElementById('error-message').textContent = 'Proszę wypełnić wszystkie wymagane pola (imię, nazwisko, email, telefon, termin realizacji, godzina).';
+          showModal('error-modal');
+          return false;
+        }
+
+        if (!selectedDeliveryMethod) {
+          document.getElementById('error-message').textContent = 'Proszę wybrać sposób odbioru (odbiór własny lub dostawa).';
+          showModal('error-modal');
+          return false;
+        }
+
+        if (selectedDeliveryMethod === 'delivery') {
+          const street = document.getElementById('street').value.trim();
+          const postalCode = document.getElementById('postal-code').value.trim();
+          const city = document.getElementById('city').value.trim();
+
+          if (!street || !postalCode || !city) {
+            document.getElementById('error-message').textContent = 'Przy dostawie wymagane są ulica z numerem, kod pocztowy oraz miasto.';
+            showModal('error-modal');
+            return false;
+          }
+        }
+
+        return true;
+      }
+
+      proceedToSummaryBtn?.addEventListener('click', () => {
+        if (validateCustomerData()) {
+          showOrderSummaryStep();
+        }
+      });
+
+      backToCustomerDataBtn?.addEventListener('click', () => {
+        showCustomerDataStep();
+      });
+
+      // Handle delivery option selection (new gotowy-tort style)
+      let selectedDeliveryMethod = null;
+      const deliveryOptions = document.querySelectorAll('.delivery-option');
+
+      deliveryOptions.forEach(option => {
+        option.addEventListener('click', () => {
+          const deliveryType = option.getAttribute('data-delivery');
+
+          // Remove selected state from all options
+          deliveryOptions.forEach(opt => {
+            opt.classList.remove('border-playful-pink');
+            opt.classList.add('border-transparent');
           });
 
-          // Show/hide delivery info based on selection
-          if (this.value === 'delivery') {
+          // Add selected state to clicked option
+          option.classList.add('border-playful-pink');
+          option.classList.remove('border-transparent');
+
+          // Store selected delivery method
+          selectedDeliveryMethod = deliveryType;
+
+          // Show/hide delivery address fields
+          const deliveryInfo = document.getElementById('delivery-info');
+          if (deliveryType === 'delivery') {
             deliveryInfo.classList.remove('hidden');
           } else {
             deliveryInfo.classList.add('hidden');
           }
         });
       });
-    });
 
-    // Update order summary with current cake configuration
-    function updateOrderSummary() {
-      updatePricing();
+      deliveryRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          deliveryRadios.forEach(r => {
+            const label = r.closest('.delivery-option');
+            const indicator = label?.querySelector('.radio-indicator');
+            if (!label || !indicator) return;
+            if (r.checked) {
+              label.classList.add('border-playful-pink', 'bg-playful-pink/5');
+              label.classList.remove('border-gray-200');
+              indicator.classList.add('border-playful-pink');
+              indicator.classList.remove('border-gray-300');
+              indicator.innerHTML = '<div class="w-2 h-2 bg-playful-pink rounded-full m-auto mt-0.5"></div>';
+            } else {
+              label.classList.remove('border-playful-pink', 'bg-playful-pink/5');
+              label.classList.add('border-gray-200');
+              indicator.classList.remove('border-playful-pink');
+              indicator.classList.add('border-gray-300');
+              indicator.innerHTML = '';
+            }
+          });
 
-      const sizeNames = { small: 'Mały', medium: 'Średni', large: 'Duży', artistic: 'Tort artystyczny' };
-      const colorNames = {
-        white: 'biały', pink: 'różowy', blue: 'niebieski', green: 'zielony',
-        orange: 'pomarańczowy', brown: 'brązowy', red: 'czerwony',
-        purple: 'fioletowy', yellow: 'żółty', black: 'czarny'
-      };
-      const occasionNames = {
-        birthday: 'urodzinowy', wedding: 'ślubny', anniversary: 'rocznicowy',
-        graduation: 'na ukończenie szkoły', celebration: 'świąteczny'
-      };
-      const flavorNames = {
-        vanilla: 'waniliowy', chocolate: 'czekoladowy', strawberry: 'truskawkowy',
-        lemon: 'cytrynowy', carrot: 'marchewkowy'
-      };
+          if (radio.value === 'delivery') {
+            deliveryInfo.classList.remove('hidden');
+          } else {
+            deliveryInfo.classList.add('hidden');
+          }
+        });
+      });
 
-      document.getElementById('summary-size').textContent = sizeNames[config.size] || config.size;
-      document.getElementById('summary-color').textContent = colorNames[config.color] || config.color;
-      document.getElementById('summary-flavor').textContent = flavorNames[config.flavor] || config.flavor;
-      document.getElementById('summary-occasion').textContent = occasionNames[config.occasion] || config.occasion;
-    }
+      orderForm?.addEventListener('submit', async (event) => {
+        event.preventDefault();
 
-    // Submit cake order to webhook
-    async function submitCakeOrder() {
-      // Validate required fields
-      const deliveryMethodInput = document.querySelector('input[name="delivery-method"]:checked');
-      if (!deliveryMethodInput) {
-        alert('Proszę wybrać sposób odbioru (odbiór własny lub dostawa).');
-        return;
-      }
+        const config = window.config;
+        if (!config) return;
 
-      const deliveryMethodValue = deliveryMethodInput.value;
+        const submitBtn = document.getElementById('submit-order');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Wysyłanie...';
+        loadingOverlay.classList.remove('hidden');
 
-      // If delivery is selected, validate delivery fields
-      if (deliveryMethodValue === 'delivery') {
-        const street = document.getElementById('street').value.trim();
-        const city = document.getElementById('city').value.trim();
-        
-        if (!street || !city) {
-          alert('Przy dostawie wymagane są adres i miasto.');
-          return;
-        }
-      }
-
-      const submitBtn = document.getElementById('submit-order');
-      const originalText = submitBtn.innerHTML;
-
-      // Show loading state
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Wysyłanie...';
-
-      try {
-        // Get generated image as base64
-        const generatedImage = document.getElementById('generated-image');
-        let imageBase64 = null;
-
-        if (generatedImage && generatedImage.src) {
-          if (generatedImage.src.startsWith('data:image/')) {
-            // Extract base64 from data URL
+        try {
+          const generatedImage = document.getElementById('generated-image');
+          let imageBase64 = null;
+          if (generatedImage?.src?.startsWith('data:image/')) {
             imageBase64 = generatedImage.src.split(',')[1];
           }
-        }
 
-        // Prepare customer data
-        const customerData = {
-          firstName: document.getElementById('first-name').value,
-          lastName: document.getElementById('last-name').value,
-          email: document.getElementById('email').value,
-          phone: document.getElementById('phone').value
-        };
-
-        const deliveryDateValue = document.getElementById('delivery-date').value;
-        const deliveryTimeValue = document.getElementById('delivery-time').value;
-        const notesValue = document.getElementById('notes').value;
-
-        // Prepare delivery data (only if delivery is selected)
-        let deliveryData = null;
-        if (deliveryMethodValue === 'delivery') {
-          deliveryData = {
-            street: document.getElementById('street').value,
-            postalCode: document.getElementById('postal-code').value,
-            city: document.getElementById('city').value,
-            deliveryDate: deliveryDateValue,
-            deliveryTime: deliveryTimeValue,
-            notes: notesValue
+          const customerData = {
+            firstName: document.getElementById('first-name').value,
+            lastName: document.getElementById('last-name').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            orderNotes: document.getElementById('order-notes')?.value || '',
+            completionDate: document.getElementById('completion-date').value,
+            completionTime: document.getElementById('completion-time').value
           };
-        } else {
-          // For pickup, just include notes if provided
-          if (notesValue || deliveryDateValue || deliveryTimeValue) {
+
+          // Get delivery method from selectedDeliveryMethod variable
+          const deliveryMethodValue = selectedDeliveryMethod || 'pickup';
+
+          let deliveryData = null;
+          if (deliveryMethodValue === 'delivery') {
             deliveryData = {
-              notes: notesValue,
-              deliveryDate: deliveryDateValue,
-              deliveryTime: deliveryTimeValue
+              street: document.getElementById('street').value,
+              postalCode: document.getElementById('postal-code').value,
+              city: document.getElementById('city').value
             };
           }
+
+          const variantPrices = typeof window.getCalculatedPrices === 'function' ? getCalculatedPrices() : {};
+          const selectedPriceValue = config.size === 'artistic' ? null : calculatePrice(config.size);
+          const selectedAddons = addonsSelector();
+          const addonsTotal = typeof window.calculateAddonsTotal === 'function' ? calculateAddonsTotal() : 0;
+          const flavorPerPortion = flavorAdjustPerPortion[config.flavor] || 0;
+          const flavorAdjustment = flavorAdjustFn(config.size, config.flavor);
+          const portionCount = sizePortionMap[config.size] || null;
+
+          const pricingDetails = {
+            variants: variantPrices,
+            selectedSize: config.size,
+            selectedPrice: selectedPriceValue,
+            displayPrice: config.size === 'artistic'
+              ? INDIVIDUAL_PRICING_TEXT
+              : `${formatter.format(selectedPriceValue)} zł`,
+            pricingType: config.size === 'artistic' ? 'custom' : 'standard',
+            note: config.size === 'artistic'
+              ? 'Cena zostanie ustalona po analizie zamówienia.'
+              : 'Podana kwota obejmuje wariant podstawowy z dwoma przełożeniami.',
+            addonsTotal,
+            flavorPerPortion,
+            flavorAdjustment,
+            portions: portionCount,
+            addons: selectedAddons.map(({ key, value, definition }) => ({
+              key,
+              label: definition.label,
+              type: definition.type,
+              value,
+              unitLabel: definition.unitLabel || null,
+              unitPrice: definition.price,
+              totalPrice: definition.type === 'quantity' ? definition.price * value : definition.price
+            }))
+          };
+
+          const orderData = {
+            cake: {
+              type: 'generated_visualizer',
+              name: 'Tort wygenerowany AI',
+              config: JSON.parse(JSON.stringify(config)),
+              generatedImageBase64: imageBase64,
+              generatedPrompt: generatePrompt()
+            },
+            size: config.size,
+            layers: config.layers,
+            cakeText: config.cakeText,
+            occasion: config.occasion,
+            color: config.color,
+            additionalColor: config.additionalColor,
+            specialTheme: config.specialTheme,
+            flavor: config.flavor,
+            decorations: config.decorations,
+            customer: customerData,
+            delivery: deliveryData,
+            deliveryMethod: deliveryMethodValue,
+            pricing: pricingDetails,
+            orderType: 'generated_cake',
+            timestamp: new Date().toISOString()
+          };
+
+          const success = await sendCakeOrderToWebhook(orderData, customerData);
+
+          if (success) {
+            orderForm.reset();
+            deliveryInfo.classList.add('hidden');
+            resetDeliveryStyles();
+            updateOrderSummary();
+            // Show success modal
+            showModal('success-modal');
+            // Reset to step 1 after successful submission
+            showCustomerDataStep();
+          } else {
+            throw new Error('Nie udało się wysłać danych do webhooka.');
+          }
+        } catch (error) {
+          console.error('❌ Error submitting cake order:', error);
+          document.getElementById('error-message').textContent = error.message || 'Przepraszamy, wystąpił błąd podczas składania zamówienia. Spróbuj ponownie lub skontaktuj się z nami telefonicznie.';
+          showModal('error-modal');
+        } finally {
+          loadingOverlay.classList.add('hidden');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
         }
+      });
 
-        const variantPrices = getCalculatedPrices();
-        const selectedPriceValue = config.size === 'artistic' ? null : calculatePrice(config.size);
-        const pricingDetails = {
-          variants: variantPrices,
-          selectedSize: config.size,
-          selectedPrice: selectedPriceValue,
-          displayPrice: config.size === 'artistic'
-            ? INDIVIDUAL_PRICING_TEXT
-            : `${priceFormatter.format(selectedPriceValue)} zł`,
-          pricingType: config.size === 'artistic' ? 'custom' : 'standard',
-          note: config.size === 'artistic'
-            ? 'Cena zostanie ustalona po analizie zamówienia.'
-            : 'Podana kwota obejmuje wariant podstawowy z dwoma przełożeniami.'
-        };
-
-        // Prepare order data
-        const orderData = {
-          cake: {
-            type: 'generated_visualizer',
-            name: 'Tort wygenerowany AI',
-            config: JSON.parse(JSON.stringify(config)),
-            generatedImageBase64: imageBase64,
-            generatedPrompt: generatePrompt()
-          },
-          size: config.size,
-          layers: config.layers,
-          cakeText: config.cakeText,
-          occasion: config.occasion,
-          color: config.color,
-          additionalColor: config.additionalColor,
-          specialTheme: config.specialTheme,
-          flavor: config.flavor,
-          decorations: config.decorations,
-          customer: customerData,
-          delivery: deliveryData,
-          deliveryMethod: deliveryMethodValue,
-          deliveryDate: deliveryDateValue,
-          deliveryTime: deliveryTimeValue,
-          notes: notesValue,
-          pricing: pricingDetails,
-          orderType: 'generated_cake',
-          timestamp: new Date().toISOString()
-        };
-
-        // Send to webhook
-        const success = await sendCakeOrderToWebhook(orderData, customerData);
-
-        if (success) {
-          console.log('✅ Generated cake order sent successfully');
-          hideModal('order-modal');
-          showModal('order-success-modal');
-        } else {
-          throw new Error('Failed to send order to webhook');
-        }
-
-      } catch (error) {
-        console.error('❌ Error submitting cake order:', error);
-        alert('Wystąpił błąd podczas wysyłania zamówienia. Spróbuj ponownie.');
-      } finally {
-        // Reset button state
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalText;
-      }
-    }
-
-    // Order submission now handled by cake-visualizer-complete.js
-
+      // Expose helper for other scripts if needed
+      window.visualizerUpdateOrderSummary = updateOrderSummary;
+    });
   </script>
 </body>
 </html> 

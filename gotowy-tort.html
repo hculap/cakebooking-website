@@ -544,30 +544,51 @@
           <!-- Size Selection -->
           <div class="vitreous-card p-8">
             <h3 class="text-xl font-bold text-midnight-navy mb-6">Wybierz rozmiar</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="size-options">
-              <div class="size-option vitreous-card p-4 text-center cursor-pointer border-2 border-transparent hover:border-playful-pink transition-colors" data-size="small">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4" id="size-options">
+              <div class="size-option vitreous-card p-4 text-center cursor-pointer border-2 border-transparent hover:border-playful-pink transition-colors" data-size="small" data-price="190">
                 <div class="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
                   <span class="text-xl font-bold text-midnight-navy">S</span>
                 </div>
                 <h4 class="font-bold text-midnight-navy mb-1">Mały</h4>
-                <p class="text-sm text-dove-gray">8-10 osób</p>
-                <p class="text-lg font-bold icon-gradient-gold-pink mt-2">120 zł</p>
+                <p class="text-xs text-dove-gray">Średnica: 12 cm</p>
+                <p class="text-sm text-dove-gray mb-2">8 porcji</p>
+                <p class="text-lg font-bold icon-gradient-gold-pink mt-2">190 zł</p>
               </div>
-              <div class="size-option vitreous-card p-4 text-center cursor-pointer border-2 border-transparent hover:border-playful-pink transition-colors" data-size="medium">
+              <div class="size-option vitreous-card p-4 text-center cursor-pointer border-2 border-transparent hover:border-playful-pink transition-colors" data-size="medium" data-price="235">
                 <div class="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
                   <span class="text-xl font-bold text-midnight-navy">M</span>
                 </div>
                 <h4 class="font-bold text-midnight-navy mb-1">Średni</h4>
-                <p class="text-sm text-dove-gray">15-20 osób</p>
-                <p class="text-lg font-bold icon-gradient-gold-pink mt-2">180 zł</p>
+                <p class="text-xs text-dove-gray">Średnica: 14 cm</p>
+                <p class="text-sm text-dove-gray mb-2">12 porcji</p>
+                <p class="text-lg font-bold icon-gradient-gold-pink mt-2">235 zł</p>
               </div>
-              <div class="size-option vitreous-card p-4 text-center cursor-pointer border-2 border-transparent hover:border-playful-pink transition-colors" data-size="large">
+              <div class="size-option vitreous-card p-4 text-center cursor-pointer border-2 border-transparent hover:border-playful-pink transition-colors" data-size="large" data-price="330">
                 <div class="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
                   <span class="text-xl font-bold text-midnight-navy">L</span>
                 </div>
                 <h4 class="font-bold text-midnight-navy mb-1">Duży</h4>
-                <p class="text-sm text-dove-gray">25-30 osób</p>
-                <p class="text-lg font-bold icon-gradient-gold-pink mt-2">250 zł</p>
+                <p class="text-xs text-dove-gray">Średnica: 20 cm</p>
+                <p class="text-sm text-dove-gray mb-2">20 porcji</p>
+                <p class="text-lg font-bold icon-gradient-gold-pink mt-2">330 zł</p>
+              </div>
+            </div>
+
+            <!-- Artistic Cake Option -->
+            <div class="size-option vitreous-card p-6 cursor-pointer border-2 border-transparent hover:border-playful-pink transition-colors" data-size="artistic" data-price="0">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                  <div class="w-14 h-14 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--playful-pink));">
+                    <i class="fa-solid fa-palette text-2xl text-midnight-navy"></i>
+                  </div>
+                  <div class="text-left">
+                    <h4 class="font-bold text-midnight-navy text-lg mb-1">Tort artystyczny</h4>
+                    <p class="text-sm text-dove-gray">Indywidualne zamówienie według Twojego projektu</p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <p class="text-lg font-bold icon-gradient-gold-pink">Wycena indywidualna</p>
+                </div>
               </div>
             </div>
           </div>
@@ -699,6 +720,24 @@
             <div>
               <label for="phone" class="block text-sm font-medium text-midnight-navy mb-2">Telefon *</label>
               <input type="tel" id="phone" name="phone" required class="w-full p-4 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy placeholder-dove-gray focus:border-playful-pink focus:outline-none transition-colors">
+            </div>
+          </div>
+
+          <!-- Order Notes -->
+          <div>
+            <label for="orderNotes" class="block text-sm font-medium text-midnight-navy mb-2">Uwagi do zamówienia</label>
+            <textarea id="orderNotes" name="orderNotes" rows="3" placeholder="Dodatkowe uwagi do zamówienia..." class="w-full p-4 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy placeholder-dove-gray focus:border-playful-pink focus:outline-none transition-colors resize-none"></textarea>
+          </div>
+
+          <!-- Completion Date and Time -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="completionDate" class="block text-sm font-medium text-midnight-navy mb-2">Termin realizacji zamówienia *</label>
+              <input type="date" id="completionDate" name="completionDate" required class="w-full p-4 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy placeholder-dove-gray focus:border-playful-pink focus:outline-none transition-colors">
+            </div>
+            <div>
+              <label for="completionTime" class="block text-sm font-medium text-midnight-navy mb-2">Preferowana godzina odbioru *</label>
+              <input type="time" id="completionTime" name="completionTime" required class="w-full p-4 border-2 border-dove-gray/20 rounded-lg bg-transparent text-midnight-navy placeholder-dove-gray focus:border-playful-pink focus:outline-none transition-colors">
             </div>
           </div>
 
@@ -2021,9 +2060,9 @@
     }
 
     function validateCustomerForm() {
-      const requiredFields = ['firstName', 'lastName', 'email', 'phone'];
+      const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'completionDate', 'completionTime'];
       let isValid = true;
-      
+
       requiredFields.forEach(fieldId => {
         const field = document.getElementById(fieldId);
         if (!field.value.trim()) {
@@ -2033,7 +2072,7 @@
           field.style.borderColor = '';
         }
       });
-      
+
       if (!selectedDelivery) {
         // Set custom error message for delivery validation
         const errorMsg = document.getElementById('error-message');
@@ -2044,7 +2083,7 @@
         showModal('error-modal');
         isValid = false;
       }
-      
+
       if (selectedDelivery === 'delivery') {
         const addressFields = ['street', 'postalCode', 'city'];
         addressFields.forEach(fieldId => {
@@ -2057,7 +2096,7 @@
           }
         });
       }
-      
+
       if (!isValid) {
         // Set custom error message for required fields validation
         const errorMsg = document.getElementById('error-message');
@@ -2067,7 +2106,7 @@
         // Show error modal for validation
         showModal('error-modal');
       }
-      
+
       return isValid;
     }
 
@@ -2077,6 +2116,9 @@
         lastName: document.getElementById('lastName').value,
         email: document.getElementById('email').value,
         phone: document.getElementById('phone').value,
+        orderNotes: document.getElementById('orderNotes').value,
+        completionDate: document.getElementById('completionDate').value,
+        completionTime: document.getElementById('completionTime').value,
         delivery: selectedDelivery,
         address: selectedDelivery === 'delivery' ? {
           street: document.getElementById('street').value,

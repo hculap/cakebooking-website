@@ -117,6 +117,100 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // Webhook utility functions
 const WEBHOOK_URL = 'https://hook.eu1.make.com/qcelwbyfxwo2n31203lpt9fj0p4z3dil';
+const emailPriceFormatter = new Intl.NumberFormat('pl-PL', { maximumFractionDigits: 0 });
+
+const addonCatalog = {
+    'figurki-slonik': { label: 'Figurka: słonik', price: 60, type: 'boolean', prompt: 'elephant figurine cake topper', unitLabel: null },
+    'figurki-mis': { label: 'Figurka: miś', price: 60, type: 'boolean', prompt: 'bear figurine cake topper', unitLabel: null },
+    'figurki-aniol': { label: 'Figurka: aniołek', price: 70, type: 'boolean', prompt: 'angel figurine cake topper', unitLabel: null },
+    'figurki-kokarda': { label: 'Figurka: kokarda', price: 40, type: 'boolean', prompt: 'bow-style cake topper', unitLabel: null },
+    'figurki-piesek': { label: 'Figurka: piesek', price: 60, type: 'boolean', prompt: 'puppy figurine cake topper', unitLabel: null },
+    'figurki-jednorozec': { label: 'Figurka: jednorożec', price: 70, type: 'boolean', prompt: 'unicorn figurine cake topper', unitLabel: null },
+    'figurki-kotek': { label: 'Figurka: kotek', price: 60, type: 'boolean', prompt: 'kitten figurine cake topper', unitLabel: null },
+    'wydruk-zdjecie': { label: 'Wydruk jadalny', price: 20, type: 'boolean', prompt: 'edible photo print panel', unitLabel: null },
+    'kwiaty': { label: 'Kwiaty', price: 10, type: 'quantity', prompt: 'fresh floral accents', unitLabel: 'szt.' },
+    'makaroniki': { label: 'Makaroniki', price: 6, type: 'quantity', prompt: 'macarons', unitLabel: 'szt.' },
+    'napis': { label: 'Napis na torcie', price: 15, type: 'boolean', prompt: 'custom inscription on top', unitLabel: null },
+    'kwiaty-cukrowe': { label: 'Kwiaty cukrowe', price: 5, type: 'quantity', prompt: 'sugar flowers', unitLabel: 'szt.' },
+    'swieczki': { label: 'Świeczki', price: 3, type: 'quantity', prompt: 'classic birthday candles', unitLabel: 'szt.' },
+    'swieczka-cyfra': { label: 'Świeczka cyfra', price: 10, type: 'quantity', prompt: 'number candle', unitLabel: 'szt.' },
+    'owoce': { label: 'Owoce', price: 10, type: 'quantity', prompt: 'fresh fruit toppings (100g portions)', unitLabel: 'porcje 100 g' },
+    'posypka': { label: 'Posypka', price: 5, type: 'quantity', prompt: 'sprinkle accents (20g portions)', unitLabel: 'porcje 20 g' }
+};
+
+function normalizeDecorationsList(decorations) {
+    const items = [];
+    
+    if (!decorations) {
+        return items;
+    }
+
+    if (Array.isArray(decorations)) {
+        decorations.forEach(entry => {
+            if (typeof entry === 'string') {
+                items.push({ key: null, label: entry, quantity: null, unitLabel: null, unitPrice: null, totalPrice: null });
+            } else if (entry && typeof entry === 'object') {
+                const label = entry.name || entry.label || 'Dodatek';
+                const quantity = typeof entry.quantity === 'number' ? entry.quantity : null;
+                const unitLabel = entry.unit || entry.unitLabel || null;
+                const price = typeof entry.price === 'number' ? entry.price : null;
+                items.push({ key: null, label, quantity, unitLabel, unitPrice: price, totalPrice: price });
+            }
+        });
+        return items;
+    }
+
+    if (typeof decorations !== 'object') {
+        return items;
+    }
+
+    Object.entries(decorations).forEach(([key, rawValue]) => {
+        const definition = addonCatalog[key];
+        if (!definition) {
+            if (rawValue === true || rawValue === 'true') {
+                items.push({ key, label: key, quantity: null, unitLabel: null, unitPrice: null, totalPrice: null });
+            }
+            return;
+        }
+
+        if (definition.type === 'quantity') {
+            const numericValue = parseInt(rawValue, 10);
+            if (Number.isFinite(numericValue) && numericValue > 0) {
+                items.push({
+                    key,
+                    label: definition.label,
+                    quantity: numericValue,
+                    unitLabel: definition.unitLabel || null,
+                    unitPrice: definition.price,
+                    totalPrice: definition.price * numericValue
+                });
+            }
+        } else {
+            const isSelected = rawValue === true || rawValue === 'true';
+            if (isSelected) {
+                items.push({
+                    key,
+                    label: definition.label,
+                    quantity: null,
+                    unitLabel: null,
+                    unitPrice: definition.price,
+                    totalPrice: definition.price
+                });
+            }
+        }
+    });
+
+    return items;
+}
+
+function formatPerPortionValue(value) {
+    if (!Number.isFinite(value)) return '';
+    const hasFraction = Math.abs(value % 1) > 0;
+    return value.toLocaleString('pl-PL', {
+        minimumFractionDigits: hasFraction ? 2 : 0,
+        maximumFractionDigits: hasFraction ? 2 : 0
+    });
+}
 
 /**
  * Send data to webhook
@@ -443,7 +537,18 @@ function formatOrderMessageHTML(orderData) {
         html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Liczba warstw:</strong> ${layers}</p>`;
     }
     if (flavor) {
-        const flavorNames = { vanilla: 'Waniliowy', chocolate: 'Czekoladowy', strawberry: 'Truskawkowy', lemon: 'Cytrynowy', carrot: 'Marchewkowy' };
+        const flavorNames = {
+            'truskawkowy-raj': 'Truskawkowy Raj',
+            'czekoladowa-pokusa': 'Czekoladowa Pokusa',
+            'malinowa-rozkosz': 'Malinowa Rozkosz',
+            'tropikalny-szal': 'Tropikalny Szał',
+            'waniliowy-sen': 'Waniliowy Sen',
+            'orzechowa-rozpusta': 'Orzechowa Rozpusta',
+            'cytrynowa-chmurka': 'Cytrynowa Orzeźwiająca Chmurka',
+            'kawowe-love': 'Kawowe Love',
+            'pistacjowy-oblok': 'Pistacjowy Obłok',
+            'kraina-raffaello': 'Kraina Raffaello'
+        };
         const displayFlavor = flavorNames[flavor] || flavor;
         html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Smak:</strong> ${displayFlavor}</p>`;
     }
@@ -479,33 +584,20 @@ function formatOrderMessageHTML(orderData) {
     }
     
     // Decorations
-    if (decorations && typeof decorations === 'object' && Object.keys(decorations).length > 0) {
-        // Handle cake visualizer decorations object format
-        const selectedDecorations = [];
-        const decorationNames = { candles: 'Świeczki', flowers: 'Kwiaty cukrowe', berries: 'Owoce', sprinkles: 'Posypka' };
-        
-        Object.entries(decorations).forEach(([key, value]) => {
-            if (value === true) {
-                selectedDecorations.push(decorationNames[key] || key);
+    const normalizedDecorations = normalizeDecorationsList(decorations);
+    if (normalizedDecorations.length > 0) {
+        html += `<div style="margin: 12px 0;"><strong style="color: #4a5568;">Dodatki:</strong><ul style="margin: 8px 0; padding-left: 20px; color: #4a5568;">`;
+        normalizedDecorations.forEach(item => {
+            const detailParts = [];
+            if (item.quantity !== null && item.quantity !== undefined) {
+                const unitLabel = item.unitLabel ? ` ${item.unitLabel}` : '';
+                detailParts.push(`${item.quantity}${unitLabel}`);
             }
-        });
-        
-        if (selectedDecorations.length > 0) {
-            html += `<div style="margin: 12px 0;"><strong style="color: #4a5568;">Dekoracje:</strong><ul style="margin: 8px 0; padding-left: 20px; color: #4a5568;">`;
-            selectedDecorations.forEach(decoration => {
-                html += `<li style="margin: 4px 0;">${decoration}</li>`;
-            });
-            html += `</ul></div>`;
-        }
-    } else if (decorations && Array.isArray(decorations) && decorations.length > 0) {
-        // Handle traditional decorations array format
-        html += `<div style="margin: 12px 0;"><strong style="color: #4a5568;">Dekoracje:</strong><ul style="margin: 8px 0; padding-left: 20px; color: #4a5568;">`;
-        decorations.forEach(decoration => {
-            if (typeof decoration === 'string') {
-                html += `<li style="margin: 4px 0;">${decoration}</li>`;
-            } else if (decoration.name) {
-                html += `<li style="margin: 4px 0;">${decoration.name} (+${decoration.price} zł)</li>`;
+            if (typeof item.totalPrice === 'number') {
+                detailParts.push(`${emailPriceFormatter.format(item.totalPrice)} zł`);
             }
+            const detailText = detailParts.length > 0 ? ` (${detailParts.join(', ')})` : '';
+            html += `<li style="margin: 4px 0;">${item.label}${detailText}</li>`;
         });
         html += `</ul></div>`;
     }
@@ -645,7 +737,18 @@ function formatOrderMessage(orderData) {
         message += `• Liczba warstw: ${layers}\n`;
     }
     if (flavor) {
-        const flavorNames = { vanilla: 'Waniliowy', chocolate: 'Czekoladowy', strawberry: 'Truskawkowy', lemon: 'Cytrynowy', carrot: 'Marchewkowy' };
+        const flavorNames = {
+            'truskawkowy-raj': 'Truskawkowy Raj',
+            'czekoladowa-pokusa': 'Czekoladowa Pokusa',
+            'malinowa-rozkosz': 'Malinowa Rozkosz',
+            'tropikalny-szal': 'Tropikalny Szał',
+            'waniliowy-sen': 'Waniliowy Sen',
+            'orzechowa-rozpusta': 'Orzechowa Rozpusta',
+            'cytrynowa-chmurka': 'Cytrynowa Orzeźwiająca Chmurka',
+            'kawowe-love': 'Kawowe Love',
+            'pistacjowy-oblok': 'Pistacjowy Obłok',
+            'kraina-raffaello': 'Kraina Raffaello'
+        };
         const displayFlavor = flavorNames[flavor] || flavor;
         message += `• Smak: ${displayFlavor}\n`;
     }
@@ -673,32 +776,20 @@ function formatOrderMessage(orderData) {
     }
 
     // Decorations
-    if (decorations && typeof decorations === 'object' && Object.keys(decorations).length > 0) {
-        // Handle cake visualizer decorations object format
-        const selectedDecorations = [];
-        const decorationNames = { candles: 'Świeczki', flowers: 'Kwiaty cukrowe', berries: 'Owoce', sprinkles: 'Posypka' };
-        
-        Object.entries(decorations).forEach(([key, value]) => {
-            if (value === true) {
-                selectedDecorations.push(decorationNames[key] || key);
+    const normalizedDecorations = normalizeDecorationsList(decorations);
+    if (normalizedDecorations.length > 0) {
+        message += `\n✨ DODATKI:\n`;
+        normalizedDecorations.forEach(item => {
+            const detailParts = [];
+            if (item.quantity !== null && item.quantity !== undefined) {
+                const unitLabel = item.unitLabel ? ` ${item.unitLabel}` : '';
+                detailParts.push(`${item.quantity}${unitLabel}`);
             }
-        });
-        
-        if (selectedDecorations.length > 0) {
-            message += `\n✨ DEKORACJE:\n`;
-            selectedDecorations.forEach(decoration => {
-                message += `• ${decoration}\n`;
-            });
-        }
-    } else if (decorations && Array.isArray(decorations) && decorations.length > 0) {
-        // Handle traditional decorations array format
-        message += `\n✨ DEKORACJE:\n`;
-        decorations.forEach(decoration => {
-            if (typeof decoration === 'string') {
-                message += `• ${decoration}\n`;
-            } else if (decoration.name) {
-                message += `• ${decoration.name} (+${decoration.price} zł)\n`;
+            if (typeof item.totalPrice === 'number') {
+                detailParts.push(`${emailPriceFormatter.format(item.totalPrice)} zł`);
             }
+            const detailText = detailParts.length > 0 ? ` (${detailParts.join(', ')})` : '';
+            message += `• ${item.label}${detailText}\n`;
         });
     }
 
@@ -800,18 +891,20 @@ function formatCakeDesignMessage(designData, customerData = {}) {
     }
 
     // Decorations
-    if (decorations && Object.keys(decorations).length > 0) {
-        message += `\n✨ DEKORACJE:\n`;
-        Object.entries(decorations).forEach(([key, value]) => {
-            if (value === true) {
-                const decorationNames = {
-                    candles: 'Świeczki',
-                    flowers: 'Kwiaty',
-                    berries: 'Jagody',
-                    sprinkles: 'Posypka'
-                };
-                message += `• ${decorationNames[key] || key}\n`;
+    const designDecorations = normalizeDecorationsList(decorations);
+    if (designDecorations.length > 0) {
+        message += `\n✨ DODATKI:\n`;
+        designDecorations.forEach(item => {
+            const detailParts = [];
+            if (item.quantity !== null && item.quantity !== undefined) {
+                const unitLabel = item.unitLabel ? ` ${item.unitLabel}` : '';
+                detailParts.push(`${item.quantity}${unitLabel}`);
             }
+            if (typeof item.totalPrice === 'number') {
+                detailParts.push(`${emailPriceFormatter.format(item.totalPrice)} zł`);
+            }
+            const detailText = detailParts.length > 0 ? ` (${detailParts.join(', ')})` : '';
+            message += `• ${item.label}${detailText}\n`;
         });
     }
 

@@ -48,18 +48,173 @@ const occasionNames = {
 
 // Flavor names mapping
 const flavorNames = {
-  vanilla: 'waniliowy',
-  chocolate: 'czekoladowy',
-  strawberry: 'truskawkowy',
-  lemon: 'cytrynowy',
-  carrot: 'marchewkowy'
+  'truskawkowy-raj': 'Truskawkowy Raj',
+  'czekoladowa-pokusa': 'Czekoladowa Pokusa',
+  'malinowa-rozkosz': 'Malinowa Rozkosz',
+  'tropikalny-szal': 'Tropikalny Szał',
+  'waniliowy-sen': 'Waniliowy Sen',
+  'orzechowa-rozpusta': 'Orzechowa Rozpusta',
+  'cytrynowa-chmurka': 'Cytrynowa Orzeźwiająca Chmurka',
+  'kawowe-love': 'Kawowe Love',
+  'pistacjowy-oblok': 'Pistacjowy Obłok',
+  'kraina-raffaello': 'Kraina Raffaello'
 };
+
+// Flavor descriptions for AI prompts
+const flavorDescriptions = {
+  'truskawkowy-raj': 'delicate sponge cake with whipped cream and strawberry mousse',
+  'czekoladowa-pokusa': 'moist chocolate sponge with dark and milk chocolate cream and blackcurrant accents',
+  'malinowa-rozkosz': 'vanilla sponge with raspberry mousse and white chocolate cream',
+  'tropikalny-szal': 'coconut sponge with mango passionfruit cream and pineapple accents',
+  'waniliowy-sen': 'classic vanilla sponge with light vanilla whipped cream and mango layers',
+  'orzechowa-rozpusta': 'chocolate hazelnut sponge with hazelnut cream and Nutella swirls',
+  'cytrynowa-chmurka': 'lemon sponge with lemon curd and airy mascarpone cream',
+  'kawowe-love': 'coffee sponge with tiramisu cream and cocoa dusting',
+  'pistacjowy-oblok': 'vanilla sponge with raspberry mousse and pistachio cream',
+  'kraina-raffaello': 'coconut sponge with creamy coconut filling and Raffaello-style pralines'
+};
+
+const flavorPerPortionAdjustments = {
+  'truskawkowy-raj': 0,
+  'czekoladowa-pokusa': 2,
+  'malinowa-rozkosz': 1.5,
+  'tropikalny-szal': 1.5,
+  'waniliowy-sen': 1,
+  'orzechowa-rozpusta': 2.5,
+  'cytrynowa-chmurka': 1.5,
+  'kawowe-love': 1.5,
+  'pistacjowy-oblok': 3.5,
+  'kraina-raffaello': 2.5
+};
+
+if (!window.flavorPerPortionAdjustments) {
+  window.flavorPerPortionAdjustments = flavorPerPortionAdjustments;
+}
+
+const sizePortions = {
+  small: 8,
+  medium: 12,
+  large: 20,
+  artistic: null
+};
+
+if (!window.sizePortions) {
+  window.sizePortions = sizePortions;
+}
+
+// Add-on definitions
+const addonDefinitions = {
+  'figurki-slonik': { label: 'Figurka: słonik', price: 60, type: 'boolean', prompt: 'elephant figurine cake topper', unitLabel: null },
+  'figurki-mis': { label: 'Figurka: miś', price: 60, type: 'boolean', prompt: 'bear figurine cake topper', unitLabel: null },
+  'figurki-aniol': { label: 'Figurka: aniołek', price: 70, type: 'boolean', prompt: 'angel figurine cake topper', unitLabel: null },
+  'figurki-kokarda': { label: 'Figurka: kokarda', price: 40, type: 'boolean', prompt: 'bow-style cake topper', unitLabel: null },
+  'figurki-piesek': { label: 'Figurka: piesek', price: 60, type: 'boolean', prompt: 'puppy figurine cake topper', unitLabel: null },
+  'figurki-jednorozec': { label: 'Figurka: jednorożec', price: 70, type: 'boolean', prompt: 'unicorn figurine cake topper', unitLabel: null },
+  'figurki-kotek': { label: 'Figurka: kotek', price: 60, type: 'boolean', prompt: 'kitten figurine cake topper', unitLabel: null },
+  'wydruk-zdjecie': { label: 'Wydruk jadalny', price: 20, type: 'boolean', prompt: 'edible photo print panel', unitLabel: null },
+  'kwiaty': { label: 'Kwiaty', price: 10, type: 'quantity', prompt: 'fresh floral accents', unitLabel: 'szt.' },
+  'makaroniki': { label: 'Makaroniki', price: 6, type: 'quantity', prompt: 'macarons', unitLabel: 'szt.' },
+  'napis': { label: 'Napis na torcie', price: 15, type: 'boolean', prompt: 'custom inscription on top', unitLabel: null },
+  'kwiaty-cukrowe': { label: 'Kwiaty cukrowe', price: 5, type: 'quantity', prompt: 'sugar flowers', unitLabel: 'szt.' },
+  'swieczki': { label: 'Świeczki', price: 3, type: 'quantity', prompt: 'classic birthday candles', unitLabel: 'szt.' },
+  'swieczka-cyfra': { label: 'Świeczka cyfra', price: 10, type: 'quantity', prompt: 'number candle', unitLabel: 'szt.' },
+  'owoce': { label: 'Owoce', price: 10, type: 'quantity', prompt: 'fresh fruit toppings (100g portions)', unitLabel: 'porcje 100 g' },
+  'posypka': { label: 'Posypka', price: 5, type: 'quantity', prompt: 'sprinkle accents (20g portions)', unitLabel: 'porcje 20 g' }
+};
+
+if (!window.addonDefinitions) {
+  window.addonDefinitions = addonDefinitions;
+}
+
+function getCurrentConfig() {
+  const cfg = window.config || window.generateImageConfig || window.cakeVisualizerConfig;
+  if (!cfg) {
+    throw new ReferenceError('Visualizer configuration is not available');
+  }
+  return cfg;
+}
+
+function formatPerPortionValue(value) {
+  if (!Number.isFinite(value)) return '';
+  const hasFraction = Math.abs(value % 1) > 0;
+  return value.toLocaleString('pl-PL', {
+    minimumFractionDigits: hasFraction ? 2 : 0,
+    maximumFractionDigits: hasFraction ? 2 : 0
+  });
+}
+
+function normalizeDecorationsList(decorations) {
+  const items = [];
+  
+  if (!decorations) {
+    return items;
+  }
+
+  // Legacy array format support
+  if (Array.isArray(decorations)) {
+    decorations.forEach((entry) => {
+      if (typeof entry === 'string') {
+        items.push({ key: null, label: entry, quantity: null, unitLabel: null, unitPrice: null, totalPrice: null });
+      } else if (entry && typeof entry === 'object') {
+        const label = entry.name || entry.label || 'Dodatek';
+        const quantity = typeof entry.quantity === 'number' ? entry.quantity : null;
+        const unitLabel = entry.unit || entry.unitLabel || null;
+        const price = typeof entry.price === 'number' ? entry.price : null;
+        items.push({ key: null, label, quantity, unitLabel, unitPrice: price, totalPrice: price });
+      }
+    });
+    return items;
+  }
+
+  if (typeof decorations !== 'object') {
+    return items;
+  }
+
+  Object.entries(decorations).forEach(([key, rawValue]) => {
+    const definition = addonDefinitions[key];
+    if (!definition) {
+      if (rawValue === true || rawValue === 'true') {
+        items.push({ key, label: key, quantity: null, unitLabel: null, unitPrice: null, totalPrice: null });
+      }
+      return;
+    }
+
+    if (definition.type === 'quantity') {
+      const numericValue = parseInt(rawValue, 10);
+      if (Number.isFinite(numericValue) && numericValue > 0) {
+        items.push({
+          key,
+          label: definition.label,
+          quantity: numericValue,
+          unitLabel: definition.unitLabel || null,
+          unitPrice: definition.price,
+          totalPrice: definition.price * numericValue
+        });
+      }
+    } else {
+      const isSelected = rawValue === true || rawValue === 'true';
+      if (isSelected) {
+        items.push({
+          key,
+          label: definition.label,
+          quantity: null,
+          unitLabel: null,
+          unitPrice: definition.price,
+          totalPrice: definition.price
+        });
+      }
+    }
+  });
+
+  return items;
+}
 
 // ===================================================================
 // PROMPT GENERATION
 // ===================================================================
 
 function generatePrompt() {
+  const config = getCurrentConfig();
   const isArtistic = config.size === 'artistic';
   let prompt = `Profesjonalny tort ${occasionNames[config.occasion]}, `;
   
@@ -75,18 +230,22 @@ function generatePrompt() {
     prompt += `z akcentami ${config.additionalColor}, `;
   }
   
-  // Flavor
-  prompt += `smak ${flavorNames[config.flavor]}, `;
+  // Flavor - use description instead of name
+  const flavorDescription = flavorDescriptions[config.flavor] || 'classic cake flavor';
+  prompt += `${flavorDescription}, `;
   
   // Decorations
-  const decorations = [];
-  if (config.decorations.candles) decorations.push('świeczki');
-  if (config.decorations.flowers) decorations.push('kwiaty');
-  if (config.decorations.berries) decorations.push('jagody');
-  if (config.decorations.sprinkles) decorations.push('posypka');
-  
-  if (decorations.length > 0) {
-    prompt += `ozdobiony ${decorations.join(', ')}, `;
+  const selectedAddons = normalizeDecorationsList(config.decorations);
+  if (selectedAddons.length > 0) {
+    const descriptors = selectedAddons.map(item => {
+      const definition = item.key ? addonDefinitions[item.key] : null;
+      const baseDescriptor = definition?.prompt || item.label.toLowerCase();
+      if (definition?.type === 'quantity' && item.quantity) {
+        return `${item.quantity}x ${baseDescriptor}`;
+      }
+      return baseDescriptor;
+    });
+    prompt += `ozdobiony ${descriptors.join(', ')}, `;
   }
   
   // Special theme
@@ -296,7 +455,7 @@ async function generateImage() {
     // Send image generation request to Make.com webhook
     const imageGenerationData = {
       prompt: prompt,
-      config: config,
+      config: getCurrentConfig(),
       size: '1024x1024',
       formType: 'cake_image_generation'
     };
@@ -344,6 +503,11 @@ async function generateImage() {
         loading.classList.add('hidden');
         generatedImage.classList.remove('hidden');
         console.log('✅ Image displayed successfully');
+        const orderButtons = document.querySelectorAll('[data-order-button]');
+        orderButtons.forEach(btn => btn.classList.remove('hidden'));
+        if (typeof window.visualizerUpdateOrderSummary === 'function') {
+          window.visualizerUpdateOrderSummary();
+        }
       };
       generatedImage.onerror = () => {
         throw new Error('Nie udało się załadować obrazu');
@@ -407,7 +571,19 @@ function formatOrderMessageHTML(orderData) {
             <ul style="list-style: none; padding: 0; margin: 0;">
                 <li style="margin: 8px 0; color: #4a5568;"><strong>Imię i nazwisko:</strong> ${customer?.firstName || ''} ${customer?.lastName || ''}</li>
                 <li style="margin: 8px 0; color: #4a5568;"><strong>Email:</strong> <a href="mailto:${customer?.email || ''}" style="color: #F472B6; text-decoration: none;">${customer?.email || ''}</a></li>
-                <li style="margin: 8px 0; color: #4a5568;"><strong>Telefon:</strong> ${customer?.phone || ''}</li>
+                <li style="margin: 8px 0; color: #4a5568;"><strong>Telefon:</strong> ${customer?.phone || ''}</li>`;
+
+    if (customer?.completionDate) {
+        html += `<li style="margin: 8px 0; color: #4a5568;"><strong>Termin realizacji:</strong> ${customer.completionDate}</li>`;
+    }
+    if (customer?.completionTime) {
+        html += `<li style="margin: 8px 0; color: #4a5568;"><strong>Preferowana godzina odbioru:</strong> ${customer.completionTime}</li>`;
+    }
+    if (customer?.orderNotes) {
+        html += `<li style="margin: 8px 0; color: #4a5568;"><strong>Uwagi do zamówienia:</strong> ${customer.orderNotes}</li>`;
+    }
+
+    html += `
             </ul>
         </div>`;
     
@@ -468,7 +644,6 @@ function formatOrderMessageHTML(orderData) {
         html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Liczba warstw:</strong> ${layers}</p>`;
     }
     if (flavor) {
-        const flavorNames = { vanilla: 'Waniliowy', chocolate: 'Czekoladowy', strawberry: 'Truskawkowy', lemon: 'Cytrynowy', carrot: 'Marchewkowy' };
         const displayFlavor = flavorNames[flavor] || flavor;
         html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Smak:</strong> ${displayFlavor}</p>`;
     }
@@ -501,24 +676,22 @@ function formatOrderMessageHTML(orderData) {
     }
     
     // Decorations
-    if (decorations && typeof decorations === 'object' && Object.keys(decorations).length > 0) {
-        // Handle cake visualizer decorations object format
-        const selectedDecorations = [];
-        const decorationNames = { candles: 'Świeczki', flowers: 'Kwiaty cukrowe', berries: 'Owoce', sprinkles: 'Posypka' };
-        
-        Object.entries(decorations).forEach(([key, value]) => {
-            if (value === true) {
-                selectedDecorations.push(decorationNames[key] || key);
+    const normalizedDecorations = normalizeDecorationsList(decorations);
+    if (normalizedDecorations.length > 0) {
+        html += `<div style="margin: 12px 0;"><strong style="color: #4a5568;">Dodatki:</strong><ul style="margin: 8px 0; padding-left: 20px; color: #4a5568;">`;
+        normalizedDecorations.forEach(item => {
+            const detailParts = [];
+            if (item.quantity !== null && item.quantity !== undefined) {
+                const unitLabel = item.unitLabel ? ` ${item.unitLabel}` : '';
+                detailParts.push(`${item.quantity}${unitLabel}`);
             }
+            if (typeof item.totalPrice === 'number') {
+                detailParts.push(`${priceFormatter.format(item.totalPrice)} zł`);
+            }
+            const detailText = detailParts.length > 0 ? ` (${detailParts.join(', ')})` : '';
+            html += `<li style="margin: 4px 0;">${item.label}${detailText}</li>`;
         });
-        
-        if (selectedDecorations.length > 0) {
-            html += `<div style="margin: 12px 0;"><strong style="color: #4a5568;">Dekoracje:</strong><ul style="margin: 8px 0; padding-left: 20px; color: #4a5568;">`;
-            selectedDecorations.forEach(decoration => {
-                html += `<li style="margin: 4px 0;">${decoration}</li>`;
-            });
-            html += `</ul></div>`;
-        }
+        html += `</ul></div>`;
     }
     
     html += `</div>`;
@@ -540,8 +713,50 @@ function formatOrderMessageHTML(orderData) {
             html += `<p style="${lineStyle}">${prefix}${label}: ${formattedValue}</p>`;
         });
 
+        const flavorPerPortionValue = pricing.flavorPerPortion;
+        const flavorAdjustmentValue = pricing.flavorAdjustment;
+        const portionCountValue = pricing.portions;
+        if (Number.isFinite(flavorAdjustmentValue) && flavorAdjustmentValue > 0) {
+            const detailParts = [];
+            if (Number.isFinite(flavorPerPortionValue) && flavorPerPortionValue > 0) {
+                detailParts.push(`${formatPerPortionValue(flavorPerPortionValue)} zł / porcja`);
+            }
+            if (Number.isFinite(portionCountValue) && portionCountValue > 0) {
+                detailParts.push(`${portionCountValue} porcji`);
+            }
+            const detailText = detailParts.length > 0 ? ` (${detailParts.join(', ')})` : '';
+            html += `<p style="margin: 6px 0; color: #4a5568;"><strong>Dopłata za smak:</strong> ${priceFormatter.format(flavorAdjustmentValue)} zł${detailText}</p>`;
+        } else if (Number.isFinite(flavorPerPortionValue) && flavorPerPortionValue > 0) {
+            html += `<p style="margin: 6px 0; color: #4a5568;"><strong>Dopłata za smak:</strong> ${formatPerPortionValue(flavorPerPortionValue)} zł / porcja</p>`;
+        }
+
         if (pricing.selectedSize === 'artistic') {
             html += `<p style="margin: 6px 0; font-weight: 600; color: #0F2238;">⭐ Tort artystyczny: ${pricing.displayPrice || INDIVIDUAL_PRICING_TEXT}</p>`;
+        }
+
+        if (Array.isArray(pricing.addons) && pricing.addons.length > 0) {
+            html += `<div style="margin-top: 12px;">`;
+            html += `<p style="margin: 6px 0; color: #4a5568;"><strong>Dodatki:</strong></p>`;
+            html += `<ul style="margin: 4px 0 0 0; padding-left: 20px; color: #4a5568;">`;
+            pricing.addons.forEach(addon => {
+                const detailParts = [];
+                if (addon.type === 'quantity' && Number.isFinite(addon.value) && addon.value > 0) {
+                    const unitLabel = addon.unitLabel ? ` ${addon.unitLabel}` : '';
+                    detailParts.push(`${addon.value}${unitLabel}`);
+                }
+                if (Number.isFinite(addon.totalPrice)) {
+                    detailParts.push(`${priceFormatter.format(addon.totalPrice)} zł`);
+                }
+                const detailText = detailParts.length > 0 ? ` (${detailParts.join(', ')})` : '';
+                html += `<li style="margin: 4px 0;">${addon.label}${detailText}</li>`;
+            });
+            html += `</ul>`;
+            if (Number.isFinite(pricing.addonsTotal) && pricing.addonsTotal > 0) {
+                html += `<p style="margin: 6px 0; font-weight: 600; color: #0F2238;">Łącznie dodatki: ${priceFormatter.format(pricing.addonsTotal)} zł</p>`;
+            }
+            html += `</div>`;
+        } else if (Number.isFinite(pricing.addonsTotal) && pricing.addonsTotal > 0) {
+            html += `<p style="margin: 6px 0; font-weight: 600; color: #0F2238;">Łącznie dodatki: ${priceFormatter.format(pricing.addonsTotal)} zł</p>`;
         }
 
         if (pricing.note) {
@@ -595,6 +810,16 @@ function formatOrderMessage(orderData) {
     message += `Email: ${customer?.email || ''}\n`;
     message += `Telefon: ${customer?.phone || ''}\n`;
 
+    if (customer?.completionDate) {
+        message += `Termin realizacji: ${customer.completionDate}\n`;
+    }
+    if (customer?.completionTime) {
+        message += `Preferowana godzina odbioru: ${customer.completionTime}\n`;
+    }
+    if (customer?.orderNotes) {
+        message += `Uwagi do zamówienia: ${customer.orderNotes}\n`;
+    }
+
     // Delivery Information
     message += `\n🚚 SPOSÓB ODBIORU:\n`;
     
@@ -645,7 +870,6 @@ function formatOrderMessage(orderData) {
         message += `Liczba warstw: ${layers}\n`;
     }
     if (flavor) {
-        const flavorNames = { vanilla: 'Waniliowy', chocolate: 'Czekoladowy', strawberry: 'Truskawkowy', lemon: 'Cytrynowy', carrot: 'Marchewkowy' };
         const displayFlavor = flavorNames[flavor] || flavor;
         message += `Smak: ${displayFlavor}\n`;
     }
@@ -670,23 +894,21 @@ function formatOrderMessage(orderData) {
     }
 
     // Decorations
-    if (decorations && typeof decorations === 'object' && Object.keys(decorations).length > 0) {
-        // Handle cake visualizer decorations object format
-        const selectedDecorations = [];
-        const decorationNames = { candles: 'Świeczki', flowers: 'Kwiaty cukrowe', berries: 'Owoce', sprinkles: 'Posypka' };
-        
-        Object.entries(decorations).forEach(([key, value]) => {
-            if (value === true) {
-                selectedDecorations.push(decorationNames[key] || key);
+    const normalizedDecorations = normalizeDecorationsList(decorations);
+    if (normalizedDecorations.length > 0) {
+        message += `\n✨ DODATKI:\n`;
+        normalizedDecorations.forEach(item => {
+            const detailParts = [];
+            if (item.quantity !== null && item.quantity !== undefined) {
+                const unitLabel = item.unitLabel ? ` ${item.unitLabel}` : '';
+                detailParts.push(`${item.quantity}${unitLabel}`);
             }
+            if (typeof item.totalPrice === 'number') {
+                detailParts.push(`${priceFormatter.format(item.totalPrice)} zł`);
+            }
+            const detailText = detailParts.length > 0 ? ` (${detailParts.join(', ')})` : '';
+            message += `• ${item.label}${detailText}\n`;
         });
-        
-        if (selectedDecorations.length > 0) {
-            message += `\n✨ DEKORACJE:\n`;
-            selectedDecorations.forEach(decoration => {
-                message += `• ${decoration}\n`;
-            });
-        }
     }
 
     if (pricing) {
@@ -703,6 +925,40 @@ function formatOrderMessage(orderData) {
         });
         if (pricing.selectedSize === 'artistic') {
             message += `⭐ Tort artystyczny: ${pricing.displayPrice || INDIVIDUAL_PRICING_TEXT}\n`;
+        }
+        const flavorPerPortionValue = pricing.flavorPerPortion;
+        const flavorAdjustmentValue = pricing.flavorAdjustment;
+        const portionCountValue = pricing.portions;
+        if (Number.isFinite(flavorAdjustmentValue) && flavorAdjustmentValue > 0) {
+            const detailParts = [];
+            if (Number.isFinite(flavorPerPortionValue) && flavorPerPortionValue > 0) {
+                detailParts.push(`${formatPerPortionValue(flavorPerPortionValue)} zł / porcja`);
+            }
+            if (Number.isFinite(portionCountValue) && portionCountValue > 0) {
+                detailParts.push(`${portionCountValue} porcji`);
+            }
+            const detailText = detailParts.length > 0 ? ` (${detailParts.join(', ')})` : '';
+            message += `Dopłata za smak: ${priceFormatter.format(flavorAdjustmentValue)} zł${detailText}\n`;
+        } else if (Number.isFinite(flavorPerPortionValue) && flavorPerPortionValue > 0) {
+            message += `Dopłata za smak: ${formatPerPortionValue(flavorPerPortionValue)} zł / porcja\n`;
+        }
+        if (Array.isArray(pricing.addons) && pricing.addons.length > 0) {
+            message += `\nDodatki:\n`;
+            pricing.addons.forEach(addon => {
+                const detailParts = [];
+                if (addon.type === 'quantity' && Number.isFinite(addon.value) && addon.value > 0) {
+                    const unitLabel = addon.unitLabel ? ` ${addon.unitLabel}` : '';
+                    detailParts.push(`${addon.value}${unitLabel}`);
+                }
+                if (Number.isFinite(addon.totalPrice)) {
+                    detailParts.push(`${priceFormatter.format(addon.totalPrice)} zł`);
+                }
+                const detailText = detailParts.length > 0 ? ` (${detailParts.join(', ')})` : '';
+                message += `• ${addon.label}${detailText}\n`;
+            });
+        }
+        if (Number.isFinite(pricing.addonsTotal) && pricing.addonsTotal > 0) {
+            message += `Łącznie dodatki: ${priceFormatter.format(pricing.addonsTotal)} zł\n`;
         }
         if (pricing.note) {
             message += `${pricing.note}\n`;
