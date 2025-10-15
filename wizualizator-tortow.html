@@ -128,11 +128,14 @@
   <!-- Navigation -->
   <nav class="fixed w-full nav-midnight shadow-sm z-50">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="flex justify-between h-16">
+      <div class="flex items-center justify-between header-height">
         <div class="flex items-center">
           <a href="index.html" aria-label="CakeBooking - Strona główna" class="flex-shrink-0 flex items-center">
-            <img src="sygnet-cakebooking.svg" alt="CakeBooking" class="w-8 h-8 mr-3">
-            <span class="font-display font-bold text-3xl text-pure-white">CakeBooking</span>
+            <img src="sygnet-cakebooking.svg" alt="CakeBooking" class="logo-signet mr-3">
+            <span class="font-display font-bold text-3xl brand-mark">
+              <span class="brand-word text-pure-white">Cake</span>
+              <span class="brand-word text-gradient-gold-pink">Booking</span>
+            </span>
           </a>
         </div>
         
@@ -286,7 +289,7 @@
         <!-- CTA Button -->
         <div class="pt-4 border-t border-dove-gray/20">
           <a href="zamowienie.html" class="w-full pill-button-pink flex items-center justify-center text-white text-base font-medium px-6 py-3 shadow-lg no-underline">
-            <img src="sygnet-cakebooking.svg" alt="CakeBooking" class="w-5 h-5 mr-3">
+            <img src="sygnet-cakebooking.svg" alt="CakeBooking" class="logo-signet mr-3">
             Zamów tort
           </a>
         </div>
@@ -380,7 +383,7 @@
               <!-- Order Button (Initially Hidden) -->
               <button id="order-cake" class="pill-button-gold w-full py-4 text-lg font-semibold mt-4 hidden transition-all hover:scale-[1.02]">
                 <i class="fa-solid fa-cart-shopping h-5 w-5 mr-3"></i>
-                Zamów ten tort
+                <span class="order-button-label">Zamów ten tort</span>
               </button>
               
               <p class="text-xs text-dove-gray mt-4 flex items-center justify-center">
@@ -405,29 +408,68 @@
                 <i class="fa-solid fa-resize mr-3 icon-gradient-gold-pink"></i>
                 Rozmiar
               </h4>
-              <div class="grid grid-cols-3 gap-3">
-                <button class="option-button active py-3 px-4 rounded-lg text-sm font-medium" data-size="small">
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <button class="option-button active py-4 px-4 rounded-lg text-sm font-medium" data-size="small">
                   <div class="text-center">
                     <div class="text-lg mb-1">🍰</div>
-                    <div>Mały</div>
-                    <div class="text-xs opacity-75">6-8 osób</div>
+                    <div class="font-semibold">Mały</div>
+                    <div class="text-xs opacity-75 mt-1">10 porcji • Ø 18 cm</div>
                   </div>
                 </button>
-                <button class="option-button py-3 px-4 rounded-lg text-sm font-medium" data-size="medium">
+                <button class="option-button py-4 px-4 rounded-lg text-sm font-medium" data-size="medium">
                   <div class="text-center">
                     <div class="text-lg mb-1">🎂</div>
-                    <div>Średni</div>
-                    <div class="text-xs opacity-75">10-12 osób</div>
+                    <div class="font-semibold">Średni</div>
+                    <div class="text-xs opacity-75 mt-1">18 porcji • Ø 22 cm</div>
                   </div>
                 </button>
-                <button class="option-button py-3 px-4 rounded-lg text-sm font-medium" data-size="large">
+                <button class="option-button py-4 px-4 rounded-lg text-sm font-medium" data-size="large">
                   <div class="text-center">
                     <div class="text-lg mb-1">🎂</div>
-                    <div>Duży</div>
-                    <div class="text-xs opacity-75">15-20 osób</div>
+                    <div class="font-semibold">Duży</div>
+                    <div class="text-xs opacity-75 mt-1">26 porcji • Ø 26 cm</div>
+                  </div>
+                </button>
+                <button class="option-button py-4 px-4 rounded-lg text-sm font-medium" data-size="artistic">
+                  <div class="text-center">
+                    <div class="text-lg mb-1">🎨</div>
+                    <div class="font-semibold uppercase tracking-wide text-xs">TORT ARTYSTYCZNY</div>
+                    <div class="text-xs opacity-75 mt-1">Indywidualne zamówienie</div>
+                    <div class="text-xs opacity-60">Wycena po wysłaniu zapytania</div>
                   </div>
                 </button>
               </div>
+              <p class="mt-3 text-xs text-dove-gray text-center md:text-left">
+                Warianty mały/średni/duży obejmują dwie przełożenia kremu w jednej warstwie. Większa liczba pięter dostępna jest w torcie artystycznym.
+              </p>
+            </div>
+
+            <!-- Dynamic Pricing -->
+            <div class="control-section pb-6 mb-6">
+              <h4 class="font-semibold text-midnight-navy mb-4 flex items-center">
+                <i class="fa-solid fa-coins mr-3 icon-gradient-gold-pink"></i>
+                Szacowana cena
+              </h4>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="price-cards">
+                <div class="rounded-lg border border-dove-gray/30 bg-white/70 p-4 flex flex-col items-center text-center" data-price-card="small">
+                  <div class="text-sm font-semibold text-dove-gray uppercase tracking-wide">Mały</div>
+                  <div class="text-xl font-display font-bold mt-2 text-midnight-navy" data-price-value="small">-- zł</div>
+                  <div class="text-xs text-dove-gray mt-2">Do 10 porcji</div>
+                </div>
+                <div class="rounded-lg border border-dove-gray/30 bg-white/70 p-4 flex flex-col items-center text-center" data-price-card="medium">
+                  <div class="text-sm font-semibold text-dove-gray uppercase tracking-wide">Średni</div>
+                  <div class="text-xl font-display font-bold mt-2 text-midnight-navy" data-price-value="medium">-- zł</div>
+                  <div class="text-xs text-dove-gray mt-2">Do 18 porcji</div>
+                </div>
+                <div class="rounded-lg border border-dove-gray/30 bg-white/70 p-4 flex flex-col items-center text-center" data-price-card="large">
+                  <div class="text-sm font-semibold text-dove-gray uppercase tracking-wide">Duży</div>
+                  <div class="text-xl font-display font-bold mt-2 text-midnight-navy" data-price-value="large">-- zł</div>
+                  <div class="text-xs text-dove-gray mt-2">Do 26 porcji</div>
+                </div>
+              </div>
+              <p class="mt-3 text-xs text-dove-gray">
+                Kolory dodatkowe wliczone w cenę. Tort artystyczny jest wyceniany indywidualnie po wysłaniu zapytania z wybranymi parametrami.
+              </p>
             </div>
 
             <!-- Number of Layers -->
@@ -442,31 +484,32 @@
                   id="cake-layers" 
                   min="1" 
                   max="5" 
-                  value="2" 
+                  value="1" 
                   class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-playful-pink focus:border-transparent"
                   placeholder="Wprowadź liczbę warstw (1-5)">
                 <div class="mt-2 text-xs text-dove-gray">
-                  1-5 warstw • Wpływa na wysokość i strukturę tortu
+                  Warianty podstawowe: 1 warstwa z dwoma przełożeniami. Dodatkowe piętra dostępne tylko w torcie artystycznym.
                 </div>
               </div>
             </div>
 
             <!-- Cake Text -->
             <div class="control-section pb-6 mb-6">
-              <h4 class="font-semibold text-midnight-navy mb-4 flex items-center">
-                <i class="fa-solid fa-font mr-3 icon-gradient-gold-pink"></i>
-                Napis na torcie <span class="text-gray-400">(opcjonalnie)</span>
-              </h4>
-              <input 
-                type="text" 
-                id="cake-text" 
-                maxlength="50" 
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-playful-pink focus:border-transparent"
-                placeholder="np. Wszystkiego najlepszego, Gratulacje...">
-              <div class="mt-2 text-xs text-dove-gray">
-                Maksymalnie 50 znaków • Zostanie umieszczony na górze tortu
-              </div>
+            <h4 class="font-semibold text-midnight-navy mb-4 flex items-center">
+              <i class="fa-solid fa-font mr-3 icon-gradient-gold-pink"></i>
+              Napis na torcie <span class="text-gray-400">(opcjonalnie)</span>
+            </h4>
+            <input 
+              type="text" 
+              id="cake-text" 
+              maxlength="50" 
+              class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-playful-pink focus:border-transparent disabled:bg-gray-100 disabled:text-dove-gray/80"
+              placeholder="Dostępne dla tortów artystycznych"
+              disabled>
+            <div class="mt-2 text-xs text-dove-gray">
+              Motywy i napisy realizujemy wyłącznie w torcie artystycznym (<a href="gotowy-tort.html" class="text-playful-pink underline">zobacz inspiracje</a>). Nie wykonujemy napisów lukrowych.
             </div>
+          </div>
 
             <!-- Occasion Selection -->
             <div class="control-section pb-6 mb-6">
@@ -535,7 +578,7 @@
                 <option value="burgundy">Bordowy</option>
               </select>
               <div class="mt-2 text-xs text-dove-gray">
-                Kolor akcentów, obramowań lub dodatkowych elementów dekoracyjnych
+                Kolor akcentów, obramowań lub dodatkowych elementów dekoracyjnych — wliczone w cenę.
               </div>
             </div>
 
@@ -545,16 +588,17 @@
                 <i class="fa-solid fa-magic mr-3 icon-gradient-gold-pink"></i>
                 Specjalny motyw <span class="text-gray-400">(opcjonalnie)</span>
               </h4>
-              <input 
-                type="text" 
-                id="special-theme" 
-                maxlength="100" 
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-playful-pink focus:border-transparent"
-                placeholder="np. Jednorożce, Superheroes, Vintage, Minimalistyczny...">
-              <div class="mt-2 text-xs text-dove-gray">
-                Maksymalnie 100 znaków • Opisz specjalny motyw lub styl tortu
-              </div>
+            <input 
+              type="text" 
+              id="special-theme" 
+              maxlength="100" 
+              class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-playful-pink focus:border-transparent disabled:bg-gray-100 disabled:text-dove-gray/80"
+              placeholder="Dostępne dla tortów artystycznych"
+              disabled>
+            <div class="mt-2 text-xs text-dove-gray">
+              Kreatywne motywy przygotowujemy przy torcie artystycznym. Opisz wymarzony styl, gdy wybierzesz tę opcję.
             </div>
+          </div>
 
             <!-- Flavor Selection -->
             <div class="control-section pb-6 mb-6">
@@ -564,19 +608,19 @@
               </h4>
               <div class="space-y-2">
                 <button class="option-button active w-full py-3 px-4 rounded-lg text-sm font-medium text-left" data-flavor="vanilla">
-                  🍦 Waniliowy
+                  🍦 Waniliowy — w cenie
                 </button>
                 <button class="option-button w-full py-3 px-4 rounded-lg text-sm font-medium text-left" data-flavor="chocolate">
-                  🍫 Czekoladowy
+                  🍫 Czekoladowy — +20 zł
                 </button>
                 <button class="option-button w-full py-3 px-4 rounded-lg text-sm font-medium text-left" data-flavor="strawberry">
-                  🍓 Truskawkowy
+                  🍓 Truskawkowy — +25 zł
                 </button>
                 <button class="option-button w-full py-3 px-4 rounded-lg text-sm font-medium text-left" data-flavor="lemon">
-                  🍋 Cytrynowy
+                  🍋 Cytrynowy — +15 zł
                 </button>
                 <button class="option-button w-full py-3 px-4 rounded-lg text-sm font-medium text-left" data-flavor="carrot">
-                  🥕 Marchewkowy
+                  🥕 Marchewkowy — +30 zł
                 </button>
               </div>
             </div>
@@ -590,19 +634,19 @@
               <div class="space-y-2">
                 <label class="flex items-center space-x-3 cursor-pointer">
                   <input type="checkbox" class="decoration-checkbox" data-decoration="candles" checked>
-                  <span class="text-sm">🕯️ Świeczki</span>
+                  <span class="text-sm">🕯️ Świeczki (w cenie)</span>
                 </label>
                 <label class="flex items-center space-x-3 cursor-pointer">
                   <input type="checkbox" class="decoration-checkbox" data-decoration="flowers">
-                  <span class="text-sm">🌸 Kwiaty cukrowe</span>
+                  <span class="text-sm">🌸 Kwiaty cukrowe (+45 zł)</span>
                 </label>
                 <label class="flex items-center space-x-3 cursor-pointer">
                   <input type="checkbox" class="decoration-checkbox" data-decoration="berries">
-                  <span class="text-sm">🫐 Owoce</span>
+                  <span class="text-sm">🫐 Owoce (+25 zł)</span>
                 </label>
                 <label class="flex items-center space-x-3 cursor-pointer">
                   <input type="checkbox" class="decoration-checkbox" data-decoration="sprinkles">
-                  <span class="text-sm">✨ Posypka</span>
+                  <span class="text-sm">✨ Posypka (+15 zł)</span>
                 </label>
               </div>
             </div>
@@ -611,7 +655,7 @@
             <div class="pt-6 space-y-3">
               <button id="order-cake" class="w-full pill-button-secondary py-3 text-base font-medium">
                 <i class="fa-solid fa-shopping-cart mr-2"></i>
-                Zamów ten tort
+                <span class="order-button-label">Zamów ten tort</span>
               </button>
             </div>
 
@@ -637,8 +681,11 @@
         <div class="lg:col-span-2">
           <div class="flex items-center mb-4">
             <a href="index.html" aria-label="CakeBooking - Strona główna" class="flex items-center">
-              <img src="sygnet-cakebooking.svg" alt="CakeBooking" class="w-8 h-8 mr-3">
-              <span class="font-display font-bold text-3xl text-pure-white">CakeBooking</span>
+              <img src="sygnet-cakebooking.svg" alt="CakeBooking" class="logo-signet mr-3">
+              <span class="font-display font-bold text-3xl brand-mark">
+                <span class="brand-word text-pure-white">Cake</span>
+                <span class="brand-word text-gradient-gold-pink">Booking</span>
+              </span>
             </a>
           </div>
           <p class="text-dove-gray leading-relaxed mb-6 max-w-md">
@@ -770,9 +817,30 @@
   <script src="cake-visualizer-complete.js"></script>
   <script>
     // AI Cake Visualizer Configuration
+    const pricingRules = {
+      basePrices: {
+        small: 220,
+        medium: 320,
+        large: 420
+      },
+      flavorAdjustments: {
+        vanilla: 0,
+        chocolate: 20,
+        strawberry: 25,
+        lemon: 15,
+        carrot: 30
+      },
+      decorationAdjustments: {
+        candles: 0,
+        flowers: 45,
+        berries: 25,
+        sprinkles: 15
+      }
+    };
+
     const config = {
       size: 'small',
-      layers: 2,
+      layers: 1,
       cakeText: '',
       occasion: 'birthday',
       color: 'white',
@@ -785,6 +853,10 @@
         berries: false,
         sprinkles: false
       }
+    };
+    const artisticDraft = {
+      cakeText: '',
+      specialTheme: ''
     };
 
     function init() {
@@ -799,57 +871,68 @@
       
       // Event listeners
       setupEventListeners();
-      
-      // Generate initial AI prompt
+
+      // Initial UI sync
+      refreshSizeDependentFields();
+      updatePricing();
       updateAIPrompt();
     }
 
     function setupEventListeners() {
       // Size buttons
-      document.querySelectorAll('[data-size]').forEach(btn => {
+      const sizeButtons = document.querySelectorAll('[data-size]');
+      sizeButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
-          document.querySelectorAll('[data-size]').forEach(b => b.classList.remove('active'));
-          e.target.closest('button').classList.add('active');
-          config.size = e.target.closest('button').dataset.size;
-          updateAIPrompt();
+          const targetButton = e.currentTarget;
+          sizeButtons.forEach(b => b.classList.remove('active'));
+          targetButton.classList.add('active');
+          config.size = targetButton.dataset.size;
+          onConfigurationChange();
         });
       });
       
       // Occasion buttons
-      document.querySelectorAll('[data-occasion]').forEach(btn => {
+      const occasionButtons = document.querySelectorAll('[data-occasion]');
+      occasionButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
-          document.querySelectorAll('[data-occasion]').forEach(b => b.classList.remove('active'));
-          e.target.classList.add('active');
-          config.occasion = e.target.dataset.occasion;
-          updateAIPrompt();
+          const targetButton = e.currentTarget;
+          occasionButtons.forEach(b => b.classList.remove('active'));
+          targetButton.classList.add('active');
+          config.occasion = targetButton.dataset.occasion;
+          onConfigurationChange();
         });
       });
       
       // Color swatches
-      document.querySelectorAll('[data-color]').forEach(swatch => {
+      const colorSwatches = document.querySelectorAll('[data-color]');
+      colorSwatches.forEach(swatch => {
         swatch.addEventListener('click', (e) => {
-          document.querySelectorAll('[data-color]').forEach(s => s.classList.remove('active'));
-          e.target.classList.add('active');
-          config.color = e.target.dataset.color;
-          updateAIPrompt();
+          const targetSwatch = e.currentTarget;
+          colorSwatches.forEach(s => s.classList.remove('active'));
+          targetSwatch.classList.add('active');
+          config.color = targetSwatch.dataset.color;
+          onConfigurationChange();
         });
       });
       
       // Flavor buttons
-      document.querySelectorAll('[data-flavor]').forEach(btn => {
+      const flavorButtons = document.querySelectorAll('[data-flavor]');
+      flavorButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
-          document.querySelectorAll('[data-flavor]').forEach(b => b.classList.remove('active'));
-          e.target.classList.add('active');
-          config.flavor = e.target.dataset.flavor;
-          updateAIPrompt();
+          const targetButton = e.currentTarget;
+          flavorButtons.forEach(b => b.classList.remove('active'));
+          targetButton.classList.add('active');
+          config.flavor = targetButton.dataset.flavor;
+          onConfigurationChange();
         });
       });
       
       // Decoration checkboxes
       document.querySelectorAll('.decoration-checkbox').forEach(checkbox => {
         checkbox.addEventListener('change', (e) => {
-          config.decorations[e.target.dataset.decoration] = e.target.checked;
-          updateAIPrompt();
+          const decorationKey = e.currentTarget.dataset.decoration;
+          config.decorations[decorationKey] = e.currentTarget.checked;
+          onConfigurationChange();
         });
       });
       
@@ -857,16 +940,25 @@
       const cakeLayersInput = document.getElementById('cake-layers');
       if (cakeLayersInput) {
         cakeLayersInput.addEventListener('input', (e) => {
-          config.layers = parseInt(e.target.value) || 2;
-          updateAIPrompt();
+          const parsedValue = parseInt(e.target.value, 10);
+          if (config.size !== 'artistic') {
+            config.layers = 1;
+            cakeLayersInput.value = 1;
+            return;
+          }
+          const sanitized = Math.max(1, Math.min(5, parsedValue || 1));
+          config.layers = sanitized;
+          cakeLayersInput.value = sanitized;
+          onConfigurationChange();
         });
       }
       
       const cakeTextInput = document.getElementById('cake-text');
       if (cakeTextInput) {
         cakeTextInput.addEventListener('input', (e) => {
+          artisticDraft.cakeText = e.target.value;
           config.cakeText = e.target.value;
-          updateAIPrompt();
+          onConfigurationChange();
         });
       }
       
@@ -874,15 +966,16 @@
       if (additionalColorInput) {
         additionalColorInput.addEventListener('change', (e) => {
           config.additionalColor = e.target.value;
-          updateAIPrompt();
+          onConfigurationChange();
         });
       }
       
       const specialThemeInput = document.getElementById('special-theme');
       if (specialThemeInput) {
         specialThemeInput.addEventListener('input', (e) => {
+          artisticDraft.specialTheme = e.target.value;
           config.specialTheme = e.target.value;
-          updateAIPrompt();
+          onConfigurationChange();
         });
       }
       
@@ -893,16 +986,135 @@
       }
     }
 
+    function onConfigurationChange() {
+      refreshSizeDependentFields();
+      updateAIPrompt();
+      updatePricing();
+    }
+
+    function refreshSizeDependentFields() {
+      const isArtistic = config.size === 'artistic';
+
+      const cakeLayersInput = document.getElementById('cake-layers');
+      if (cakeLayersInput) {
+        cakeLayersInput.disabled = !isArtistic;
+        if (!isArtistic) {
+          config.layers = 1;
+          cakeLayersInput.value = 1;
+        } else {
+          const currentValue = parseInt(cakeLayersInput.value, 10);
+          const sanitized = Math.max(1, Math.min(5, currentValue || 1));
+          config.layers = sanitized;
+          cakeLayersInput.value = sanitized;
+        }
+      }
+
+      const cakeTextInput = document.getElementById('cake-text');
+      if (cakeTextInput) {
+        cakeTextInput.disabled = !isArtistic;
+        if (isArtistic) {
+          cakeTextInput.value = artisticDraft.cakeText;
+          config.cakeText = artisticDraft.cakeText;
+        } else {
+          artisticDraft.cakeText = cakeTextInput.value || artisticDraft.cakeText;
+          cakeTextInput.value = '';
+          config.cakeText = '';
+        }
+      }
+
+      const specialThemeInput = document.getElementById('special-theme');
+      if (specialThemeInput) {
+        specialThemeInput.disabled = !isArtistic;
+        if (isArtistic) {
+          specialThemeInput.value = artisticDraft.specialTheme;
+          config.specialTheme = artisticDraft.specialTheme;
+        } else {
+          artisticDraft.specialTheme = specialThemeInput.value || artisticDraft.specialTheme;
+          specialThemeInput.value = '';
+          config.specialTheme = '';
+        }
+      }
+
+      document.querySelectorAll('.order-button-label').forEach(label => {
+        label.textContent = isArtistic ? 'Wyślij zapytanie' : 'Zamów ten tort';
+      });
+    }
+
+    function calculatePrice(sizeKey) {
+      const basePrice = pricingRules.basePrices[sizeKey];
+      if (typeof basePrice === 'undefined') {
+        return null;
+      }
+
+      let total = basePrice;
+      total += pricingRules.flavorAdjustments[config.flavor] || 0;
+
+      Object.entries(config.decorations).forEach(([key, isEnabled]) => {
+        if (isEnabled) {
+          total += pricingRules.decorationAdjustments[key] || 0;
+        }
+      });
+
+      return total;
+    }
+
+    function getCalculatedPrices() {
+      return ['small', 'medium', 'large'].reduce((acc, sizeKey) => {
+        const price = calculatePrice(sizeKey);
+        if (price !== null) {
+          acc[sizeKey] = price;
+        }
+        return acc;
+      }, {});
+    }
+
+    function updatePricing() {
+      const sizeKeys = ['small', 'medium', 'large'];
+      const isArtistic = config.size === 'artistic';
+      let selectedDisplay = INDIVIDUAL_PRICING_TEXT;
+
+      sizeKeys.forEach(sizeKey => {
+        const price = calculatePrice(sizeKey);
+        const valueElement = document.querySelector(`[data-price-value="${sizeKey}"]`);
+        if (valueElement && price !== null) {
+          valueElement.textContent = `${priceFormatter.format(price)} zł`;
+        }
+
+        const cardElement = document.querySelector(`[data-price-card="${sizeKey}"]`);
+        if (cardElement) {
+          const isSelected = !isArtistic && config.size === sizeKey;
+          cardElement.classList.toggle('border-playful-pink', isSelected);
+          cardElement.classList.toggle('shadow-lg', isSelected);
+          cardElement.classList.toggle('bg-white', isSelected);
+          cardElement.classList.toggle('bg-white/70', !isSelected);
+        }
+
+        if (!isArtistic && config.size === sizeKey && price !== null) {
+          selectedDisplay = `${priceFormatter.format(price)} zł`;
+        }
+      });
+
+      const summaryPriceElement = document.getElementById('summary-price');
+      if (summaryPriceElement) {
+        summaryPriceElement.textContent = selectedDisplay;
+      }
+
+      return selectedDisplay;
+    }
+
     // Generate AI prompt based on current configuration
     function generateAIPrompt() {
-      const numLayers = Math.max(1, Math.min(5, config.layers));
+      const isArtistic = config.size === 'artistic';
+      const numLayers = isArtistic ? Math.max(1, Math.min(5, config.layers)) : 1;
       
       // Size and layers description
-      const sizeText = config.size === 'small' ? 'small diameter' : 
-                      config.size === 'medium' ? 'medium diameter' : 
-                      'large diameter';
+      const sizeText = isArtistic
+        ? 'custom artistic'
+        : config.size === 'small' ? 'small diameter' : 
+          config.size === 'medium' ? 'medium diameter' : 
+          'large diameter';
       
-      const layerText = numLayers === 1 ? 'single-layer' : 
+      const layerText = numLayers === 1 ? 'single-tier' : 
                        numLayers === 2 ? 'two-tier' :
                        numLayers === 3 ? 'three-tier' :
                        numLayers === 4 ? 'four-tier' :
@@ -964,11 +1176,11 @@
         'with elegant smooth frosting';
       
       // Cake text
-      const cakeTextPart = config.cakeText && config.cakeText.trim() ? 
+      const cakeTextPart = isArtistic && config.cakeText && config.cakeText.trim() ? 
         `, featuring "${config.cakeText.trim()}" written in elegant lettering on top` : '';
       
       // Special theme
-      const themePart = config.specialTheme && config.specialTheme.trim() ? 
+      const themePart = isArtistic && config.specialTheme && config.specialTheme.trim() ? 
         `, incorporating ${config.specialTheme.trim()} theme elements` : '';
       
       // Professional photography description
@@ -1130,10 +1342,17 @@
                   </div>
                 </div>
 
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Data dostawy</label>
-                  <input type="date" id="delivery-date" name="delivery-date"
-                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-playful-pink focus:border-transparent transition-all">
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Data dostawy</label>
+                    <input type="date" id="delivery-date" name="delivery-date"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-playful-pink focus:border-transparent transition-all">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Preferowana godzina</label>
+                    <input type="time" id="delivery-time" name="delivery-time"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-playful-pink focus:border-transparent transition-all">
+                  </div>
                 </div>
 
                 <div>
@@ -1157,7 +1376,7 @@
                 <p><strong>Kolor:</strong> <span id="summary-color">Wybrany</span></p>
                 <p><strong>Smak:</strong> <span id="summary-flavor">Wybrany</span></p>
                 <p><strong>Okazja:</strong> <span id="summary-occasion">Wybrana</span></p>
-                <p class="text-playful-pink font-semibold"><strong>Wartość:</strong> Cena ustalana indywidualnie</p>
+                <p class="text-playful-pink font-semibold"><strong>Orientacyjna cena:</strong> <span id="summary-price">-- zł</span></p>
               </div>
             </div>
 
@@ -1333,7 +1552,9 @@
 
     // Update order summary with current cake configuration
     function updateOrderSummary() {
-      const sizeNames = { small: 'Mały', medium: 'Średni', large: 'Duży' };
+      updatePricing();
+
+      const sizeNames = { small: 'Mały', medium: 'Średni', large: 'Duży', artistic: 'Tort artystyczny' };
       const colorNames = {
         white: 'biały', pink: 'różowy', blue: 'niebieski', green: 'zielony',
         orange: 'pomarańczowy', brown: 'brązowy', red: 'czerwony',
@@ -1345,7 +1566,7 @@
       };
       const flavorNames = {
         vanilla: 'waniliowy', chocolate: 'czekoladowy', strawberry: 'truskawkowy',
-        lemon: 'cytrynowy', caramel: 'karmelowy'
+        lemon: 'cytrynowy', carrot: 'marchewkowy'
       };
 
       document.getElementById('summary-size').textContent = sizeNames[config.size] || config.size;
@@ -1357,14 +1578,16 @@
     // Submit cake order to webhook
     async function submitCakeOrder() {
       // Validate required fields
-      const deliveryMethod = document.querySelector('input[name="delivery-method"]:checked');
-      if (!deliveryMethod) {
+      const deliveryMethodInput = document.querySelector('input[name="delivery-method"]:checked');
+      if (!deliveryMethodInput) {
         alert('Proszę wybrać sposób odbioru (odbiór własny lub dostawa).');
         return;
       }
 
+      const deliveryMethodValue = deliveryMethodInput.value;
+
       // If delivery is selected, validate delivery fields
-      if (deliveryMethod.value === 'delivery') {
+      if (deliveryMethodValue === 'delivery') {
         const street = document.getElementById('street').value.trim();
         const city = document.getElementById('city').value.trim();
         
@@ -1401,33 +1624,53 @@
           phone: document.getElementById('phone').value
         };
 
-        // Get delivery method
-        const deliveryMethod = document.querySelector('input[name="delivery-method"]:checked')?.value || 'pickup';
-        
+        const deliveryDateValue = document.getElementById('delivery-date').value;
+        const deliveryTimeValue = document.getElementById('delivery-time').value;
+        const notesValue = document.getElementById('notes').value;
+
         // Prepare delivery data (only if delivery is selected)
         let deliveryData = null;
-        if (deliveryMethod === 'delivery') {
+        if (deliveryMethodValue === 'delivery') {
           deliveryData = {
             street: document.getElementById('street').value,
             postalCode: document.getElementById('postal-code').value,
             city: document.getElementById('city').value,
-            deliveryDate: document.getElementById('delivery-date').value,
-            notes: document.getElementById('notes').value
+            deliveryDate: deliveryDateValue,
+            deliveryTime: deliveryTimeValue,
+            notes: notesValue
           };
         } else {
           // For pickup, just include notes if provided
-          const notes = document.getElementById('notes').value;
-          if (notes) {
-            deliveryData = { notes: notes };
+          if (notesValue || deliveryDateValue || deliveryTimeValue) {
+            deliveryData = {
+              notes: notesValue,
+              deliveryDate: deliveryDateValue,
+              deliveryTime: deliveryTimeValue
+            };
           }
         }
+
+        const variantPrices = getCalculatedPrices();
+        const selectedPriceValue = config.size === 'artistic' ? null : calculatePrice(config.size);
+        const pricingDetails = {
+          variants: variantPrices,
+          selectedSize: config.size,
+          selectedPrice: selectedPriceValue,
+          displayPrice: config.size === 'artistic'
+            ? INDIVIDUAL_PRICING_TEXT
+            : `${priceFormatter.format(selectedPriceValue)} zł`,
+          pricingType: config.size === 'artistic' ? 'custom' : 'standard',
+          note: config.size === 'artistic'
+            ? 'Cena zostanie ustalona po analizie zamówienia.'
+            : 'Podana kwota obejmuje wariant podstawowy z dwoma przełożeniami.'
+        };
 
         // Prepare order data
         const orderData = {
           cake: {
             type: 'generated_visualizer',
             name: 'Tort wygenerowany AI',
-            config: config,
+            config: JSON.parse(JSON.stringify(config)),
             generatedImageBase64: imageBase64,
             generatedPrompt: generatePrompt()
           },
@@ -1442,7 +1685,11 @@
           decorations: config.decorations,
           customer: customerData,
           delivery: deliveryData,
-          deliveryMethod: deliveryMethod,
+          deliveryMethod: deliveryMethodValue,
+          deliveryDate: deliveryDateValue,
+          deliveryTime: deliveryTimeValue,
+          notes: notesValue,
+          pricing: pricingDetails,
           orderType: 'generated_cake',
           timestamp: new Date().toISOString()
         };

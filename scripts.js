@@ -95,7 +95,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         const target = document.querySelector(href);
         if (target) {
           e.preventDefault(); // Prevent default only if target exists
-          const offsetTop = target.offsetTop - 80; // Account for fixed header (h-16 is 64px, 80px gives more space)
+          const offsetTop = target.offsetTop - 96; // Account for taller fixed header (~96px)
           
           window.scrollTo({
             top: offsetTop,
@@ -239,18 +239,48 @@ async function sendMultipartWebhook(data, eventType) {
  * @returns {string} - Formatted message for contact handling
  */
 function formatContactMessage(contactData) {
+    if (contactData.formType === 'partner') {
+        const {
+            'company-name': companyName,
+            'company-city': companyCity,
+            'company-street': companyStreet,
+            'company-postal-code': companyPostal,
+            'company-website': companyWebsite,
+            'contact-name': contactName,
+            'contact-phone': contactPhone,
+            'contact-email': contactEmail
+        } = contactData;
+
+        let formattedMessage = `🤝 NOWE ZGŁOSZENIE PARTNERSKIE\n\n`;
+        formattedMessage += `📅 Data zgłoszenia: ${new Date().toLocaleString('pl-PL')}\n\n`;
+        formattedMessage += `🏢 DANE FIRMY:\n`;
+        formattedMessage += `• Nazwa: ${companyName || ''}\n`;
+        formattedMessage += `• Adres: ${companyStreet || ''}, ${companyPostal || ''} ${companyCity || ''}\n`;
+        if (companyWebsite) {
+            formattedMessage += `• Strona / profil: ${companyWebsite}\n`;
+        }
+
+        formattedMessage += `\n👤 OSOBA KONTAKTOWA:\n`;
+        formattedMessage += `• Imię i nazwisko: ${contactName || ''}\n`;
+        formattedMessage += `• Telefon: ${contactPhone || ''}\n`;
+        formattedMessage += `• Email: ${contactEmail || ''}\n\n`;
+
+        formattedMessage += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+        formattedMessage += `⚡ Skontaktuj się z partnerem i rozpocznij współpracę!\n`;
+
+        return formattedMessage;
+    }
+
     const { 'first-name': firstName, 'last-name': lastName, email, phone, subject, message } = contactData;
 
     let formattedMessage = `💬 NOWA WIADOMOŚĆ KONTAKTOWA\n\n`;
     formattedMessage += `📅 Data wiadomości: ${new Date().toLocaleString('pl-PL')}\n\n`;
 
-    // Contact Information
     formattedMessage += `👤 DANE KONTAKTOWE:\n`;
     formattedMessage += `• Imię i nazwisko: ${firstName || ''} ${lastName || ''}\n`;
     formattedMessage += `• Email: ${email || ''}\n`;
     formattedMessage += `• Telefon: ${phone || ''}\n\n`;
 
-    // Message Details
     formattedMessage += `📋 SZCZEGÓŁY WIADOMOŚCI:\n`;
     formattedMessage += `• Temat: ${subject || ''}\n`;
     formattedMessage += `• Wiadomość:\n${message || ''}\n\n`;
@@ -267,24 +297,64 @@ function formatContactMessage(contactData) {
  * @returns {string} - Formatted HTML message for email
  */
 function formatContactMessageHTML(contactData) {
+    if (contactData.formType === 'partner') {
+        const {
+            'company-name': companyName,
+            'company-city': companyCity,
+            'company-street': companyStreet,
+            'company-postal-code': companyPostal,
+            'company-website': companyWebsite,
+            'contact-name': contactName,
+            'contact-phone': contactPhone,
+            'contact-email': contactEmail
+        } = contactData;
+
+        const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f7f5f2; padding: 20px; border-radius: 12px;">
+        <div style="background: linear-gradient(135deg, #0F2238, #1a3a5c); color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+            <h2 style="margin: 0; font-size: 24px;">🤝 NOWE ZGŁOSZENIE PARTNERSKIE</h2>
+            <p style="margin: 10px 0 0 0; opacity: 0.9;">📅 ${new Date().toLocaleString('pl-PL')}</p>
+        </div>
+        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h3 style="color: #0F2238; margin: 0 0 15px 0; border-bottom: 2px solid #F472B6; padding-bottom: 8px;">🏢 DANE FIRMY</h3>
+            <ul style="list-style: none; padding: 0; margin: 0; color: #4a5568;">
+                <li style="margin: 8px 0;"><strong>Nazwa:</strong> ${companyName || ''}</li>
+                <li style="margin: 8px 0;"><strong>Adres:</strong> ${companyStreet || ''}, ${companyPostal || ''} ${companyCity || ''}</li>
+                ${companyWebsite ? `<li style="margin: 8px 0;"><strong>Strona / profil:</strong> <a href="${companyWebsite}" style="color: #F472B6; text-decoration: none;">${companyWebsite}</a></li>` : ''}
+            </ul>
+        </div>
+        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h3 style="color: #0F2238; margin: 0 0 15px 0; border-bottom: 2px solid #F472B6; padding-bottom: 8px;">👤 OSOBA KONTAKTOWA</h3>
+            <ul style="list-style: none; padding: 0; margin: 0; color: #4a5568;">
+                <li style="margin: 8px 0;"><strong>Imię i nazwisko:</strong> ${contactName || ''}</li>
+                <li style="margin: 8px 0;"><strong>Telefon:</strong> ${contactPhone || ''}</li>
+                <li style="margin: 8px 0;"><strong>Email:</strong> <a href="mailto:${contactEmail || ''}" style="color: #F472B6; text-decoration: none;">${contactEmail || ''}</a></li>
+            </ul>
+        </div>
+        <div style="background: linear-gradient(135deg, #F472B6, #D7B88F); color: white; padding: 15px; border-radius: 8px; text-align: center;">
+            <strong>⚡ Skontaktuj się z partnerem i rozpocznij współpracę!</strong>
+        </div>
+    </div>`;
+
+        return html;
+    }
+
     const { 'first-name': firstName, 'last-name': lastName, email, phone, subject, message } = contactData;
-    
+
     const html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f7f5f2; padding: 20px; border-radius: 12px;">
         <div style="background: linear-gradient(135deg, #0F2238, #1a3a5c); color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
             <h2 style="margin: 0; font-size: 24px;">💬 NOWA WIADOMOŚĆ KONTAKTOWA</h2>
             <p style="margin: 10px 0 0 0; opacity: 0.9;">📅 ${new Date().toLocaleString('pl-PL')}</p>
         </div>
-        
         <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
             <h3 style="color: #0F2238; margin: 0 0 15px 0; border-bottom: 2px solid #F472B6; padding-bottom: 8px;">👤 DANE KONTAKTOWE</h3>
-            <ul style="list-style: none; padding: 0; margin: 0;">
-                <li style="margin: 8px 0; color: #4a5568;"><strong>Imię i nazwisko:</strong> ${firstName || ''} ${lastName || ''}</li>
-                <li style="margin: 8px 0; color: #4a5568;"><strong>Email:</strong> <a href="mailto:${email || ''}" style="color: #F472B6; text-decoration: none;">${email || ''}</a></li>
-                <li style="margin: 8px 0; color: #4a5568;"><strong>Telefon:</strong> ${phone || ''}</li>
+            <ul style="list-style: none; padding: 0; margin: 0; color: #4a5568;">
+                <li style="margin: 8px 0;"><strong>Imię i nazwisko:</strong> ${firstName || ''} ${lastName || ''}</li>
+                <li style="margin: 8px 0;"><strong>Email:</strong> <a href="mailto:${email || ''}" style="color: #F472B6; text-decoration: none;">${email || ''}</a></li>
+                <li style="margin: 8px 0;"><strong>Telefon:</strong> ${phone || ''}</li>
             </ul>
         </div>
-        
         <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
             <h3 style="color: #0F2238; margin: 0 0 15px 0; border-bottom: 2px solid #F472B6; padding-bottom: 8px;">📋 SZCZEGÓŁY WIADOMOŚCI</h3>
             <div style="margin: 12px 0; color: #4a5568;"><strong>Temat:</strong> ${subject || ''}</div>
@@ -293,12 +363,11 @@ function formatContactMessageHTML(contactData) {
                 <div style="background: #f7f5f2; padding: 15px; border-radius: 6px; margin-top: 8px; border-left: 4px solid #F472B6; white-space: pre-wrap; color: #2d3748;">${message || ''}</div>
             </div>
         </div>
-        
         <div style="background: linear-gradient(135deg, #F472B6, #D7B88F); color: white; padding: 15px; border-radius: 8px; text-align: center;">
             <strong>⚡ Prosimy o szybką odpowiedź na wiadomość!</strong>
         </div>
     </div>`;
-    
+
     return html;
 }
 
@@ -492,11 +561,11 @@ function formatOrderMessageHTML(orderData) {
  * @param {FormData|Object} formData - Contact form data
  * @returns {Promise<boolean>} - Success status
  */
-async function sendContactFormToWebhook(formData) {
+async function sendContactFormToWebhook(formData, formType = 'contact') {
     const data = formData instanceof FormData ? Object.fromEntries(formData) : formData;
     const contactData = {
         ...data,
-        formType: 'contact'
+        formType
     };
 
     // Create formatted messages for contact handling
@@ -821,7 +890,7 @@ function checkHashForTab() {
         // Scroll again after tab switch to ensure correct position
         const target = document.getElementById('for-bakers-section');
         if (target) {
-            const offsetTop = target.offsetTop - 80;
+            const offsetTop = target.offsetTop - 96;
             window.scrollTo({ top: offsetTop, behavior: 'auto' });
         }
       }

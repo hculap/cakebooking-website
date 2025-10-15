@@ -113,11 +113,14 @@
   <!-- Navigation -->
   <nav class="fixed w-full nav-midnight shadow-sm z-50">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="flex justify-between h-16">
+      <div class="flex items-center justify-between header-height">
         <div class="flex items-center">
           <a href="index.html" aria-label="CakeBooking - Strona główna" class="flex-shrink-0 flex items-center">
-            <img src="sygnet-cakebooking.svg" alt="CakeBooking" class="w-8 h-8 mr-3">
-            <span class="font-display font-bold text-3xl text-pure-white">CakeBooking</span>
+            <img src="sygnet-cakebooking.svg" alt="CakeBooking" class="logo-signet mr-3">
+            <span class="font-display font-bold text-3xl brand-mark">
+              <span class="brand-word text-pure-white">Cake</span>
+              <span class="brand-word text-gradient-gold-pink">Booking</span>
+            </span>
           </a>
         </div>
         
@@ -271,7 +274,7 @@
         <!-- CTA Button -->
         <div class="pt-4 border-t border-dove-gray/20">
           <a href="zamowienie.html" class="w-full pill-button-pink flex items-center justify-center text-white text-base font-medium px-6 py-3 shadow-lg no-underline">
-            <img src="sygnet-cakebooking.svg" alt="CakeBooking" class="w-5 h-5 mr-3">
+            <img src="sygnet-cakebooking.svg" alt="CakeBooking" class="logo-signet mr-3">
             Zamów tort
           </a>
         </div>
@@ -319,6 +322,138 @@
     </div>
   </section>
 
+  <!-- Partner onboarding section -->
+  <section class="py-20 bg-white relative overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 items-start">
+        <div class="space-y-6">
+          <span class="text-xs font-semibold tracking-[0.2em] uppercase text-gradient-gold-pink">Dla cukierni</span>
+          <h2 class="font-display text-3xl md:text-4xl font-bold text-midnight-navy">🧁 Zostań partnerem CakeBooking</h2>
+          <p class="text-lg text-dove-gray leading-relaxed">
+            Rozwijaj swoją cukiernię z pomocą nowoczesnej aplikacji, która łączy klientów z najlepszymi pracowniami tortów i słodkości w Polsce.
+          </p>
+          <p class="text-lg text-dove-gray leading-relaxed">
+            Z CakeBooking dotrzesz do nowych klientów, zyskasz więcej zamówień i ułatwisz cały proces obsługi – od zapytania po odbiór zamówienia.
+          </p>
+
+          <div class="space-y-4">
+            <h3 class="font-semibold text-midnight-navy text-xl">Dlaczego warto dołączyć?</h3>
+            <ul class="space-y-3 text-dove-gray leading-relaxed">
+              <li class="flex"><span class="mr-3 text-playful-pink">•</span>Zwiększysz widoczność swojej marki wśród tysięcy użytkowników aplikacji.</li>
+              <li class="flex"><span class="mr-3 text-playful-pink">•</span>Otrzymasz bezpośrednie zapytania o zamówienia z Twojej okolicy.</li>
+              <li class="flex"><span class="mr-3 text-playful-pink">•</span>Zarządzisz terminami i rezerwacjami w jednym miejscu.</li>
+              <li class="flex"><span class="mr-3 text-playful-pink">•</span>Skupisz się na tworzeniu — my zajmiemy się technologią.</li>
+            </ul>
+          </div>
+
+          <p class="text-lg text-dove-gray leading-relaxed">
+            Dołącz do grona lokalnych cukierni, które rosną razem z CakeBooking 💛
+          </p>
+        </div>
+
+        <div class="vitreous-card p-8">
+          <h3 class="font-display text-2xl font-bold text-midnight-navy mb-6">Formularz „Zostań partnerem CakeBooking”</h3>
+          <form id="partner-form" class="space-y-6">
+            <input type="hidden" name="subject" value="Zgłoszenie partnera CakeBooking">
+
+            <div class="space-y-4">
+              <h4 class="font-semibold text-midnight-navy text-sm uppercase tracking-wide">Dane firmy</h4>
+              <div>
+                <label for="company-name" class="block text-sm font-medium text-midnight-navy mb-2">Nazwa cukierni / pracowni *</label>
+                <input type="text" id="company-name" name="company-name" required
+                       class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-champagne-gold focus:ring-2 focus:ring-playful-pink/20 transition-colors">
+              </div>
+              <div class="grid md:grid-cols-3 gap-4">
+                <div>
+                  <label for="company-city" class="block text-sm font-medium text-midnight-navy mb-2">Miasto *</label>
+                  <input type="text" id="company-city" name="company-city" required
+                         class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-champagne-gold focus:ring-2 focus:ring-playful-pink/20 transition-colors">
+                </div>
+                <div class="md:col-span-2">
+                  <label for="company-street" class="block text-sm font-medium text-midnight-navy mb-2">Ulica i numer *</label>
+                  <input type="text" id="company-street" name="company-street" required
+                         class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-champagne-gold focus:ring-2 focus:ring-playful-pink/20 transition-colors">
+                </div>
+                <div>
+                  <label for="company-postal-code" class="block text-sm font-medium text-midnight-navy mb-2">Kod pocztowy *</label>
+                  <input type="text" id="company-postal-code" name="company-postal-code" required
+                         class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-champagne-gold focus:ring-2 focus:ring-playful-pink/20 transition-colors">
+                </div>
+              </div>
+              <div>
+                <label for="company-website" class="block text-sm font-medium text-midnight-navy mb-2">Strona internetowa / profil w social media <span class="text-dove-gray">(opcjonalnie)</span></label>
+                <input type="url" id="company-website" name="company-website"
+                       class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-champagne-gold focus:ring-2 focus:ring-playful-pink/20 transition-colors" placeholder="https://">
+              </div>
+            </div>
+
+            <div class="space-y-4 pt-4">
+              <h4 class="font-semibold text-midnight-navy text-sm uppercase tracking-wide">Dane kontaktowe</h4>
+              <div>
+                <label for="contact-name" class="block text-sm font-medium text-midnight-navy mb-2">Imię i nazwisko osoby kontaktowej *</label>
+                <input type="text" id="contact-name" name="contact-name" required
+                       class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-champagne-gold focus:ring-2 focus:ring-playful-pink/20 transition-colors">
+              </div>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label for="contact-phone" class="block text-sm font-medium text-midnight-navy mb-2">Numer telefonu *</label>
+                  <input type="tel" id="contact-phone" name="contact-phone" required
+                         class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-champagne-gold focus:ring-2 focus:ring-playful-pink/20 transition-colors">
+                </div>
+                <div>
+                  <label for="contact-email" class="block text-sm font-medium text-midnight-navy mb-2">Adres e-mail *</label>
+                  <input type="email" id="contact-email" name="contact-email" required
+                         class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-champagne-gold focus:ring-2 focus:ring-playful-pink/20 transition-colors">
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3">
+              <input type="checkbox" id="partner-privacy" name="partner-privacy" required
+                     class="mt-1 h-4 w-4 icon-gradient-gold-pink focus:ring-playful-pink border-gray-300 rounded">
+              <label for="partner-privacy" class="text-sm text-dove-gray">
+                Zgadzam się z <a href="#" class="icon-gradient-gold-pink hover:underline">polityką prywatności</a> i przetwarzaniem danych przekazanych w zgłoszeniu partnerskim *
+              </label>
+            </div>
+
+            <button type="submit" class="w-full pill-button-pink flex items-center justify-center text-lg font-medium px-8 py-4 shadow-lg text-white no-underline">
+              <i class="fa-solid fa-handshake h-5 w-5 mr-3"></i>
+              Wyślij zgłoszenie
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Delivery and customer guidance -->
+  <section class="py-16 bg-porcelain-white">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="vitreous-card p-8 h-full">
+          <h3 class="font-display text-2xl font-bold text-midnight-navy mb-4">🚚 Dostawa dla klientów</h3>
+          <p class="text-dove-gray leading-relaxed mb-4">Warunki dostawy mogą różnić się w zależności od cukierni lub pracowni, z którą współpracujesz.</p>
+          <ul class="space-y-3 text-dove-gray leading-relaxed">
+            <li class="flex"><span class="mr-3 text-playful-pink">•</span>Zawsze bezpłatny odbiór osobisty w cukierni/pracowni.</li>
+            <li class="flex"><span class="mr-3 text-playful-pink">•</span>Dla cukierni Pan Tort Zielonka, ul. Marecka 17 oferujemy dostawę na terenie Warszawy.</li>
+            <li class="flex"><span class="mr-3 text-playful-pink">•</span>Dostawa w promieniu 30 km od Warszawy (miejscowości ościenne) w cenie 40 zł.</li>
+          </ul>
+        </div>
+        <div class="vitreous-card p-8 h-full">
+          <h3 class="font-display text-2xl font-bold text-midnight-navy mb-4">📞 Dane przy zamówieniu tortu</h3>
+          <p class="text-dove-gray leading-relaxed mb-4">Aby szybko obsłużyć Twoje zamówienie, przygotuj poniższe informacje:</p>
+          <ul class="space-y-3 text-dove-gray leading-relaxed">
+            <li class="flex"><span class="mr-3 text-playful-pink">•</span>Imię i nazwisko zamawiającego.</li>
+            <li class="flex"><span class="mr-3 text-playful-pink">•</span>Adres e-mail do potwierdzeń.</li>
+            <li class="flex"><span class="mr-3 text-playful-pink">•</span>Numer telefonu do kontaktu w dniu realizacji.</li>
+            <li class="flex"><span class="mr-3 text-playful-pink">•</span>Uwagi do zamówienia (np. alergie, preferencje dekoracyjne).</li>
+            <li class="flex"><span class="mr-3 text-playful-pink">•</span>Termin realizacji: konkretny dzień oraz preferowana godzina odbioru/dostawy.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Contact Form Section -->
   <section class="py-20 bg-porcelain-white relative overflow-hidden">
     <!-- Art Deco Elements -->
@@ -348,7 +483,7 @@
         <!-- Contact Form -->
         <div class="vitreous-card p-8">
           <h2 class="font-display text-3xl font-bold text-midnight-navy mb-6">Napisz do nas</h2>
-          <form class="space-y-6">
+          <form id="contact-form" class="space-y-6">
             <div class="grid md:grid-cols-2 gap-6">
               <div>
                 <label for="first-name" class="block text-sm font-medium text-midnight-navy mb-2">Imię *</label>
@@ -493,8 +628,11 @@
         <div class="lg:col-span-2">
           <div class="flex items-center mb-4">
             <a href="index.html" aria-label="CakeBooking - Strona główna" class="flex items-center">
-              <img src="sygnet-cakebooking.svg" alt="CakeBooking" class="w-8 h-8 mr-3">
-              <span class="font-display font-bold text-3xl text-pure-white">CakeBooking</span>
+              <img src="sygnet-cakebooking.svg" alt="CakeBooking" class="logo-signet mr-3">
+              <span class="font-display font-bold text-3xl brand-mark">
+                <span class="brand-word text-pure-white">Cake</span>
+                <span class="brand-word text-gradient-gold-pink">Booking</span>
+              </span>
             </a>
           </div>
           <p class="text-dove-gray leading-relaxed mb-6 max-w-md">
@@ -652,7 +790,8 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-      const contactForm = document.querySelector('.vitreous-card form');
+      const contactForm = document.getElementById('contact-form');
+      const partnerForm = document.getElementById('partner-form');
 
       // Modal event listeners
       document.getElementById('close-success-modal')?.addEventListener('click', () => {
@@ -676,8 +815,10 @@
         }
       });
 
-      if (contactForm) {
-        contactForm.addEventListener('submit', async function(e) {
+      const attachFormHandler = (form, formType) => {
+        if (!form) return;
+
+        form.addEventListener('submit', async function(e) {
           e.preventDefault();
 
           const submitButton = this.querySelector('button[type="submit"]');
@@ -690,7 +831,7 @@
           try {
             // Send form data to webhook
             const formData = new FormData(this);
-            const success = await sendContactFormToWebhook(formData);
+            const success = await sendContactFormToWebhook(formData, formType);
 
             if (success) {
               // Show success modal
@@ -715,7 +856,10 @@
             submitButton.innerHTML = originalText;
           }
         });
-      }
+      };
+
+      attachFormHandler(contactForm, 'contact');
+      attachFormHandler(partnerForm, 'partner');
     });
   </script>
 

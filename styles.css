@@ -16,7 +16,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 96px;
   background-color: var(--porcelain-white);
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -413,6 +413,35 @@ h1, h2, h3, .brand-heading {
 }
 
 /* Navigation styling */
+.header-height {
+  height: 6rem;
+  align-items: center;
+}
+
+.logo-signet {
+  width: 3.5rem;
+  height: 3.5rem;
+  transition: transform 200ms ease;
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.brand-mark .brand-word {
+  line-height: 1;
+  display: inline-block;
+}
+
+@media (min-width: 768px) {
+  .logo-signet {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+}
+
 .nav-midnight {
   background: rgba(15, 34, 56, 0.7);
   backdrop-filter: blur(20px) saturate(180%);
@@ -559,5 +588,3 @@ h1, h2, h3, .brand-heading {
 .fa-magnifying-glass {
   transition: all 0.2s ease;
 }
-
-

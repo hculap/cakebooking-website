@@ -31,8 +31,11 @@ const colorNames = {
 const sizeNames = {
   small: 'mały',
   medium: 'średni',
-  large: 'duży'
+  large: 'duży',
+  artistic: 'artystyczny'
 };
+const INDIVIDUAL_PRICING_TEXT = 'Wycena indywidualna po zgłoszeniu';
+const priceFormatter = new Intl.NumberFormat('pl-PL', { maximumFractionDigits: 0 });
 
 // Occasion names mapping
 const occasionNames = {
@@ -57,10 +60,12 @@ const flavorNames = {
 // ===================================================================
 
 function generatePrompt() {
+  const isArtistic = config.size === 'artistic';
   let prompt = `Profesjonalny tort ${occasionNames[config.occasion]}, `;
   
   // Size and layers
-  prompt += `${sizeNames[config.size]} tort ${config.layers}-warstwowy, `;
+  const sizeLabel = sizeNames[config.size] || 'spersonalizowany';
+  prompt += `${sizeLabel} tort ${config.layers}-warstwowy, `;
   
   // Color
   prompt += `${colorNames[config.color]} kolor, `;
@@ -85,12 +90,12 @@ function generatePrompt() {
   }
   
   // Special theme
-  if (config.specialTheme) {
+  if (isArtistic && config.specialTheme) {
     prompt += `motyw ${config.specialTheme}, `;
   }
   
   // Cake text
-  if (config.cakeText) {
+  if (isArtistic && config.cakeText) {
     prompt += `z napisem "${config.cakeText}", `;
   }
   
@@ -385,7 +390,7 @@ async function generateImage() {
 
 // Format order details into HTML for email display
 function formatOrderMessageHTML(orderData) {
-    const { customer, cake, size, layers, cakeText, occasion, color, additionalColor, specialTheme, flavor, decorations = {}, delivery, deliveryMethod, deliveryAddress, deliveryDate, notes, total, orderType, hasImageAttachment, generatedPrompt } = orderData;
+    const { customer, cake, size, layers, cakeText, occasion, color, additionalColor, specialTheme, flavor, decorations = {}, delivery, deliveryMethod, deliveryAddress, deliveryDate, deliveryTime, notes, total, orderType, hasImageAttachment, generatedPrompt, pricing } = orderData;
     
     let html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f7f5f2; padding: 20px; border-radius: 12px;">
@@ -412,7 +417,11 @@ function formatOrderMessageHTML(orderData) {
             <h3 style="color: #0F2238; margin: 0 0 15px 0; border-bottom: 2px solid #F472B6; padding-bottom: 8px;">🚚 SPOSÓB ODBIORU</h3>`;
     
     // Use deliveryMethod if available, fallback to old delivery field
-    const method = deliveryMethod || delivery;
+    const deliveryDetails = delivery && typeof delivery === 'object' ? delivery : {};
+    const method = deliveryMethod || (typeof delivery === 'string' ? delivery : undefined);
+    const deliveryDateValue = deliveryDate || deliveryDetails.deliveryDate;
+    const deliveryTimeValue = deliveryTime || deliveryDetails.deliveryTime;
+    const deliveryNotes = notes || deliveryDetails.notes;
     
     if (method === 'pickup') {
         html += `<p style="margin: 8px 0; color: #4a5568;">• Odbiór własny</p>`;
@@ -429,12 +438,16 @@ function formatOrderMessageHTML(orderData) {
         }
     }
     
-    if (deliveryDate) {
-        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Data dostawy:</strong> ${deliveryDate}</p>`;
+    if (deliveryDateValue) {
+        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Data dostawy:</strong> ${deliveryDateValue}</p>`;
     }
-    
-    if (notes) {
-        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Uwagi:</strong> ${notes}</p>`;
+
+    if (deliveryTimeValue) {
+        html += `<p style="margin: 4px 0 12px 0; color: #4a5568;"><strong>Godzina:</strong> ${deliveryTimeValue}</p>`;
+    }
+
+    if (deliveryNotes) {
+        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Uwagi:</strong> ${deliveryNotes}</p>`;
     }
     html += `</div>`;
     
@@ -447,7 +460,7 @@ function formatOrderMessageHTML(orderData) {
         html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Tort:</strong> ${cake.name}</p>`;
     }
     if (size) {
-        const sizeNames = { small: 'Mały', medium: 'Średni', large: 'Duży' };
+        const sizeNames = { small: 'Mały', medium: 'Średni', large: 'Duży', artistic: 'Tort artystyczny' };
         const displaySize = sizeNames[size] || size;
         html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Rozmiar:</strong> ${displaySize}</p>`;
     }
@@ -510,6 +523,34 @@ function formatOrderMessageHTML(orderData) {
     
     html += `</div>`;
     
+    if (pricing) {
+        const sizeLabels = { small: 'Mały', medium: 'Średni', large: 'Duży' };
+        html += `
+        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h3 style="color: #0F2238; margin: 0 0 15px 0; border-bottom: 2px solid #F472B6; padding-bottom: 8px;">💰 Ceny orientacyjne</h3>
+            <p style="margin: 8px 0; color: #4a5568;"><strong>Wybrany wariant:</strong> ${pricing.displayPrice || INDIVIDUAL_PRICING_TEXT}</p>`;
+        
+        const variantEntries = Object.entries(pricing.variants || {});
+        variantEntries.forEach(([variantKey, variantValue]) => {
+            const formattedValue = Number.isFinite(variantValue) ? `${priceFormatter.format(variantValue)} zł` : (variantValue ?? '—');
+            const label = sizeLabels[variantKey] || variantKey;
+            const isSelected = pricing.selectedSize === variantKey;
+            const lineStyle = isSelected ? 'margin: 6px 0; font-weight: 600; color: #0F2238;' : 'margin: 6px 0; color: #4a5568;';
+            const prefix = isSelected ? '⭐ ' : '';
+            html += `<p style="${lineStyle}">${prefix}${label}: ${formattedValue}</p>`;
+        });
+
+        if (pricing.selectedSize === 'artistic') {
+            html += `<p style="margin: 6px 0; font-weight: 600; color: #0F2238;">⭐ Tort artystyczny: ${pricing.displayPrice || INDIVIDUAL_PRICING_TEXT}</p>`;
+        }
+
+        if (pricing.note) {
+            html += `<p style="margin: 10px 0 0 0; color: #6b7280; font-size: 13px;"><em>${pricing.note}</em></p>`;
+        }
+
+        html += `</div>`;
+    }
+    
     // Cake Image - Show attachment message instead of embedded image
     if (hasImageAttachment) {
         html += `
@@ -542,7 +583,7 @@ function formatOrderMessageHTML(orderData) {
 
 // Format order details into plain text for email
 function formatOrderMessage(orderData) {
-    const { customer, cake, size, layers, cakeText, occasion, color, additionalColor, specialTheme, flavor, decorations = {}, delivery, deliveryMethod, deliveryAddress, deliveryDate, notes, total, orderType, generatedPrompt } = orderData;
+    const { customer, cake, size, layers, cakeText, occasion, color, additionalColor, specialTheme, flavor, decorations = {}, delivery, deliveryMethod, deliveryAddress, deliveryDate, deliveryTime, notes, total, orderType, generatedPrompt, pricing } = orderData;
 
     let message = `🧁 NOWE ZAMÓWIENIE TORTU\n\n`;
     message += `📅 ${new Date().toLocaleString('pl-PL')}\n`;
@@ -558,7 +599,11 @@ function formatOrderMessage(orderData) {
     message += `\n🚚 SPOSÓB ODBIORU:\n`;
     
     // Use deliveryMethod if available, fallback to old delivery field
-    const method = deliveryMethod || delivery;
+    const deliveryDetails = delivery && typeof delivery === 'object' ? delivery : {};
+    const method = deliveryMethod || (typeof delivery === 'string' ? delivery : undefined);
+    const deliveryDateValue = deliveryDate || deliveryDetails.deliveryDate;
+    const deliveryTimeValue = deliveryTime || deliveryDetails.deliveryTime;
+    const deliveryNotes = notes || deliveryDetails.notes;
     
     if (method === 'pickup') {
         message += `• Odbiór własny\n`;
@@ -573,12 +618,15 @@ function formatOrderMessage(orderData) {
         }
     }
     
-    if (deliveryDate) {
-        message += `• Data dostawy: ${deliveryDate}\n`;
+    if (deliveryDateValue) {
+        message += `• Data dostawy: ${deliveryDateValue}\n`;
     }
-    
-    if (notes) {
-        message += `• Uwagi: ${notes}\n`;
+    if (deliveryTimeValue) {
+        message += `• Preferowana godzina: ${deliveryTimeValue}\n`;
+    }
+
+    if (deliveryNotes) {
+        message += `• Uwagi: ${deliveryNotes}\n`;
     }
 
     // Cake Details
@@ -590,7 +638,7 @@ function formatOrderMessage(orderData) {
     message += `[OBRAZ AI - ZAŁĄCZONY DO EMAILA]\n`;
     
     if (size) {
-        const sizeNames = { small: 'Mały (do 8 osób)', medium: 'Średni (do 12 osób)', large: 'Duży (do 16 osób)' };
+        const sizeNames = { small: 'Mały (do 8 osób)', medium: 'Średni (do 12 osób)', large: 'Duży (do 16 osób)', artistic: 'Tort artystyczny (indywidualny projekt)' };
         message += `Rozmiar: ${sizeNames[size] || size}\n`;
     }
     if (layers) {
@@ -638,6 +686,26 @@ function formatOrderMessage(orderData) {
             selectedDecorations.forEach(decoration => {
                 message += `• ${decoration}\n`;
             });
+        }
+    }
+
+    if (pricing) {
+        message += `\n💰 CENY ORIENTACYJNE:\n`;
+        if (pricing.displayPrice) {
+            message += `Wybrany wariant: ${pricing.displayPrice}\n`;
+        }
+        const variantEntries = Object.entries(pricing.variants || {});
+        variantEntries.forEach(([variantKey, variantValue]) => {
+            const labelMap = { small: 'Mały', medium: 'Średni', large: 'Duży' };
+            const formattedValue = Number.isFinite(variantValue) ? `${priceFormatter.format(variantValue)} zł` : (variantValue ?? '—');
+            const prefix = pricing.selectedSize === variantKey ? '⭐ ' : '• ';
+            message += `${prefix}${labelMap[variantKey] || variantKey}: ${formattedValue}\n`;
+        });
+        if (pricing.selectedSize === 'artistic') {
+            message += `⭐ Tort artystyczny: ${pricing.displayPrice || INDIVIDUAL_PRICING_TEXT}\n`;
+        }
+        if (pricing.note) {
+            message += `${pricing.note}\n`;
         }
     }
 
@@ -733,19 +801,22 @@ async function sendCakeOrderToWebhook(orderData, customerData) {
     specialTheme: orderData.specialTheme,
     flavor: orderData.flavor,
     decorations: orderData.decorations,
+    deliveryMethod: orderData.deliveryMethod || (orderData.delivery?.street ? 'delivery' : 'pickup'),
     delivery: orderData.delivery?.street ? 'delivery' : 'pickup',
     deliveryAddress: orderData.delivery?.street ? {
       street: orderData.delivery.street,
       postalCode: orderData.delivery.postalCode,
       city: orderData.delivery.city
     } : null,
-    deliveryDate: orderData.delivery?.deliveryDate,
-    notes: orderData.delivery?.notes,
+    deliveryDate: orderData.delivery?.deliveryDate || orderData.deliveryDate,
+    deliveryTime: orderData.delivery?.deliveryTime || orderData.deliveryTime,
+    notes: orderData.delivery?.notes || orderData.notes,
     total: orderData.total || 0,
     orderType: 'generated_cake',
     cakeImageUrl: null, // No image URL - sending as multipart
     hasImageAttachment: imageBlob ? true : false,
     generatedPrompt: orderData.cake?.generatedPrompt,
+    pricing: orderData.pricing,
     formType: 'generated_cake_order',
     orderDate: new Date().toISOString()
   };
