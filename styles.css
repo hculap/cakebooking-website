@@ -6,12 +6,343 @@
   --playful-pink: #E479B4; /* Lukrowy róż */
   --champagne-gold-start: #DCB688; /* Kajmakowy beż */
   --champagne-gold-end: #E8C7A0; /* Lighter beige for gradients */
-  
+
   /* Supporting colors */
   --porcelain-white: #F7F5F2;
   --blush-rose: #D9A8A6;
   --dove-gray: #BFCAD9;
   --pure-white: #FFFFFF;
+}
+
+/* ========================================
+   DARK READER OVERRIDE
+   Force all brand colors and gradients to stay consistent
+   when Dark Reader browser extension is active
+   ======================================== */
+
+/* Tell Dark Reader to not process this page */
+html[data-darkreader-mode],
+html[data-darkreader-scheme] {
+  color-scheme: light !important;
+}
+
+/* Force all CSS custom properties to stay unchanged */
+[data-darkreader-mode] :root,
+[data-darkreader-scheme] :root {
+  --midnight-navy: #1A2C46 !important;
+  --playful-pink: #E479B4 !important;
+  --champagne-gold-start: #DCB688 !important;
+  --champagne-gold-end: #E8C7A0 !important;
+  --porcelain-white: #F7F5F2 !important;
+  --blush-rose: #D9A8A6 !important;
+  --dove-gray: #BFCAD9 !important;
+  --pure-white: #FFFFFF !important;
+}
+
+/* Preserve body and background colors */
+[data-darkreader-mode] body,
+[data-darkreader-scheme] body {
+  background-color: #F7F5F2 !important;
+  color: #1A2C46 !important;
+}
+
+/* Explicitly preserve all button styles with gradients */
+[data-darkreader-mode] .pill-button,
+[data-darkreader-scheme] .pill-button {
+  background: linear-gradient(135deg, #DCB688, #E8C7A0) !important;
+  background-image: linear-gradient(135deg, #DCB688, #E8C7A0) !important;
+  color: #1A2C46 !important;
+  border: none !important;
+  filter: none !important;
+}
+
+[data-darkreader-mode] .pill-button-pink,
+[data-darkreader-scheme] .pill-button-pink {
+  background: #E479B4 !important;
+  background-color: #E479B4 !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  filter: none !important;
+}
+
+[data-darkreader-mode] .pill-button-secondary,
+[data-darkreader-scheme] .pill-button-secondary {
+  background: #F7F5F2 !important;
+  background-color: #F7F5F2 !important;
+  border: 2px solid #D9A8A6 !important;
+  border-color: #D9A8A6 !important;
+  color: #1A2C46 !important;
+  filter: none !important;
+}
+
+[data-darkreader-mode] .pill-button-secondary:hover,
+[data-darkreader-scheme] .pill-button-secondary:hover {
+  background: #D9A8A6 !important;
+  background-color: #D9A8A6 !important;
+  color: #FFFFFF !important;
+  filter: none !important;
+}
+
+[data-darkreader-mode] .ghost-button,
+[data-darkreader-scheme] .ghost-button {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: 2px solid #DCB688 !important;
+  border-color: #DCB688 !important;
+  color: #FFFFFF !important;
+  filter: none !important;
+}
+
+[data-darkreader-mode] .ghost-button:hover,
+[data-darkreader-scheme] .ghost-button:hover {
+  background: #DCB688 !important;
+  background-color: #DCB688 !important;
+  color: #1A2C46 !important;
+  filter: none !important;
+}
+
+/* Preserve offer badge gradient */
+[data-darkreader-mode] .offer-badge,
+[data-darkreader-scheme] .offer-badge {
+  background: linear-gradient(135deg, #D9A8A6, #E8B9B7) !important;
+  background-image: linear-gradient(135deg, #D9A8A6, #E8B9B7) !important;
+  color: #FFFFFF !important;
+  border: 2px solid #FFFFFF !important;
+  border-color: #FFFFFF !important;
+  filter: none !important;
+}
+
+/* Preserve vitreous card styles */
+[data-darkreader-mode] .vitreous-card,
+[data-darkreader-scheme] .vitreous-card {
+  background: rgba(247, 245, 242, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  filter: none !important;
+}
+
+[data-darkreader-mode] .vitreous-card::before,
+[data-darkreader-scheme] .vitreous-card::before {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent) !important;
+  background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent) !important;
+  filter: none !important;
+}
+
+[data-darkreader-mode] .vitreous-card--dark,
+[data-darkreader-scheme] .vitreous-card--dark {
+  background: rgba(15, 34, 56, 0.4) !important;
+  border: 1px solid rgba(215, 184, 143, 0.2) !important;
+  border-color: rgba(215, 184, 143, 0.2) !important;
+  filter: none !important;
+}
+
+[data-darkreader-mode] .vitreous-card--dark::before,
+[data-darkreader-scheme] .vitreous-card--dark::before {
+  background: linear-gradient(90deg, transparent, rgba(215, 184, 143, 0.3), transparent) !important;
+  background-image: linear-gradient(90deg, transparent, rgba(215, 184, 143, 0.3), transparent) !important;
+  filter: none !important;
+}
+
+/* Preserve text gradient classes */
+[data-darkreader-mode] .text-gradient-gold-pink,
+[data-darkreader-scheme] .text-gradient-gold-pink {
+  background: linear-gradient(135deg, #DCB688, #E479B4) !important;
+  background-image: linear-gradient(135deg, #DCB688, #E479B4) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  filter: none !important;
+}
+
+[data-darkreader-mode] .text-gradient-gold,
+[data-darkreader-scheme] .text-gradient-gold {
+  background: linear-gradient(135deg, #DCB688, #E8C7A0) !important;
+  background-image: linear-gradient(135deg, #DCB688, #E8C7A0) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  filter: none !important;
+}
+
+[data-darkreader-mode] .icon-gradient-gold-pink,
+[data-darkreader-scheme] .icon-gradient-gold-pink {
+  background: linear-gradient(135deg, #DCB688, #E479B4) !important;
+  background-image: linear-gradient(135deg, #DCB688, #E479B4) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  filter: none !important;
+}
+
+/* Preserve all text colors */
+[data-darkreader-mode] .text-midnight-navy,
+[data-darkreader-scheme] .text-midnight-navy {
+  color: #1A2C46 !important;
+}
+
+[data-darkreader-mode] .text-pure-white,
+[data-darkreader-scheme] .text-pure-white {
+  color: #FFFFFF !important;
+}
+
+[data-darkreader-mode] .text-champagne-gold,
+[data-darkreader-scheme] .text-champagne-gold {
+  color: #DCB688 !important;
+}
+
+[data-darkreader-mode] .text-blush-rose,
+[data-darkreader-scheme] .text-blush-rose {
+  color: #D9A8A6 !important;
+}
+
+[data-darkreader-mode] .text-dove-gray,
+[data-darkreader-scheme] .text-dove-gray {
+  color: #BFCAD9 !important;
+}
+
+/* Preserve all background colors */
+[data-darkreader-mode] .bg-midnight-navy,
+[data-darkreader-scheme] .bg-midnight-navy {
+  background-color: #1A2C46 !important;
+  filter: none !important;
+}
+
+[data-darkreader-mode] .bg-porcelain-white,
+[data-darkreader-scheme] .bg-porcelain-white {
+  background-color: #F7F5F2 !important;
+  filter: none !important;
+}
+
+[data-darkreader-mode] .bg-blush-rose,
+[data-darkreader-scheme] .bg-blush-rose {
+  background-color: #D9A8A6 !important;
+  filter: none !important;
+}
+
+/* Preserve hero gradient */
+[data-darkreader-mode] .hero-gradient,
+[data-darkreader-scheme] .hero-gradient {
+  background: linear-gradient(135deg, #1A2C46 0%, #1a3a5c 100%) !important;
+  background-image: linear-gradient(135deg, #1A2C46 0%, #1a3a5c 100%) !important;
+  filter: none !important;
+}
+
+/* Preserve navigation styles with transparency */
+[data-darkreader-mode] .nav-midnight,
+[data-darkreader-scheme] .nav-midnight {
+  background: rgba(15, 34, 56, 0.7) !important;
+  background-color: rgba(15, 34, 56, 0.7) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+  filter: none !important;
+}
+
+[data-darkreader-mode] .nav-midnight.scrolled,
+[data-darkreader-scheme] .nav-midnight.scrolled {
+  background: rgba(15, 34, 56, 0.9) !important;
+  background-color: rgba(15, 34, 56, 0.9) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.15) !important;
+  filter: none !important;
+}
+
+/* Preserve Art Deco elements */
+[data-darkreader-mode] .art-deco-line,
+[data-darkreader-scheme] .art-deco-line {
+  background: linear-gradient(to bottom, transparent, #E479B4, transparent) !important;
+  background-image: linear-gradient(to bottom, transparent, #E479B4, transparent) !important;
+  filter: none !important;
+}
+
+[data-darkreader-mode] .art-deco-dot,
+[data-darkreader-scheme] .art-deco-dot {
+  background: #E479B4 !important;
+  background-color: #E479B4 !important;
+  box-shadow: 0 0 8px #E479B4 !important;
+  filter: none !important;
+}
+
+/* Preserve sparkle colors */
+[data-darkreader-mode] .sparkle,
+[data-darkreader-scheme] .sparkle {
+  color: #E479B4 !important;
+}
+
+[data-darkreader-mode] .sparkle-gold,
+[data-darkreader-scheme] .sparkle-gold {
+  color: #DCB688 !important;
+}
+
+/* Preserve bottom navigation */
+[data-darkreader-mode] .bottom-nav,
+[data-darkreader-scheme] .bottom-nav {
+  background-color: #1A2C46 !important;
+  filter: none !important;
+}
+
+[data-darkreader-mode] .bottom-nav a,
+[data-darkreader-scheme] .bottom-nav a {
+  color: #FFFFFF !important;
+}
+
+[data-darkreader-mode] .bottom-nav a.active,
+[data-darkreader-scheme] .bottom-nav a.active {
+  color: #DCB688 !important;
+}
+
+[data-darkreader-mode] .bottom-nav a.design,
+[data-darkreader-scheme] .bottom-nav a.design {
+  background-color: #DCB688 !important;
+  color: #1A2C46 !important;
+  filter: none !important;
+}
+
+/* Preserve glass morphism effects */
+[data-darkreader-mode] .glass-morphism,
+[data-darkreader-scheme] .glass-morphism {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  filter: none !important;
+}
+
+[data-darkreader-mode] .glass-morphism-dark,
+[data-darkreader-scheme] .glass-morphism-dark {
+  background: rgba(15, 34, 56, 0.3) !important;
+  border: 1px solid rgba(215, 184, 143, 0.2) !important;
+  border-color: rgba(215, 184, 143, 0.2) !important;
+  filter: none !important;
+}
+
+[data-darkreader-mode] .glass-button,
+[data-darkreader-scheme] .glass-button {
+  background: rgba(215, 184, 143, 0.2) !important;
+  border: 1px solid rgba(215, 184, 143, 0.3) !important;
+  border-color: rgba(215, 184, 143, 0.3) !important;
+  filter: none !important;
+}
+
+[data-darkreader-mode] .glass-button:hover,
+[data-darkreader-scheme] .glass-button:hover {
+  background: rgba(215, 184, 143, 0.3) !important;
+  filter: none !important;
+}
+
+/* Disable Dark Reader filters globally for this page */
+[data-darkreader-mode] *,
+[data-darkreader-scheme] * {
+  filter: none !important;
+}
+
+/* Re-enable intentional filters like hover effects */
+[data-darkreader-mode] .pill-button-pink:hover,
+[data-darkreader-scheme] .pill-button-pink:hover {
+  filter: brightness(1.1) !important;
+}
+
+[data-darkreader-mode] .sparkle-enhanced,
+[data-darkreader-scheme] .sparkle-enhanced {
+  filter: drop-shadow(0 0 8px currentColor) !important;
 }
 
 body {
