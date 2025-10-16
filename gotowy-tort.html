@@ -1680,32 +1680,13 @@
       
       // Update cake info
       const cakeInfo = document.getElementById('cake-info');
-      if (cakeDetail) {
-        cakeInfo.innerHTML = `
-          <div class="space-y-4">
-            <div>
-              <p class="text-xs uppercase tracking-widest text-dove-gray mb-1">${occasionData.name}</p>
-              <h4 class="font-bold text-xl text-midnight-navy leading-snug">${cakeDetail.name}</h4>
-              <p class="text-sm text-dove-gray leading-relaxed mt-2">${cakeDetail.description}</p>
-            </div>
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-sm text-midnight-navy font-medium">
-              <span>Porcje: ${cakeDetail.portions}</span>
-              <span>Cena: <span class="icon-gradient-gold-pink font-semibold">${cakeDetail.price} zł</span></span>
-            </div>
-            <div class="text-sm text-midnight-navy">
-              <span class="font-medium block mb-1">Rekomendowany smak</span>
-              <span class="text-dove-gray">${cakeDetail.flavor}</span>
-            </div>
-          </div>
-        `;
-      } else {
-        cakeInfo.innerHTML = `
-          <div>
-            <h4 class="font-bold text-midnight-navy">${occasionData.name}</h4>
-            <p class="text-sm text-dove-gray">Tort ${selectedCake.cakeNumber}</p>
-          </div>
-        `;
-      }
+      const cakeTitle = cakeDetail ? cakeDetail.name : `${occasionData.name} - Tort ${selectedCake.cakeNumber}`;
+      cakeInfo.innerHTML = `
+        <div>
+          <p class="text-xs uppercase tracking-widest text-dove-gray mb-1">${occasionData.name}</p>
+          <h4 class="font-bold text-xl text-midnight-navy leading-snug">${cakeTitle}</h4>
+        </div>
+      `;
       
       // Populate taste options
       const tasteSelect = document.getElementById('taste-select');
