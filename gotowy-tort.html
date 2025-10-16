@@ -59,18 +59,6 @@
       color: var(--midnight-navy);
     }
 
-    .size-option.selected {
-      border-color: rgb(212, 175, 55) !important;
-      background-color: rgba(212, 175, 55, 0.1) !important;
-      box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2) !important;
-    }
-
-    .size-option:hover {
-      border-color: rgb(212, 175, 55) !important;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
-    }
-
     .delivery-option.selected {
       border-color: rgb(212, 175, 55) !important;
       background-color: rgba(212, 175, 55, 0.1) !important;
@@ -541,58 +529,6 @@
 
         <!-- Configuration Options -->
         <div class="space-y-8">
-          <!-- Size Selection -->
-          <div class="vitreous-card p-8">
-            <h3 class="text-xl font-bold text-midnight-navy mb-6">Wybierz rozmiar</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4" id="size-options">
-              <div class="size-option vitreous-card p-4 text-center cursor-pointer border-2 border-transparent hover:border-playful-pink transition-colors" data-size="small" data-price="190">
-                <div class="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
-                  <span class="text-xl font-bold text-midnight-navy">S</span>
-                </div>
-                <h4 class="font-bold text-midnight-navy mb-1">Mały</h4>
-                <p class="text-xs text-dove-gray">Średnica: 12 cm</p>
-                <p class="text-sm text-dove-gray mb-2">8 porcji</p>
-                <p class="text-lg font-bold icon-gradient-gold-pink mt-2">190 zł</p>
-              </div>
-              <div class="size-option vitreous-card p-4 text-center cursor-pointer border-2 border-transparent hover:border-playful-pink transition-colors" data-size="medium" data-price="235">
-                <div class="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
-                  <span class="text-xl font-bold text-midnight-navy">M</span>
-                </div>
-                <h4 class="font-bold text-midnight-navy mb-1">Średni</h4>
-                <p class="text-xs text-dove-gray">Średnica: 14 cm</p>
-                <p class="text-sm text-dove-gray mb-2">12 porcji</p>
-                <p class="text-lg font-bold icon-gradient-gold-pink mt-2">235 zł</p>
-              </div>
-              <div class="size-option vitreous-card p-4 text-center cursor-pointer border-2 border-transparent hover:border-playful-pink transition-colors" data-size="large" data-price="330">
-                <div class="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--champagne-gold-end));">
-                  <span class="text-xl font-bold text-midnight-navy">L</span>
-                </div>
-                <h4 class="font-bold text-midnight-navy mb-1">Duży</h4>
-                <p class="text-xs text-dove-gray">Średnica: 20 cm</p>
-                <p class="text-sm text-dove-gray mb-2">20 porcji</p>
-                <p class="text-lg font-bold icon-gradient-gold-pink mt-2">330 zł</p>
-              </div>
-            </div>
-
-            <!-- Artistic Cake Option -->
-            <div class="size-option vitreous-card p-6 cursor-pointer border-2 border-transparent hover:border-playful-pink transition-colors" data-size="artistic" data-price="0">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                  <div class="w-14 h-14 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg, var(--champagne-gold-start), var(--playful-pink));">
-                    <i class="fa-solid fa-palette text-2xl text-midnight-navy"></i>
-                  </div>
-                  <div class="text-left">
-                    <h4 class="font-bold text-midnight-navy text-lg mb-1">Tort artystyczny</h4>
-                    <p class="text-sm text-dove-gray">Indywidualne zamówienie według Twojego projektu</p>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <p class="text-lg font-bold icon-gradient-gold-pink">Wycena indywidualna</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <!-- Taste Selection -->
           <div class="vitreous-card p-8">
             <h3 class="text-xl font-bold text-midnight-navy mb-6">Wybierz smak</h3>
@@ -1109,7 +1045,6 @@
     </div>
   </div>
 
-  <script src="cookies.js"></script>
   <!-- Modal Management Functions -->
   <script>
     // Modal management functions
@@ -1312,11 +1247,129 @@
       }
     };
 
+    // Static cake data from cakes-details.docx
+    const cakeDetails = {
+      communion: {
+        1: { name: "Tort komunijny – z pudrowym różem i kremowymi szlaczkami", description: "Dwupiętrowy tort pełen subtelności i klasy. Delikatne zdobienia z kremu, połączenie bieli i pudrowego różu oraz złoty, personalizowany topper tworzą wyjątkową, dziewczęcą kompozycję. Idealny na tak ważny dzień — pełen uroku, wdzięku i elegancji.", flavor: "cytrynowy orzeżwiający z lemon curd i kremem z serka mascarpone", portions: 30, price: 650 },
+        2: { name: "Tort komunijny – z kwiatową dekoracją", description: "Dwupiętrowa elegancja w najpiękniejszym wydaniu. Biała baza ozdobiona kwiatami i złotym topperem z imieniem dziecka to połączenie prostoty i delikatnego przepychu. Tort, który zachwyci zarówno smakiem, jak i wyglądem.", flavor: "pistacja z malinami", portions: 30, price: 700 },
+        3: { name: "Tort komunijny – klasyczna biel z kwiatowym akcentem", description: "Subtelny, biały tort z delikatnymi kwiatami i złotym, personalizowanym topperem. Symbol czystości i niewinności w eleganckim wydaniu — idealny wybór na Pierwszą Komunię Świętą.", flavor: "mleczna czekolada z chrupką i malinami", portions: 30, price: 680 },
+        4: { name: "Tort komunijny – z piórkami i złotym akcentem", description: "Wyjątkowy tort o lekkiej, niemal anielskiej dekoracji. Białe piórka, jadalne złotko i personalizowany topper tworzą elegancką, pełną blasku kompozycję. Idealny dla małej damy lub młodego dżentelmena w ten wyjątkowy dzień.", flavor: "serniczkowy ze świeżymi owocami", portions: 30, price: 670 }
+      },
+      baptism: {
+        1: { name: "Delikatny tort na Chrzest Święty", description: "Subtelny, kremowy dwupiętrowy tort ozdobiony świeżymi makaronikami i eleganckim złotym napisem.", flavor: "pistacja z malinami", portions: 30, price: 750 },
+        2: { name: "Tort w stylu boho", description: "Pastelowe bezowe i czekoladowe barwy, proste zdobienia i kuleczki z masy cukrowej tworzą idealną kompozycję na ten wyjątkowy dzień.", flavor: "mleczna czekolada z czarną porzeczką i chrupką", portions: 35, price: 800 },
+        3: { name: "Pastelowa elegancja", description: "Tort w odcieniach różu i fioletu, ozdobiony kwiatami, symbolizujący czystość i niewinność do tego złoty personalizowany napis, który dodaje elegancji.", flavor: "serniczkowy z truskawkami", portions: 25, price: 550 },
+        4: { name: "Trzy piętrowy tort na Chrzest", description: "Delikatny, w jasnych kolorach, z minimalistycznymi dekoracjami kwiatowymi oraz personalizowanym złotym napisem.", flavor: "rafaello z chrupką z białej czekolady oraz mango", portions: 60, price: 1300 },
+        5: { name: "Tort z kwiatową kompozycją", description: "Piękne kwiaty nadają mu lekkości i subtelności, idealny dla dziewczynki lub chłopca. Złoty personalizowany topper.", flavor: "cytrynowy orzeżwiający z lemon curd i kremem z serka mascarpone", portions: 30, price: 650 },
+        6: { name: "Tort z personalizowanym topperem", description: "Klasyczny, z eleganckim napisem i delikatnymi ozdobami w tonacji pastelowej. Kolory do ustalenia tak aby pasowały zarówno dla chłopca jak i dla dziewczynki.", flavor: "serniczkowy z truskawkami", portions: 25, price: 550 },
+        7: { name: "Tort w stylu delikatnym kwiatowym", description: "Prosty, ozdobiony zielenią i kwiatami, idealny dla miłośników naturalnych dekoracji.", flavor: "pistacja z malinami", portions: 15, price: 400 },
+        8: { name: "Tort z nutą złota", description: "Kremowy tort z delikatnym złotym akcentem i kwiatami – subtelny, ale wyjątkowy idealny zarówno dla chłopca jak i dla dziewczynki.", flavor: "lemon curd z kremem z serka mascarpone", portions: 35, price: 750 },
+        9: { name: "Minimalistyczny tort na Chrzest Święty", description: "Lekka dekoracja z makaronikami i eleganckim wykończeniem, idealny zarówno dla chłopca jak i dla dziewczynki. Personalizowany topper dodaje elegancji.", flavor: "serniczkowy z malinami", portions: 25, price: 580 },
+        10: { name: "Podwójny tort z kwiatami", description: "Prosty, ale efektowny, z mostem z kwiatów i delikatną fakturą kremu. Dwa personalizowane toppery.", flavor: "pistacja z malinami", portions: 30, price: 800 },
+        11: { name: "Tort z delikatnymi kwiatami", description: "Pastelowy, ozdobiony drobnymi kwiatami z delikatnym złotkiem, doskonały na chrzest dziewczynki.", flavor: "mleczna czekolada z chrupką i malinami", portions: 30, price: 750 },
+        12: { name: "Chrzest w bieli i błękicie", description: "Klasyczny tort w delikatnych, pastelowych odcieniach błękitu, ozdobiony papierem jadalnym oraz złotym personalizowanym topperem.", flavor: "cytrynowy orzeżwiający z lemon curd i kremem z serka mascarpone", portions: 70, price: 1500 },
+        13: { name: "Subtelny tort w bardzo eleganckiej tonacji", description: "Biały krem z dodatkiem złota, białych kwiatów dla świeżego, naturalnego efektu.", flavor: "mleczna czekolada z czarną porzeczką i chrupką", portions: 30, price: 750 },
+        14: { name: "Tort w stylu boho (wariacja)", description: "Z dodatkiem makaroników i ozdoby z papieru jadalnego, delikatne boho dodatki – prosty, a zarazem wyjątkowy.", flavor: "pistacja z malinami", portions: 30, price: 750 },
+        15: { name: "Tort z anielską lekkością", description: "Jasny, kremowy tort z niebieskim akcentem z delikatną dekoracją z papieru jadalnego i złotym personalizowanym napisem.", flavor: "serniczkowy z truskawkami", portions: 35, price: 800 },
+        16: { name: "Elegancki tort z personalizacją", description: "Klasyczny wygląd z dodatkiem imienia dziecka, idealny na pamiątkę Chrztu Świętego w odcieniach różu z dodatkiem żywych kwiatów tworzy niesamowitą kompozycję wizualną.", flavor: "rafaello z chrupką z białej czekolady oraz mango", portions: 25, price: 550 },
+        18: { name: "Tort lekki wiosenny", description: "Dzięki żywym kwiatom w delikatnej tonacji bardzo subtelny - do tego złoty personalizowany topper który nada elegancji.", flavor: "rafaello z chrupką z białej czekolady oraz mango", portions: 15, price: 380 },
+        19: { name: "Pastelowy tort w odcieniach różu", description: "Z kremowymi kwiatami i personalizowanym złotym topperem.", flavor: "rafaello z chrupką z białej czekolady oraz mango", portions: 15, price: 350 },
+        20: { name: "Delikatny tort dla dziewczynki", description: "Idealny w kolorystyce pudrowego różu z dodatkiem żywych i kremowych kwiatów nadaje temu tortu klasy, a dopełnieniem elegancji jest złoty personalizowany topper.", flavor: "pistacja z malinami", portions: 30, price: 700 }
+      },
+      wedding: {
+        1: { name: "Klasyczny tort weselny", description: "Elegancki, biało-różowy tort o gładkim wykończeniu, z dodatkiem jadalnego złota i kwiatów idealny na eleganckie przyjęcie weselne.", flavor: "pistacja z malinami", portions: 150, price: 3300 },
+        2: { name: "Elegancki tort w kolorach butelkowej zieleni", description: "Delikatne zdobienia z jadalnego złota i świeże zielone dodatki tworzą wyjątkową, romantyczną kompozycję.", flavor: "rafaello z chrupką z białej czekolady oraz mango", portions: 110, price: 2300 },
+        3: { name: "Tort w stylu glamour", description: "Lśniący, ozdobiony złotymi akcentami i dużymi kwiatami – dla par ceniących elegancję.", flavor: "mleczna czekolada z chrupką oraz wkładką z wiśni", portions: 100, price: 2100 },
+        4: { name: "Bardzo subtelny i elegancki tort weselny", description: "Prosty styl z białymi kwiatami, oraz złotymi personalizowanymi inicjałami idealny do przyjęcia również w plenerze.", flavor: "serniczkowy z truskawkami", portions: 150, price: 3100 },
+        5: { name: "Minimalistyczny tort ślubny", description: "Prosta forma, pastelowe kolory i elegancki urok w nowoczesnym wydaniu z żywymi delikatnymi różami oraz personalizowanym topperem.", flavor: "rafaello z chrupką z białej czekolady oraz mango", portions: 130, price: 2700 },
+        6: { name: "Tort z żywymi kwiatami", description: "Klasyczny biały tort udekorowany sezonowymi kwiatami w naturalnej aranżacji z dodatkiem jadalnego złota oraz złotym personalizowanym topperem.", flavor: "pistacja z malinami", portions: 130, price: 2700 },
+        7: { name: "Tort w stylu boho", description: "Kremowy tort ozdobiony suszonymi kwiatami i delikatnymi listkami, w duchu natury do tego delikatny złoty personalizowany topper - całość kompozycji tworzy naturalny boho klimat.", flavor: "rafaello z chrupką z białej czekolady oraz mango", portions: 130, price: 2700 },
+        8: { name: "Nowoczesny tort z geometrycznymi akcentami", description: "Elegancki, stylowy, idealny dla par ceniących oryginalność. Kolory błękit i biel z dodatkiem żywych kwiatów, makaroników oraz jadalnego złota wykończony lustrzanym personalizowanym topperem.", flavor: "serniczkowy z truskawkami", portions: 140, price: 2800 },
+        9: { name: "Tort weselny w stylu glamour", description: "Lekki, świeży tort ozdobiony makaronikami i czarnym cieniowaniowaniem z kremu z dodatkiem jadalnego złota i personalizowany złoty topper. Idealny dla Pary, która szuka czegoś oryginalnego dopasowanego pod kolorystykę przyjęcia.", flavor: "rafaello z chrupką z białej czekolady oraz mango", portions: 130, price: 2850 },
+        10: { name: "Tort w stylu boho (wariacja)", description: "Kremowe wykończenie, naturalne kwiaty i rustykalne detale – idealny na wesele w plenerze- złoty personalizowany topper.", flavor: "pistacja z malinami", portions: 130, price: 2800 },
+        11: { name: "Romantyczny tort z białymi żywymi peoniami", description: "Delikatne białe peonie dodają mu wyjątkowego, klasycznego uroku, a srebrny personalizowany topper dodaje całej kompozycji nutkę elegancji.", flavor: "serniczkowy ze świeżymi sezonowymi owocami", portions: 100, price: 2000 },
+        12: { name: "Tort z jadalnym złotem", description: "Żywe kwiaty oraz personalizowane inicjały tworzą naturalny, subtelny wygląd pasujący do każdej przestrzeni.", flavor: "pistacja z malinami", portions: 150, price: 3000 },
+        13: { name: "Tort z nutą złota", description: "Delikatne, kremowe wykończenie i kremowa faktura tworzą elegancki, luksusowy efekt wykończony personalizowanymi złotymi inicjałami.", flavor: "rafaello z chrupką z białej czekolady oraz mango", portions: 35, price: 750 },
+        14: { name: "Tort kwiatowy w stylu garden", description: "Lekki, pastelowy tort z kompozycją kwiatów przypominających ogrodową aranżację wykończony srebrnym personalizowanym topperem.", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 130, price: 2800 },
+        15: { name: "Tort z motywem ogrodu z motylami", description: "Elegancki, kwiatowy tort z jadalnymi motylami dopasowany do charakteru wesela.", flavor: "pistacja z malinami", portions: 130, price: 2800 },
+        16: { name: "Tort babeczkowy „Zielony Ogród”", description: "Wyjątkowa kompozycja babeczek w odcieniach zieleni, udekorowanych kremem i roślinnymi motywami na górze mały torcik wykończony złotym personalizowanym topperem.", flavor: "jogurtowy z kremem z białej czekolady", portions: 100, price: 1500 },
+        17: { name: "Tort weselny z trzema piętrami", description: "Klasyczna forma, eleganckie wykończenie i delikatne zdobienia w kremowym kolorze. Całość kolorystyki to butelkowa zieleń wykończony naturalnymi świeczkami, kompozycjami w styli boho oraz personalizowanym złotym topperem.", flavor: "rafaello z chrupką z białej czekolady oraz mango", portions: 150, price: 3300 },
+        18: { name: "Romantyczny tort z dekoracją z papieru jadalnego", description: "Prosty, biały tort ozdobiony dekoracją z papieru jadalnego z dodatkiem jadalnego złota, wykończony personalizowanym lustrzanym topperem.", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 160, price: 3300 },
+        19: { name: "Tort z efektem marmuru", description: "Stylowy, nowoczesny tort z subtelnym wzorem marmuru i srebrnymi detalami jak również srebrnymi personalizowanymi inicjałami.", flavor: "mleczna czekolada z chrupką i malinami", portions: 180, price: 3600 },
+        20: { name: "Tort babeczkowy „Kremowe Marzenie”", description: "Delikatne, jasne babeczki z kremem waniliowym i kwiatową dekoracją w odcieniach bieli i beżu z małym torcikiem na górze wykończony srebrnym personalizowanym topperem oraz srebrnymi papilotkami.", flavor: "wanilia z malinami i kremem z białej czekolady", portions: 120, price: 1700 }
+      },
+      babyshower: {
+        1: { name: "Różowe marzenie", description: "Subtelny tort w pastelowych odcieniach różu, ozdobiony delikatnymi kwiatami i kremem o lekkiej strukturze ze złotym napisem — idealny na Baby Shower dla przyszłej mamy.", flavor: "serniczkowy ze świeżymi owocami", portions: 12, price: 270 },
+        2: { name: "Delikatność w różu", description: "Tort o kremowym wykończeniu z kwiatową dekoracją w odcieniach różu i bieli. Elegancki, lekki i pełen uroku — doskonały na przyjęcie z okazji baby shower.", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 16, price: 390 },
+        3: { name: "It's a Boy!", description: "Tort w odcieniach błękitu i złota, z dekoracjami inspirowanymi dziecięcym światem. Idealny na Baby Shower dla chłopca – radosny, pastelowy i z przesłaniem.", flavor: "pistacja z malinami", portions: 16, price: 400 },
+        4: { name: "Pastelowe spełnienie marzeń", description: "Tort w delikatnych, kremowo-różowych barwach, ozdobiony kwiatami i drobnymi motylkami. Subtelny, elegancki i pełen słodyczy – idealny na powitanie maleństwa.", flavor: "serniczkowy ze świeżymi owocami", portions: 8, price: 250 }
+      },
+      bachelorette: {
+        1: { name: "Tort Panieński – subtelna klasyka", description: "Delikatny, romantyczny i pełen uroku. Ozdobiony kwiatami w pastelowych odcieniach i złotym toperem z imieniem przyszłej Panny Młodej. Idealny na wyjątkowy wieczór w gronie najbliższych przyjaciółek.", flavor: "pistacja z malinami", portions: 15, price: 400 },
+        2: { name: "Tort Panieński – w stylu glamour", description: "Kobiecy, elegancki i z nutą blasku! Złoty, personalizowany topper pięknie komponuje się z kwiatową dekoracją w pudrowych tonach. Tort, który doda uroku każdej panieńskiej imprezie.", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 15, price: 420 },
+        3: { name: "Tort Panieński – kwiatowa romantyczność", description: "Połączenie lekkości i elegancji. Kwiaty w pastelowych kolorach i delikatne wykończenia sprawiają, że ten tort wygląda jak z bajki. Złoty topper dodaje mu szyku i osobistego charakteru.", flavor: "serniczkowy z truskawkami", portions: 15, price: 410 },
+        4: { name: "Tort Panieński – delikatny minimalizm", description: "Stonowany, zmysłowy i z klasą. Idealny wybór dla miłośniczek prostoty i elegancji. Jadalny wydruk i złoty napis tworzą perfekcyjny duet na ten wyjątkowy wieczór.", flavor: "czekoladowy z malinami", portions: 15, price: 380 },
+        5: { name: "Tort Panieński – romantyczny ogród", description: "Tort jak z marzenia — udekorowany kwiatami niczym z letniego ogrodu i złotym, personalizowanym topperem. Symbol kobiecości, delikatności i radości z nadchodzących chwil.", flavor: "pistacja z malinami", portions: 12, price: 330 },
+        6: { name: "Tort Panieński – elegancja w każdym detalu", description: "Wyrafinowany, kobiecy i wyjątkowy. Kwiatowe zdobienia nadają mu lekkości, a złoty topper sprawia, że całość nabiera luksusowego charakteru. Idealny na wieczór pełen śmiechu, wspomnień i miłości.", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 12, price: 320 },
+        7: { name: "Tort przyjaźni", description: "Pastelowy tort z dekoracją z papieru jadalnego oraz masy cukrowej – symbol wspólnej zabawy i pięknych chwil przed ślubem, bardzo subtelny i tajemniczy.", flavor: "mleczna czekolada z chrupką i malinami", portions: 12, price: 330 },
+        8: { name: "Barbie Party Queen", description: "Tort inspirowany Barbie – różowy, błyszczący, z lalką w roli głównej! Pełen blasku, humoru i imprezowego klimatu – idealny dla królowej wieczoru panieńskiego.", flavor: "krem z białej czekolady z czarną porzeczką", portions: 20, price: 480 }
+      },
+      women: {
+        1: { name: "Kwiatowa elegancja", description: "Delikatny, pastelowy tort ozdobiony kwiatami i złotym napisem – idealny dla kobiety z klasą.", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 15, price: 420 },
+        2: { name: "Różane marzenie", description: "Kremowy tort z dekoracją z róż w odcieniach pasteli z dodatkiem zielonych gałązek – subtelny i romantyczny, jak wspomnienie wiosny.", flavor: "pistacja z malinami", portions: 15, price: 420 },
+        3: { name: "Pastelowa lekkość", description: "Lekki, kobiecy tort z kwiatami i złotymi detalami – doskonały na urodziny lub wyjątkowy dzień.", flavor: "serniczkowy ze świeżymi owocami", portions: 25, price: 450 },
+        4: { name: "Tort z nutą złota", description: "Elegancki tort z delikatnymi kwiatami i złotymi akcentami, stworzony z myślą o kobiecie, która lubi błysk i oryginalność.", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 15, price: 450 },
+        5: { name: "Delikatność i styl", description: "Pastelowy tort z subtelnym kwiatowym wykończeniem i złotymi detalami oraz kolorem niebieskimi dodatkiem głęboko niebieskiej hortensji – symbol kobiecej siły i elegancji, ozdobiony złotym personalizowanym topperem.", flavor: "pistacja z malinami", portions: 30, price: 700 },
+        6: { name: "Tort „Friends”", description: "Dla fanki serialu Friends! Tort inspirowany kultowym motywem Central Perk – z humorem, sercem i kwiatowym akcentem.", flavor: "czekoladowy z wiśniami", portions: 15, price: 400 },
+        7: { name: "Klasyka kobiecości w oryginalnej odsłonie", description: "Bezowo-zielony tort ozdobiony delikatnymi różami i eleganckim napisem, dekoracja z białej czekolady i elementem boho- ponadczasowy wybór.", flavor: "pistacja z malinami", portions: 20, price: 460 },
+        8: { name: "Delikatne spełnienie marzeń", description: "Tort w odcieniach delikatnego błękitu, ze złotymi akcentami i suszkami – idealny na urodziny, imieniny, wykończony eleganckim złotym inicjałem.", flavor: "mleczna czekolada z chrupką i czarną porzeczką", portions: 20, price: 460 },
+        9: { name: "Kwiaty i blask", description: "Złoty napis, kremowe wykończenie i pastelowe kwiaty – tort, który wygląda jak luksus w słodkiej formie.", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 15, price: 390 },
+        10: { name: "Romantyczna dusza", description: "Subtelny tort w kremowych barwach, ozdobiony kwiatami – stworzony dla marzycielki i romantyczki. Kolorystyka fioletu i delikatne muśnięcie złotkiem dodaje odwagi i elegancji.", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 15, price: 420 },
+        11: { name: "Tort w stylu glamour", description: "Złote akcenty, eleganckie kwiaty boho i delikatny krem – dla kobiet, które lubią, gdy tort robi wrażenie. Imienna złota personalizacja.", flavor: "pistacja z malinami", portions: 25, price: 600 },
+        12: { name: "Tort z kryształami i księżycem", description: "Mistyczny i wyjątkowy – tort z dekoracją z kryształów i motywem księżyca, idealny dla kobiety z duszą artystki.", flavor: "delikatny orzeźwiający z lemon curd i kremem z serka mascarpone", portions: 10, price: 260 },
+        13: { name: "Delikatna klasyka", description: "Tort z kwiatami i złotym topperem – subtelny, lekki i bardzo kobiecy.", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 15, price: 400 },
+        14: { name: "Złote ptaszki", description: "Symbol wolności i elegancji – tort ozdobiony złotymi ptaszkami i pastelowymi kwiatami.", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 15, price: 420 },
+        15: { name: "Słodka harmonia", description: "Kwiaty, złoto i kremowe wykończenie tworzą harmonijną kompozycję idealną dla każdej kobiety.", flavor: "pistacja z malinami", portions: 22, price: 480 },
+        16: { name: "Malutki tort z delikatnymi różami", description: "Z personalizowaną złotą cyfrą - szyk i elegancja zamknięta w jednym uroczym torcie.", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 8, price: 200 },
+        17: { name: "Prosty i elegancki tort", description: "Z delikatnymi kwiatkami i personalizowanymi złotymi dodatkami.", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 15, price: 400 },
+        18: { name: "Tort z bobrem", description: "Zabawny, ale wciąż elegancki – tort z motywem bobra, dla kobiety z poczuciem humoru i dystansem do życia!", flavor: "pistacja z malinami", portions: 15, price: 420 },
+        19: { name: "Tort z rowerem", description: "Dla aktywnej duszy – tort z dekoracją roweru, kwiatami. Idealny dla miłośniczki przygód.", flavor: "serniczkowy ze świeżymi owocami", portions: 15, price: 400 },
+        20: { name: "Tort ze szminką", description: "Kobiecy, stylowy i z pazurem – tort z dekoracją szminki i złotymi akcentami z dodatkiem świeżych kwiatów, dla prawdziwej fashionistki i kobiety z klasą.", flavor: "pistacja z malinami", portions: 15, price: 420 },
+        21: { name: "Subtelne piękno", description: "Pastelowe kwiaty i elegancki napis tworzą idealny tort dla każdej kobiety ceniącej prostotę i styl.", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 15, price: 410 },
+        22: { name: "Kwiatowy zachwyt", description: "Tort pełen kwiatów i delikatnych zdobień, który przyciąga uwagę i podkreśla wyjątkowość chwili z personalizowaną złotą cyfrą.", flavor: "pistacja z malinami", portions: 12, price: 350 },
+        23: { name: "Tort z klasą", description: "Połączenie kremowej elegancji, złotych detali i subtelnych kwiatów – tort dla kobiety z klasą.", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 15, price: 420 },
+        24: { name: "Tort leśny dla grzybiarki", description: "Wyjątkowy tort inspirowany naturą – ozdobiony grzybkami i jadalnym mchem, wykończony kremem czekoladowym. Idealny dla miłośniczki lasu i natury.", flavor: "mleczna czekolada z chrupką i malinami", portions: 15, price: 400 },
+        25: { name: "Elegancja w prostocie", description: "Subtelny tort z delikatnymi kwiatami i minimalistycznym złotym napisem. Idealny dla wrażliwej i delikatnej kobiety.", flavor: "pistacja z malinami", portions: 15, price: 430 },
+        26: { name: "Tort jak z bajki", description: "Kwiatowe wykończenie, złote akcenty i pastelowe różowe kwiaty – idealny na wyjątkowe, bajkowe urodziny lub na podziękowanie. (Okrągła złota personalizacja)", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 20, price: 470 },
+        27: { name: "Kwiatowy sen z motywem", description: "Tort w odcieniach beżu i różu, ozdobiony delikatnymi kwiatami i eleganckim napisem z jadalnymi wydrukami.", flavor: "pistacja z malinami", portions: 15, price: 400 },
+        28: { name: "Złoty blask", description: "Elegancki tort z kwiatami i złotem – idealny dla kobiety, która lubi, gdy jej dzień błyszczy.", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 12, price: 350 },
+        29: { name: "Tort dla marzycielki", description: "Delikatny i romantyczny, z pastelową dekoracją – stworzony dla kobiety z wyobraźnią.", flavor: "serniczkowy z truskawkami", portions: 12, price: 280 },
+        30: { name: "Kobiecy klasyk", description: "Ciemno różowe kwiaty i kremowe wykończenie – tort, który nigdy nie wychodzi z mody.", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 12, price: 290 }
+      },
+      men: {
+        1: { name: "Tort dla fana motoryzacji", description: "Idealny dla miłośnika czterech kółek! Nowoczesny, z pazurem, utrzymany w ciemnej tonacji z motoryzacyjnymi akcentami. Doskonały wybór dla tych, którzy kochają prędkość, styl i zapach benzyny.", flavor: "mleczna czekolada z chrupką o czarna porzeczka", portions: 15, price: 430 },
+        2: { name: "Tort elegancki", description: "Klasyczna elegancja w męskim wydaniu. Stonowane barwy, prosta forma i dopracowane detale sprawiają, że ten tort to kwintesencja dobrego smaku — dosłownie i wizualnie.", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 12, price: 290 },
+        3: { name: "Tort elegancki (wariacja)", description: "Dla mężczyzny z klasą — subtelny, nowoczesny i ponadczasowy. Idealny na urodziny, jubileusz czy wyjątkową rocznicę. Minimalizm, który mówi sam za siebie. Personalizowane złote napisy.", flavor: "pistacja z malinami", portions: 10, price: 270 },
+        4: { name: "Tort z buteleczką alkoholu", description: "Wyrafinowany tort z nutą luksusu! Ozdobiony mini buteleczką ulubionego trunku, sprawdzi się idealnie dla konesera whisky, rumu lub koniaku. Męski, elegancki i z charakterem.", flavor: "czekolada z wiśniami", portions: 15, price: 400 },
+        5: { name: "Tort z samolotem", description: "Dla podróżnika, pilota lub miłośnika przestworzy! Ten tort to symbol wolności i pasji do latania. Idealny na prezent dla kogoś, kto ma głowę w chmurach — dosłownie i w przenośni.", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 12, price: 300 },
+        6: { name: "Tort z motorem", description: "Dla prawdziwego motocyklisty! Dynamiczny, mocny i pełen energii — tak jak jazda na dwóch kółkach. Świetny pomysł na tort urodzinowy dla fana adrenaliny i dźwięku silnika.", flavor: "serniczkowy z malinami", portions: 15, price: 400 },
+        7: { name: "Tort subtelny, elegancki ze złotym napisem", description: "Wyrafinowany w swojej prostocie. Ciemna baza, delikatne czekoladowe zdobienia i złoty napis tworzą idealną harmonię. Dla mężczyzny, który ceni styl i minimalizm.", flavor: "czekolada, toffie i maliny", portions: 10, price: 270 },
+        8: { name: "Tort subtelny, elegancki ze złotym napisem (wariacja)", description: "Klasa sama w sobie — połączenie elegancji, minimalizmu i delikatnego połysku. Idealny wybór na urodziny, jubileusz lub eleganckie przyjęcie.", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 10, price: 280 },
+        9: { name: "Tort czarny", description: "Czarny, odważny, intrygujący. Ten tort to kwintesencja męskiego stylu — prosty, ale z efektem „wow”. Dla mężczyzny, który lubi wyróżniać się z tłumu.", flavor: "czekoladowy z wiśniami", portions: 15, price: 390 },
+        10: { name: "Tort dla fana tenisa", description: "Sportowy, stylowy i pełen energii! Dla pasjonata tenisa — czy to zawodnika, czy kibica. Motyw rakiety i piłeczki dodaje mu dynamiki i charakteru.", flavor: "pistacja z malinami", portions: 12, price: 320 },
+        11: { name: "Tort bardzo męski", description: "Surowy, wyrazisty i z charakterem. Idealny dla prawdziwego faceta — bez zbędnych ozdób, za to z mocnym akcentem i eleganckim wykończeniem.", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 15, price: 400 },
+        12: { name: "Tort podróżniczo-tenisowy (trzypiętrowy)", description: "Trzy piętra pasji i stylu! Dla mężczyzny, który kocha odkrywać świat i aktywnie spędzać czas. Połączenie motywów podróży i sportu tworzy wyjątkowy, spersonalizowany tort z charakterem.", flavor: "mleczna czekolada z chrupką i malinami", portions: 80, price: 1800 },
+        13: { name: "Tort piętrowy elegancki", description: "Dwupoziomowa elegancja w najlepszym wydaniu. Utrzymany w stonowanych barwach, z subtelnym połyskiem i nowoczesną formą. Dla mężczyzny, który lubi styl i klasę.", flavor: "pistacja z malinami", portions: 25, price: 580 },
+        14: { name: "Tort dwupiętrowy dla majsterkowicza", description: "Idealny dla złotej rączki! Dwupoziomowy tort z narzędziowymi akcentami to świetny pomysł na prezent dla pana, który uwielbia tworzyć, naprawiać i majsterkować.", flavor: "lekki i orzeźwiający z lemon curd oraz z kremem z serka mascarpone", portions: 30, price: 680 }
+      },
+      children: {},
+      artistic: {}
+    };
+
     let selectedOccasion = null;
     let selectedTaste = null;
     let selectedCake = null;
     let selectedCakeImageUrl = null; // Store the current cake image URL
-    let selectedSize = null;
     let selectedDecorations = [];
     let selectedDelivery = null;
     let customerData = {};
@@ -1373,12 +1426,12 @@
       document.getElementById('finalize-order').addEventListener('click', function() {
         const tasteSelect = document.getElementById('taste-select');
         const selectedTasteValue = tasteSelect.value;
-        
-        if (!selectedSize || !selectedTasteValue) {
-          // Set custom error message for size/taste validation
+
+        if (!selectedTasteValue) {
+          // Set custom error message for taste validation
           const errorMsg = document.getElementById('error-message');
           if (errorMsg) {
-            errorMsg.textContent = 'Proszę wybrać rozmiar i smak tortu przed złożeniem zamówienia.';
+            errorMsg.textContent = 'Proszę wybrać smak tortu przed złożeniem zamówienia.';
           }
           // Show error modal for validation
           showModal('error-modal');
@@ -1439,24 +1492,22 @@
         step: STEPS.OCCASION,
         occasion: null,
         cake: null,
-        size: null,
         taste: null,
         decorations: [],
         delivery: null,
         customerData: {}
       };
-      
+
       history.replaceState(state, '', window.location.pathname);
     }
 
     function handlePopState(event) {
       if (event.state) {
         const state = event.state;
-        
+
         // Restore state
         selectedOccasion = state.occasion;
         selectedCake = state.cake;
-        selectedSize = state.size;
         selectedTaste = state.taste;
         selectedDecorations = state.decorations || [];
         selectedDelivery = state.delivery;
@@ -1479,7 +1530,6 @@
           step: step,
           occasion: selectedOccasion,
           cake: selectedCake,
-          size: selectedSize,
           taste: selectedTaste,
           decorations: selectedDecorations,
           delivery: selectedDelivery,
@@ -1555,17 +1605,32 @@
         };
         
         const directoryName = directoryMap[occasion] || occasionData.imagePrefix;
-        let imageSrc = `images/${directoryName}/${occasionData.imagePrefix}_${i.toString().padStart(2, '0')}.png`;
-        
+        const imageIndex = i.toString().padStart(2, '0');
+        let imageSrc = `images/${directoryName}/${occasionData.imagePrefix}_${imageIndex}.png`;
+
+        const cakeDetailForOccasion = cakeDetails[occasion];
+        const cakeDetail = cakeDetailForOccasion ? cakeDetailForOccasion[i] : null;
+        const cakeName = cakeDetail ? cakeDetail.name : `Tort ${i}`;
+        const descriptionText = cakeDetail && cakeDetail.description
+          ? (cakeDetail.description.length > 140 ? `${cakeDetail.description.slice(0, 137)}...` : cakeDetail.description)
+          : 'Kliknij, aby wybrać';
+        const metaInfo = cakeDetail
+          ? `<div class="flex justify-center gap-3 mt-3 text-xs sm:text-sm text-dove-gray">
+              <span class="font-medium">Porcje: ${cakeDetail.portions}</span>
+              <span class="font-medium">Cena: ${cakeDetail.price} zł</span>
+            </div>`
+          : '';
+
         imageCard.innerHTML = `
           <div class="aspect-[3/4] rounded-lg overflow-hidden mb-4 bg-gradient-to-br from-champagne-gold/10 to-blush-rose/10">
-            <img src="${imageSrc}" alt="Tort ${occasionData.name} ${i}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onload="handleImageLoad(this, '${occasionData.imagePrefix}', ${i})" onerror="handleImageError(this, '${occasionData.imagePrefix}', ${i})">
+            <img src="${imageSrc}" alt="${cakeName} - ${occasionData.name}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onload="handleImageLoad(this, '${occasionData.imagePrefix}', ${i})" onerror="handleImageError(this, '${occasionData.imagePrefix}', ${i})">
             <div class="w-full h-full flex items-center justify-center" style="display: none;">
               <img src="sygnet-cakebooking.svg" alt="CakeBooking" class="w-10 h-10 icon-gradient-gold-pink opacity-50">
             </div>
           </div>
-          <h3 class="text-lg font-bold text-midnight-navy text-center">Tort ${i}</h3>
-          <p class="text-sm text-dove-gray text-center">Kliknij aby wybrać</p>
+          <h3 class="text-base font-bold text-midnight-navy text-center leading-snug">${cakeName}</h3>
+          <p class="text-sm text-dove-gray text-center leading-relaxed mt-2">${descriptionText}</p>
+          ${metaInfo}
         `;
         
         cakeImages.appendChild(imageCard);
@@ -1601,6 +1666,9 @@
       // Store the current cake image URL (base path for webhook)
       selectedCakeImageUrl = cakeImageSrc;
 
+      const cakeDetailForOccasion = cakeDetails[selectedCake.occasion];
+      const cakeDetail = cakeDetailForOccasion ? cakeDetailForOccasion[selectedCake.cakeNumber] : null;
+
       // Update cake preview
       const previewContainer = document.getElementById('selected-cake-preview');
       previewContainer.innerHTML = `
@@ -1612,16 +1680,41 @@
       
       // Update cake info
       const cakeInfo = document.getElementById('cake-info');
-      cakeInfo.innerHTML = `
-        <div>
-          <h4 class="font-bold text-midnight-navy">${occasionData.name}</h4>
-          <p class="text-sm text-dove-gray">Tort ${selectedCake.cakeNumber}</p>
-        </div>
-      `;
+      if (cakeDetail) {
+        cakeInfo.innerHTML = `
+          <div class="space-y-4">
+            <div>
+              <p class="text-xs uppercase tracking-widest text-dove-gray mb-1">${occasionData.name}</p>
+              <h4 class="font-bold text-xl text-midnight-navy leading-snug">${cakeDetail.name}</h4>
+              <p class="text-sm text-dove-gray leading-relaxed mt-2">${cakeDetail.description}</p>
+            </div>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-sm text-midnight-navy font-medium">
+              <span>Porcje: ${cakeDetail.portions}</span>
+              <span>Cena: <span class="icon-gradient-gold-pink font-semibold">${cakeDetail.price} zł</span></span>
+            </div>
+            <div class="text-sm text-midnight-navy">
+              <span class="font-medium block mb-1">Rekomendowany smak</span>
+              <span class="text-dove-gray">${cakeDetail.flavor}</span>
+            </div>
+          </div>
+        `;
+      } else {
+        cakeInfo.innerHTML = `
+          <div>
+            <h4 class="font-bold text-midnight-navy">${occasionData.name}</h4>
+            <p class="text-sm text-dove-gray">Tort ${selectedCake.cakeNumber}</p>
+          </div>
+        `;
+      }
       
       // Populate taste options
       const tasteSelect = document.getElementById('taste-select');
-      tasteSelect.innerHTML = '<option value="">Wybierz smak tortu</option>';
+      const tastePlaceholder = cakeDetail && cakeDetail.flavor
+        ? `Wybierz smak tortu (rekomendacja: ${cakeDetail.flavor})`
+        : 'Wybierz smak tortu';
+      tasteSelect.innerHTML = `<option value="">${tastePlaceholder}</option>`;
+      selectedTaste = null;
+      tasteSelect.value = '';
       
       occasionData.tastes.forEach((taste, index) => {
         const option = document.createElement('option');
@@ -1629,10 +1722,7 @@
         option.textContent = taste;
         tasteSelect.appendChild(option);
       });
-      
-      // Initialize size selection
-      initializeSizeSelection();
-      
+
       // Initialize decoration checkboxes
       initializeDecorationCheckboxes();
       
@@ -1641,33 +1731,6 @@
       
       // Update order summary
       updateOrderSummary();
-    }
-
-
-
-    function initializeSizeSelection() {
-      const sizeOptions = document.querySelectorAll('.size-option');
-      sizeOptions.forEach(option => {
-        option.onclick = () => {
-          // Remove selection from all options
-          sizeOptions.forEach(opt => {
-            opt.classList.remove('selected', 'border-playful-pink', 'bg-playful-pink/5', 'ring-2', 'ring-playful-pink/20');
-            opt.classList.add('border-transparent');
-            opt.style.backgroundColor = '';
-            opt.style.borderColor = '';
-          });
-          
-          // Select clicked option
-          option.classList.remove('border-transparent');
-          option.classList.add('selected', 'border-playful-pink', 'bg-playful-pink/5', 'ring-2', 'ring-playful-pink/20');
-          option.style.backgroundColor = 'rgba(212, 175, 55, 0.1)';
-          option.style.borderColor = 'rgb(212, 175, 55)';
-          
-          selectedSize = option.dataset.size;
-          updateOrderSummary();
-          updateBrowserHistory();
-        };
-      });
     }
 
     function initializeDecorationCheckboxes() {
@@ -1717,52 +1780,75 @@
         step: currentStep,
         occasion: selectedOccasion,
         cake: selectedCake,
-        size: selectedSize,
         taste: selectedTaste,
         decorations: selectedDecorations,
         delivery: selectedDelivery,
         customerData: customerData
       };
-      
-      const url = currentStep === STEPS.OCCASION ? 
-        window.location.pathname : 
+
+      const url = currentStep === STEPS.OCCASION ?
+        window.location.pathname :
         `${window.location.pathname}#${currentStep}`;
-      
+
       history.replaceState(state, '', url);
+    }
+
+    function buildCakeSummaryContent(occasionData, cakeDetail, cakeNumber) {
+      if (!occasionData) {
+        return '';
+      }
+
+      if (!cakeDetail) {
+        return `
+          <div class="flex justify-between items-center">
+            <span class="text-midnight-navy">${occasionData.name} - Tort ${cakeNumber}</span>
+            <span class="icon-gradient-gold-pink">-</span>
+          </div>
+        `;
+      }
+
+      const portionsBlock = typeof cakeDetail.portions !== 'undefined' && cakeDetail.portions !== null
+        ? `<div class="text-sm text-midnight-navy font-medium">Ilość porcji: ${cakeDetail.portions}</div>`
+        : '';
+      const descriptionBlock = cakeDetail.description
+        ? `<p class="text-sm text-dove-gray leading-relaxed">${cakeDetail.description}</p>`
+        : '';
+      const flavorBlock = cakeDetail.flavor
+        ? `<p class="text-sm text-dove-gray"><span class="font-medium text-midnight-navy">Rekomendowany smak:</span> ${cakeDetail.flavor}</p>`
+        : '';
+
+      return `
+        <div class="space-y-3">
+          <div class="flex justify-between items-center">
+            <span class="text-midnight-navy font-semibold">${cakeDetail.name}</span>
+            <span class="icon-gradient-gold-pink font-semibold">Cena bazowa: ${cakeDetail.price} zł</span>
+          </div>
+          ${portionsBlock}
+          ${descriptionBlock}
+          ${flavorBlock}
+        </div>
+      `;
     }
 
     function updateOrderSummary() {
       const summary = document.getElementById('order-summary');
       const totalPrice = document.getElementById('total-price');
-      
+
       let total = 0;
       let summaryHTML = '';
-      
-      // Base cake
+
+      // Base cake with static price and portions
       if (selectedCake) {
         const occasionData = cakeData[selectedCake.occasion];
-        summaryHTML += `
-          <div class="flex justify-between items-center">
-            <span class="text-midnight-navy">${occasionData.name} - Tort ${selectedCake.cakeNumber}</span>
-            <span class="icon-gradient-gold-pink">-</span>
-          </div>
-        `;
+        const cakeDetail = cakeDetails[selectedCake.occasion] && cakeDetails[selectedCake.occasion][selectedCake.cakeNumber];
+
+        if (cakeDetail) {
+          total += cakeDetail.price;
+        }
+
+        summaryHTML += buildCakeSummaryContent(occasionData, cakeDetail, selectedCake.cakeNumber);
       }
-      
-      // Size
-      if (selectedSize) {
-        const sizePrices = { small: 120, medium: 180, large: 250 };
-        const sizeNames = { small: 'Mały', medium: 'Średni', large: 'Duży' };
-        total += sizePrices[selectedSize];
-        
-        summaryHTML += `
-          <div class="flex justify-between items-center">
-            <span class="text-midnight-navy">Rozmiar: ${sizeNames[selectedSize]}</span>
-            <span class="icon-gradient-gold-pink">${sizePrices[selectedSize]} zł</span>
-          </div>
-        `;
-      }
-      
+
       // Taste
       if (selectedTaste) {
         summaryHTML += `
@@ -1913,35 +1999,22 @@
       // Populate order summary
       const finalOrderSummary = document.getElementById('final-order-summary');
       const finalTotalPrice = document.getElementById('final-total-price');
-      
+
       let total = 0;
       let summaryHTML = '';
-      
-      // Base cake
+
+      // Base cake with static price and portions
       if (selectedCake) {
         const occasionData = cakeData[selectedCake.occasion];
-        summaryHTML += `
-          <div class="flex justify-between items-center">
-            <span class="text-midnight-navy">${occasionData.name} - Tort ${selectedCake.cakeNumber}</span>
-            <span class="icon-gradient-gold-pink">-</span>
-          </div>
-        `;
+        const cakeDetail = cakeDetails[selectedCake.occasion] && cakeDetails[selectedCake.occasion][selectedCake.cakeNumber];
+
+        if (cakeDetail) {
+          total += cakeDetail.price;
+        }
+
+        summaryHTML += buildCakeSummaryContent(occasionData, cakeDetail, selectedCake.cakeNumber);
       }
-      
-      // Size
-      if (selectedSize) {
-        const sizePrices = { small: 120, medium: 180, large: 250 };
-        const sizeNames = { small: 'Mały', medium: 'Średni', large: 'Duży' };
-        total += sizePrices[selectedSize];
-        
-        summaryHTML += `
-          <div class="flex justify-between items-center">
-            <span class="text-midnight-navy">Rozmiar: ${sizeNames[selectedSize]}</span>
-            <span class="icon-gradient-gold-pink">${sizePrices[selectedSize]} zł</span>
-          </div>
-        `;
-      }
-      
+
       // Taste
       if (selectedTaste) {
         summaryHTML += `
@@ -2129,10 +2202,13 @@
     }
 
     async function submitOrder() {
+      // Get cake details
+      const cakeDetail = selectedCake ? cakeDetails[selectedCake.occasion] && cakeDetails[selectedCake.occasion][selectedCake.cakeNumber] : null;
+
       // Prepare order data
       const orderData = {
         cake: selectedCake,
-        size: selectedSize,
+        cakeDetail: cakeDetail, // Include static cake details (name, flavor, portions, price)
         taste: selectedTaste,
         decorations: selectedDecorations,
         delivery: selectedDelivery,
@@ -2154,7 +2230,7 @@
         // Send order data to webhook
         const success = await sendOrderFormToWebhook(orderData, {
           cakeDetails: selectedCake,
-          sizeDetails: selectedSize,
+          cakeStaticDetails: cakeDetail,
           tasteDetails: selectedTaste,
           decorationDetails: selectedDecorations
         });
@@ -2193,10 +2269,12 @@
 
     function calculateTotal() {
       let total = 0;
-      
-      if (selectedSize) {
-        const sizePrices = { small: 120, medium: 180, large: 250 };
-        total += sizePrices[selectedSize];
+
+      if (selectedCake) {
+        const cakeDetail = cakeDetails[selectedCake.occasion] && cakeDetails[selectedCake.occasion][selectedCake.cakeNumber];
+        if (cakeDetail) {
+          total += cakeDetail.price;
+        }
       }
       
       selectedDecorations.forEach(decoration => {
@@ -2215,7 +2293,6 @@
       selectedOccasion = null;
       selectedTaste = null;
       selectedCake = null;
-      selectedSize = null;
       selectedDecorations = [];
       selectedDelivery = null;
       customerData = {};
@@ -2223,12 +2300,6 @@
       // Reset form fields
       document.getElementById('customer-form').reset();
       document.getElementById('delivery-address').classList.add('hidden');
-      
-      // Reset size selection
-      document.querySelectorAll('.size-option').forEach(opt => {
-        opt.classList.remove('selected', 'border-champagne-gold', 'bg-champagne-gold/5');
-        opt.classList.add('border-transparent');
-      });
       
       // Reset delivery selection
       document.querySelectorAll('.delivery-option').forEach(opt => {

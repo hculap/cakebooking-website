@@ -465,14 +465,38 @@ function formatContactMessageHTML(contactData) {
     return html;
 }
 
+function resolveCakeName(cake, staticDetails) {
+    if (staticDetails && staticDetails.name) {
+        return staticDetails.name;
+    }
+    if (cake && cake.name) {
+        return cake.name;
+    }
+    if (cake && cake.occasion && cake.cakeNumber) {
+        const occasionLabels = {
+            communion: 'Komunia',
+            baptism: 'Chrzest',
+            wedding: 'Wesele',
+            babyshower: 'Baby shower',
+            bachelorette: 'Wieczór panieński',
+            women: 'Tort dla niej',
+            men: 'Tort dla niego'
+        };
+        const occasionLabel = occasionLabels[cake.occasion] || cake.occasion;
+        return `${occasionLabel} - Tort ${cake.cakeNumber}`;
+    }
+    return null;
+}
+
 /**
  * Format order details into HTML for email display
  * @param {Object} orderData - Complete order data
  * @returns {string} - Formatted HTML message for bakery
  */
 function formatOrderMessageHTML(orderData) {
-    const { customer, cake, size, taste, decorations = [], delivery, total, orderType, cakeImageUrl, generatedPrompt, layers, cakeText, occasion, color, additionalColor, specialTheme, flavor, deliveryAddress, deliveryDate, notes, hasImageAttachment } = orderData;
-    
+    const { customer, cake, cakeDetail, cakeStaticDetails, size, taste, decorations = [], delivery, total, orderType, cakeImageUrl, generatedPrompt, layers, cakeText, occasion, color, additionalColor, specialTheme, flavor, deliveryAddress, deliveryDate, notes, hasImageAttachment } = orderData;
+    const staticDetails = cakeStaticDetails || cakeDetail || null;
+
     let html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f7f5f2; padding: 20px; border-radius: 12px;">
         <div style="background: linear-gradient(135deg, #0F2238, #1a3a5c); color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
@@ -524,10 +548,17 @@ function formatOrderMessageHTML(orderData) {
         <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
             <h3 style="color: #0F2238; margin: 0 0 15px 0; border-bottom: 2px solid #F472B6; padding-bottom: 8px;">🎂 SZCZEGÓŁY TORTU</h3>`;
     
-    if (cake?.name) {
-        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Tort:</strong> ${cake.name}</p>`;
+    const cakeName = resolveCakeName(cake, staticDetails);
+    if (cakeName) {
+        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Tort:</strong> ${cakeName}</p>`;
     }
-    if (size) {
+    if (staticDetails?.price) {
+        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Cena bazowa:</strong> ${staticDetails.price} zł</p>`;
+    }
+    if (staticDetails?.portions) {
+        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Liczba porcji:</strong> ${staticDetails.portions}</p>`;
+    }
+    if (!staticDetails && size) {
         const sizeText = typeof size === 'object' ? size.name : size;
         const sizeNames = { small: 'Mały', medium: 'Średni', large: 'Duży' };
         const displaySize = sizeNames[size] || sizeText || size;
@@ -536,7 +567,9 @@ function formatOrderMessageHTML(orderData) {
     if (layers) {
         html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Liczba warstw:</strong> ${layers}</p>`;
     }
-    if (flavor) {
+    if (staticDetails?.flavor) {
+        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Rekomendowany smak:</strong> ${staticDetails.flavor}</p>`;
+    } else if (flavor) {
         const flavorNames = {
             'truskawkowy-raj': 'Truskawkowy Raj',
             'czekoladowa-pokusa': 'Czekoladowa Pokusa',
@@ -553,7 +586,13 @@ function formatOrderMessageHTML(orderData) {
         html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Smak:</strong> ${displayFlavor}</p>`;
     }
     if (taste) {
-        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Smak:</strong> ${taste}</p>`;
+        html += `<p style="margin: 8px 0; color: #4a5568;"><strong>Wybrany smak:</strong> ${taste}</p>`;
+    }
+    if (staticDetails?.description) {
+        html += `<div style="margin: 12px 0; color: #4a5568;">
+            <strong>Opis:</strong>
+            <div style="background: #f7f5f2; padding: 12px; border-radius: 6px; margin-top: 6px; border-left: 4px solid #D7B88F; white-space: pre-wrap;">${staticDetails.description}</div>
+        </div>`;
     }
     if (color) {
         const colorNames = { white: 'Biały', pink: 'Różowy', blue: 'Niebieski', green: 'Zielony', orange: 'Pomarańczowy', brown: 'Brązowy', red: 'Czerwony', purple: 'Fioletowy', yellow: 'Żółty', black: 'Czarny' };
@@ -679,7 +718,8 @@ async function sendContactFormToWebhook(formData, formType = 'contact') {
  * @returns {string} - Formatted message for bakery
  */
 function formatOrderMessage(orderData) {
-    const { customer, cake, size, taste, decorations = [], delivery, total, orderType, cakeImageUrl, layers, cakeText, occasion, color, additionalColor, specialTheme, flavor, deliveryAddress, deliveryDate, notes } = orderData;
+    const { customer, cake, cakeDetail, cakeStaticDetails, size, taste, decorations = [], delivery, total, orderType, cakeImageUrl, layers, cakeText, occasion, color, additionalColor, specialTheme, flavor, deliveryAddress, deliveryDate, notes } = orderData;
+    const staticDetails = cakeStaticDetails || cakeDetail || null;
 
     let message = `🧁 NOWE ZAMÓWIENIE TORTU\n\n`;
     message += `📅 Data zamówienia: ${new Date().toLocaleString('pl-PL')}\n`;
@@ -714,8 +754,15 @@ function formatOrderMessage(orderData) {
 
     // Cake Details
     message += `\n🎂 SZCZEGÓŁY TORTU:\n`;
-    if (cake?.name) {
-        message += `• Tort: ${cake.name}\n`;
+    const cakeName = resolveCakeName(cake, staticDetails);
+    if (cakeName) {
+        message += `• Tort: ${cakeName}\n`;
+    }
+    if (staticDetails?.price) {
+        message += `• Cena bazowa: ${staticDetails.price} zł\n`;
+    }
+    if (staticDetails?.portions) {
+        message += `• Liczba porcji: ${staticDetails.portions}\n`;
     }
     if (cakeImageUrl) {
         // Handle base64 images vs regular image paths
@@ -729,14 +776,16 @@ function formatOrderMessage(orderData) {
             message += `  (Ścieżka: ${cakeImageUrl})\n`;
         }
     }
-    if (size) {
+    if (!staticDetails && size) {
         const sizeNames = { small: 'Mały (do 8 osób)', medium: 'Średni (do 12 osób)', large: 'Duży (do 16 osób)' };
         message += `• Rozmiar: ${sizeNames[size] || size}\n`;
     }
     if (layers) {
         message += `• Liczba warstw: ${layers}\n`;
     }
-    if (flavor) {
+    if (staticDetails?.flavor) {
+        message += `• Rekomendowany smak: ${staticDetails.flavor}\n`;
+    } else if (flavor) {
         const flavorNames = {
             'truskawkowy-raj': 'Truskawkowy Raj',
             'czekoladowa-pokusa': 'Czekoladowa Pokusa',
@@ -753,7 +802,10 @@ function formatOrderMessage(orderData) {
         message += `• Smak: ${displayFlavor}\n`;
     }
     if (taste) {
-        message += `• Smak: ${taste}\n`;
+        message += `• Wybrany smak: ${taste}\n`;
+    }
+    if (staticDetails?.description) {
+        message += `• Opis: ${staticDetails.description}\n`;
     }
     if (color) {
         const colorNames = { white: 'Biały', pink: 'Różowy', blue: 'Niebieski', green: 'Zielony', orange: 'Pomarańczowy', brown: 'Brązowy', red: 'Czerwony', purple: 'Fioletowy', yellow: 'Żółty', black: 'Czarny' };
